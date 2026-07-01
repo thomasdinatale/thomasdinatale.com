@@ -1,0 +1,765 @@
+/* ─────────────────────────────────────────
+   Case study — shared
+───────────────────────────────────────── */
+
+
+
+/* Hero */
+.cs-hero {
+  padding: 80px 160px 0;
+  display: grid;
+  grid-template-columns: 1fr 405px;
+  gap: 48px;
+  align-items: start;
+}
+
+.cs-hero-left {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.cs-headline {
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--pitch);
+}
+
+.cs-hero-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
+/* Meta card */
+.cs-meta-card {
+  background: #ede9dc;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 136px;
+}
+
+.cs-meta-field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cs-meta-label {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--pitch);
+}
+
+.cs-meta-value {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
+.cs-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cs-tag {
+  background: rgba(26, 24, 25, 0.10);
+  color: var(--pitch);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Hero image */
+.cs-hero-image-section {
+  margin-top: 48px;
+}
+
+.cs-hero-image-bg {
+  background: var(--chalk);
+  border-radius: 24px;
+  width: 1216px;
+  margin: 0 auto;
+  padding: 34px 48px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cs-hero-image {
+  display: block;
+  width: 1120px;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.cs-caption {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--flint);
+  text-align: center;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.cs-caption--narrow {
+  max-width: 654px;
+}
+
+/* Content sections */
+.cs-content-section {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.cs-copy-block {
+  width: 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cs-section-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
+.cs-copy-block p {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
+.cs-copy-block p.cs-section-title {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.cs-image-block {
+  width: 1216px;
+  max-width: 100%;
+}
+
+.cs-image-block img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Image/onboarding row + caption pair: 8px between media and caption,
+   48px between caption and the next element (content section gap is 40px) */
+.cs-image-caption-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* Nara hero — H1 above, body + meta card side by side below */
+.cs-hero-nara {
+  padding: 80px 160px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.cs-hero-nara .cs-headline {
+  max-width: 667px;
+}
+
+.cs-hero-nara-row {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.cs-hero-nara-row .cs-hero-body {
+  width: 667px;
+  flex-shrink: 0;
+}
+
+.cs-hero-nara-row .cs-meta-card {
+  margin-top: 0;
+  width: 405px;
+  flex-shrink: 0;
+}
+
+/* Phone hero — 3 phones in a row inside chalk card */
+.cs-hero-image-bg--phones {
+  flex-direction: column;
+  padding: 48px 48px 48px;
+  gap: 24px;
+}
+
+.cs-phones-hero-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 9px;
+}
+
+.cs-phone-img {
+  width: 366px;
+  height: auto;
+  display: block;
+}
+
+/* Phone content row — 2 large phones side by side */
+.cs-phones-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.cs-phone-large {
+  width: 393px;
+  height: auto;
+  display: block;
+}
+
+/* ButcherBox hero card — desktop + overlapping mobile */
+.cs-bb-hero-card {
+  padding: 64px 48px 48px;
+}
+
+.cs-bb-images {
+  position: relative;
+  width: 100%;
+}
+
+.cs-bb-desktop {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow: 0px 16px 48px 0px rgba(0, 0, 0, 0.16);
+}
+
+.cs-bb-mobile {
+  position: absolute;
+  width: 250px;
+  height: auto;
+  right: 0;
+  top: 354px;
+  box-shadow: 0px 16px 48px 0px rgba(0, 0, 0, 0.16);
+}
+
+/* Nara content flow — single flex column with 49px gap between all items */
+.cs-content-flow {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 49px;
+}
+
+/* Watch card */
+.cs-watch-card {
+  width: 1216px;
+  margin: 0 auto;
+}
+
+.cs-watch-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.cs-watch-img {
+  width: 258px;
+  height: auto;
+  display: block;
+}
+
+/* ButcherBox numbered list */
+.cs-numbered-list {
+  list-style: decimal;
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
+/* ButcherBox 3-phone row */
+.cs-bb-phones-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 1218px;
+  max-width: 100%;
+}
+
+.cs-bb-phones-row img {
+  width: 406px;
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Grapevine onboarding 3-image row */
+.cs-onboarding-row {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.cs-onboarding-row img {
+  width: 383px;
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Closing copy */
+.cs-closing-copy {
+  margin: 80px auto 0;
+  width: 650px;
+}
+
+.cs-closing-copy p {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
+.cs-closing-para {
+  width: 650px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
+/* ─────────────────────────────────────────
+   Case study v2 — Primer (condensed headline,
+   tagline, metric cards, consistent content flow)
+───────────────────────────────────────── */
+.cs2-hero {
+  padding: 80px 0 0;
+}
+
+.cs2-hero-and-image {
+  max-width: 1215px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+}
+
+.cs2-hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  width: 100%;
+  padding: 0 80px;
+}
+
+.cs2-headline {
+  font-stretch: condensed;
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--pitch);
+}
+
+.cs2-title-desc-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.cs2-title-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.cs2-tagline {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
+.cs2-body p {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--pitch);
+}
+
+.cs2-metrics {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.cs2-metric {
+  background: var(--linen);
+  border-radius: 16px;
+  padding: 16px 32px;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+.cs2-metric-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cs2-metric-value {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--pitch);
+  white-space: nowrap;
+}
+
+.cs2-metric-arrow {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.cs2-metric-label {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
+/* Hero image — wide breakout card */
+.cs2-hero-image-card {
+  background: var(--chalk);
+  border-radius: 24px;
+  width: 100%;
+  height: auto;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.cs2-hero-image-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2240 / 1344;
+  object-fit: cover;
+}
+
+.cs2-hero-caption {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--flint);
+  text-align: center;
+  max-width: 950px;
+}
+
+/* Content flow — consistent 48px gap between every block */
+.cs2-flow {
+  margin-top: 48px;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+}
+
+.cs2-image-group {
+  width: 100%;
+}
+
+.cs2-image-group img,
+.cs2-flow-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Generic 1215px centering wrapper (for hero blocks that aren't
+   merged into a single gap-driven flex column, e.g. Nara) */
+.cs2-center-1215 {
+  max-width: 1215px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.cs2-hero-image-wrap {
+  margin-top: 64px;
+}
+
+/* Narrower content flow (Nara: 826px instead of Primer's 1024px) */
+.cs2-flow--narrow {
+  max-width: 826px;
+}
+
+/* Two centered phone screenshots side by side */
+.cs2-phone-row {
+  display: flex;
+  gap: 48px;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.cs2-phone-row img {
+  width: 384px;
+  max-width: 45%;
+  height: auto;
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Inline semibold span */
+.cs-body-semibold {
+  font-weight: 600;
+}
+
+/* Side-by-side image pair (e.g. two phone screenshots) */
+.cs2-image-pair {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.cs2-image-pair img {
+  flex: 1 0 0;
+  min-width: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Apple Watch 2x2 image grid */
+.cs2-watch-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 556px;
+  margin: 0 auto;
+}
+
+.cs2-watch-row {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.cs2-watch-row img {
+  width: 258px;
+  height: auto;
+  display: block;
+}
+
+/* Hero image — multi-phone row (desktop) vs single phone (mobile) */
+.cs2-hero-phones-row {
+  display: flex;
+  gap: 9px;
+  width: 100%;
+}
+
+.cs2-hero-phones-row img {
+  flex: 1 0 0;
+  min-width: 0;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1119 / 2052;
+  object-fit: cover;
+}
+
+.cs2-hero-phones-row--mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .cs2-hero-phones-row--desktop {
+    display: none;
+  }
+  .cs2-hero-phones-row--mobile {
+    display: flex;
+  }
+
+  .cs2-metric {
+    padding: 16px;
+  }
+
+  .cs2-phone-row {
+    gap: 16px;
+  }
+  .cs2-phone-row img {
+    max-width: 48%;
+  }
+
+  .cs2-image-pair {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .cs2-image-pair img {
+    width: 280px;
+    flex: none;
+  }
+
+  .cs2-watch-grid {
+    width: 100%;
+    gap: 0;
+  }
+  .cs2-watch-row {
+    gap: 0;
+    width: 100%;
+  }
+  .cs2-watch-row img {
+    width: 50%;
+    flex: 1 0 0;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .cs2-hero {
+    padding: 40px 16px 0;
+  }
+  .cs2-hero-and-image {
+    gap: 32px;
+  }
+  .cs2-hero-inner {
+    gap: 24px;
+    padding: 0;
+  }
+  .cs2-title-desc-metrics {
+    gap: 24px;
+  }
+  .cs2-title-desc {
+    gap: 16px;
+  }
+  .cs2-headline {
+    font-size: 48px;
+  }
+  .cs2-tagline {
+    font-size: 22px;
+  }
+  .cs2-body p {
+    font-size: 18px;
+  }
+  .cs2-metrics {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cs2-metric {
+    width: 100%;
+    flex: 1 0 auto;
+  }
+  .cs2-metric-value,
+  .cs2-metric-row p {
+    font-size: 18px;
+  }
+
+  .cs2-hero-image-card {
+    width: 100%;
+    height: auto;
+    padding: 32px 16px;
+  }
+
+  .cs2-flow {
+    margin-top: 32px;
+    max-width: none;
+    padding: 0 16px;
+    gap: 48px;
+  }
+  .cs2-flow .cs-copy-block {
+    width: 100%;
+  }
+  .cs2-flow .cs-section-title {
+    font-size: 22px;
+  }
+  .cs2-flow .cs-copy-block p {
+    font-size: 18px;
+  }
+
+  /* Legacy cs- content sections (ButcherBox, Grapevine) */
+  .cs-hero-image-section {
+    margin-top: 32px;
+    padding: 0 16px;
+  }
+  .cs-hero-image-bg {
+    width: 100%;
+    padding: 24px 16px;
+  }
+  .cs-caption {
+    max-width: 100%;
+  }
+
+  .cs-content-section {
+    margin-top: 32px;
+    padding: 0 16px;
+    gap: 32px;
+  }
+  .cs-copy-block,
+  .cs-closing-copy,
+  .cs-closing-para {
+    width: 100%;
+  }
+  .cs-section-title {
+    font-size: 22px;
+  }
+  .cs-copy-block p,
+  .cs-closing-copy p,
+  .cs-numbered-list {
+    font-size: 18px;
+  }
+
+  .cs-bb-phones-row,
+  .cs-onboarding-row {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+  }
+  .cs-bb-phones-row img,
+  .cs-onboarding-row img {
+    width: 240px;
+  }
+}
