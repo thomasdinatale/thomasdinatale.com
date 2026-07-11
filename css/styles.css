@@ -15,6 +15,66 @@
   --linen:   #ede9dc;
   --shale:   #dcdcdc;
   --cloud:   #ffffff;
+  --grid-line: rgba(26, 24, 25, 0.05);
+}
+
+/* Dark mode — site-wide.
+   Applies for OS dark preference (unless forced light), or when forced dark. */
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light) {
+    --plaster: #252220;
+    --ember:   #e5674e;
+    --pitch:   #f4eee7;
+    --flint:   #928c87;
+    --chalk:   #1c1917;
+    --linen:   #302c2a;
+    --shale:   #3a3532;
+    --cloud:   #2e2a28;
+    --grid-line: rgba(244, 238, 231, 0.05);
+    color-scheme: dark;
+  }
+}
+:root.theme-dark {
+  --plaster: #252220;
+  --ember:   #e5674e;
+  --pitch:   #f4eee7;
+  --flint:   #928c87;
+  --chalk:   #1c1917;
+  --linen:   #302c2a;
+  --shale:   #3a3532;
+  --cloud:   #2e2a28;
+  --grid-line: rgba(244, 238, 231, 0.05);
+  color-scheme: dark;
+}
+
+/* The transparent ink drawing: invert to light strokes in dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light) .about-portrait { filter: invert(1); }
+}
+:root.theme-dark .about-portrait { filter: invert(1); }
+
+/* Dim bright screenshots in dark mode; homepage cards restore on hover */
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light) img:not(.about-portrait) {
+    filter: brightness(1) contrast(0.96);
+    opacity: 0.9;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+  }
+  :root:not(.theme-light) .project-card:hover .project-card-image img,
+  :root:not(.theme-light) .article-card:hover .article-image img {
+    filter: none;
+    opacity: 1;
+  }
+}
+:root.theme-dark img:not(.about-portrait) {
+  filter: brightness(1) contrast(0.96);
+  opacity: 0.9;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+:root.theme-dark .project-card:hover .project-card-image img,
+:root.theme-dark .article-card:hover .article-image img {
+  filter: none;
+  opacity: 1;
 }
 
 /* ─────────────────────────────────────────
@@ -37,6 +97,23 @@ body {
   font-stretch: semi-condensed;
 }
 
+/* Heading (H) type scale — Instrument Sans Condensed.
+   H1 = 96/64px, H2 = 48px, H3 = 40px (new), H4 = 24px (was H3). */
+.h3 {
+  font-stretch: condensed;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--pitch);
+}
+.h4 {
+  font-stretch: condensed;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--pitch);
+}
+
 /* ─────────────────────────────────────────
    Background grid
 ───────────────────────────────────────── */
@@ -55,8 +132,8 @@ body {
 .bg-grid::before {
   background-image: repeating-linear-gradient(
     to right,
-    rgba(26,24,25,0.05) 0px,
-    rgba(26,24,25,0.05) 1px,
+    var(--grid-line) 0px,
+    var(--grid-line) 1px,
     transparent 1px,
     transparent 33px
   );
@@ -64,8 +141,8 @@ body {
 .bg-grid::after {
   background-image: repeating-linear-gradient(
     to bottom,
-    rgba(26,24,25,0.05) 0px,
-    rgba(26,24,25,0.05) 1px,
+    var(--grid-line) 0px,
+    var(--grid-line) 1px,
     transparent 1px,
     transparent 33px
   );
@@ -107,7 +184,7 @@ nav {
 
 nav.scrolled {
   background: var(--chalk);
-  border-bottom-color: var(--ember);
+  border-bottom-color: var(--shale);
 }
 
 .nav-inner {
@@ -121,14 +198,37 @@ nav.scrolled {
 }
 
 .nav-mark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.nav-square {
   display: block;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
 }
 
-.nav-mark-img {
+.nav-square svg {
   display: block;
-  width: 99px;
-  height: 74px;
+  width: 24px;
+  height: 24px;
+}
+
+.nav-wordmark {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--pitch);
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.nav-mark:hover .nav-wordmark {
+  color: var(--ember);
 }
 
 .nav-links {
@@ -170,6 +270,60 @@ nav.scrolled {
   display: block;
   width: 16px;
   height: 16px;
+  background-color: var(--pitch);
+  -webkit-mask-image: url('../assets/images/linkedin-icon.svg');
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url('../assets/images/linkedin-icon.svg');
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  transition: background-color 0.2s ease;
+}
+
+.nav-icon-link:hover .nav-icon {
+  background-color: var(--ember);
+}
+
+.nav-mail {
+  color: var(--pitch);
+  transition: color 0.2s ease;
+}
+
+.nav-mail svg {
+  display: block;
+  width: 21px;
+  height: 20px;
+}
+
+.nav-mail:hover {
+  color: var(--ember);
+}
+
+/* Dark-mode toggle — contrast circle that turns ember and spins on hover */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--pitch);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.2s ease, transform 0.6s ease;
+}
+
+.theme-toggle svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.theme-toggle:hover {
+  color: var(--ember);
+  transform: rotate(360deg);
 }
 
 .nav-link::after {
@@ -312,16 +466,17 @@ h1,
 }
 
 .project-title {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 600;
-  line-height: 1.5;
+  font-variation-settings: 'wdth' 87.5;
+  line-height: 1.3;
   color: var(--pitch);
 }
 
 .project-desc {
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
 }
 
@@ -340,15 +495,15 @@ h1,
   background-image:
     repeating-linear-gradient(
       to right,
-      rgba(26,24,25,0.05) 0px,
-      rgba(26,24,25,0.05) 1px,
+      var(--grid-line) 0px,
+      var(--grid-line) 1px,
       transparent 1px,
       transparent 33px
     ),
     repeating-linear-gradient(
       to bottom,
-      rgba(26,24,25,0.05) 0px,
-      rgba(26,24,25,0.05) 1px,
+      var(--grid-line) 0px,
+      var(--grid-line) 1px,
       transparent 1px,
       transparent 33px
     );
@@ -364,7 +519,7 @@ h1,
   position: relative;
   z-index: 1;
   padding-top: 120px;
-  padding-bottom: 120px;
+  padding-bottom: 0;
   margin-top: 80px;
   display: flex;
   flex-direction: column;
@@ -421,23 +576,25 @@ h1,
 
 .article-card {
   background: var(--chalk);
+  border: 1px solid transparent;
   border-radius: 24px;
   padding: 32px;
   display: flex;
   flex-direction: column;
   gap: 24px;
   text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
 }
 
 .article-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(26,24,25,0.08);
+  border-color: var(--ember);
 }
 
 .article-image {
-  height: 160px;
+  height: 243px;
   overflow: hidden;
   border-radius: 16px;
   position: relative;
@@ -456,16 +613,25 @@ h1,
 }
 
 .article-title {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 600;
-  line-height: 1.5;
+  font-variation-settings: 'wdth' 87.5;
+  line-height: 1.3;
   color: var(--pitch);
+}
+
+h1.article-title {
+  font-size: 64px;
+  font-weight: 700;
+  font-stretch: condensed;
+  font-variation-settings: 'wdth' 75;
+  line-height: 1.1;
 }
 
 .article-desc {
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
 }
 
@@ -535,7 +701,7 @@ h1,
   padding-left: 41px;
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
 }
 
@@ -553,7 +719,6 @@ h1,
   width: 500px;
   margin-top: -50px;
   padding-top: 32px;
-  border-top: 1px solid var(--shale);
 }
 
 .about-bio-title {
@@ -567,7 +732,7 @@ h1,
 .about-bio p:not(.about-bio-title) {
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
 }
 
@@ -615,7 +780,7 @@ h1,
 .connect-body {
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
   max-width: 728px;
 }
@@ -624,6 +789,20 @@ h1,
   color: var(--ember);
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+/* Inline text link — pitch text with an ember underline; full ember on hover */
+.text-link {
+  color: var(--pitch);
+  text-decoration: underline;
+  text-decoration-color: var(--ember);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.text-link:hover {
+  color: var(--ember);
 }
 
 /* ─────────────────────────────────────────
@@ -645,7 +824,7 @@ h1,
 .photos-caption {
   font-size: 20px;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
   max-width: 784px;
 }
@@ -786,22 +965,20 @@ h1,
 }
 
 /* ─────────────────────────────────────────
-   Ember square click effect
+   Ember dot click effect — launches up and
+   bounces off the nav's ember bar (physics in JS)
 ───────────────────────────────────────── */
-@keyframes ember-float {
-  0%   { transform: translateY(0) rotate(0deg);   opacity: 0.85; }
-  100% { transform: translateY(-120px) rotate(25deg); opacity: 0; }
-}
-
-.ember-square {
+.ember-dot {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 10px;
   height: 10px;
-  background: #d24f39;
-  border-radius: 2px;
+  background: var(--ember);
+  border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  animation: ember-float 0.9s ease-out forwards;
+  will-change: transform;
 }
 
 /* ─────────────────────────────────────────
@@ -812,8 +989,19 @@ h1,
   .nav-inner {
     padding: 16px;
   }
+  /* Mobile nav: only the three jump links; no contact, no wordmark text */
   .nav-jump-links {
+    display: flex;
+    gap: 20px;
+  }
+  .nav-wordmark {
     display: none;
+  }
+  .nav-mail {
+    display: none;
+  }
+  .nav-links {
+    gap: 16px;
   }
 
   .footer-inner {
@@ -828,6 +1016,9 @@ h1,
     gap: 8px;
   }
   .footer-credits .footer-dot {
+    display: none;
+  }
+  .footer-signature::before {
     display: none;
   }
 
@@ -874,7 +1065,7 @@ h1,
   .thinking-about-wrap {
     margin-top: 40px;
     padding-top: 64px;
-    padding-bottom: 64px;
+    padding-bottom: 0;
     gap: 64px;
   }
 
@@ -895,8 +1086,15 @@ h1,
     grid-template-columns: 1fr;
     gap: 20px;
   }
+  .article-card {
+    padding: 24px;
+  }
   .article-title {
     font-size: 20px;
+  }
+  h1.article-title {
+    font-size: 48px;
+    line-height: 1;
   }
   .article-desc {
     font-size: 18px;

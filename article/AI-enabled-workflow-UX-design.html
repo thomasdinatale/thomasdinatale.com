@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generate, Evaluate, Refine: An AI-Enabled Workflow for UX Design — Thomas DiNatale</title>
+  <title>Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design — Thomas DiNatale</title>
   <meta name="description" content="AI can generate more design options faster than any designer working alone. What it can't do is know which options belong in your product. A workflow that uses AI where it's strongest." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.thomasdinatale.com/article/AI-enabled-workflow-UX-design.html" />
-  <meta property="og:title" content="Generate, Evaluate, Refine: An AI-Enabled Workflow for UX Design — Thomas DiNatale" />
+  <meta property="og:title" content="Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design — Thomas DiNatale" />
   <meta property="og:description" content="AI can generate more design options faster than any designer working alone. What it can't do is know which options belong in your product. A workflow that uses AI where it's strongest." />
-  <meta property="og:image" content="https://www.thomasdinatale.com/assets/images/thomas%20dinatale%20open%20graph.png" />
+  <meta property="og:image" content="https://www.thomasdinatale.com/assets/images/og-image.webp" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Generate, Evaluate, Refine: An AI-Enabled Workflow for UX Design — Thomas DiNatale" />
+  <meta name="twitter:title" content="Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design — Thomas DiNatale" />
   <meta name="twitter:description" content="AI can generate more design options faster than any designer working alone. What it can't do is know which options belong in your product. A workflow that uses AI where it's strongest." />
-  <meta name="twitter:image" content="https://www.thomasdinatale.com/assets/images/thomas%20dinatale%20open%20graph.png" />
+  <meta name="twitter:image" content="https://www.thomasdinatale.com/assets/images/og-image.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75,400..700;0,87.5,400..700;0,100,400..700;1,100,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
   <link rel="stylesheet" href="../css/article.css" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;if(t==='light')c.add('theme-light');else c.add('theme-dark');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -28,8 +29,17 @@
 
 <nav id="nav">
   <div class="nav-inner">
-    <a class="nav-mark" href="/">
-      <img src="../assets/images/nav-mark.svg" alt="Thomas DiNatale" class="nav-mark-img" />
+    <a class="nav-mark" href="/" aria-label="Thomas DiNatale, home">
+      <span class="nav-square" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 2C0 0.89543 0.895431 0 2 0H22C23.1046 0 24 0.895431 24 2V22C24 23.1046 23.1046 24 22 24H2C0.89543 24 0 23.1046 0 22V2Z" fill="var(--ember)"/>
+          <circle cx="19" cy="18" r="2" fill="#F5F0EB">
+            <animate attributeName="cx" values="3.5;20.5;3.5" dur="9s" calcMode="linear" repeatCount="indefinite"/>
+            <animate attributeName="cy" values="3.5;20.5;3.5" dur="12s" calcMode="linear" begin="-4s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </span>
+      <span class="nav-wordmark">Thomas DiNatale</span>
     </a>
     <div class="nav-links">
       <div class="nav-jump-links">
@@ -37,10 +47,15 @@
         <a class="nav-link" href="/#thinking">Thinking</a>
         <a class="nav-link" href="/#about">About</a>
       </div>
-      <a class="nav-link nav-contact" href="mailto:hi@thomasdinatale.com">Contact</a>
       <span class="nav-divider"></span>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8 0C12.4183 0 16 3.58172 16 8C16 12.4183 12.4183 16 8 16C7.8632 16 7.72678 15.9962 7.59082 15.9893C6.12582 15.9154 4.76562 15.4466 3.6123 14.6885C3.59223 14.6753 3.57172 14.6628 3.55176 14.6494C3.47931 14.6009 3.40864 14.5499 3.33789 14.499C3.3015 14.4729 3.2645 14.4476 3.22852 14.4209C3.1749 14.381 3.12289 14.3391 3.07031 14.2979C2.91872 14.1792 2.76939 14.0568 2.62598 13.9268C2.33806 13.6655 2.0696 13.3833 1.82227 13.083C1.78068 13.0325 1.74143 12.9802 1.70117 12.9287C1.65997 12.8761 1.61803 12.8241 1.57812 12.7705C1.55139 12.7345 1.5261 12.6975 1.5 12.6611C1.4478 12.5885 1.39549 12.5159 1.3457 12.4414C1.33367 12.4234 1.32243 12.4048 1.31055 12.3867C0.552687 11.2334 0.0833862 9.87311 0.00976562 8.4082C0.00284249 8.27258 0 8.13646 0 8C0 7.73468 0.0130656 7.47071 0.0390625 7.20898C0.168571 5.88958 0.618885 4.66467 1.31055 3.6123C1.32372 3.59223 1.33626 3.57172 1.34961 3.55176C1.39816 3.47931 1.44917 3.40864 1.5 3.33789C1.5261 3.3015 1.55139 3.2645 1.57812 3.22852C1.61803 3.1749 1.65997 3.12288 1.70117 3.07031C1.89964 2.81673 2.11272 2.57283 2.34277 2.34277C2.52528 2.16026 2.71664 1.98653 2.91602 1.82227C2.96654 1.78068 3.01887 1.74143 3.07031 1.70117C3.12288 1.65997 3.1749 1.61803 3.22852 1.57812C3.2645 1.55139 3.3015 1.5261 3.33789 1.5C3.40864 1.44917 3.47931 1.39816 3.55176 1.34961C3.57172 1.33626 3.59223 1.32372 3.6123 1.31055C4.76554 0.552591 6.12599 0.083559 7.59082 0.00976562C7.72676 0.00280942 7.86322 0 8 0ZM8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2V14Z" fill="currentColor"/></svg>
+      </button>
+      <a class="nav-icon-link nav-mail" href="mailto:hi@thomasdinatale.com" aria-label="Email Thomas">
+        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.7246 2.14355C19.2284 2.14355 20.448 3.3625 20.4482 4.86621V15.2051C20.448 16.7088 19.2284 17.9277 17.7246 17.9277H3.94043C2.43697 17.9274 1.21798 16.7086 1.21777 15.2051V4.86621C1.21797 3.36271 2.43696 2.1439 3.94043 2.14355H17.7246ZM3.21777 15.2051C3.21798 15.604 3.54154 15.9274 3.94043 15.9277H17.7246C18.1238 15.9277 18.448 15.6042 18.4482 15.2051V7.55078L12.2393 11.5059C12.2279 11.5131 12.2157 11.5206 12.2041 11.5273C11.7889 11.7683 11.317 11.8955 10.8369 11.8955C10.3566 11.8955 9.88408 11.7686 9.46875 11.5273C9.45715 11.5206 9.44589 11.5131 9.43457 11.5059L3.21777 7.5498V15.2051ZM3.94043 4.14355C3.54153 4.1439 3.21797 4.46728 3.21777 4.86621V5.17871L10.4814 9.80176C10.5898 9.86294 10.7124 9.89546 10.8369 9.89551C10.9619 9.89548 11.0847 9.86235 11.1934 9.80078L18.4482 5.17871V4.86621C18.448 4.46706 18.1238 4.14355 17.7246 4.14355H3.94043Z" fill="currentColor"/></svg>
+      </a>
       <a class="nav-icon-link" href="https://www.linkedin.com/in/thomasdinatale/" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <img src="../assets/images/linkedin-icon.svg" alt="" class="nav-icon" />
+        <span class="nav-icon" aria-hidden="true"></span>
       </a>
     </div>
   </div>
@@ -57,157 +72,163 @@
       <div class="article-header">
         <div class="article-title-block">
           <p class="article-date fade-in">June 3, 2026</p>
-          <h1 class="article-title fade-in">Generate, Evaluate, Refine: An AI-Enabled Workflow for UX Design</h1>
+          <h1 class="article-title fade-in">Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design</h1>
         </div>
         <div class="article-intro">
-          <p class="fade-in">There's no shortage of AI workflow advice for designers these days, and most of it stays abstract. Just open LinkedIn. What follows is a workflow that emerged from a real project. Three moves that made it possible to go from a blank Figma screen to wireframes ready for concept testing in a single afternoon. The workflow is generate, evaluate, refine. Here's how it actually worked.</p>
+          <p class="fade-in">There's no shortage of AI workflow advice for designers these days, and most of it stays abstract. Just open LinkedIn.</p>
+          <p class="fade-in">What follows emerged from a real project. Three phases that took us from an empty canvas to clickable prototypes ready for concept testing in a single afternoon. More interesting than the speed, however, was the role design judgment played in each phase.</p>
+          <p class="fade-in">The workflow: generate, evaluate, refine. Here's how it actually worked.</p>
           <div class="article-divider"></div>
         </div>
       </div>
 
       <!-- Opening paragraphs -->
       <div class="article-section">
-        <p class="fade-in">I spent several years designing software that helps teachers run their classrooms. When the navigation started getting in the way, it was time to rethink it. The navigation, a side panel with a series of open and close menus, was limiting. It couldn't accommodate new features gracefully, and the experience had grown more complex than it needed to be. The team, design, engineering, and product, knew we needed to start the next school year with a redesigned navigation that could handle growth and feel simpler at the same time.</p>
-        <p class="fade-in">We also knew going into the project we wanted a place to surface timely information to teachers, but it was unclear where that would live or what it would be. The navigation work had to come first, because understanding how teachers move through the product was a prerequisite for knowing what a time-based user experience should surface.</p>
-        <p class="fade-in">Our timeline was tight and the scope of the project required a lot of deep thinking to quickly deliver wireframes ready for <a class="article-link" href="https://everydayindustries.com/quick-guide-concept-design-testing/" target="_blank">concept testing</a>. What we didn't know going in was that the details of those wireframes would compress into a single day, and that AI-enabled workflows would play a central role in making that possible.</p>
+        <p class="fade-in">I spent several years designing software that helps teachers run their classrooms. As the product evolved, the navigation started getting in the way. It couldn't accommodate new features gracefully, and the experience had grown more complex than it needed to be. Design, engineering, and product all knew we needed a navigation that could support the product's next stage of growth while feeling simpler to use.</p>
+        <p class="fade-in">We also knew we wanted a place to surface timely information throughout a teacher's day, but it was unclear where that experience belonged or what it should contain. The navigation had to come first because understanding how teachers move through the product was a prerequisite for knowing what a time-based experience should surface.</p>
+        <p class="fade-in">Our timeline was tight. We needed clickable prototypes ready for <a class="article-link" href="https://everydayindustries.com/quick-guide-concept-design-testing/" target="_blank">concept testing</a> before the next design review. What we didn't know going in was that work we expected to take days would compress into a single afternoon, and that AI would play a central role in making that possible.</p>
       </div>
 
       <!-- Section 1 -->
       <div class="article-section" id="section-1">
         <h2 class="article-section-title fade-in">The research behind the sprint</h2>
-        <p class="fade-in">To kick the project off, we ran a moderated open card sorting exercise with academic staff and product team members. The goal was to understand how teachers think about their daily work so we could design a more intuitive navigation.</p>
-        <p class="fade-in">We also knew going into the project we wanted a place to surface timely information to teachers, but it was unclear where that would live or what it would be. The navigation work had to come first, because understanding how teachers move through the product was a prerequisite for knowing what a time-based user experience should surface.</p>
-        <p class="fade-in">Our timeline was tight and the scope of the project required a lot of deep thinking to quickly deliver wireframes ready for <a class="article-link" href="https://everydayindustries.com/quick-guide-concept-design-testing/" target="_blank">concept testing</a>. What we didn't know going in was that the details of those wireframes would compress into a single day, and that AI-enabled workflows would play a central role in making that possible.</p>
+        <p class="fade-in">To kick the project off, we ran a moderated open card sorting exercise with academic staff and product team members. The goal was to understand how teachers think about their daily work so we could design a navigation that better reflected their mental model.</p>
       </div>
 
       <!-- Article image -->
       <div class="article-image-block">
         <img class="article-img fade-in" src="https://everydayindustries.com/wp-content/uploads/2026/06/image-1024x580.png" alt="Kicking the project off with a 15 minute open card sort exercise." />
+        <p class="article-caption fade-in">Kicking the project off with a 15-minute open card sort exercise.</p>
       </div>
 
       <!-- Post-image paragraphs -->
       <div class="article-section">
-        <p class="fade-in">The results of the exercise, card groupings and category labels, were very similar across team members. This provided us with a clearer picture of how teachers organize their day: what they reach for first, what they return to repeatedly, and what they rarely need at all. From those patterns, a new navigation architecture emerged. One organized around how teachers spend their time, not around how the software happened to be structured.</p>
-        <p class="fade-in">The card sorting phase matters to the rest of the story for one reason: we already knew this product well. Years of working on its features meant we understood how teachers used it, and where it was failing them, before the card sort began. What the exercise produced was a clearer understanding of how teachers think about their work.</p>
-        <p class="fade-in">Our timeline was tight and the scope of the project required a lot of deep thinking to quickly deliver wireframes ready for <a class="article-link" href="https://everydayindustries.com/quick-guide-concept-design-testing/" target="_blank">concept testing</a>. What we didn't know going in was that the details of those wireframes would compress into a single day, and that AI-enabled workflows would play a central role in making that possible.</p>
+        <p class="fade-in">The results were remarkably consistent. The card groupings and category labels varied very little across participants, giving us a clearer picture of how teachers organize their day: what they reach for first, what they return to repeatedly, and what they rarely need at all. From those patterns, a new navigation architecture emerged, one organized around how teachers spend their time rather than how the software happened to be structured.</p>
+        <p class="fade-in">The card sorting phase matters for one reason. We already knew this product well. Years of working on its features meant we understood how teachers used it and where it was failing them before the card sort began. What the exercise produced wasn't new product knowledge; it was a clearer understanding of how teachers think about their work.</p>
+        <p class="fade-in">With the navigation architecture in place, we could finally turn our attention to the time-based experience. The question wasn't simply what information teachers needed, but what information they needed at that moment in their day.</p>
       </div>
 
       <!-- Section 2 -->
       <div class="article-section" id="section-2">
         <h2 class="article-section-title fade-in">Surfacing the right information at the right time</h2>
-        <p class="fade-in">The first design review covered global navigation. We designed a sectioned, icon-anchored structure that reduces visible options at any one time. The time-based user experience had no detail yet, just an open question about what information would genuinely serve teachers throughout their day.</p>
-        <p class="fade-in">During that review we proposed two time-based concepts to test against. The first was a dashboard that contained information relevant to all teachers regardless of grade level or subject. The second was a shortcut links feature that would let teachers save direct links to the screens they use most. This second concept was a deliberate risk-reduction move. Rather than trying to anticipate every possible widget need before the school year began, we gave teachers a way to surface what mattered to them directly. If we got a widget wrong, the shortcuts would cover the gap.</p>
-        <p class="fade-in">By the end of the review we had alignment on both concepts and a starting point for the dashboard widgets: a dozen that were clearly required for all teachers. The list covered the moments that shape every teacher's day: current class in session, daily attendance, unread inbox messages, daily student goal completion, daily grading, parent communication, upcoming events, and academic reporting. Plus widgets that are only needed at specific times during the year, like re-enrollment and academic progress testing.</p>
-        <p class="fade-in">That list left the room with us on a Thursday morning. The concept testing wireframes needed to be ready the next day.</p>
+        <p class="fade-in">The first design review focused on navigation. We proposed a sectioned, icon-anchored structure that reduced the number of visible options at any one time. The time-based experience, however, remained an open question. We knew it belonged in the product, but not what information it should surface or how it should work.</p>
+        <p class="fade-in">To answer that question, we explored two concepts. The first was a dashboard containing information relevant to every teacher, regardless of grade level or subject. The second was a shortcuts feature that let teachers pin the screens they used most often. This wasn't simply an alternative concept; it was a deliberate risk-reduction strategy. Rather than trying to predict every widget teachers might need before the school year began, the shortcuts feature ensured teachers could always surface what mattered most to them. If we got a widget wrong, shortcuts would fill the gap.</p>
+        <p class="fade-in">By the end of the review, we had alignment on both concepts and an initial set of dashboard widgets that every teacher would need. The list reflected the moments that shape a typical school day: current class, attendance, unread inbox messages, grading progress, parent communication, upcoming events, academic reporting, and seasonal workflows like re-enrollment and academic progress testing.</p>
+        <p class="fade-in">That list left the room with us on a Thursday morning. By the next design review, it needed to exist as a clickable prototype ready for concept testing.</p>
       </div>
 
       <!-- Article image -->
       <div class="article-image-block">
         <img class="article-img fade-in" src="https://everydayindustries.com/wp-content/uploads/2026/06/dashboard-site-map-1024x612.png" alt="Dashboard concept navigation diagram." />
+        <p class="article-caption fade-in">IA diagram with widget ideas that emerged from first design review.</p>
       </div>
 
       <!-- Sub-section: A dashboard isn't a screen -->
       <div class="article-section">
         <p class="article-body-semibold fade-in">A dashboard isn't a screen. It's a snapshot in time.</p>
-        <p class="fade-in">Good enough for concept testing means something specific. The content had to be accurate and grounded in the teachers' actual experience, real widget names, real data states, real moments in the school day.</p>
-        <p class="fade-in">Every widget has to tell a true story at 9 AM, at noon, and at 3 PM. The attendance widget showing "Submitted at 9:02 AM" only works because it's after 9. Before 9 it needs to be an alert. The current block widget showing "18 minutes left" is only accurate during an active class. The daily grading widget showing one task complete and one still pending is specific to that moment in that day, after the morning submission, before the 3:30 PM deadline.</p>
+        <p class="fade-in">Designing a dashboard isn't about arranging cards on a page. Every widget has to tell the truth about a particular moment in a teacher's day.</p>
+        <p class="fade-in">Attendance means something different before 9:00 AM than it does after it's been submitted. The current class widget needs different information at the beginning of class than it does five minutes before the bell. Grading changes throughout the day as work is completed, while parent communication shifts as new messages arrive.</p>
       </div>
 
       <!-- Article image -->
       <div class="article-image-block">
         <img class="article-img fade-in" src="https://everydayindustries.com/wp-content/uploads/2026/06/wireframe-dashboard-1-1024x666.jpg" alt="Final wireframe for concept testing from the generate, evaluate, refine workflow." />
+        <p class="article-caption fade-in">Clickable prototype with time aware widgets for testing.</p>
       </div>
 
       <div class="article-section">
-        <p class="fade-in">Getting that logic right across fifteen widgets, each with their own states, their own rhythms, their own relationship to the clock and the calendar, is the work that concept testing will either validate or surface problems with. And it's invisible when done well, which means it rarely gets acknowledged as the hard problem it actually is. This is what an afternoon produced. Here's how it happened.</p>
+        <p class="fade-in">Getting that logic right across fifteen widgets, each with its own states, rhythms, and relationship to the clock and calendar, is what concept testing ultimately validates. That's the work that occupied the afternoon. Here's how it happened.</p>
       </div>
 
       <!-- Section 3 -->
       <div class="article-section" id="section-3">
-        <h2 class="article-section-title fade-in">Generate, evaluate, refine: A UX workflow</h2>
-        <p class="fade-in">With a dozen widgets to design and an afternoon to do it, the process couldn't afford to be slow. What emerged was a way of working with AI, in this case Claude, that had three distinct moves.</p>
-        <p class="fade-in">The second move was to evaluate. Apply product and design knowledge to discard ideas that don't belong and identify the ones worth pursuing. This is where design judgement does its most important work. Not in idea generation, but in knowing which ideas fit this product, this user experience and which ones don't.</p>
-        <p class="fade-in">The third was to refine. Take what survived the evaluate phase, design the UI, and bring screenshots back to Claude with specific questions. This is the move that is easy to skip, and the one that turned out to be surprisingly valuable.</p>
-        <p class="fade-in">Each move has a distinct role. Here's how they worked in practice.</p>
+        <h2 class="article-section-title fade-in">Generate, evaluate, refine</h2>
+        <p class="fade-in">With fifteen widgets to design and an afternoon to do it, the process couldn't afford to be slow. What emerged wasn't simply a faster way of working with AI. It was a workflow where each phase had a distinct purpose, and where the role of design judgment changed throughout.</p>
+        <p class="fade-in">Generate expanded the solution space.</p>
+        <p class="fade-in">Evaluate applied product knowledge and design judgment to identify what belonged.</p>
+        <p class="fade-in">Refine transformed promising concepts into product experiences through an ongoing dialogue between designer and AI.</p>
+        <p class="fade-in">Each phase has a distinct role. Here's how they worked in practice.</p>
       </div>
 
       <!-- Section 4 -->
       <div class="article-section" id="section-4">
-        <h2 class="article-section-title fade-in">Generate: designer is the director, AI is the producer</h2>
-        <p class="fade-in">The first move was to open a conversation with Claude and start exploring each widget without constraints. No product context loaded upfront, no existing UI patterns referenced or <a class="article-link" href="https://www.figma.com/mcp-catalog/" target="_blank">Figma MCP</a> connected to constrain the output, no boundaries set on what it could suggest. The goal was volume and variety; as many interpretations of each widget's content and structure as possible before making any design decisions.</p>
-        <p class="fade-in">For each widget I asked specific questions that gave Claude a starting point. I started with the current class widget and asked: Provide options for a current class widget that communicate the time remaining in the class, the time elapsed, when the class ends and use color to provide quick visual reference. What are the different ways you can lay out content for this widget?</p>
+        <h2 class="article-section-title fade-in">Generate: Expanding the solution space</h2>
+        <p class="fade-in">The first move was to open a conversation with Claude and start exploring each widget without constraints. I deliberately avoided loading product context, referencing existing UI patterns, or connecting <a class="article-link" href="https://www.figma.com/mcp-catalog/" target="_blank">Figma MCP</a>. The goal wasn't accuracy. It was volume and variety: as many interpretations of each widget's content and structure as possible before making any design decisions.</p>
+        <p class="fade-in">For each widget, I gave Claude a focused prompt that established the problem without prescribing the solution. I started with the current class widget:</p>
+        <p class="article-prompt fade-in">Provide options for a current class widget that communicates time remaining, time elapsed, when the class ends, and uses color to provide quick visual reference. What are the different ways you can lay out the content for this widget?</p>
       </div>
 
       <!-- Article image -->
       <div class="article-image-block">
-        <img class="article-img fade-in" src="https://everydayindustries.com/wp-content/uploads/2026/06/image-2-1024x721.png" alt="Claude generated current class widgets." />
+        <img class="article-img fade-in" src="https://everydayindustries.com/wp-content/uploads/2026/06/image-2-1024x721.png" alt="Claude generated current class widget concepts." />
+        <p class="article-caption fade-in">Claude generated class widgets.</p>
       </div>
 
       <div class="article-section">
-        <p class="fade-in">The deliberate decision not to overcontextualize at the start mattered here. When AI knows too much about your constraints upfront, it self-edits. It produces safer, narrower output within the lines you've drawn. Deciding to leave those constraints out meant the generate phase returned a wider range of options. Most of these options would be set aside, but they surfaced quickly. A paper and pencil sketch session that would have been an hour or more was done in 5 minutes.</p>
-        <p class="fade-in">The generate phase is intentionally high-volume, low-stakes thinking. Like a traditional design charette, it generates a lot of options quickly, most of which you'll discard. The constraint now isn't the tool's ability to generate; it's the designer's ability to evaluate what comes back. That's the next move.</p>
+        <p class="fade-in">The deliberate decision not to overcontextualize at the start mattered. When AI knows too much about your constraints upfront, it begins to self-edit, producing safer, narrower output within the lines you've drawn. Leaving those constraints out expanded the solution space. Most of the concepts would eventually be discarded, but they surfaced in minutes. A paper-and-pencil sketch session that might have taken an hour was compressed into five minutes.</p>
+        <p class="fade-in">The generate phase is intentionally high-volume, low-stakes thinking. Like a traditional design charrette, the goal isn't to find the answer. It's to explore the breadth of possible answers before deciding which ones deserve further consideration.</p>
+        <p class="fade-in">The constraint is no longer AI's ability to generate ideas. It's the designer's ability to evaluate what comes back. That's the next move.</p>
       </div>
 
       <!-- Section 5 -->
       <div class="article-section" id="section-5">
-        <h2 class="article-section-title fade-in">Evaluate: designer only, AI is absent</h2>
-        <p class="fade-in">The generate phase returns options. The evaluate phase is where the designer decides which ones to put aside and which ones are worth pursuing in the refine phase.</p>
-        <p class="fade-in">The evaluate phase requires the kind of design knowledge that is hard to feed into an AI. Yes, you could load constraints within Claude upfront to create options more tailored to the product, but that misses the point. The knowledge required to evaluate well doesn't live in a prompt. It lives in the designer's understanding of the product's interaction philosophy, the way <a class="article-link" href="https://everydayindustries.com/creating-product-design-experience-principles/" target="_blank">experience principles</a> come alive across a thoughtful user experience, the UX systems and design principles that have been established over time. These aren't <a class="article-link" href="https://everydayindustries.com/design-systems-improve-user-experience/" target="_blank">design system</a> components or UI pattern rules. They're the deeper logic of how a product works, and they're the hardest thing to transfer to an AI tool.</p>
-        <p class="fade-in">Two examples from the dashboard project illustrate how evaluation works and why it requires a designer who knows the product well enough to catch both.</p>
-        <p class="article-body-semibold fade-in">Adding what doesn't belong</p>
-        <p class="fade-in">The first type of misalignment is the easiest to spot: AI adds something that doesn't belong. If you've ever used AI to work through a problem, you've experienced this in some form. In our example, Claude suggested a streak counter for the attendance widget. Streaks work. Habit tracking works and maybe showing an attendance streak would compel teachers to complete attendance by 9AM every day.</p>
+        <h2 class="article-section-title fade-in">Evaluate: Design judgment creates value</h2>
+        <p class="fade-in">The generate phase returns possibilities. The evaluate phase is where the designer determines which of those possibilities belong in the product. This is where design judgment creates the most value, not because AI has failed, but because evaluation depends on knowledge that is difficult to transfer into a prompt. It requires an understanding of the product's interaction philosophy, the <a class="article-link" href="https://everydayindustries.com/creating-product-design-experience-principles/" target="_blank">experience principles</a> that have evolved over time, and the deeper logic that holds the product together. Those things don't exist in isolation. They're accumulated through years of designing, shipping, and refining the experience.</p>
+        <p class="fade-in">The dashboard project surfaced two different kinds of misalignment. The first is the easiest to recognize: <span class="article-body-semibold">AI adds something that doesn't belong.</span> For the attendance widget, Claude suggested introducing a streak counter to encourage teachers to complete attendance by 9:00 AM each morning. It was a thoughtful idea. Habit tracking works, and in another product it might have been the right solution.</p>
       </div>
 
       <!-- Article image -->
       <div class="article-image-block">
         <img class="article-img fade-in" src="https://everydayindustries.com/wp-content/uploads/2026/06/image-3-1024x218.png" alt="Claude generated attendance widget with streak concept." />
+        <p class="article-caption fade-in">Claude introducing streaks into the product.</p>
       </div>
 
       <div class="article-section">
-        <p class="fade-in">But this product doesn't use that pattern anywhere else, and introducing it in a single widget creates inconsistency without a product-wide decision to support it. The streak was filtered out. Not because it was a bad idea, but because it didn't belong in this product.</p>
-        <p class="article-body-semibold fade-in">Replacing what already exists</p>
-        <p class="fade-in">The second type of misalignment is harder to catch: AI introduces something that looks reasonable but violates an established design principle. For our sprint, we needed to design a widget that allows the teacher to view analytics about posts they make to a class feed for parents. Simple, right? Well, Claude designed a full posting interface UI from the widget. It looked polished and it was a reasonable UI pattern.</p>
+        <p class="fade-in">The problem wasn't the idea. It was the product. Nothing else in the experience used gamification, and introducing it in a single widget would create inconsistency without a broader product decision to support it. The streak wasn't removed because it was a bad idea. It was removed because it didn't belong.</p>
+        <p class="fade-in">The second type of misalignment is more subtle. Rather than adding something new, <span class="article-body-semibold">AI introduces an interaction pattern that appears reasonable but quietly contradicts an established design principle.</span> One of the dashboard widgets summarized communication between teachers and parents. Claude responded by designing a complete posting interface directly inside the widget. The interface looked polished, and on its own it was a perfectly reasonable solution.</p>
       </div>
 
       <!-- Article image -->
       <div class="article-image-block">
         <img class="article-img fade-in" src="https://everydayindustries.com/wp-content/uploads/2026/06/image-4-1024x579.png" alt="Claude generated parent communication widget." />
+        <p class="article-caption fade-in">Claude expanding on communication UI into a fully functional widget.</p>
       </div>
 
       <div class="article-section">
-        <p class="fade-in">The problem was that it contradicted the dashboard's core design principle: this is a surface for information retrieval, it's a summary layer, not a control center for taking action. That's what makes this type of misalignment challenging to catch. The widget doesn't look wrong. The UI is fine. Instead, it's the interaction model that is fundamentally at odds with the design principles of the dashboard.</p>
-        <p class="fade-in">Wrong additions feel out of place. Wrong patterns feel at home until you check them against the design principles that define what you are designing. Both require a designer. Now that we've generated and evaluated our widgets, it's time to refine.</p>
+        <p class="fade-in">The problem was that it violated one of the dashboard's core design principles. The dashboard had been intentionally designed as a surface for awareness, not action. Its purpose was to summarize information and direct teachers to the right place when action was required, not become another workspace within the product. That's what makes this kind of misalignment more difficult to recognize. The interface isn't wrong. The interaction model is.</p>
+        <p class="fade-in">Both examples point to the same conclusion. Wrong additions often feel out of place. Wrong interaction patterns can feel completely natural until they're measured against the principles that define the product. Both require design judgment. Once the strongest concepts survived evaluation, it was time to refine them.</p>
       </div>
 
       <!-- Refine section (between 5 and 6) -->
-      <div class="article-section">
-        <h2 class="article-section-title fade-in">Refine: designer &amp; AI in dialogue, working on real designs</h2>
-        <p class="fade-in">The third move was to take what survived the evaluate phase, design the UI, and bring screenshots back to Claude with specific questions. It's the move that's easiest to skip because the UI Claude generates looks complete. We found this step to be the most valuable. The current class widget is the clearest example of why.</p>
-        <p class="fade-in">In the generate phase, Claude produced three layout options for communicating time in a class, a horizontal progress bar, segmented blocks and an arc with inline metadata. The evaluate phase selected option A, the horizontal progress bar as the right foundation. Options B and C were set aside.</p>
-        <p class="fade-in">But a progress bar alone only tells a teacher how much time is left. The refine phase is where the designer adds what AI doesn't know.</p>
-        <p class="fade-in">In our dashboard concept we decided the current class would be literacy class. This gave us additional context for the design: the book the class is reading, the pages assigned for today, the current lesson, and a direct link to the teaching notes. None of that came from Claude. It came from knowing how a teacher's day actually works, what they need at 12:02 PM when one class ends and another is just beginning, leaving little time to navigate across the product.</p>
+      <div class="article-section" id="section-refine">
+        <h2 class="article-section-title fade-in">Refine: Designer and AI in dialogue</h2>
+        <p class="fade-in">The third move was to take what survived the evaluate phase, design the interface, and bring screenshots back to Claude with specific questions. It's the move that's easiest to skip because the concepts AI generates often feel complete. In practice, we found it to be the most valuable. The current class widget illustrates why.</p>
+        <p class="fade-in">During the generate phase, Claude proposed three approaches for communicating time in a class: a horizontal progress bar, segmented blocks, and an arc with inline metadata. The evaluate phase selected the horizontal progress bar as the strongest foundation. The other concepts were set aside, but selecting a layout wasn't the end of the design process. A progress bar only tells a teacher how much time is left. The refine phase is where the designer begins adding what AI doesn't know.</p>
+        <p class="fade-in">For our dashboard concept, we decided the current class would be literacy. That decision immediately introduced context the AI couldn't infer: the book being read, the pages assigned for the day, the current lesson, and a direct link to the teacher's notes. None of those details came from Claude. They came from understanding how a teacher's day unfolds, what they need at 12:02 PM when one class ends and another is beginning, and how little time they have to search across the product before students arrive.</p>
       </div>
 
       <!-- Article image -->
       <div class="article-image-block">
-        <img class="article-img fade-in" src="https://everydayindustries.com/wp-content/uploads/2026/06/dashboard-with-current-class-highlighted.jpg" alt="Dashboard wireframe with the current class in focus." />
+        <img class="article-img fade-in" src="https://everydayindustries.com/wp-content/uploads/2026/06/dashboard-with-current-class-highlighted.jpg" alt="Dashboard prototype with the current class widget in focus." />
+        <p class="article-caption fade-in">Refining the class widget with real class information.</p>
       </div>
 
       <div class="article-section">
-        <p class="fade-in">That richer design went back to Claude as a screenshot with a simple, specific question: Here is a design of the current class module with additional details, how can I refine this experience?</p>
-        <p class="article-body-semibold fade-in">The conversation shifted from UI to UX.</p>
-        <p class="fade-in">Instead of more layout options, the dialogue reflected on what the design refinement was doing for the teacher: surfacing the right context at the right moment so nothing had to be searched for when classes changed. That framing narrowed the design problem productively and opened angles that hadn't been considered yet. One of them: five minutes before the class ends the teacher is already thinking about what comes next. Should the widget surface a preview of the upcoming class before the transition happens? Or, can a teacher customize the widget to their own teaching preferences?</p>
-        <p class="fade-in">Those are UX questions, not UI questions. They came from a back-and-forth about a specific design that required the designer's knowledge. The refine move doesn't just iterate on AI output. It adds what AI can't supply, then uses dialogue to explore and sharpen the experience further. That sequence is what shifts the conversation from what the UI looks like to what the experience should provide.</p>
+        <p class="fade-in">That richer design went back to Claude as a screenshot with a simple question: Here is a design of the current class module with additional details. How can I refine this experience? Give ideas that have time context. The conversation immediately shifted from interface design to experience design. Instead of generating another layout, Claude began reflecting on the experience itself: whether the widget surfaced the right information at the right moment, whether anything was missing, and how it might better support teachers as they transitioned between classes.</p>
+        <p class="article-body-semibold fade-in">The conversation shifted from generating interfaces to reasoning about product behavior.</p>
+        <p class="fade-in">One suggestion stood out. Five minutes before the current class ends, a teacher is already thinking about what comes next. Should the widget preview the upcoming class before the transition happens? Could teachers customize the information they see during those few minutes between classes? Those weren't UI questions. They were product questions, and they emerged because the conversation was grounded in a specific design informed by product knowledge rather than an abstract prompt.</p>
+        <p class="fade-in">That's what distinguishes the refine phase from the generate phase. Generate explores possibilities. Refine builds on product knowledge, then uses AI as a thought partner to challenge assumptions, identify opportunities, and strengthen the experience. The conversation is no longer about what the interface should look like. It's about what the product should do for the person using it.</p>
       </div>
 
       <!-- Section 6 -->
       <div class="article-section" id="section-6">
-        <h2 class="article-section-title fade-in">What made it work and what the process requires</h2>
-        <p class="fade-in">One thing worth noting before drawing any conclusions. The sequence, generate, evaluate, refine, isn't always linear. The examples in this article intentionally move cleanly from one phase to the next but in practice the loop is more fluid. You might be deep in the refine phase, bring a screenshot back to Claude, and find that the right response is to generate new layout options with the additional context. Claude's output then goes back through an evaluation before design refinement. The three moves are better understood as modes, than steps, and knowing which mode the work needs at any given moment is itself a design judgment call.</p>
-        <p class="fade-in">What makes this workflow possible wasn't the AI. It was the foundation that existed before the AI phase began. Years of working on this product meant we understood the interaction philosophy, the UX systems, the design principles that had evolved over time. That knowledge is what made the evaluate phase work. Without it, there's nothing to filter against. The generate phase returns options and they all look equally plausible.</p>
-        <p class="fade-in">AI amplifies what the designer brings to it. Feed it product knowledge and design judgment, and it accelerates output. Without the designer's knowledge and judgment, the output might look considered but it fits nowhere in particular. Just some UI.</p>
-        <p class="fade-in">The honest version of the project's timeline and output: a dozen designed widgets, a single afternoon, high-fidelity wireframes ready for concept testing. Those are real. But it only worked because the designer knew which ideas to keep, which to set aside, and when to push back with refined designs and specific questions.</p>
-        <p class="fade-in">The pace of design has changed. The job hasn't.</p>
+        <h2 class="article-section-title fade-in">What made it work</h2>
+        <p class="fade-in">One thing is worth noting before drawing any conclusions. The sequence, generate, evaluate, refine, isn't always linear. The examples in this article move cleanly from one phase to the next, but in practice the workflow is far more fluid. You might be deep in the refine phase, bring a screenshot back to Claude, and discover that the right response is to generate an entirely new set of concepts with the additional context. Those concepts are evaluated, refined, and sometimes sent back again. The three phases are better understood as modes of thinking than a fixed sequence of steps, and knowing which mode the work requires at any given moment is itself part of the design process.</p>
+        <p class="fade-in">What made this workflow successful wasn't AI. It was the foundation that existed before AI became part of the process. Years of working on the product meant we understood its interaction philosophy, the design principles that had evolved over time, and the countless small decisions that gave the experience consistency. That knowledge is what made the evaluate and refine phases possible. Without it, the concepts generated by AI all appear equally plausible because there's nothing meaningful to evaluate them against.</p>
+        <p class="fade-in">AI amplifies what the designer brings to it. Feed it product knowledge, design principles, and a deep understanding of the people you're designing for, and it becomes an extraordinary exploration partner. Without that foundation, the output may look polished, but it fits nowhere in particular. It's simply interface.</p>
+        <p class="fade-in">The honest version of the project is straightforward: fifteen widgets, a single afternoon, and a clickable prototype ready for concept testing. Those outcomes are real. But they weren't the result of AI working independently. They were the result of knowing which ideas to pursue, which to discard, and when to move beyond generating interfaces to reasoning about the experience itself.</p>
+        <p class="fade-in">The pace of design has changed.</p>
+        <p class="fade-in">The role of design judgment hasn't.</p>
       </div>
 
     </div>
@@ -217,12 +238,13 @@
       <div class="article-meta-card">
         <p class="article-meta-label">Content</p>
         <ol class="article-sections-list">
-          <li><a href="#section-1">Before the AI phase began</a></li>
-          <li><a href="#section-2">Twelve widgets, one afternoon</a></li>
-          <li><a href="#section-3">Generate, evaluate refine: A UX workflow</a></li>
-          <li><a href="#section-4">Generate: designer is the director, AI is the producer</a></li>
-          <li><a href="#section-5">Evaluate: designer only, AI is absent</a></li>
-          <li><a href="#section-6">What made it work and what the process requires</a></li>
+          <li><a href="#section-1" data-text="The research behind the sprint">The research behind the sprint</a></li>
+          <li><a href="#section-2" data-text="Surfacing the right information at the right time">Surfacing the right information at the right time</a></li>
+          <li><a href="#section-3" data-text="Generate, evaluate, refine">Generate, evaluate, refine</a></li>
+          <li><a href="#section-4" data-text="Generate: Expanding the solution space">Generate: Expanding the solution space</a></li>
+          <li><a href="#section-5" data-text="Evaluate: Design judgment creates value">Evaluate: Design judgment creates value</a></li>
+          <li><a href="#section-refine" data-text="Refine: Designer and AI in dialogue">Refine: Designer and AI in dialogue</a></li>
+          <li><a href="#section-6" data-text="What made it work">What made it work</a></li>
         </ol>
       </div>
     </aside>
@@ -260,9 +282,14 @@
   })();
 </script>
 <script src="../js/case-study.js"></script>
+<script src="../js/article.js"></script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>
 <script defer src="/_vercel/insights/script.js"></script>
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>

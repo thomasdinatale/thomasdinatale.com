@@ -34,7 +34,7 @@
 .article-date {
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--flint);
 }
 
@@ -54,7 +54,7 @@
 .article-intro p {
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
 }
 
@@ -69,6 +69,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  scroll-margin-top: calc(var(--nav-height, 72px) + 24px);
 }
 
 .article-section-title {
@@ -81,15 +82,28 @@
 .article-section p {
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
 }
 
 .article-body-semibold {
   font-size: 20px;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
+}
+
+/* Block-level semibold paragraphs need to out-specify `.article-section p` */
+.article-section p.article-body-semibold {
+  font-weight: 600;
+}
+
+/* Prompt quote — indented, italic, with an ember rule 12px off the left */
+.article-prompt {
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 2px solid var(--ember);
+  font-style: italic;
 }
 
 .article-link {
@@ -110,7 +124,7 @@
   gap: 8px;
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
 }
 
@@ -126,6 +140,13 @@
   border-radius: 8px;
 }
 
+.article-caption {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--flint);
+  text-align: center;
+}
+
 /* Right sidebar */
 .article-sidebar {
   position: sticky;
@@ -134,7 +155,7 @@
 }
 
 .article-meta-card {
-  background: #ede9dc;
+  background: var(--linen);
   border-radius: 24px;
   padding: 24px;
   display: flex;
@@ -145,7 +166,7 @@
 .article-meta-label {
   font-size: 20px;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
 }
 
@@ -154,21 +175,85 @@
   padding-left: 24px;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 16px;
 }
 
 .article-sections-list li {
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
-  color: var(--ember);
+  line-height: 1.6;
+  color: var(--pitch);
 }
 
 .article-sections-list li a {
-  color: var(--ember);
+  color: var(--pitch);
   text-decoration: none;
+  transition: color 0.15s ease;
 }
 
 .article-sections-list li a:hover {
-  text-decoration: underline;
+  color: var(--ember);
+}
+
+.article-sections-list li.active {
+  font-weight: 600;
+}
+
+/* ─────────────────────────────────────────
+   Mobile
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .article-layout {
+    padding: 40px 24px 80px;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .article-sidebar {
+    position: static;
+    margin-top: 0;
+  }
+
+  .article-header {
+    gap: 32px;
+  }
+
+  .article-date {
+    font-size: 16px;
+  }
+
+  .article-intro p {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .article-section-title {
+    font-size: 20px;
+  }
+
+  .article-section p {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .article-section .article-body-semibold {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+
+  .article-list {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .article-meta-label {
+    font-size: 18px;
+  }
+
+  .article-sections-list li,
+  .article-sections-list li a {
+    font-size: 18px;
+    line-height: 1.6;
+  }
 }
