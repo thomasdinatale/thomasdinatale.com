@@ -989,16 +989,15 @@ h1.article-title {
   .nav-inner {
     padding: 16px;
   }
-  /* Mobile nav: only the three jump links; no contact, no wordmark text */
+  /* Mobile nav: wordmark + theme toggle, contact, and LinkedIn; no jump links */
   .nav-jump-links {
-    display: flex;
-    gap: 20px;
+    display: none;
   }
-  .nav-wordmark {
+  .nav-divider {
     display: none;
   }
   .nav-mail {
-    display: none;
+    display: flex;
   }
   .nav-links {
     gap: 16px;
