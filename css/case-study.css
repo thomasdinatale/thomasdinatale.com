@@ -725,6 +725,87 @@
   display: none;
 }
 
+/* Primer hero — display tagline (H2) with the paragraph and a vertical
+   metric-card stack side by side. Scoped to Primer so the shared cs2-
+   hero classes keep their layout on the other case studies. */
+.cs2-hero--primer .cs2-title-desc-metrics {
+  gap: 24px;
+}
+
+.cs2-tagline--display {
+  font-stretch: condensed;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  max-width: 760px;
+}
+
+.cs2-lead-row {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.cs2-lead-row .cs2-body {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.cs2-metrics--stack {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  flex-shrink: 0;
+  width: max-content;
+}
+
+.cs2-metrics--stack .cs2-metric {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+/* Problem card variant with an outcomes list (teacher problem) */
+.cs2-problem-card--outcomes {
+  gap: 32px;
+}
+
+.cs2-problem-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs2-outcomes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs2-outcomes-label {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 1.12px;
+  text-transform: uppercase;
+  color: var(--pitch);
+}
+
+.cs2-outcomes-list {
+  list-style: disc;
+  padding-left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs2-outcomes-list li {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
 @media (max-width: 768px) {
   .cs2-hero-phones-row--desktop {
     display: none;
@@ -886,5 +967,22 @@
   .cs-bb-phones-row img,
   .cs-onboarding-row img {
     width: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Primer hero — collapse the paragraph/metrics split into a stack */
+  .cs2-tagline--display {
+    font-size: 28px;
+  }
+  .cs2-lead-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .cs2-metrics--stack {
+    width: 100%;
+  }
+  .cs2-outcomes-list li {
+    font-size: 18px;
   }
 }
