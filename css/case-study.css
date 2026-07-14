@@ -725,10 +725,9 @@
   display: none;
 }
 
-/* Primer hero — display tagline (H2) with the paragraph and a vertical
-   metric-card stack side by side. Scoped to Primer so the shared cs2-
-   hero classes keep their layout on the other case studies. */
-.cs2-hero--primer .cs2-title-desc-metrics {
+/* Case-study hero lockup — display tagline (H2) with the paragraph and a
+   vertical metric-card stack beside it. Shared across every case study hero. */
+.cs2-hero--split .cs2-title-desc-metrics {
   gap: 24px;
 }
 
