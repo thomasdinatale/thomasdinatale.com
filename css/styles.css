@@ -554,7 +554,7 @@ h1,
 .thinking-headline {
   font-stretch: condensed;
   font-size: 48px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.1;
   color: var(--ember);
   text-align: left;
@@ -650,7 +650,7 @@ h1.article-title {
 .about-headline {
   font-stretch: condensed;
   font-size: 48px;
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.1;
   color: var(--ember);
 }
