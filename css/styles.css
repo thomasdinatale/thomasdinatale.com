@@ -83,7 +83,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Instrument Sans', sans-serif;
+  font-family: 'Libre Franklin', sans-serif;
   background: var(--plaster);
   color: var(--pitch);
   overflow-x: hidden;
@@ -102,7 +102,7 @@ body {
 .h3 {
   font-stretch: condensed;
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1.1;
   color: var(--pitch);
 }
@@ -363,7 +363,7 @@ h1,
 .hero h1 {
   font-stretch: condensed;
   font-size: 96px;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1;
   color: var(--pitch);
 }
@@ -554,7 +554,7 @@ h1,
 .thinking-headline {
   font-stretch: condensed;
   font-size: 48px;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1.1;
   color: var(--ember);
   text-align: left;
@@ -622,7 +622,7 @@ h1,
 
 h1.article-title {
   font-size: 64px;
-  font-weight: 700;
+  font-weight: 900;
   font-stretch: condensed;
   font-variation-settings: 'wdth' 75;
   line-height: 1.1;
@@ -650,7 +650,7 @@ h1.article-title {
 .about-headline {
   font-stretch: condensed;
   font-size: 48px;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1.1;
   color: var(--ember);
 }

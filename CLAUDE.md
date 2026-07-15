@@ -5,7 +5,7 @@ Personal portfolio for Thomas DiNatale, product design leader.
 ## Stack
 
 - Static HTML/CSS/JS — no framework, no build step
-- Font: Instrument Sans (Google Fonts), variable font with `wdth` axis
+- Font: Libre Franklin (Google Fonts), variable weight axis (400–700) + italic — no width axis
 - Deployed on Vercel
 
 ## Deployment
@@ -46,10 +46,10 @@ assets/images/          — All images (permanent local copies)
 
 ## Typography
 
-- Body: Instrument Sans, regular weight, `wdth` 100
-- Display/H1: Instrument Sans Condensed, bold, `wdth` 75, `line-height: 1`
-- SemiCondensed headings: `font-variation-settings: 'wdth' 87.5`
-- Project/article card titles: 24px, semibold, `wdth` 87.5
+- Body: Libre Franklin, regular weight (400)
+- Display/H1: Libre Franklin, bold (700), `line-height: 1`
+- Project/article card titles: 24px, semibold (600)
+- Note: `font-stretch: condensed` / `font-variation-settings: 'wdth'` rules remain in the CSS but are inert — Libre Franklin has no width axis, so headings render at normal width
 
 ## Key conventions
 
