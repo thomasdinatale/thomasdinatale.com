@@ -101,7 +101,7 @@ body {
    H1 = 96/64px, H2 = 48px, H3 = 40px (new), H4 = 24px (was H3). */
 .h3 {
   font-stretch: condensed;
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 900;
   line-height: 1.1;
   color: var(--pitch);

@@ -585,7 +585,7 @@
 
 .cs2-problem-title {
   font-stretch: condensed;
-  font-size: 40px; /* H3 */
+  font-size: 32px; /* H2 */
   font-weight: 900;
   line-height: 1.1;
   color: var(--pitch);
@@ -733,7 +733,7 @@
 
 .cs2-tagline--display {
   font-stretch: condensed;
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 700;
   line-height: 1.1;
   max-width: 760px;
