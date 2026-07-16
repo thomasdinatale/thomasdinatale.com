@@ -362,7 +362,7 @@ nav.scrolled {
 h1,
 .hero h1 {
   font-stretch: condensed;
-  font-size: 96px;
+  font-size: 80px;
   font-weight: 900;
   line-height: 1;
   color: var(--pitch);
