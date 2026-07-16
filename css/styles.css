@@ -453,6 +453,17 @@ h1,
   object-position: top;
 }
 
+/* Wide card, top-aligned and cropped at the bottom (no bottom padding) */
+.project-card-image--crop-bottom {
+  padding: 24px 24px 0;
+}
+.project-card-image--crop-bottom img {
+  width: 100%;
+  aspect-ratio: 1054 / 498;
+  object-fit: cover;
+  object-position: top;
+}
+
 .projects-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1053,6 +1064,9 @@ h1.article-title {
   }
   .project-card-image--cover {
     padding: 24px 104px 0;
+  }
+  .project-card-image--crop-bottom {
+    padding: 16px 16px 0;
   }
   .project-title {
     font-size: 20px;
