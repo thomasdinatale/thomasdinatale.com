@@ -12,7 +12,7 @@
   --pitch:   #302d2f;
   --flint:   #6a6869;
   --chalk:   #fffcf8;
-  --linen:   rgba(237, 233, 220, 0.4);
+  --linen:   rgba(237, 233, 220, 0.9);
   --shale:   #dcdcdc;
   --cloud:   #ffffff;
   --grid-line: rgba(26, 24, 25, 0.05);
@@ -47,8 +47,10 @@
   color-scheme: dark;
 }
 
-/* Extra dark — hidden third theme, unlocked by triple-clicking the nav circle.
-   Placed after .theme-dark so it wins on equal-specificity ties. */
+/* Extra dark — one of the two user-facing themes (the other is light).
+   The nav circle toggles light <-> extra-dark. Standard .theme-dark above is
+   retained but no longer reachable through the UI. Placed after .theme-dark so
+   it wins on equal-specificity ties. */
 :root.theme-extra-dark {
   --plaster: #181614;
   --ember:   #e0624a;
