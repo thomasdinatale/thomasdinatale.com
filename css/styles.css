@@ -463,6 +463,9 @@ h1,
   object-fit: cover;
   object-position: top;
 }
+.project-card--grapevine .project-card-image--crop-bottom img {
+  aspect-ratio: 936 / 478;
+}
 
 .projects-row {
   display: grid;
