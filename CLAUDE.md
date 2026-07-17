@@ -5,7 +5,7 @@ Personal portfolio for Thomas DiNatale, product design leader.
 ## Stack
 
 - Static HTML/CSS/JS — no framework, no build step
-- Font: Libre Franklin (Google Fonts), variable weight axis (400–700) + italic — no width axis
+- Font: Libre Franklin (Google Fonts), variable weight axis (400–900) + italic — no width axis
 - Deployed on Vercel
 
 ## Deployment
@@ -50,6 +50,19 @@ assets/images/          — All images (permanent local copies)
 - Display/H1: Libre Franklin, bold (700), `line-height: 1`
 - Project/article card titles: 24px, semibold (600)
 - Note: `font-stretch: condensed` / `font-variation-settings: 'wdth'` rules remain in the CSS but are inert — Libre Franklin has no width axis, so headings render at normal width
+
+## Case study heading outline
+
+Every case study page follows one semantic heading hierarchy (styling is class-based, so tags never change appearance):
+
+| Level | Class | Role |
+|-------|-------|------|
+| `<h1>` | `cs2-headline` | Project name (one per page) |
+| `<h2>` | `cs2-tagline cs2-tagline--display` | Hero tagline |
+| `<h2>` | `cs2-problem-title` | Problem-card section titles |
+| `<h3>` | `cs-section-title` | Feature section titles |
+
+Keep it clean: exactly one `<h1>`, no skipped levels. Don't use `<p>` for anything in this table.
 
 ## Key conventions
 

@@ -12,7 +12,7 @@
   --pitch:   #302d2f;
   --flint:   #6a6869;
   --chalk:   #fffcf8;
-  --linen:   #ede9dc;
+  --linen:   rgba(237, 233, 220, 0.4);
   --shale:   #dcdcdc;
   --cloud:   #ffffff;
   --grid-line: rgba(26, 24, 25, 0.05);
@@ -27,7 +27,7 @@
     --pitch:   #f4eee7;
     --flint:   #928c87;
     --chalk:   #1c1917;
-    --linen:   #302c2a;
+    --linen:   rgba(48, 44, 42, 0.4);
     --shale:   #3a3532;
     --cloud:   #2e2a28;
     --grid-line: rgba(244, 238, 231, 0.05);
@@ -40,9 +40,24 @@
   --pitch:   #f4eee7;
   --flint:   #928c87;
   --chalk:   #1c1917;
-  --linen:   #302c2a;
+  --linen:   rgba(48, 44, 42, 0.4);
   --shale:   #3a3532;
   --cloud:   #2e2a28;
+  --grid-line: rgba(244, 238, 231, 0.05);
+  color-scheme: dark;
+}
+
+/* Extra dark — hidden third theme, unlocked by triple-clicking the nav circle.
+   Placed after .theme-dark so it wins on equal-specificity ties. */
+:root.theme-extra-dark {
+  --plaster: #181614;
+  --ember:   #e0624a;
+  --pitch:   #f4eee7;
+  --flint:   #928c87;
+  --chalk:   #0f0e0d;
+  --linen:   rgba(146, 140, 135, 0.1);
+  --shale:   #2d2a27;
+  --cloud:   #211f1c;
   --grid-line: rgba(244, 238, 231, 0.05);
   color-scheme: dark;
 }
@@ -51,7 +66,8 @@
 @media (prefers-color-scheme: dark) {
   :root:not(.theme-light) .about-portrait { filter: invert(1); }
 }
-:root.theme-dark .about-portrait { filter: invert(1); }
+:root.theme-dark .about-portrait,
+:root.theme-extra-dark .about-portrait { filter: invert(1); }
 
 /* Dim bright screenshots in dark mode; homepage cards restore on hover */
 @media (prefers-color-scheme: dark) {
@@ -66,13 +82,16 @@
     opacity: 1;
   }
 }
-:root.theme-dark img:not(.about-portrait) {
+:root.theme-dark img:not(.about-portrait),
+:root.theme-extra-dark img:not(.about-portrait) {
   filter: brightness(1) contrast(0.96);
   opacity: 0.9;
   transition: filter 0.3s ease, opacity 0.3s ease;
 }
 :root.theme-dark .project-card:hover .project-card-image img,
-:root.theme-dark .article-card:hover .article-image img {
+:root.theme-dark .article-card:hover .article-image img,
+:root.theme-extra-dark .project-card:hover .project-card-image img,
+:root.theme-extra-dark .article-card:hover .article-image img {
   filter: none;
   opacity: 1;
 }
@@ -103,7 +122,7 @@ body {
   font-stretch: condensed;
   font-size: 32px;
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.4;
   color: var(--pitch);
 }
 .h4 {
@@ -363,7 +382,7 @@ h1,
 .hero h1 {
   font-stretch: condensed;
   font-size: 80px;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1;
   color: var(--pitch);
 }
@@ -569,7 +588,7 @@ h1,
   font-stretch: condensed;
   font-size: 48px;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.4;
   color: var(--ember);
   text-align: left;
 }
@@ -665,7 +684,7 @@ h1.article-title {
   font-stretch: condensed;
   font-size: 48px;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.4;
   color: var(--ember);
 }
 

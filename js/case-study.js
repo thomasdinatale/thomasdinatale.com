@@ -59,17 +59,44 @@
 })();
 
 (function () {
-  /* Nav toggle: switch light/dark (overrides OS, persists) */
+  /* Nav circle: single-click toggles light/dark; a quick triple-click
+     unlocks the hidden "extra dark" theme. All three override OS and persist. */
+  var root = document.documentElement;
+
+  function setTheme(name) {
+    var c = root.classList;
+    c.remove('theme-light', 'theme-dark', 'theme-extra-dark');
+    c.add('theme-' + name);
+    try { localStorage.setItem('td-theme', name); } catch (err) {}
+  }
+
+  function currentTheme() {
+    var c = root.classList;
+    if (c.contains('theme-extra-dark')) return 'extra-dark';
+    if (c.contains('theme-light')) return 'light';
+    if (c.contains('theme-dark')) return 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  var clicks = 0;
+  var timer = null;
+
   document.addEventListener('click', function (e) {
     if (!e.target.closest || !e.target.closest('.theme-toggle')) return;
-    var c = document.documentElement.classList;
-    var dark = c.contains('theme-dark') ? true
-      : c.contains('theme-light') ? false
-      : window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var goDark = !dark;
-    c.remove('theme-dark', 'theme-light');
-    c.add(goDark ? 'theme-dark' : 'theme-light');
-    try { localStorage.setItem('td-theme', goDark ? 'dark' : 'light'); } catch (err) {}
+
+    /* Normal single-click toggle. Extra-dark steps down to dark; otherwise flip. */
+    var cur = currentTheme();
+    setTheme(cur === 'extra-dark' ? 'dark' : (cur === 'dark' ? 'light' : 'dark'));
+
+    /* Three clicks within 600ms → extra dark (overrides the toggle above). */
+    clicks++;
+    if (timer) clearTimeout(timer);
+    if (clicks >= 3) {
+      clicks = 0;
+      setTheme('extra-dark');
+    } else {
+      timer = setTimeout(function () { clicks = 0; }, 600);
+    }
   });
 })();
 

@@ -587,7 +587,7 @@
   font-stretch: condensed;
   font-size: 32px; /* H2 */
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.4;
   color: var(--pitch);
 }
 
@@ -611,22 +611,9 @@
   text-align: left;
 }
 
-/* Feature section titles use Body Semibold (20px), distinct from the
-   24px Body Large problem cards */
-.cs2-flow .cs-copy-block .cs-section-title {
-  font-size: 20px;
-}
-
-/* 8px between a feature title and its body copy */
-.cs2-flow .cs-copy-block {
-  gap: 8px;
-}
-
-/* 24px between stacked body paragraphs (8px gap + 16px), while the
-   title keeps hugging its first paragraph at 8px */
-.cs2-flow .cs-copy-block p:not(.cs-section-title) + p:not(.cs-section-title) {
-  margin-top: 16px;
-}
+/* Copy blocks inside cs2-flow (Primer, Nara) inherit the base treatment
+   used by Grapevine/ButcherBox: 24px section titles and a uniform 24px
+   gap between title and paragraphs. No per-flow overrides. */
 
 /* Generic 1215px centering wrapper (for hero blocks that aren't
    merged into a single gap-driven flex column, e.g. Nara) */
@@ -735,7 +722,7 @@
   font-stretch: condensed;
   font-size: 32px;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.4;
   max-width: 760px;
 }
 
@@ -905,9 +892,6 @@
   }
   .cs2-flow .cs-section-title {
     font-size: 22px;
-  }
-  .cs2-flow .cs-copy-block .cs-section-title {
-    font-size: 18px;
   }
   .cs2-flow .cs-copy-block p {
     font-size: 18px;
