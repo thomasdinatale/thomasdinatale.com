@@ -158,45 +158,72 @@
   background: var(--linen);
   border-radius: 24px;
   padding: 24px;
+}
+
+/* Table of contents: a shale rail with a sliding ember indicator that
+   tracks the section in focus. Titles sit flint; the active one is pitch. */
+.article-toc {
+  position: relative;
+  padding-left: 16px; /* 1px rail + ~15px gap to the titles */
+}
+
+.article-toc-track {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--shale);
+}
+
+.article-toc-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 40px;
+  background: var(--ember);
+  opacity: 0; /* hidden until a section comes into focus */
+  transform: translateY(0);
+  transition: transform 0.35s ease, opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.article-sections-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.article-meta-label {
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.6;
-  color: var(--pitch);
-}
-
-.article-sections-list {
-  list-style: decimal;
-  padding-left: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 .article-sections-list li {
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--pitch);
+  height: 40px;
 }
 
 .article-sections-list li a {
-  color: var(--pitch);
+  display: block;
+  width: 350px;
+  max-width: 100%;
+  height: 40px;
+  line-height: 40px; /* centers the single line vertically */
+  font-size: 20px;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--flint);
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color 0.3s ease;
+}
+
+.article-sections-list li.active a {
+  color: var(--pitch);
 }
 
 .article-sections-list li a:hover {
-  color: var(--ember);
-}
-
-.article-sections-list li.active {
-  font-weight: 600;
+  color: var(--pitch);
 }
 
 /* ─────────────────────────────────────────
@@ -247,13 +274,8 @@
     line-height: 1.6;
   }
 
-  .article-meta-label {
-    font-size: 18px;
-  }
-
-  .article-sections-list li,
   .article-sections-list li a {
+    width: 100%;
     font-size: 18px;
-    line-height: 1.6;
   }
 }
