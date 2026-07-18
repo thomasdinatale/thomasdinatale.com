@@ -419,6 +419,7 @@ h1,
 
 .project-card {
   background: var(--chalk);
+  border: 1px solid var(--shale);
   border-radius: 32px;
   display: flex;
   flex-direction: column;
@@ -625,7 +626,7 @@ h1,
 
 .article-card {
   background: var(--chalk);
-  border: 1px solid transparent;
+  border: 1px solid var(--shale);
   border-radius: 24px;
   padding: 32px;
   display: flex;
