@@ -547,6 +547,12 @@ h1,
   mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
 }
 
+/* One-off: the Thinking band runs a hair lighter (0.05) than the global
+   extra-dark linen token (0.075), which still drives the footer and elsewhere. */
+:root.theme-extra-dark .linen-backdrop {
+  background-color: rgba(146, 140, 135, 0.05);
+}
+
 /* ─────────────────────────────────────────
    Thinking + About layout wrapper (no background of its own)
 ───────────────────────────────────────── */
