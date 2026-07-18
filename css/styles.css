@@ -526,7 +526,7 @@ h1,
 .linen-sticky {
   position: absolute;
   top: -80px;
-  bottom: -80px;
+  bottom: -140px; /* extends 60px further below the last card; absolute, so About isn't pushed down */
   left: 50%;
   width: 100vw;
   margin-left: -50vw;
