@@ -57,7 +57,7 @@
   --pitch:   #f4eee7;
   --flint:   #928c87;
   --chalk:   #0f0e0d;
-  --linen:   rgba(146, 140, 135, 0.1);
+  --linen:   rgba(146, 140, 135, 0.075);
   --shale:   #2d2a27;
   --cloud:   #211f1c;
   --grid-line: rgba(244, 238, 231, 0.05);
@@ -107,7 +107,9 @@ body {
   font-family: 'Libre Franklin', sans-serif;
   background: var(--plaster);
   color: var(--pitch);
-  overflow-x: hidden;
+  /* clip (not hidden) so full-bleed elements don't cause horizontal scroll
+     while still allowing position: sticky to pin against the viewport */
+  overflow-x: clip;
 }
 
 /* Condensed / semi-condensed display type (Instrument Sans wdth axis) */
@@ -519,32 +521,30 @@ h1,
    Linen backdrop — sized dynamically via JS to stop
    at the bottom of the first paragraph in the about body
 ───────────────────────────────────────── */
-.linen-backdrop {
+/* Full-bleed container spanning the Thinking section (80px of breathing room
+   above the headline and below the last card). Out of flow, so no footprint. */
+.linen-sticky {
   position: absolute;
+  top: -80px;
+  bottom: -80px;
   left: 50%;
   width: 100vw;
   margin-left: -50vw;
-  top: 0;
-  height: 0;
-  background-color: var(--linen);
-  background-image:
-    repeating-linear-gradient(
-      to right,
-      var(--grid-line) 0px,
-      var(--grid-line) 1px,
-      transparent 1px,
-      transparent 33px
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      var(--grid-line) 0px,
-      var(--grid-line) 1px,
-      transparent 1px,
-      transparent 33px
-    );
-  background-attachment: fixed;
-  pointer-events: none;
   z-index: 0;
+  pointer-events: none;
+}
+
+/* The linen is a contained band that pins in the viewport while the Thinking
+   content scrolls over it, then releases as the section exits (parallax lock).
+   Softly faded top/bottom edges make the held position readable without a hard
+   line, so the lock is perceptible even with a subtle fill. */
+.linen-backdrop {
+  position: sticky;
+  top: 12vh;
+  height: 76vh;
+  background-color: var(--linen);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
 }
 
 /* ─────────────────────────────────────────
@@ -572,10 +572,18 @@ h1,
    Thinking / Articles
 ───────────────────────────────────────── */
 .thinking {
+  position: relative;
   padding: 0 160px;
   display: flex;
   flex-direction: column;
   gap: 40px;
+}
+
+/* Keep the Thinking content above the pinned linen backdrop */
+.thinking-header,
+.thinking .articles-grid {
+  position: relative;
+  z-index: 1;
 }
 
 .thinking-header {

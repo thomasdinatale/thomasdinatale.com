@@ -142,10 +142,12 @@
 
   </section>
 
-  <div class="linen-backdrop" id="linenBackdrop"></div>
   <div class="thinking-about-wrap">
 
     <section class="thinking" id="thinking">
+      <div class="linen-sticky" aria-hidden="true">
+        <div class="linen-backdrop" id="linenBackdrop"></div>
+      </div>
       <div class="thinking-header">
         <h2 class="thinking-headline fade-in">Thinking</h2>
         <p class="thinking-body fade-in">Selected writing on product design, design leadership, and AI.</p>
@@ -296,25 +298,6 @@
     window.addEventListener('resize', updateNav);
   })();
 
-  (function () {
-    var page = document.querySelector('.page');
-    var headline = document.querySelector('.thinking-headline');
-    var grid = document.querySelector('.articles-grid');
-    var backdrop = document.getElementById('linenBackdrop');
-    if (!page || !headline || !grid || !backdrop) return;
-
-    function updateLinenBackdrop() {
-      var pageTop = page.getBoundingClientRect().top;
-      var top = headline.getBoundingClientRect().top - pageTop - 80;
-      var bottom = grid.getBoundingClientRect().bottom - pageTop + 80;
-      backdrop.style.top = top + 'px';
-      backdrop.style.height = Math.max(0, bottom - top) + 'px';
-    }
-
-    updateLinenBackdrop();
-    window.addEventListener('load', updateLinenBackdrop);
-    window.addEventListener('resize', updateLinenBackdrop);
-  })();
 </script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
