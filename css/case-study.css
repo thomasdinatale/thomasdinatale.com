@@ -699,6 +699,12 @@
   height: auto;
 }
 
+/* Wide media (e.g. the cards home shot) breaks out past the narrow column */
+.cs2-media--wide {
+  width: 1110px;
+  max-width: calc(100vw - 32px);
+}
+
 /* Two-phone composites cap at their natural width and centre */
 .cs2-media-img--sm {
   max-width: 826px;
