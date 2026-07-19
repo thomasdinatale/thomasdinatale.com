@@ -678,7 +678,7 @@ h1,
    dark-mode img filters, so no per-theme overrides are needed. */
 .article-image {
   filter: grayscale(1) blur(4px);
-  opacity: 0.8;
+  opacity: 0.88;
   transition: filter 0.5s ease, opacity 0.5s ease;
 }
 
