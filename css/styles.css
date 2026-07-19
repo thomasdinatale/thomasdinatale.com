@@ -678,11 +678,13 @@ h1,
    dark-mode img filters, so no per-theme overrides are needed. */
 .article-image {
   filter: grayscale(1);
-  transition: filter 0.5s ease;
+  opacity: 0.8;
+  transition: filter 0.5s ease, opacity 0.5s ease;
 }
 
 .article-card:hover .article-image {
   filter: grayscale(0);
+  opacity: 1;
 }
 
 .article-text {
