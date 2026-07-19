@@ -673,6 +673,18 @@ h1,
   object-fit: cover;
 }
 
+/* Article thumbnails: desaturated at rest, full colour on hover (in sync with
+   the ember stroke). Grayscale on the container composes cleanly with the
+   dark-mode img filters, so no per-theme overrides are needed. */
+.article-image {
+  filter: grayscale(1);
+  transition: filter 0.5s ease;
+}
+
+.article-card:hover .article-image {
+  filter: grayscale(0);
+}
+
 .article-text {
   display: flex;
   flex-direction: column;
