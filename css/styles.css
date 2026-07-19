@@ -677,13 +677,13 @@ h1,
    the ember stroke). Grayscale on the container composes cleanly with the
    dark-mode img filters, so no per-theme overrides are needed. */
 .article-image {
-  filter: grayscale(1);
+  filter: grayscale(1) blur(4px);
   opacity: 0.8;
   transition: filter 0.5s ease, opacity 0.5s ease;
 }
 
 .article-card:hover .article-image {
-  filter: grayscale(0);
+  filter: grayscale(0) blur(0);
   opacity: 1;
 }
 
