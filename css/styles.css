@@ -624,7 +624,14 @@ h1,
   gap: 20px;
 }
 
+@property --ember-sweep {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .article-card {
+  position: relative;
   background: var(--chalk);
   border: 1px solid var(--shale);
   border-radius: 24px;
@@ -633,14 +640,32 @@ h1,
   flex-direction: column;
   gap: 24px;
   text-decoration: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
+}
+
+/* Ember stroke draws in around the border path on hover, retreats on leave.
+   A conic-gradient mask sweeps a growing wedge (from 12 o'clock, clockwise)
+   over an ember border overlay, so the stroke appears to trace the path. */
+.article-card::after {
+  content: "";
+  position: absolute;
+  inset: -1px; /* sit over the card's 1px shale border */
+  border: 1px solid var(--ember);
+  border-radius: 24px;
+  pointer-events: none;
+  -webkit-mask: conic-gradient(#000 var(--ember-sweep), transparent 0);
+  mask: conic-gradient(#000 var(--ember-sweep), transparent 0);
+  transition: --ember-sweep 0.45s ease;
 }
 
 .article-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(26,24,25,0.08);
-  border-color: var(--ember);
+}
+
+.article-card:hover::after {
+  --ember-sweep: 360deg;
 }
 
 .article-image {
