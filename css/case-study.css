@@ -670,6 +670,45 @@
   height: auto;
 }
 
+/* Research learning + design outcome sub-blocks inside a section.
+   The section title and each sub-block are children of .cs-copy-block (24px
+   gap); inside a sub-block the label hugs its paragraphs at 8px. */
+.cs2-research-outcome {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs2-research-outcome .cs2-ro-label {
+  font-weight: 600;
+  color: var(--pitch);
+}
+
+/* Media group: an image, image pair, or watch grid with a caption below it */
+.cs2-media {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.cs2-media-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Two-phone composites cap at their natural width and centre */
+.cs2-media-img--sm {
+  max-width: 826px;
+}
+
+/* Apple Watch 2x2 composite is smaller */
+.cs2-media-img--watch {
+  max-width: 556px;
+}
+
 /* Apple Watch 2x2 image grid */
 .cs2-watch-grid {
   display: flex;
