@@ -32,10 +32,9 @@
     <a class="nav-mark" href="/" aria-label="Thomas DiNatale, home">
       <span class="nav-square" aria-hidden="true">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 2C0 0.89543 0.895431 0 2 0H22C23.1046 0 24 0.895431 24 2V22C24 23.1046 23.1046 24 22 24H2C0.89543 24 0 23.1046 0 22V2Z" fill="var(--ember)"/>
-          <circle cx="19" cy="18" r="2" fill="#F5F0EB">
-            <animate attributeName="cx" values="3.5;20.5;3.5" dur="9s" calcMode="linear" repeatCount="indefinite"/>
-            <animate attributeName="cy" values="3.5;20.5;3.5" dur="12s" calcMode="linear" begin="-4s" repeatCount="indefinite"/>
+          <circle cx="12" cy="12" r="12" fill="var(--ember)"/>
+          <circle r="2" fill="#F5F0EB">
+            <animateMotion dur="6s" repeatCount="indefinite" path="M12,4 A8,8 0 1,1 12,20 A8,8 0 1,1 12,4 Z"/>
           </circle>
         </svg>
       </span>
@@ -131,7 +130,7 @@
         <ul class="cs2-outcomes-list">
           <li>12 disjointed tools consolidated into a single platform</li>
           <li>LLM review replaces a manual approval queue, so teachers author project-based courses independently</li>
-          <li>Zoom replaced with a purpose-designed classroom, eliminating a recurring per-seat cost across every campus</li>
+          <li>Purpose-designed classroom eliminates a recurring per-seat Zoom cost across every campus</li>
           <li>One design system and consistent UX patterns across every surface</li>
         </ul>
       </div>
@@ -144,7 +143,19 @@
     <div class="cs-copy-block">
       <h3 class="cs-section-title fade-in">One view of every student's progress</h3>
       <p class="fade-in">Before I undertook the goals design, progress was scattered across learning apps, each with its own scoreboard. Khan counts points, IXL counts skills, Reflex counts minutes, Newsela counts quiz scores, independent reading counts minutes read. To see where a class stood, a teacher opened all five and reconciled five different pictures in their head.</p>
-      <p class="fade-in">I designed a dashboard that pulled it into a single view. Today's goals were always visible, the thing teachers needed to see most. A teacher can open any student's app goals to see domain-level mastery and a lesson-by-lesson history, scores and time included, without ever opening the source apps. Green meant on track, red meant off track.</p>
+      <p class="fade-in">I designed a dashboard that progressively displays the weekly goals. On Monday, the dashboard is empty and only the Monday column is expanded. As the week goes on, days collapse into closed or open circles to indicate completion. And, the weekly app totals start at zero and count up as the student makes progress, with the current day always open by default at 8:00 AM.</p>
+    </div>
+
+    <div class="cs-evolved fade-in">
+      <div class="cs-evolved-head">
+        <svg class="cs-evolved-pin" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 17v5" />
+          <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" />
+        </svg>
+        <span class="cs-evolved-title">How this evolved</span>
+      </div>
+      <p>The dashboard went through two versions before this one. The first consolidated daily goals into a single color-coded view but left too much meaning buried in icons. The second pulled alerts and milestones into their own interpretation layer, which teachers found more actionable until the data lag made it moot mid-class. Both taught us what the third version needed to do.</p>
+      <button type="button" class="panel-link" data-panel-open aria-haspopup="dialog" aria-controls="evolved-panel" aria-expanded="false">View tradeoffs &amp; iterations</button>
     </div>
     <div class="cs2-figure fade-in">
       <img src="../assets/images/case-study/primer-student-goals-detail.webp" alt="A single student's goals view showing domain-level mastery and lesson-by-lesson history" />
@@ -152,7 +163,11 @@
     </div>
 
     <div class="cs-copy-block">
-      <h3 class="cs-section-title fade-in">The one goal teachers build themselves, reviewed by an LLM</h3>
+      <p class="fade-in">Using progressive disclosure, the teacher can hover on any UI element to better understand completion. And on click, a teacher can open any student's full app goals to see domain-level mastery and a lesson-by-lesson history, scores and time included, without ever opening the source apps.</p>
+    </div>
+
+    <div class="cs-copy-block">
+      <h3 class="cs-section-title fade-in">Using an LLM to help design a project based learning class</h3>
       <p class="fade-in">Most of those goals came from outside apps. One didn't. Project based learning, or Pursuits, was Primer's own, core to how it taught, and it sat in the same goal system as Khan and IXL, alongside everything else a student worked toward. The difference was that teachers authored these themselves, and before the platform supported it, they wrote courses in docs and submitted them to a person for review. That didn't scale.</p>
     </div>
     <div class="cs2-figure fade-in">
@@ -170,7 +185,8 @@
 
     <div class="cs-copy-block">
       <h3 class="cs-section-title fade-in">A classroom made for teaching, not meetings</h3>
-      <p class="fade-in">Goals set what students work toward. The classroom is where a teacher actually works with them, and that ran on Zoom, which cost more at network scale and was made for meetings, not teaching. It had no concept of a class roster, a lesson, or the small tools a teacher reaches for mid-instruction. I designed Prism, a custom virtual classroom shaped around how a class actually runs. Teacher tools include small-group instruction with custom class layouts, class and individual student chats, screen sharing, and controls to manage class noise.</p>
+      <p class="fade-in">Most learning happened in the physical classroom, but some students logged into a digital one to work with peers at their learning level. When I joined, that ran on Zoom, which had two problems. It cost more at network scale, and it was made for meetings, not teaching. Zoom had no concept of a class roster, a lesson, or the small tools a teacher reaches for mid-instruction.</p>
+      <p class="fade-in">I designed Prism, a virtual classroom shaped around how a class actually runs: a fixed-seat roster, small-group instruction with custom class layouts, class and individual student chats, screen sharing, and controls to manage class noise. The tool list changed as we put it in front of teachers, and we kept iterating. Prism still runs today.</p>
     </div>
     <div class="cs2-figure fade-in">
       <img src="../assets/images/case-study/primer-prism-student.webp" alt="The teacher's management view of Prism with class layout, screenshare, and direct messaging" />
@@ -311,6 +327,36 @@
   </div>
 
 </div>
+
+<!-- Slide-out panel (base layer) -->
+<div class="panel-scrim" data-panel-close></div>
+<aside class="panel" id="evolved-panel" role="dialog" aria-modal="true" aria-labelledby="evolved-panel-title" aria-hidden="true">
+  <div class="panel-header">
+    <h2 class="panel-title" id="evolved-panel-title">Tradeoffs &amp; iterations</h2>
+    <button type="button" class="panel-close" data-panel-close aria-label="Close panel">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 6 6 18" />
+        <path d="m6 6 12 12" />
+      </svg>
+    </button>
+  </div>
+  <div class="panel-body">
+    <div class="panel-content">
+      <div class="panel-block">
+        <p class="panel-date">September 2024</p>
+        <p>V1 consolidated daily goals into one color-coded view. Green met, red missed, grey still ahead. Teachers could scan the class in seconds.</p>
+        <p>Other problems emerged in the UX. Learning alerts weren't decodable at a glance, notes didn't articulate tone or class, and student success was buried.</p>
+      </div>
+      <img class="panel-shot" src="../assets/images/case-study/primer-panel-dashboard-1.webp" alt="Class dashboard V1 — daily goals consolidated into one color-coded roster view" />
+      <div class="panel-block">
+        <p class="panel-date">January 2025</p>
+        <p>Rather than embed alerts and milestones in the goals dashboard, I designed a separate interpretation layer: learning alerts, milestones, and class goal completion. Goals across apps moved to their own tab for reference.</p>
+        <p>More actionable, but the data lagged. By the time a teacher saw that Jane was on the wrong Khan course, class was over. Milestones worked, though. Teachers used them to call kids out for a job well done, and we later folded them into the large screen experience. Class goals landed flat. Teachers wanted to help individual students, not track an aggregate.</p>
+      </div>
+      <img class="panel-shot" src="../assets/images/case-study/primer-panel-dashboard-2.webp" alt="Class dashboard January 2025 — a separate interpretation layer with learning alerts, milestones, and class goals" />
+    </div>
+  </div>
+</aside>
 
 <footer class="footer">
   <div class="footer-inner">

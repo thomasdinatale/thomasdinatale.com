@@ -32,10 +32,9 @@
     <a class="nav-mark" href="/" aria-label="Thomas DiNatale, home">
       <span class="nav-square" aria-hidden="true">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 2C0 0.89543 0.895431 0 2 0H22C23.1046 0 24 0.895431 24 2V22C24 23.1046 23.1046 24 22 24H2C0.89543 24 0 23.1046 0 22V2Z" fill="var(--ember)"/>
-          <circle cx="19" cy="18" r="2" fill="#F5F0EB">
-            <animate attributeName="cx" values="3.5;20.5;3.5" dur="9s" calcMode="linear" repeatCount="indefinite"/>
-            <animate attributeName="cy" values="3.5;20.5;3.5" dur="12s" calcMode="linear" begin="-4s" repeatCount="indefinite"/>
+          <circle cx="12" cy="12" r="12" fill="var(--ember)"/>
+          <circle r="2" fill="#F5F0EB">
+            <animateMotion dur="6s" repeatCount="indefinite" path="M12,4 A8,8 0 1,1 12,20 A8,8 0 1,1 12,4 Z"/>
           </circle>
         </svg>
       </span>
@@ -71,8 +70,8 @@
         <h2 class="cs2-tagline cs2-tagline--display fade-in">Designing a giving platform that scales past manual setup</h2>
         <div class="cs2-lead-row fade-in">
           <div class="cs2-body">
-            <p>When I came on, Grapevine was the first product built for giving circles, where fifty people each put in $10, decide together where it goes, and give $500. The product hadn't caught up. There was a homepage, a few forms, and a sales team walking every leader through setup by hand. The circles themselves still ran on email, Venmo, paper checks, and the leader's spreadsheet.</p>
-            <p>Over five years I led product design across the platform, working directly with the CEO and CTO. I designed the experiences that replaced all of it: leaders launch and run circles on their own, members join knowing what they're joining, and the money reaches the nonprofit through the same place the decision was made.</p>
+            <p>When I joined, Grapevine was the first product built for giving circles, where fifty people each put in $10, decide together where it goes, and give $500. There was a homepage, a few forms, and a Grapevine rep walking every leader through setup by hand. The circles themselves still ran on email, Venmo, paper checks, and the leader's spreadsheet.</p>
+            <p>Over five years I led UX and Product Design across the platform, working directly with the CEO and CTO. I designed the experiences that replaced all of it: leaders launch and run circles on their own, members join knowing what they're joining, and the member donations and grants to nonprofits were made on the platform.</p>
           </div>
           <div class="cs2-metrics cs2-metrics--stack">
             <div class="cs2-metric">
@@ -125,24 +124,23 @@
       <div class="cs2-problem-intro">
         <h2 class="cs2-problem-title">The leader problem</h2>
         <div class="cs2-problem-body">
-          <p>A circle leader is a volunteer, not an operator, so the tools were whatever was at hand. A spreadsheet for members, a Word doc for the donation history, an email list for announcements, and a stack of paper checks for the giving itself. Keeping a group together was more overhead than enjoyment.</p>
-          <p>Moving a circle onto the platform meant a call with a rep walking the leader through setup, which got the first circles on and was never going to scale past them.</p>
+          <p>A circle leader is a volunteer, so the tools were whatever was at hand. A spreadsheet for members and their donation history, an email list for announcements, and a stack of paper checks to process. Keeping a group together was a lot of manual work across different touchpoints.</p>
+          <p>Moving a circle onto the platform meant a call with a Grapevine rep walking the leader through setup, which got the first circles on but was unlikely to scale past them.</p>
         </div>
       </div>
       <div class="cs2-outcomes">
         <p class="cs2-outcomes-label">Outcomes</p>
         <ul class="cs2-outcomes-list">
-          <li>Self-service setup replaced hands-on sales onboarding, so a leader launches a circle without a call</li>
+          <li>Self-service giving circle setup replaced hands-on Grapevine rep led onboarding</li>
           <li>Spreadsheets, Word docs, and email lists consolidated into one custom dashboard to manage the giving circle</li>
-          <li>Donations collected and distributed through the platform, eliminating paper checks and manual tracking</li>
-          <li>CSV import brought a circle's existing history and roster in on day one</li>
+          <li>Donations collected and grants distributed through the platform, eliminating paper checks, Venmo requests, and manual tracking</li>
         </ul>
       </div>
     </div>
 
     <div class="cs-copy-block">
-      <h3 class="cs-section-title fade-in">Getting leaders off the ground</h3>
-      <p class="fade-in">Onboarding was the whole problem. A leader who stalls at setup never launches, and every leader who stalled was a salesperson's afternoon.</p>
+      <h3 class="cs-section-title fade-in">Helping leaders get their giving circles off the ground</h3>
+      <p class="fade-in">Onboarding was a challenging problem. Standing up a circle requires a lot of information, and a single long form would feel like a chore. The question was how to collect all of it while building the leader's confidence instead of draining it, letting them see their progress and feel the circle taking shape as they went.</p>
       <p class="fade-in">I designed a mobile-first progressive onboarding flow that broke setup into three stages, each asking a little more as the leader's confidence built. First, they define the circle's purpose and donation goal. Second, they finalize the group page and invite collaborators. Third, they make the first donation and invite members. By the time a leader launched, they understood the product well enough to bring others into it.</p>
     </div>
     <div class="cs-image-caption-group fade-in">
@@ -155,7 +153,7 @@
     </div>
 
     <div class="cs-copy-block">
-      <p class="fade-in">The second stage matters more than it looks. Rather than a settings form, I put leaders directly into their own group homepage, editing in place. Seeing the circle take shape, with its name and its cause and its goal, is what makes a leader want to launch it. Remaining setup steps stay pinned at the top of the page with a prominent Launch Group CTA to signal the finish line.</p>
+      <p class="fade-in">The second stage is really important for confidence building. Rather than a settings form, I put leaders directly into their own group homepage, editing in place. Seeing the circle take shape, with its name and its cause and its goal, is what makes a leader want to launch it. Remaining setup steps stay pinned at the top of the page with a prominent Launch Group CTA to signal the finish line.</p>
     </div>
     <div class="cs-image-caption-group fade-in">
       <div class="cs-image-block">
@@ -188,7 +186,7 @@
     </div>
 
     <div class="cs-copy-block">
-      <p class="fade-in">Most circles arriving on Grapevine already had a history. They had given for years and tracked it in a spreadsheet. I designed CSV import for exactly that, letting a leader bring in their existing roster and past giving so the platform started with their record instead of asking them to abandon it. Meeting a circle where it already was, which was a spreadsheet, was the difference between a leader trying Grapevine and a leader moving to it.</p>
+      <p class="fade-in">If the giving circle existed before joining Grapevine, the leader could bring in their existing members and past donation cycles so the platform started with their history instead of asking them to abandon it. Meeting a giving circle where it already was, was the difference between a leader trying the platform out and a leader moving the group to the platform.</p>
     </div>
     <div class="cs-image-caption-group fade-in">
       <div class="cs-image-block">
@@ -198,9 +196,9 @@
     </div>
 
     <div class="cs-copy-block">
-      <h3 class="cs-section-title fade-in">Moving money without paper checks</h3>
-      <p class="fade-in">The giving itself was the last thing still happening off-platform. A circle voted, and then the leader wrote a check, mailed it, and typed the amount into a doc so the group had a record.</p>
-      <p class="fade-in">I designed collection and distribution into the platform. Members give per cycle, the funds pool against the cycle, and once the group votes, the leader submits the donation to the winning nonprofit directly. The record keeps itself. The change was less about the payment than about what stopped being a leader's job: no chasing individual members for their share, no check to mail, no ledger to maintain by hand, and a running total the whole group can see.</p>
+      <h3 class="cs-section-title fade-in">Member donations &amp; granting without paper checks</h3>
+      <p class="fade-in">The member donation and giving circle grant was the last thing still happening off-platform. Members of the giving circle nominated nonprofits, voted, and then the leader wrote a check for the collective amount, mailed it, and typed the amount into a doc so the group had a record.</p>
+      <p class="fade-in">I designed donation collection and giving circle granting into the platform. Members give per cycle, the funds pool against the cycle, and once the group votes, the leader submits the donation to the winning nonprofit directly. The record keeps itself. The change was less about the donation transaction than about what stopped being a leader's job: no chasing individual members for their share, no check to mail, no ledger to maintain by hand, and a running total the whole group can see.</p>
     </div>
     <div class="cs-image-caption-group fade-in">
       <div class="cs-image-block">
@@ -210,8 +208,8 @@
     </div>
 
     <div class="cs-copy-block">
-      <h3 class="cs-section-title fade-in">What changed for leaders</h3>
-      <p class="fade-in">A volunteer can move their circle onto Grapevine on a Tuesday night and launch it before bed, without talking to anyone. Running it afterward is one dashboard instead of four documents, and the money moves through the same place the decision was made. The sales-led motion that got the first circles on stopped being the only way a circle could get there.</p>
+      <h3 class="cs-section-title fade-in">What changed for giving circle leaders</h3>
+      <p class="fade-in">Leaders starting a circle get a self-serve flow that builds their confidence as they launch. Leaders bringing an existing circle over keep the full history of their impact. From there both run on one dashboard instead of a stack of tools and documents, with donations and grants happening in the same place the group makes its decision. The Grapevine rep who got the first circles on stopped being the only way onto the platform.</p>
     </div>
 
     <!-- ── The member problem ────────────────────────────── -->
@@ -226,7 +224,7 @@
       <div class="cs2-outcomes">
         <p class="cs2-outcomes-label">Outcomes</p>
         <ul class="cs2-outcomes-list">
-          <li>Platform grew from a few hundred members to 90,000 over the engagement</li>
+          <li>Platform grew from a few thousand members to 90,000 over the engagement</li>
           <li>Self-service onboarding delivers member value before the donation step, so trust is established before the first donation</li>
           <li>One digital home for the giving circle, replacing text threads, email lists, and spreadsheets</li>
           <li>Per-cycle giving on the platform replaced monthly Venmo requests and paper checks</li>
@@ -237,25 +235,25 @@
 
     <div class="cs-copy-block">
       <h3 class="cs-section-title fade-in">Understanding the model before donating</h3>
-      <p class="fade-in">I redesigned signup around the same principle as leader onboarding: do not ask for money before the person understands what they are buying into. A new member builds a profile, sees how the circle works, sees what this group in particular has given to, and then commits. The profile is not a formality. Circles are groups of people who decide together, and a member arriving as a name and a payment method has nothing to decide with.</p>
-    </div>
-    <div class="cs-image-caption-group fade-in">
-      <div class="cs-onboarding-row">
-        <img src="../assets/images/case-study/grapevine-member-onboarding-1.png" alt="Member signup step 1 — building a member profile" />
-        <img src="../assets/images/case-study/grapevine-member-onboarding-2.png" alt="Member signup step 2 — member connections" />
-        <img src="../assets/images/case-study/grapevine-member-onboarding-3.png" alt="Member signup step 3 — upcoming events" />
-      </div>
-      <p class="cs-caption cs-caption--narrow">A member builds a profile and learns how a circle works before any money is asked for. The old flow was sign up, now donate, which only worked on members a friend had already convinced.</p>
-    </div>
-
-    <div class="cs-copy-block">
-      <p class="fade-in">Members give per cycle rather than once. That is the commitment the flow is actually asking for, and it needed to be understood before it was made.</p>
+      <p class="fade-in">I designed member signup around the same principle as leader onboarding: do not ask for a donation before the person understands what they are joining. A prospective member can access a landing page designed to educate. They see the group's mission, the members already in it, the nonprofits it has granted to and how much, a thank-you video from a past grantee, upcoming events, and what a quarterly donation means in terms of impact.</p>
     </div>
     <div class="cs-image-caption-group fade-in">
       <div class="cs-image-block">
-        <img src="../assets/images/case-study/grapevine-member-donation.png" alt="Grapevine member scheduling a per-cycle donation during signup" />
+        <img src="../assets/images/case-study/grapevine-member-landing.png" alt="Grapevine member landing page — the group's mission, a member testimonial, and local leaders, all before the donation ask" />
       </div>
       <p class="cs-caption cs-caption--narrow">The commitment is per cycle, not one time. Naming that plainly at the moment of signup is the difference between a member who gives once and a member who stays.</p>
+    </div>
+
+    <div class="cs-copy-block">
+      <p class="fade-in">Only after that does the join flow begin, and it is built to deepen the commitment. A member builds a profile, hearts the nonprofits they want to nominate later, flags the events they would show up for, and after donating, connects with the other members. The donation is per cycle rather than one time, which is the real commitment the flow is asking for, and the page has spent every section earning it first. By the time the donation is made, the member has a stake in the group, not just a donation receipt.</p>
+    </div>
+    <div class="cs-image-caption-group fade-in">
+      <div class="cs-onboarding-row">
+        <img src="../assets/images/case-study/grapevine-member-onboarding-1.png" alt="Member signup — building a member profile" />
+        <img src="../assets/images/case-study/grapevine-member-onboarding-3.png" alt="Member signup — upcoming events" />
+        <img src="../assets/images/case-study/grapevine-member-onboarding-2.png" alt="Member signup — member connections" />
+      </div>
+      <p class="cs-caption cs-caption--narrow">A member builds a profile and learns how a circle works before any money is asked for. The old flow was sign up, now donate, which only worked on members a friend had already convinced.</p>
     </div>
 
     <div class="cs-copy-block">
@@ -291,14 +289,14 @@
 
     <div class="cs-copy-block">
       <h3 class="cs-section-title fade-in">What changed for members</h3>
-      <p class="fade-in">A member joins understanding what a giving circle is. They donate, nominate the organizations they care about, vote on the three that make it to the final stage, cheer the final grant and see the result come back as a video from the people who received it. The parts that used to be a group text and a Venmo request are now all on one platform.</p>
+      <p class="fade-in">A member joins understanding what a giving circle is. As part of a community, they donate, nominate the organizations they care about, vote on the three that make it to the final stage, cheer the final grant and see the result come back as a video or letter from the people who received it. The parts that used to be email chains or group text messages, a Venmo request and offline voting are now all on one platform.</p>
     </div>
 
     <!-- ── The results ───────────────────────────────────── -->
     <div class="cs2-problem-card fade-in">
       <h2 class="cs2-problem-title">The Results</h2>
       <div class="cs2-problem-body">
-        <p>Over five years, Grapevine grew into a platform supporting 90,000 members and $51 million in donations. The sales-assisted setup it started on gave way to experiences leaders run themselves: they launch and manage their circles independently, and new members are brought into groups through a guided onboarding flow. What began as manual workflows a small team stitched together by hand became a platform its own users operate.</p>
+        <p>Over five years, Grapevine grew into a platform supporting 90,000 members and $51 million in donations. The rep-assisted setup it started on gave way to experiences leaders run themselves: they launch and manage their circles independently, and new members are brought into groups through a guided onboarding flow. What began as manual workflows a small team stitched together by hand became a platform its own users operate.</p>
       </div>
     </div>
   </section>

@@ -101,3 +101,63 @@
 
   document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
 })();
+
+/* Slide-out panel: open from a trigger, close via X / scrim / Esc. */
+(function () {
+  const panel = document.getElementById('evolved-panel');
+  if (!panel) return;
+  const scrim = document.querySelector('.panel-scrim');
+  const trigger = document.querySelector('[data-panel-open]');
+  const closeEls = document.querySelectorAll('[data-panel-close]');
+  const closeBtn = panel.querySelector('.panel-close');
+  const panelBody = panel.querySelector('.panel-body');
+  const panelHeader = panel.querySelector('.panel-header');
+  let lastFocused = null;
+
+  // Header mirrors the nav: color + 1px shale bottom border once the body scrolls
+  if (panelBody && panelHeader) {
+    panelBody.addEventListener('scroll', function () {
+      panelHeader.classList.toggle('scrolled', panelBody.scrollTop > 0);
+    }, { passive: true });
+  }
+
+  function isOpen() {
+    return panel.classList.contains('is-open');
+  }
+  function openPanel() {
+    lastFocused = document.activeElement;
+    if (panelBody) panelBody.scrollTop = 0;
+    if (panelHeader) panelHeader.classList.remove('scrolled');
+    panel.classList.add('is-open');
+    if (scrim) scrim.classList.add('is-open');
+    panel.setAttribute('aria-hidden', 'false');
+    document.documentElement.classList.add('panel-open');
+    if (trigger) trigger.setAttribute('aria-expanded', 'true');
+    if (closeBtn) closeBtn.focus();
+  }
+  function closePanel() {
+    panel.classList.remove('is-open');
+    if (scrim) scrim.classList.remove('is-open');
+    panel.setAttribute('aria-hidden', 'true');
+    document.documentElement.classList.remove('panel-open');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+  }
+
+  if (trigger) trigger.addEventListener('click', openPanel);
+  closeEls.forEach((el) => el.addEventListener('click', closePanel));
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && isOpen()) closePanel();
+  });
+
+  // Keep Tab focus within the panel while it's open
+  panel.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab' || !isOpen()) return;
+    const f = panel.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+})();

@@ -158,6 +158,92 @@
   line-height: 1.5;
 }
 
+/* "How this evolved" — a pinned aside on a linen panel. Its 650px text
+   column aligns with .cs-copy-block; the linen bleeds 24px wider each side. */
+.cs-evolved {
+  width: 730px;
+  max-width: 100%;
+  background: var(--linen);
+  border-radius: 16px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.cs-evolved-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pitch);
+}
+.cs-evolved-pin {
+  flex-shrink: 0;
+}
+.cs-evolved-title {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+/* "View tradeoffs & iterations" link — opens the panel.
+   Resting: underlined pitch text. Hover: nav-style ember color + ember
+   underline bar that wipes in left-to-right. */
+.panel-link {
+  align-self: flex-start;
+  width: fit-content;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0 0 4px;
+  font: inherit;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--pitch);
+  position: relative;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.panel-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--pitch);
+}
+.panel-link::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--ember);
+  transition: width 0.25s ease;
+}
+.panel-link:hover {
+  color: var(--ember);
+}
+.panel-link:hover::after {
+  width: 100%;
+  right: auto;
+  left: 0;
+}
+.panel-link:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 4px;
+}
+.cs-evolved > p {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--pitch);
+}
+
 .cs-image-block {
   width: 100%;
   max-width: 1216px;
@@ -833,7 +919,7 @@
 .cs2-outcomes-list li {
   font-size: 20px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
 }
 
@@ -1012,5 +1098,142 @@
   }
   .cs2-outcomes-list li {
     font-size: 18px;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Slide-out panel
+───────────────────────────────────────── */
+.panel-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 200;
+}
+.panel-scrim.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 880px;
+  max-width: 100%;
+  background: var(--plaster);
+  box-shadow:
+    -10px 0 21px 0 rgba(0, 0, 0, 0.10),
+    -39px 0 39px 0 rgba(0, 0, 0, 0.09),
+    -88px 0 53px 0 rgba(0, 0, 0, 0.05),
+    -156px 0 62px 0 rgba(0, 0, 0, 0.01);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.35s;
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+}
+.panel.is-open {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.panel-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 32px;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.panel-header.scrolled {
+  background: var(--chalk);
+  border-bottom-color: var(--shale);
+}
+.panel-title {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--pitch);
+}
+.panel-close {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--pitch);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+}
+.panel-close:hover {
+  opacity: 0.6;
+}
+.panel-close:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+.panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 32px 48px;
+}
+
+/* Panel content — "Tradeoffs & iterations" timeline */
+.panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+}
+.panel-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.panel-block p {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--pitch);
+}
+.panel-block .panel-date {
+  font-weight: 600;
+  line-height: 1.5;
+}
+.panel-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow:
+    0 2px 5px rgba(0, 0, 0, 0.10),
+    0 9px 9px rgba(0, 0, 0, 0.09),
+    0 21px 13px rgba(0, 0, 0, 0.05);
+}
+
+/* Lock page scroll while the panel is open */
+:root.panel-open {
+  overflow: hidden;
+}
+
+/* Below 880px, the panel is 95% of the screen width */
+@media (max-width: 879px) {
+  .panel {
+    width: 95%;
   }
 }
