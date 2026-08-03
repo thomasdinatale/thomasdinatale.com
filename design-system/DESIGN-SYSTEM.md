@@ -1,0 +1,122 @@
+# Design System — thomasdinatale.com
+
+The single source of truth for building on this portfolio, written for AI-assisted development. Read this before touching HTML/CSS. Exact values live in [`tokens.json`](./tokens.json); this file explains **how to use them** — the class-based component API, the rules, and the gotchas.
+
+## How to use this (for an AI agent)
+
+1. **Never hardcode a color, radius, or shadow.** Reference the CSS custom property: `color: var(--pitch)`, `background: var(--linen)`. The raw hex in `tokens.json` is reference-only so you know what a var resolves to per theme.
+2. **Reuse a component class before writing new CSS.** The inventory below is exhaustive for the current site. If something fits, use its class — don't restyle from scratch.
+3. **Match the semantic heading hierarchy** (see below). Styling is class-based, so tags never change appearance — pick the correct tag *and* the correct class.
+4. **Respect the gotchas** at the bottom. Several inert/legacy rules in the CSS will mislead you if you take them at face value.
+
+## Themes & color
+
+Three themes, all driven by CSS custom properties on `:root` — see `tokens.json > color` for the full table and `$meta.themeMechanism` for how each is triggered.
+
+- **light** — default (`:root`)
+- **dark** — OS `prefers-color-scheme: dark` (unless `.theme-light` forces light), or forced with `.theme-dark`
+- **extraDark** — `.theme-extra-dark`, the second *user-facing* theme (the nav circle toggles light ⇆ extra-dark; plain `.theme-dark` is retained in CSS but no longer reachable through the UI)
+
+Because everything flows through the vars, **correct token usage gets you all three themes for free.** The moment you hardcode a hex, you break dark mode.
+
+Signature move — the **card border gradient**: `linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%)` painted on `border-box`, with `linear-gradient(var(--chalk), var(--chalk)) padding-box` for the fill. This is why `--cloud` and `--metal` exist; they are gradient stops, not surfaces.
+
+## Type scale
+
+Full details in `tokens.json > typography.scale`. The workhorse is **body: 18px / 400 / 1.6**. Quick map of role → class:
+
+| Role | Size / Weight | Use for | Example class |
+|------|---------------|---------|---------------|
+| Display | 80 / 800 · lh 1 | Page H1, project name | `.hero h1`, `.cs2-headline` |
+| H2 section | 48 / 700 · lh 1.4 | Section headlines | `.thinking-headline`, `.about-headline` |
+| H2 problem | 32 / 700 · lh 1.4 | Problem cards, display tagline | `.cs2-problem-title`, `.cs2-tagline--display` |
+| Card title | 24 / 600 | Card + section titles | `.project-title`, `.cs-section-title` |
+| Lead body | 24 / 400 · lh 1.7 | Hero / case-study lead | `.hero p`, `.cs2-body p` |
+| **Body** | **18 / 400 · lh 1.6** | **default paragraph** | `.cs-copy-block p`, `.article-section p` |
+| Caption | 14–16 / 400 · flint | Image captions | `.cs2-cap`, `.cs-caption` |
+| Eyebrow | 14 / 700 · uppercase · +tracking | Labels, date pills | `.cs2-problem-eyebrow`, `.history-date` |
+
+## Semantic heading hierarchy (case studies)
+
+Exactly one `<h1>` per page, no skipped levels. Tags are chosen for semantics; classes drive appearance.
+
+| Level | Class | Role |
+|-------|-------|------|
+| `<h1>` | `cs2-headline` | Project name (one per page) |
+| `<h2>` | `cs2-tagline cs2-tagline--display` | Hero tagline |
+| `<h2>` | `cs2-problem-title` | Problem-card section titles |
+| `<h3>` | `cs-section-title` | Feature section titles |
+
+Don't use `<p>` for anything in this table.
+
+## Component inventory
+
+Every reusable pattern currently in the site, with its class and where it's defined. Prefer these; extend them rather than forking.
+
+### Global (`css/styles.css`)
+- **Nav** — `nav` (sticky, transparent → `.scrolled` gives chalk bg + shale border). `.nav-inner`, `.nav-mark` + `.nav-square` (24px SVG circle) + `.nav-wordmark`, `.nav-links`, `.nav-jump-links` (hidden on mobile), `.nav-link` (ember underline-wipe on hover), `.nav-divider`, `.nav-icon` (LinkedIn — **CSS mask**, not `<img>`, not filter), `.nav-mail`, `.theme-toggle` (16px circle, spins 360° + turns ember on hover).
+- **Tooltip** — `.tooltip` (shale bg, 6px radius); nav variant positions below icon and force-shows via `.is-visible` for the email "Copied!" state.
+- **Buttons / CTAs** — `.projects-cta-btn` (4px radius, shale border → flint on hover, 20/600).
+- **Links** — `.text-link` (pitch text, ember underline, full ember on hover), `.connect-link` (ember + underline).
+- **Cards (homepage)** — `.project-card` (32px radius, gradient border, lifts on hover), `.project-card-image` with modifiers `--contain` / `--cover` / `--crop-bottom` and per-project hover fills `--primer/--butcherbox/--nara/--grapevine`. `.article-card` (24px radius, gradient border, flint stroke fades in via `::after`), `.article-image` (desaturated → full color on hover).
+- **Principles** — `.about-principles-list` / `.about-principle` (num + name row, shale bottom rule).
+- **Photos carousel** — `.photos`, `.photos-grid`, `.photo-item` (12px chalk frame + layered shadow), `.photos-btn` (ember arrows).
+- **Footer** — `.footer` / `.footer--linen`, `.footer-inner`, dot separators.
+- **Scroll fade-in** — `.fade-in` → `.fade-in.visible` (JS adds `.visible`; see `js/case-study.js`).
+- **Work/history page** — `.history-grid`, `.history-card` (gradient border, chalk body), `.history-title` (40/700), `.history-date` (uppercase pill), `.history-tag`.
+
+### Case study (`css/case-study.css`)
+- **Legacy `cs-` hero** — `.cs-hero` (1fr / 405px grid), `.cs-headline`, `.cs-hero-body`, `.cs-meta-card` (label/value fields + `.cs-tags`/`.cs-tag`), `.cs-hero-image-bg` + `.cs-hero-image` + `.cs-caption`.
+- **Current `cs2-` hero** — `.cs2-hero` → `.cs2-hero-and-image` → `.cs2-hero-inner`; `.cs2-headline`, `.cs2-title-desc-metrics`, `.cs2-tagline(--display)`, `.cs2-body`, `.cs2-metrics` / `.cs2-metric` (linen card: value + arrow + label; `--stack` variant for vertical). Hero image: `.cs2-hero-image-card` (chalk, 24px) or `.cs2-hero-phones-row` (desktop) / `--mobile`.
+- **Content flow** — `.cs2-flow` (48px gap column, max 1200px), `.cs-copy-block` (650px reading column), `.cs2-figure` + `.cs2-cap`, `.cs2-media` (+ `--wide` / `-img--sm` / `-img--watch`), `.cs2-image-pair`, `.cs2-phone-row`, `.cs2-watch-grid`, `.cs2-video`.
+- **Problem card** — `.cs2-problem-card` (linen, 32px radius, 778px) with `.cs2-problem-eyebrow` / `.cs2-problem-title` / `.cs2-problem-body`; `--outcomes` variant adds `.cs2-outcomes-list`.
+- **"How this evolved" aside + slide-out panel** — `.cs-evolved` (linen card), `.panel-link` (opens panel, arrow bounces on hover), `.panel-scrim` + `.panel` (880px, right, `cubic-bezier(0.4,0,0.2,1)` slide), `.panel-header/.panel-body/.panel-content/.panel-section/.panel-block/.panel-shot`. Body scroll locks via `:root.panel-open`.
+
+### Article (`css/article.css`)
+- **Layout** — `.article-layout` (667px + 405px sticky sidebar, 50px gap).
+- **Content** — `.article-header`, `.article-title-block`, `.article-date`, `.article-title`, `.article-intro`, `.article-divider`, `.article-section` (+ `.article-section-title`), `.article-body-semibold`, `.article-prompt` (italic, ember left rule), `.article-list`, `.article-img` (8px radius) + `.article-caption`.
+- **Sidebar TOC** — `.article-meta-card` (linen), `.article-toc` with shale `.article-toc-track` + sliding ember `.article-toc-indicator`; `.article-sections-list li.active`.
+
+## Layout constants
+
+- Page max-width **1440px**; case-study reading column **650px**; article grid **667 + 405** (gap 50).
+- Section padding desktop **`80px 160px`** (hero `80px 192px`); nav **`16px 80px`**; mobile collapses sides to **16px** (articles/handoff use 24px).
+- Single responsive breakpoint: **`max-width: 768px`** (panel has an extra one at 879px).
+- Fixed background grid at **33px** cells (`.bg-grid`), plus `.bg-top-fade`.
+
+## Rules
+
+**Do**
+- Use `var(--token)` for every color, and the spacing/radius/shadow values in `tokens.json` for consistency.
+- Reuse an existing component class; add a `--modifier` class for a variant rather than new base CSS.
+- Keep one `<h1>` per page and follow the heading table.
+- Test both light and extra-dark (the nav circle toggles them) after any visual change.
+- Download Figma assets to `assets/images/` immediately — Figma URLs expire after 7 days.
+
+**Don't**
+- Don't hardcode hex/rgba (breaks dark modes). Exceptions already in the code (`#ede9dc` meta card, scrim `rgba(0,0,0,.75)`) are documented in `tokens.json > colorNotes`; don't add new ones.
+- Don't add a build step, framework, or dependency — this is static HTML/CSS/JS by design.
+- Don't reach for `font-stretch: condensed` or `font-variation-settings: 'wdth'` expecting a visual change — see gotchas.
+- Don't add breakpoints beyond 768px unless a layout genuinely needs it; the system is deliberately one-breakpoint.
+
+## ⚠️ Gotchas (these will mislead you)
+
+1. **Libre Franklin has no width axis — there is no condensed rendering.** `font-stretch` and `font-variation-settings: 'wdth' …` were stripped from the CSS because they did nothing. Don't add them back to "condense" a heading; they render at normal width. Weight (400–900) and italic are the only variable axes.
+2. **Two case-study systems coexist:** legacy `cs-*` (ButcherBox, Grapevine) and current `cs2-*` (Primer, Nara). **Build new case studies with `cs2-*`.** Only touch `cs-*` when editing those specific legacy pages.
+3. **LinkedIn icon is a CSS mask**, not an `<img>` and not a filter: `mask-image` + `background-color: var(--ember)` on hover. Use `<span class="nav-icon" aria-hidden="true">`.
+4. **Dark mode auto-dims images** (`brightness/contrast/opacity` filter on all `img` except `.about-portrait`), restoring to full on card hover. Account for this when adding imagery.
+5. **`.about-portrait` inverts in dark mode** (`filter: invert(1)`) because it's a transparent ink drawing — keep new line-art assets on transparent backgrounds if they should invert too.
+
+## Where things live
+
+```
+css/styles.css        — tokens (:root) + global components + homepage + /work
+css/case-study.css     — cs- (legacy) and cs2- (current) case-study systems + slide-out panel
+css/article.css        — article pages + sticky TOC
+js/case-study.js       — scroll fade-in, TOC tracking, panel open/close
+design-system/          — THIS spec (tokens.json + DESIGN-SYSTEM.md)
+```
+
+## Deployment
+
+Static site on Vercel. **Deploy via CLI** (GitHub is not connected to Vercel): `vercel --prod`. Push source to GitHub via **GitHub Desktop** (terminal has no GitHub HTTPS auth).

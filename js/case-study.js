@@ -1,4 +1,9 @@
 (function () {
+  /* Click-ball effect — PAUSED in favor of the cursor grid-glow. Flip to true
+     to bring the bouncing ember dots back. */
+  var ENABLE_CLICK_BALLS = false;
+  if (!ENABLE_CLICK_BALLS) return;
+
   var GRAVITY = 2600;      // px/s^2
   var RESTITUTION = 0.6;   // energy kept after the bounce
   var RADIUS = 5;          // 10px circle
@@ -59,6 +64,41 @@
 })();
 
 (function () {
+  /* Cursor spotlight — lights up the background grid lines near the pointer.
+     Creates the .grid-glow layer wherever .bg-grid exists (no per-page markup),
+     then updates two CSS vars on pointermove, throttled to one rAF per frame. */
+  if (!document.querySelector('.bg-grid')) return;
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var glow = document.createElement('div');
+  glow.className = 'grid-glow';
+  glow.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(glow);
+
+  var x = 0, y = 0, active = false, ticking = false;
+
+  function apply() {
+    ticking = false;
+    glow.style.setProperty('--gx', x + 'px');
+    glow.style.setProperty('--gy', y + 'px');
+  }
+
+  window.addEventListener('pointermove', function (e) {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    x = e.clientX;
+    y = e.clientY;
+    if (!active) { active = true; glow.classList.add('is-active'); }
+    if (!ticking) { ticking = true; requestAnimationFrame(apply); }
+  }, { passive: true });
+
+  document.addEventListener('mouseleave', function () {
+    active = false;
+    glow.classList.remove('is-active');
+  });
+})();
+
+(function () {
   /* Nav circle: single-click toggles between light and extra-dark (the two
      user-facing themes). Standard 'dark' still exists in CSS but isn't reachable
      here. Overrides OS preference and persists. */
@@ -100,6 +140,75 @@
   );
 
   document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+})();
+
+/* Nav email: hover shows the address in a tooltip; click copies it to the
+   clipboard and the tooltip reads "Copied!" for 3 seconds. */
+(function () {
+  var EMAIL = 'hi@thomasdinatale.com';
+  var mail = document.querySelector('.nav-mail');
+  if (!mail) return;
+
+  var tip = document.createElement('span');
+  tip.className = 'tooltip';
+  tip.textContent = EMAIL;
+  tip.setAttribute('aria-hidden', 'true');
+  mail.appendChild(tip);
+  mail.setAttribute('aria-label', 'Copy email address ' + EMAIL);
+
+  // Offscreen live region so the copy confirmation is announced.
+  var live = document.createElement('span');
+  live.setAttribute('aria-live', 'polite');
+  live.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;';
+  mail.appendChild(live);
+
+  var timer = null;
+
+  function confirmCopied() {
+    tip.textContent = 'Copied!';
+    tip.classList.add('is-visible');
+    live.textContent = 'Email address copied to clipboard';
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      tip.classList.remove('is-visible');
+      tip.textContent = EMAIL;
+      live.textContent = '';
+    }, 3000);
+  }
+
+  function fallbackCopy() {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = EMAIL;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:absolute;left:-9999px;';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    } catch (err) {}
+    confirmCopied();
+  }
+
+  mail.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(EMAIL).then(confirmCopied).catch(fallbackCopy);
+    } else {
+      fallbackCopy();
+    }
+  });
+})();
+
+/* Nav LinkedIn: simple hover tooltip. */
+(function () {
+  var link = document.querySelector('.nav-icon-link[href*="linkedin"]');
+  if (!link) return;
+  var tip = document.createElement('span');
+  tip.className = 'tooltip';
+  tip.textContent = 'LinkedIn';
+  tip.setAttribute('aria-hidden', 'true');
+  link.appendChild(tip);
 })();
 
 /* Slide-out panel: open from a trigger, close via X / scrim / Esc. */

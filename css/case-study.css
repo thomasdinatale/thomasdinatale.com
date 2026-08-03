@@ -30,7 +30,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -61,7 +61,7 @@
 }
 
 .cs-meta-value {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -76,7 +76,7 @@
 .cs-tag {
   background: rgba(26, 24, 25, 0.10);
   color: var(--pitch);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   padding: 4px 8px;
@@ -146,7 +146,7 @@
 }
 
 .cs-copy-block p {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -185,41 +185,45 @@
   line-height: 1.5;
   color: var(--pitch);
 }
-/* "View tradeoffs & iterations" link — opens the panel.
-   Resting: underlined pitch text. Hover: nav-style ember color + ember
-   underline bar that wipes in left-to-right. */
+/* "View tradeoffs & iterations" link — opens the panel. Text + arrow.
+   Resting: underlined pitch text. Hover: ember color, the underline bar
+   wipes in left-to-right, and the arrow nudges out and back. */
 .panel-link {
   align-self: flex-start;
-  width: fit-content;
   appearance: none;
   -webkit-appearance: none;
   background: none;
   border: none;
   margin: 0;
-  padding: 0 0 4px;
+  padding: 0;
   font: inherit;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
-  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   cursor: pointer;
   transition: color 0.2s ease;
 }
-.panel-link::before {
+.panel-link-text {
+  position: relative;
+}
+.panel-link-text::before {
   content: '';
   position: absolute;
   left: 0;
-  bottom: 0;
+  bottom: -1px;
   width: 100%;
   height: 1px;
   background: var(--pitch);
 }
-.panel-link::after {
+.panel-link-text::after {
   content: '';
   position: absolute;
   right: 0;
-  bottom: 0;
+  bottom: -1px;
   width: 0;
   height: 2px;
   background: var(--ember);
@@ -228,17 +232,29 @@
 .panel-link:hover {
   color: var(--ember);
 }
-.panel-link:hover::after {
+.panel-link:hover .panel-link-text::after {
   width: 100%;
   right: auto;
   left: 0;
+}
+.panel-link-arrow {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+.panel-link:hover .panel-link-arrow {
+  animation: panel-arrow-bounce 0.4s ease;
+}
+@keyframes panel-arrow-bounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
 }
 .panel-link:focus-visible {
   outline: 2px solid var(--ember);
   outline-offset: 4px;
 }
 .cs-evolved > p {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -388,7 +404,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -431,7 +447,7 @@
 }
 
 .cs-closing-copy p {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -439,7 +455,7 @@
 
 .cs-closing-para {
   width: 650px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -471,7 +487,6 @@
 }
 
 .cs2-headline {
-  font-stretch: condensed;
   font-size: 80px;
   font-weight: 900;
   line-height: 1;
@@ -635,6 +650,21 @@
   height: auto;
 }
 
+/* Autoplay/loop demo video — full-width like the figure images, with the
+   Primer card shadow applied in CSS (the recording has square corners) */
+.cs2-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* The caption's -12px pull is meant for images whose shadow is baked into a
+   transparent tail; the video's shadow is real CSS, so give the caption room */
+.cs2-figure:has(.cs2-video) .cs2-cap {
+  margin-top: 32px;
+}
+
 .cs2-cap {
   font-size: 16px;
   font-weight: 400;
@@ -670,9 +700,8 @@
 }
 
 .cs2-problem-title {
-  font-stretch: condensed;
   font-size: 32px; /* H2 */
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.4;
   color: var(--pitch);
 }
@@ -684,7 +713,7 @@
 }
 
 .cs2-problem-body p {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -850,7 +879,6 @@
 }
 
 .cs2-tagline--display {
-  font-stretch: condensed;
   font-size: 32px;
   font-weight: 700;
   line-height: 1.4;
@@ -917,7 +945,7 @@
 }
 
 .cs2-outcomes-list li {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -1107,7 +1135,7 @@
 .panel-scrim {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.75);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -1126,6 +1154,7 @@
   width: 880px;
   max-width: 100%;
   background: var(--plaster);
+  border-left: 1px solid var(--shale);
   box-shadow:
     -10px 0 21px 0 rgba(0, 0, 0, 0.10),
     -39px 0 39px 0 rgba(0, 0, 0, 0.09),
@@ -1150,18 +1179,18 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 24px 32px;
+  padding: 24px 32px 24px 64px;
   background: transparent;
   border-bottom: 1px solid transparent;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 .panel-header.scrolled {
-  background: var(--chalk);
+  background: var(--plaster);
   border-bottom-color: var(--shale);
 }
 .panel-title {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.5;
   color: var(--pitch);
 }
@@ -1192,14 +1221,25 @@
 .panel-body {
   flex: 1;
   overflow-y: auto;
-  padding: 24px 32px 48px;
+  background: var(--plaster);
+  padding: 32px 64px 64px;
 }
 
 /* Panel content — "Tradeoffs & iterations" timeline */
 .panel-content {
   display: flex;
   flex-direction: column;
-  gap: 42px;
+  gap: 40px;
+}
+.panel-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.panel-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--shale);
 }
 .panel-block {
   display: flex;
@@ -1207,7 +1247,7 @@
   gap: 16px;
 }
 .panel-block p {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -1235,5 +1275,22 @@
 @media (max-width: 879px) {
   .panel {
     width: 95%;
+  }
+}
+
+/* Mobile body size (18px) for the "How this evolved" card + panel text.
+   Placed at end so it wins over the panel base rules above. */
+@media (max-width: 768px) {
+  .cs-evolved > p,
+  .panel-title,
+  .panel-date,
+  .panel-block p {
+    font-size: 18px;
+  }
+  .panel-header {
+    padding: 20px 20px 20px 24px;
+  }
+  .panel-body {
+    padding: 24px 24px 48px;
   }
 }

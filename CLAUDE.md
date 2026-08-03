@@ -2,6 +2,15 @@
 
 Personal portfolio for Thomas DiNatale, product design leader.
 
+## Design system (read first)
+
+The machine-readable design system is the single source of truth for building on this site:
+
+- `design-system/DESIGN-SYSTEM.md` — AI-facing guide: theme model, type scale, full component inventory, rules, and gotchas (inert `font-stretch`, legacy "Instrument Sans" comments, `cs-` vs `cs2-`).
+- `design-system/tokens.json` — exact token values (colors × 3 themes, typography, spacing, radii, shadows, motion, layout).
+
+**Before writing HTML/CSS, read those two files.** Always reference colors via `var(--token)`, never raw hex. The token table below is a quick reference; the files above are authoritative.
+
 ## Stack
 
 - Static HTML/CSS/JS — no framework, no build step

@@ -70,8 +70,8 @@
         <h2 class="cs2-tagline cs2-tagline--display fade-in">From scattered tools to one platform for teachers, students, and parents</h2>
         <div class="cs2-lead-row fade-in">
           <div class="cs2-body">
-            <p>When I joined, Primer had pivoted from a supplemental after-school platform to full-time, in-person K–8 microschools. The product hadn't caught up: an MVP held together by external tools, with a limited experience for teachers, students, and parents.</p>
-            <p>Over three years I led UX and Product Design as Primer scaled, directing a small team while doing the core design work myself. I overhauled the design system and designed the experiences that replaced them: one platform where teachers teach, students learn, and parents stay informed, coherent across web, mobile web, native, and the classroom.</p>
+            <p>When I joined, Primer had pivoted from a supplemental after-school product to full-time, in-person K–8 microschools. The product hadn't caught up: an MVP held together by external tools, with a limited experience for teachers, students, and parents.</p>
+            <p>Over nearly three years I led UX and Product Design as Primer scaled its network, directing a small team while doing the core design work myself. I overhauled the design system and designed the experiences that replaced the previous product: one platform where teachers teach, students learn, and parents stay informed, coherent across web, mobile web, native, and the classroom.</p>
           </div>
           <div class="cs2-metrics cs2-metrics--stack">
             <div class="cs2-metric">
@@ -110,7 +110,7 @@
         src="../assets/images/case-study/primer-tv-classroom.webp"
         alt="Primer classroom TV screen display"
       />
-      <p class="cs2-hero-caption">I designed a television display that lets a teacher read the whole room from anywhere in it: which class each student is in, time left in the block, progress on daily and weekly goals.</p>
+      <p class="cs2-hero-caption">The television display design lets a teacher understand what's happening right now from anywhere in the classroom: which class each student is in, time left in the class block, and each student's progress on daily and weekly goals.</p>
     </div>
     </div>
   </section>
@@ -122,28 +122,46 @@
       <div class="cs2-problem-intro">
         <h2 class="cs2-problem-title">The teacher problem</h2>
         <div class="cs2-problem-body">
-          <p>From classroom visits and teacher feedback, the fix was clear: put every tool a teacher needs in one place, so the day isn't spent switching tabs and reconciling five apps to see where a class stands.</p>
+          <p>After visiting the classrooms and listening to teacher feedback, the UX problem was clear: put every tool a teacher needs in one place, so their day isn't spent switching tabs and reconciling five learning apps plus external tools like Slack, Zoom &amp; Notion to manage their classrooms.</p>
         </div>
       </div>
       <div class="cs2-outcomes">
         <p class="cs2-outcomes-label">Outcomes</p>
         <ul class="cs2-outcomes-list">
-          <li>12 disjointed tools consolidated into a single platform</li>
-          <li>LLM review replaces a manual approval queue, so teachers author project-based courses independently</li>
+          <li>5 learning apps &amp; 6 external tools consolidated into a single platform</li>
+          <li>LLM course review replaces a manual approval queue, so teachers author project-based courses independently</li>
           <li>Purpose-designed classroom eliminates a recurring per-seat Zoom cost across every campus</li>
-          <li>One design system and consistent UX patterns across every surface</li>
+          <li>One design system and consistent UX patterns across every surface expedite design process &amp; implementation</li>
         </ul>
       </div>
     </div>
 
     <div class="cs2-figure fade-in">
-      <img src="../assets/images/case-study/primer-teacher-roster.webp" alt="Primer Goals dashboard showing a class roster with each student's daily and weekly goal progress" />
-      <p class="cs2-cap">Teachers see the whole class at a glance. Each student's daily and weekly goal progress is visible in one roster, with on-track and off-track states readable at a scan.</p>
+      <img src="../assets/images/case-study/primer-goals-week-view.webp" alt="Primer Goals dashboard showing a class roster with each student's weekly progress rings and per-app goal status" />
+      <p class="cs2-cap">Teachers see the whole class at a glance. Each student's daily and weekly goal progress across learning apps is visible in one table, with on-track and off-track states understandable at a glance.</p>
     </div>
     <div class="cs-copy-block">
-      <h3 class="cs-section-title fade-in">One view of every student's progress</h3>
-      <p class="fade-in">Before I undertook the goals design, progress was scattered across learning apps, each with its own scoreboard. Khan counts points, IXL counts skills, Reflex counts minutes, Newsela counts quiz scores, independent reading counts minutes read. To see where a class stood, a teacher opened all five and reconciled five different pictures in their head.</p>
-      <p class="fade-in">I designed a dashboard that progressively displays the weekly goals. On Monday, the dashboard is empty and only the Monday column is expanded. As the week goes on, days collapse into closed or open circles to indicate completion. And, the weekly app totals start at zero and count up as the student makes progress, with the current day always open by default at 8:00 AM.</p>
+      <h3 class="cs-section-title fade-in">Designing one view of every student's weekly progress</h3>
+      <p class="fade-in">Before the goals work, a student's progress lived inside each learning app, and every app has its own way of keeping tally. Khan counts points, IXL counts skills, Newsela counts quiz scores, independent reading counts minutes. To see where a student stood, a teacher had to open each app individually. Mapped across a whole classroom made it nearly impossible to keep track of every student.</p>
+      <p class="fade-in">The first version consolidated all the apps into one view: every student's daily goals, color-coded, green met, red missed, grey still ahead. It solved the problem we set out to solve. Teachers could finally see the class at a glance.</p>
+      <p class="fade-in">But once teachers used it, the problem got deeper. A red icon tells you a student is off track. It doesn't tell you why, or what to do about it. Green says met, not how met. The binary answered the first question and raised the next one, and the instinct to answer it by adding more to the dashboard would have buried the glance that made it useful.</p>
+    </div>
+
+    <div class="cs2-figure fade-in">
+      <video class="cs2-video" autoplay loop muted playsinline poster="../assets/images/case-study/primer-teacher-roster.webp">
+        <source src="../assets/images/case-study/primer-goals-demo.mp4" type="video/mp4" />
+        <img src="../assets/images/case-study/primer-teacher-roster.webp" alt="Primer Goals dashboard showing a class roster with each student's daily and weekly goal progress" />
+      </video>
+    </div>
+    <div class="cs-copy-block">
+      <p class="fade-in">So the real work of this project wasn't one screen. It was four versions across a year, each one a different answer to the same widening question: How much can a single view carry before it stops being glanceable? The UX evolved as we designed, released and learned from teachers. The versions were:</p>
+      <ol class="cs-numbered-list fade-in">
+        <li>A flat status grid</li>
+        <li>A proactive interpretation layer</li>
+        <li>Two layers of progressive disclosure</li>
+        <li>A week-level view with collapsed daily views and semantic icons</li>
+      </ol>
+      <p class="fade-in">Along the way as other parts of the product were evolving, pieces of information kept migrating to wherever they were most useful, some onto a shared class schedule, some onto a large-screen classroom display. I designed each version, watched it as it was released to real classrooms, and used teacher feedback to evolve the next version.</p>
     </div>
 
     <div class="cs-evolved fade-in">
@@ -152,10 +170,23 @@
           <path d="M12 17v5" />
           <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" />
         </svg>
-        <span class="cs-evolved-title">How this evolved</span>
+        <span class="cs-evolved-title">How the dashboard evolved</span>
       </div>
-      <p>The dashboard went through two versions before this one. The first consolidated daily goals into a single color-coded view but left too much meaning buried in icons. The second pulled alerts and milestones into their own interpretation layer, which teachers found more actionable until the data lag made it moot mid-class. Both taught us what the third version needed to do.</p>
-      <button type="button" class="panel-link" data-panel-open aria-haspopup="dialog" aria-controls="evolved-panel" aria-expanded="false">View tradeoffs &amp; iterations</button>
+      <p>Four versions over a year, each one answering a question the last exposed. The flat grid was legible but shallow. The interpretation layer was richer but lagged the classroom. Progressive disclosure fixed the depth; the week-level view fixed the timespan. The drawer walks through each turn and what broke to trigger the next.</p>
+      <button type="button" class="panel-link" data-panel-open aria-haspopup="dialog" aria-controls="evolved-panel" aria-expanded="false">
+        <span class="panel-link-text">View tradeoffs &amp; iterations</span>
+        <svg class="panel-link-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+    <div class="cs-copy-block">
+      <p class="fade-in">Once the data being displayed was set, we learned from teachers. Using progressive disclosure, the teacher can hover on any UI element to better understand completion. And on click, a teacher can open any student's full app goals to see domain-level mastery and a lesson-by-lesson history, scores and time included, without ever opening the source apps.</p>
+    </div>
+    <div class="cs2-figure fade-in">
+      <img src="../assets/images/case-study/primer-goals-hover.webp" alt="Goals dashboard with a hover tooltip showing a student's daily goal against today's progress for one app" />
+      <p class="cs2-cap">On hover the teacher can easily see the day's progress against the student's daily goal. Clicking opens the full detail.</p>
     </div>
     <div class="cs2-figure fade-in">
       <img src="../assets/images/case-study/primer-student-goals-detail.webp" alt="A single student's goals view showing domain-level mastery and lesson-by-lesson history" />
@@ -163,12 +194,8 @@
     </div>
 
     <div class="cs-copy-block">
-      <p class="fade-in">Using progressive disclosure, the teacher can hover on any UI element to better understand completion. And on click, a teacher can open any student's full app goals to see domain-level mastery and a lesson-by-lesson history, scores and time included, without ever opening the source apps.</p>
-    </div>
-
-    <div class="cs-copy-block">
       <h3 class="cs-section-title fade-in">Using an LLM to help design a project based learning class</h3>
-      <p class="fade-in">Most of those goals came from outside apps. One didn't. Project based learning, or Pursuits, was Primer's own, core to how it taught, and it sat in the same goal system as Khan and IXL, alongside everything else a student worked toward. The difference was that teachers authored these themselves, and before the platform supported it, they wrote courses in docs and submitted them to a person for review. That didn't scale.</p>
+      <p class="fade-in">Most goals came from outside apps. The exception was Pursuits, Primer's term for project-based learning. Teachers authored these classes themselves, and the goal was a daily habits-of-work score that lived in the same goal system as Khan and IXL. Before the platform supported a self-serve Pursuit builder, teachers wrote the courses in docs and submitted them to a person for review, which wouldn't scale as campuses were added.</p>
     </div>
     <div class="cs2-figure fade-in">
       <img src="../assets/images/case-study/primer-class-builder.webp" alt="The Primer project based learning class-builder interface" />
@@ -320,7 +347,7 @@
     <div class="cs2-problem-card fade-in">
       <h2 class="cs2-problem-title">The Results</h2>
       <div class="cs2-problem-body">
-        <p>When I joined, Primer was a rough MVP running on borrowed tools, with no real design foundation under it. Three years later it was one platform, teachers, students, and parents each with an experience designed for how they actually work, coherent across web, mobile web, native, and the classroom, all running on a single design system I created from scratch. That foundation is in part what let Primer scale thirty times over without the product coming apart. I led the design of all of it, directing a small team while doing the core work myself, and left the company with a design practice it didn't have when I arrived.</p>
+        <p>When I joined, Primer was pivoting from a supplemental after-school product to full-time, in-person K–8 microschools, with no real design foundation for a platform to run the network. Nearly three years later it was one platform, teachers, students, and parents each with an experience designed for how they actually work, coherent across web, mobile web, native, and the classroom, all running on a single design system. That foundation helped Primer scale from 6 to 18 campuses without the product coming apart. I led the design of the entire platform, making decisions with product and engineering about what to prioritize and what to leave out, directing a small team while doing the core work myself.</p>
       </div>
     </div>
 
@@ -342,18 +369,40 @@
   </div>
   <div class="panel-body">
     <div class="panel-content">
-      <div class="panel-block">
-        <p class="panel-date">September 2024</p>
-        <p>V1 consolidated daily goals into one color-coded view. Green met, red missed, grey still ahead. Teachers could scan the class in seconds.</p>
-        <p>Other problems emerged in the UX. Learning alerts weren't decodable at a glance, notes didn't articulate tone or class, and student success was buried.</p>
+      <div class="panel-section">
+        <p class="panel-date">Version 1: September 2024</p>
+        <img class="panel-shot" src="../assets/images/case-study/primer-panel-dashboard-1.webp" alt="Class dashboard V1 — daily goals consolidated into one color-coded roster view" />
+        <div class="panel-block">
+          <p>The first dashboard consolidated daily goals into one color-coded view. Green met, red missed, grey still ahead. Teachers could scan the class in seconds.</p>
+          <p>Other problems emerged in the UX. Learning alerts weren't decodable at a glance, notes didn't articulate tone or class, and student success was buried.</p>
+        </div>
+        <div class="panel-divider"></div>
       </div>
-      <img class="panel-shot" src="../assets/images/case-study/primer-panel-dashboard-1.webp" alt="Class dashboard V1 — daily goals consolidated into one color-coded roster view" />
-      <div class="panel-block">
-        <p class="panel-date">January 2025</p>
-        <p>Rather than embed alerts and milestones in the goals dashboard, I designed a separate interpretation layer: learning alerts, milestones, and class goal completion. Goals across apps moved to their own tab for reference.</p>
-        <p>More actionable, but the data lagged. By the time a teacher saw that Jane was on the wrong Khan course, class was over. Milestones worked, though. Teachers used them to call kids out for a job well done, and we later folded them into the large screen experience. Class goals landed flat. Teachers wanted to help individual students, not track an aggregate.</p>
+      <div class="panel-section">
+        <p class="panel-date">Version 2: January 2025</p>
+        <img class="panel-shot" src="../assets/images/case-study/primer-panel-dashboard-2.webp" alt="Class dashboard January 2025 — a separate interpretation layer with learning alerts, milestones, and class goals" />
+        <div class="panel-block">
+          <p>Rather than embed alerts and milestones in the goals dashboard, I designed a separate interpretation layer: learning alerts, milestones, and class goal completion. Goals across apps moved to their own tab for reference.</p>
+          <p>More actionable, but the data lagged. By the time a teacher saw that Jane was on the wrong Khan course, class was over. Milestones worked, though. Teachers used them to call kids out for a job well done, and we later folded them into the large screen experience. Class goals landed flat. Teachers wanted to help individual students, not track an aggregate.</p>
+        </div>
+        <div class="panel-divider"></div>
       </div>
-      <img class="panel-shot" src="../assets/images/case-study/primer-panel-dashboard-2.webp" alt="Class dashboard January 2025 — a separate interpretation layer with learning alerts, milestones, and class goals" />
+      <div class="panel-section">
+        <p class="panel-date">Version 3: April 2025</p>
+        <img class="panel-shot" src="../assets/images/case-study/primer-panel-dashboard-3.webp" alt="Class dashboard V3 — a student detail drawer opens over the roster with the full underlying data" />
+        <div class="panel-block">
+          <p>Instead of a separate interpretation layer, each status carried its own detail: hover for a quick read of what was happening, click to open a drawer with the full underlying data. The dashboard stayed glanceable, and the detail was available on hover and click. This was the raw data that informed the interpretation layer given to the teacher.</p>
+          <p>Navigation was still organized by day, so a teacher checking a student's week had to click across five days to understand any trends.</p>
+        </div>
+        <div class="panel-divider"></div>
+      </div>
+      <div class="panel-section">
+        <p class="panel-date">Version 4: August 2025</p>
+        <img class="panel-shot" src="../assets/images/case-study/primer-panel-dashboard-4.webp" alt="Class dashboard V4 — a week-level view with each day collapsed into a completion circle and weekly app totals counting up" />
+        <div class="panel-block">
+          <p>Version 4 reorganized the view around the week instead of the day. Monday starts empty with only the current day expanded; as the week goes on, each day collapses into an open or closed circle showing completion, and the weekly app totals count up from zero as a student makes progress. The daily detail stays one click away through the same hover-and-drawer pattern from version 3. A teacher could see a student's whole week at a glance and still drop into any single day, the two things earlier versions had forced a trade between.</p>
+        </div>
+      </div>
     </div>
   </div>
 </aside>

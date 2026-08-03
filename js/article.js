@@ -4,48 +4,83 @@
   var indicator = document.querySelector('.article-toc-indicator');
   if (!sections.length || !list) return;
 
+  var lis = Array.prototype.slice.call(list.querySelectorAll('li'));
   var linkMap = {};
-  list.querySelectorAll('li').forEach(function (li) {
+  lis.forEach(function (li) {
     var a = li.querySelector('a');
     if (a) linkMap[a.getAttribute('href').replace('#', '')] = li;
   });
 
   var activeLi = null;
+  var ticking = false;
 
-  function moveIndicator() {
-    if (activeLi && indicator) {
-      indicator.style.transform = 'translateY(' + activeLi.offsetTop + 'px)';
-    }
+  function railBottom() {
+    var last = lis[lis.length - 1];
+    return last ? last.offsetTop + last.offsetHeight : list.offsetHeight;
   }
 
-  function setActive(id) {
-    var li = id ? linkMap[id] : null;
-    if (li === activeLi) return;
-    if (activeLi) activeLi.classList.remove('active');
-    activeLi = li;
-    if (!li) {
-      // No section in focus (e.g. above the first one): hide the ember bar.
-      if (indicator) indicator.style.opacity = '0';
-      return;
-    }
-    li.classList.add('active');
-    if (indicator) {
-      indicator.style.opacity = '1'; // fade in on first focus
-      moveIndicator();               // slide to the section in focus
-    }
+  function clamp01(v) {
+    return v < 0 ? 0 : v > 1 ? 1 : v;
   }
 
-  function updateActive() {
+  function update() {
+    ticking = false;
     var navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 72;
     var threshold = navHeight + 40;
-    var activeId = null;
-    sections.forEach(function (section) {
-      if (section.getBoundingClientRect().top <= threshold) activeId = section.id;
-    });
-    setActive(activeId);
+
+    // Active section = the last one whose top has passed the threshold.
+    var activeIndex = -1;
+    for (var i = 0; i < sections.length; i++) {
+      if (sections[i].getBoundingClientRect().top <= threshold) activeIndex = i;
+    }
+
+    // Sync the active title highlight.
+    var newActiveLi = activeIndex >= 0 ? linkMap[sections[activeIndex].id] || null : null;
+    if (newActiveLi !== activeLi) {
+      if (activeLi) activeLi.classList.remove('active');
+      activeLi = newActiveLi;
+      if (activeLi) activeLi.classList.add('active');
+    }
+
+    // Above the first section: nothing lit, no fill.
+    if (activeIndex < 0 || !activeLi) {
+      indicator.style.opacity = '0';
+      indicator.style.height = '0px';
+      return;
+    }
+
+    // Progress through the current section (0 → 1) as it scrolls past the
+    // threshold toward the next section (or its own bottom for the last one).
+    var sec = sections[activeIndex];
+    var next = sections[activeIndex + 1];
+    var top = sec.getBoundingClientRect().top;
+    var end = next ? next.getBoundingClientRect().top : sec.getBoundingClientRect().bottom;
+    var p = clamp01((threshold - top) / Math.max(end - top, 1));
+
+    // Map that onto the rail: the ember head travels from this title's row toward
+    // the next title's row, so the fill grows smoothly instead of snapping.
+    var headStart = activeLi.offsetTop;
+    var nextLi = lis[lis.indexOf(activeLi) + 1];
+    var headEnd = nextLi ? nextLi.offsetTop : railBottom();
+    var head = headStart + p * (headEnd - headStart);
+
+    // The last section's bottom can't reach the threshold (the page ends first),
+    // so fill to the full rail once the reader hits the bottom of the page.
+    var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+    if (atBottom) head = railBottom();
+
+    indicator.style.opacity = '1';
+    indicator.style.height = head + 'px';
   }
 
-  updateActive();
-  window.addEventListener('scroll', updateActive, { passive: true });
-  window.addEventListener('resize', moveIndicator, { passive: true });
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }
+
+  update();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
 })();

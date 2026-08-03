@@ -8,7 +8,7 @@
 ───────────────────────────────────────── */
 :root {
   --plaster: #f5f0eb;
-  --ember:   #d24f39;
+  --ember:   #3a7266;
   --pitch:   #302d2f;
   --flint:   #6a6869;
   --chalk:   #fffcf8;
@@ -24,7 +24,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not(.theme-light) {
     --plaster: #252220;
-    --ember:   #e5674e;
+    --ember:   #5c9e91;
     --pitch:   #f4eee7;
     --flint:   #928c87;
     --chalk:   #1c1917;
@@ -38,7 +38,7 @@
 }
 :root.theme-dark {
   --plaster: #252220;
-  --ember:   #e5674e;
+  --ember:   #5c9e91;
   --pitch:   #f4eee7;
   --flint:   #928c87;
   --chalk:   #1c1917;
@@ -56,7 +56,7 @@
    it wins on equal-specificity ties. */
 :root.theme-extra-dark {
   --plaster: #181614;
-  --ember:   #e0624a;
+  --ember:   #5c9e91;
   --pitch:   #f4eee7;
   --flint:   #928c87;
   --chalk:   #0f0e0d;
@@ -116,25 +116,14 @@ body {
   overflow-x: clip;
 }
 
-/* Condensed / semi-condensed display type (Instrument Sans wdth axis) */
-.font-condensed {
-  font-stretch: condensed;
-}
-.font-semicondensed {
-  font-stretch: semi-condensed;
-}
-
-/* Heading (H) type scale — Instrument Sans Condensed.
-   H1 = 96/64px, H2 = 48px, H3 = 40px (new), H4 = 24px (was H3). */
+/* Heading (H) utility type scale — Libre Franklin */
 .h3 {
-  font-stretch: condensed;
   font-size: 32px;
   font-weight: 900;
   line-height: 1.4;
   color: var(--pitch);
 }
 .h4 {
-  font-stretch: condensed;
   font-size: 24px;
   font-weight: 600;
   line-height: 1.1;
@@ -184,6 +173,36 @@ body {
   background: linear-gradient(to bottom, var(--plaster) 0%, transparent 100%);
   pointer-events: none;
   z-index: 1;
+}
+
+/* Cursor spotlight — a soft ember glow that lights up the grid lines near the
+   pointer. Pinned to the viewport with the SAME origin + 33px pattern as
+   .bg-grid, so the ember lines render pixel-identical to the grid lines (no
+   transform → no sub-pixel offset → no doubled lines). Only the radial MASK
+   moves, following --gx/--gy set by JS. Created wherever .bg-grid exists;
+   gated to fine-pointer devices; honors reduced-motion. */
+.grid-glow {
+  --glow-radius: 210px;
+  --glow-color: color-mix(in srgb, var(--ember) 55%, transparent);
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background-image:
+    repeating-linear-gradient(to right,  var(--glow-color) 0px, var(--glow-color) 1px, transparent 1px, transparent 33px),
+    repeating-linear-gradient(to bottom, var(--glow-color) 0px, var(--glow-color) 1px, transparent 1px, transparent 33px);
+  -webkit-mask-image: radial-gradient(circle var(--glow-radius) at var(--gx, -9999px) var(--gy, -9999px), #000 0%, rgba(0,0,0,0.4) 44%, transparent 72%);
+  mask-image: radial-gradient(circle var(--glow-radius) at var(--gx, -9999px) var(--gy, -9999px), #000 0%, rgba(0,0,0,0.4) 44%, transparent 72%);
+  will-change: mask-image;
+}
+.grid-glow.is-active {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid-glow { display: none; }
 }
 
 /* ─────────────────────────────────────────
@@ -291,6 +310,7 @@ nav.scrolled {
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  position: relative;
 }
 
 .nav-icon {
@@ -324,6 +344,43 @@ nav.scrolled {
 
 .nav-mail:hover {
   color: var(--ember);
+}
+
+/* ─────────────────────────────────────────
+   Global tooltip
+───────────────────────────────────────── */
+.tooltip {
+  background: var(--shale);
+  color: var(--pitch);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Nav icon tooltips: centered below the icon. Hidden until hover/focus, and
+   force-shown via .is-visible for the email's "Copied!" confirmation. */
+.nav-icon-link .tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, -4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 200;
+}
+
+.nav-icon-link:hover .tooltip,
+.nav-icon-link:focus-visible .tooltip,
+.nav-icon-link .tooltip.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
 }
 
 /* Dark-mode toggle — contrast circle that turns ember and spins on hover */
@@ -388,7 +445,6 @@ nav.scrolled {
 
 h1,
 .hero h1 {
-  font-stretch: condensed;
   font-size: 80px;
   font-weight: 800;
   line-height: 1;
@@ -503,6 +559,33 @@ h1,
   gap: 32px;
 }
 
+/* View project history CTA — sits 64px below the last card
+   (.projects gap is 32px, so 32px margin gives 64px total) */
+.projects-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+.projects-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  border: 1px solid var(--shale);
+  border-radius: 4px;
+  background: var(--chalk);
+  color: var(--pitch);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.projects-cta-btn:hover {
+  border-color: var(--flint);
+}
+
 .project-meta {
   display: flex;
   flex-direction: column;
@@ -512,13 +595,12 @@ h1,
 .project-title {
   font-size: 24px;
   font-weight: 600;
-  font-variation-settings: 'wdth' 87.5;
   line-height: 1.3;
   color: var(--pitch);
 }
 
 .project-desc {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -608,11 +690,10 @@ h1,
 }
 
 .thinking-headline {
-  font-stretch: condensed;
   font-size: 48px;
   font-weight: 700;
   line-height: 1.4;
-  color: var(--ember);
+  color: var(--pitch);
   text-align: left;
 }
 
@@ -646,13 +727,13 @@ h1,
   cursor: pointer;
 }
 
-/* Hover: an ember border fades in slowly over the shale (and back out on leave).
+/* Hover: a flint border fades in slowly over the shale (and back out on leave).
    Done on a pseudo-element so its transition isn't overridden by .fade-in. */
 .article-card::after {
   content: "";
   position: absolute;
   inset: -1px; /* sit over the card's 1px shale border */
-  border: 1px solid var(--ember);
+  border: 1px solid var(--flint);
   border-radius: 24px;
   pointer-events: none;
   opacity: 0;
@@ -702,7 +783,6 @@ h1,
 .article-title {
   font-size: 24px;
   font-weight: 600;
-  font-variation-settings: 'wdth' 87.5;
   line-height: 1.3;
   color: var(--pitch);
 }
@@ -710,13 +790,11 @@ h1,
 h1.article-title {
   font-size: 64px;
   font-weight: 900;
-  font-stretch: condensed;
-  font-variation-settings: 'wdth' 75;
   line-height: 1.1;
 }
 
 .article-desc {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -735,11 +813,10 @@ h1.article-title {
 }
 
 .about-headline {
-  font-stretch: condensed;
   font-size: 48px;
   font-weight: 700;
   line-height: 1.4;
-  color: var(--ember);
+  color: var(--pitch);
 }
 
 /* ─────────────────────────────────────────
@@ -777,7 +854,6 @@ h1.article-title {
 }
 
 .about-principle-name {
-  font-stretch: semi-condensed;
   font-size: 24px;
   font-weight: 600;
   line-height: 1;
@@ -786,7 +862,7 @@ h1.article-title {
 
 .about-principle-desc {
   padding-left: 41px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -809,15 +885,14 @@ h1.article-title {
 }
 
 .about-bio-title {
-  font-stretch: semi-condensed;
   font-size: 24px;
   font-weight: 600;
   line-height: 1.3;
-  color: var(--ember);
+  color: var(--pitch);
 }
 
 .about-bio p:not(.about-bio-title) {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -865,7 +940,7 @@ h1.article-title {
 }
 
 .connect-body {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -1087,6 +1162,37 @@ h1.article-title {
   display: flex;
   flex-direction: column;
 }
+
+/* Case-study cards (Primer, Nara, Grapevine, ButcherBox) are links, and get the
+   same hover as the homepage article cards: a gentle lift + soft drop shadow,
+   with a flint border fading in. .history-card clips its overflow, so the ring
+   is drawn as an INSET box-shadow (an outside ::after ring would be clipped). */
+.history-card--link {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.history-card--link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 1px var(--flint);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+.history-card--link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(26, 24, 25, 0.08);
+}
+.history-card--link:hover::after {
+  opacity: 1;
+}
+
 .history-card-body {
   flex: 1 0 auto;
   background: var(--chalk);
@@ -1102,9 +1208,8 @@ h1.article-title {
   gap: 16px;
 }
 .history-title {
-  font-stretch: condensed;
   font-size: 40px;
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1.29;
   color: var(--pitch);
 }
@@ -1119,7 +1224,7 @@ h1.article-title {
   white-space: nowrap;
 }
 .history-desc {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
@@ -1137,7 +1242,7 @@ h1.article-title {
   border: 1px solid var(--shale);
   border-radius: 4px;
   padding: 4px 8px;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
