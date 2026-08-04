@@ -76,12 +76,18 @@
   glow.setAttribute('aria-hidden', 'true');
   document.body.appendChild(glow);
 
+  /* Over translucent (linen-backed) surfaces the grid shows THROUGH the card,
+     so the glow reads too hot. Dim it to 50% while the pointer is over one. */
+  var DIM_SELECTOR = '.cs2-problem-card, .cs2-metric, .cs-evolved, .article-meta-card, .footer--linen';
+
   var x = 0, y = 0, active = false, ticking = false;
 
   function apply() {
     ticking = false;
     glow.style.setProperty('--gx', x + 'px');
     glow.style.setProperty('--gy', y + 'px');
+    var el = document.elementFromPoint(x, y);
+    glow.classList.toggle('is-dimmed', !!(el && el.closest(DIM_SELECTOR)));
   }
 
   window.addEventListener('pointermove', function (e) {

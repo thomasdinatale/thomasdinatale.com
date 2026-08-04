@@ -45,7 +45,7 @@ assets/images/          — All images (permanent local copies)
 | Name      | Value     | Usage                        |
 |-----------|-----------|------------------------------|
 | --plaster | #f5f0eb   | Page background              |
-| --ember   | #d24f39   | Accent / hover color         |
+| --jade   | #3a7266   | Accent / hover color         |
 | --pitch   | #302d2f   | Primary text                 |
 | --flint   | #6a6869   | Secondary text               |
 | --chalk   | #fffcf8   | Light surface                |
@@ -75,7 +75,7 @@ Keep it clean: exactly one `<h1>`, no skipped levels. Don't use `<p>` for anythi
 
 ## Key conventions
 
-- LinkedIn icon uses CSS mask (`mask-image` + `background-color: var(--ember)` on hover) — not a filter
+- LinkedIn icon uses CSS mask (`mask-image` + `background-color: var(--jade)` on hover) — not a filter
 - `<img>` tags for LinkedIn icon are replaced with `<span class="nav-icon" aria-hidden="true"></span>` across all pages
 - Case study hero body paragraphs: `cs2-body` div with `display: flex; flex-direction: column; gap: 24px`
 - Figma asset images expire after 7 days — always download to `assets/images/` immediately

@@ -8,7 +8,7 @@
 ───────────────────────────────────────── */
 :root {
   --plaster: #f5f0eb;
-  --ember:   #3a7266;
+  --jade:   #3a7266;
   --pitch:   #302d2f;
   --flint:   #6a6869;
   --chalk:   #fffcf8;
@@ -24,7 +24,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not(.theme-light) {
     --plaster: #252220;
-    --ember:   #5c9e91;
+    --jade:   #5c9e91;
     --pitch:   #f4eee7;
     --flint:   #928c87;
     --chalk:   #1c1917;
@@ -38,7 +38,7 @@
 }
 :root.theme-dark {
   --plaster: #252220;
-  --ember:   #5c9e91;
+  --jade:   #5c9e91;
   --pitch:   #f4eee7;
   --flint:   #928c87;
   --chalk:   #1c1917;
@@ -56,7 +56,7 @@
    it wins on equal-specificity ties. */
 :root.theme-extra-dark {
   --plaster: #181614;
-  --ember:   #5c9e91;
+  --jade:   #5c9e91;
   --pitch:   #f4eee7;
   --flint:   #928c87;
   --chalk:   #0f0e0d;
@@ -175,15 +175,16 @@ body {
   z-index: 1;
 }
 
-/* Cursor spotlight — a soft ember glow that lights up the grid lines near the
+/* Cursor spotlight — a soft jade glow that lights up the grid lines near the
    pointer. Pinned to the viewport with the SAME origin + 33px pattern as
-   .bg-grid, so the ember lines render pixel-identical to the grid lines (no
+   .bg-grid, so the accent lines render pixel-identical to the grid lines (no
    transform → no sub-pixel offset → no doubled lines). Only the radial MASK
    moves, following --gx/--gy set by JS. Created wherever .bg-grid exists;
-   gated to fine-pointer devices; honors reduced-motion. */
+   gated to fine-pointer devices; honors reduced-motion. Its base opacity is
+   set by JS via .is-active (dimmed over transparent surfaces). */
 .grid-glow {
   --glow-radius: 210px;
-  --glow-color: color-mix(in srgb, var(--ember) 55%, transparent);
+  --glow-color: color-mix(in srgb, var(--jade) 55%, transparent);
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -199,6 +200,11 @@ body {
 }
 .grid-glow.is-active {
   opacity: 1;
+}
+/* Dimmed to 50% while the pointer is over a translucent surface (linen cards),
+   where the grid would otherwise glow through the card too strongly. */
+.grid-glow.is-active.is-dimmed {
+  opacity: 0.5;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -274,7 +280,7 @@ nav.scrolled {
 }
 
 .nav-mark:hover .nav-wordmark {
-  color: var(--ember);
+  color: var(--jade);
 }
 
 .nav-links {
@@ -328,7 +334,7 @@ nav.scrolled {
 }
 
 .nav-icon-link:hover .nav-icon {
-  background-color: var(--ember);
+  background-color: var(--jade);
 }
 
 .nav-mail {
@@ -343,7 +349,7 @@ nav.scrolled {
 }
 
 .nav-mail:hover {
-  color: var(--ember);
+  color: var(--jade);
 }
 
 /* ─────────────────────────────────────────
@@ -406,7 +412,7 @@ nav.scrolled {
 }
 
 .theme-toggle:hover {
-  color: var(--ember);
+  color: var(--jade);
   transform: rotate(360deg);
 }
 
@@ -417,12 +423,12 @@ nav.scrolled {
   right: 0;
   width: 0;
   height: 2px;
-  background: var(--ember);
+  background: var(--jade);
   transition: width 0.25s ease;
 }
 
 .nav-link:hover {
-  color: var(--ember);
+  color: var(--jade);
 }
 
 .nav-link:hover::after {
@@ -583,7 +589,8 @@ h1,
   transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 .projects-cta-btn:hover {
-  border-color: var(--flint);
+  border-color: var(--jade);
+  color: var(--jade);
 }
 
 .project-meta {
@@ -733,7 +740,7 @@ h1,
   content: "";
   position: absolute;
   inset: -1px; /* sit over the card's 1px shale border */
-  border: 1px solid var(--flint);
+  border: 1px solid var(--jade);
   border-radius: 24px;
   pointer-events: none;
   opacity: 0;
@@ -936,7 +943,7 @@ h1.article-title {
   font-size: 24px;
   font-weight: 600;
   line-height: 1;
-  color: var(--ember);
+  color: var(--jade);
 }
 
 .connect-body {
@@ -948,7 +955,7 @@ h1.article-title {
 }
 
 .connect-link {
-  color: var(--ember);
+  color: var(--jade);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -957,14 +964,14 @@ h1.article-title {
 .text-link {
   color: var(--pitch);
   text-decoration: underline;
-  text-decoration-color: var(--ember);
+  text-decoration-color: var(--jade);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 2px;
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
 .text-link:hover {
-  color: var(--ember);
+  color: var(--jade);
 }
 
 /* ─────────────────────────────────────────
@@ -1009,7 +1016,7 @@ h1.article-title {
   align-items: center;
   justify-content: center;
   padding: 0;
-  color: var(--ember);
+  color: var(--jade);
   transition: opacity 0.2s ease;
 }
 
@@ -1136,7 +1143,7 @@ h1.article-title {
   left: 0;
   width: 10px;
   height: 10px;
-  background: var(--ember);
+  background: var(--jade);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -1179,7 +1186,7 @@ h1.article-title {
   position: absolute;
   inset: 0;
   border-radius: 16px;
-  box-shadow: inset 0 0 0 1px var(--flint);
+  box-shadow: inset 0 0 0 1px var(--jade);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.5s ease;
