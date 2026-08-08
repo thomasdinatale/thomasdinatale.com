@@ -35,6 +35,7 @@ Full details in `tokens.json > typography.scale`. The workhorse is **body: 18px 
 | **Body** | **18 / 400 · lh 1.6** | **default paragraph** | `.cs-copy-block p`, `.article-section p` |
 | Caption | 14–16 / 400 · flint | Image captions | `.cs2-cap`, `.cs-caption` |
 | Eyebrow | 14 / 700 · uppercase · +tracking | Labels, date pills | `.cs2-problem-eyebrow`, `.history-date` |
+| Section kicker | 14 / 700 · uppercase · +tracking · flint | Label above a section title | `.cs-section-title[data-eyebrow]::before` |
 
 ## Semantic heading hierarchy (case studies)
 

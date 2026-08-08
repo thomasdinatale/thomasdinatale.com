@@ -145,6 +145,21 @@
   color: var(--pitch);
 }
 
+/* Section kicker / eyebrow — rendered from the title's data-eyebrow attribute.
+   Add data-eyebrow="Label" to a .cs-section-title to show a kicker above it.
+   data-eyebrow="" is an empty placeholder that renders nothing (ready to fill). */
+.cs-section-title[data-eyebrow]:not([data-eyebrow=""])::before {
+  content: attr(data-eyebrow);
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 1.12px;
+  text-transform: uppercase;
+  color: var(--flint);
+}
+
 .cs-copy-block p {
   font-size: 18px;
   font-weight: 400;
