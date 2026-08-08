@@ -201,10 +201,10 @@ body {
 .grid-glow.is-active {
   opacity: 1;
 }
-/* Dimmed to 50% while the pointer is over a translucent surface (linen cards),
-   where the grid would otherwise glow through the card too strongly. */
-.grid-glow.is-active.is-dimmed {
-  opacity: 0.5;
+/* Hidden while the pointer is over written content (text, media, cards), where
+   the grid glow is distracting. Stays active over empty background/gutters. */
+.grid-glow.is-active.is-over-content {
+  opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -310,6 +310,8 @@ nav.scrolled {
   height: 16px;
   background: var(--shale);
   flex-shrink: 0;
+  /* 12px on either side of the pipe (nav-links gap is 24px; -12 trims each side) */
+  margin: 0 -12px;
 }
 
 .nav-icon-link {
@@ -611,6 +613,31 @@ h1,
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
+}
+
+/* Description + tags group — tags sit 16px below the description */
+.project-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.project-tag {
+  background: var(--plaster);
+  border: 1px solid var(--shale);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--pitch);
+  white-space: nowrap;
 }
 
 /* ─────────────────────────────────────────

@@ -76,9 +76,19 @@
   glow.setAttribute('aria-hidden', 'true');
   document.body.appendChild(glow);
 
-  /* Over translucent (linen-backed) surfaces the grid shows THROUGH the card,
-     so the glow reads too hot. Dim it to 50% while the pointer is over one. */
-  var DIM_SELECTOR = '.cs2-problem-card, .cs2-metric, .cs-evolved, .article-meta-card, .footer--linen';
+  /* The glow is a nice "activation" over empty background, but distracting
+     behind written content. So hide it (0%) whenever the pointer is over a
+     CONTENT leaf — text, media, or a card — and keep it over bare layout
+     (section padding, gutters, the empty grid). We test the element directly
+     under the cursor, not its wrapping section, so the gutters stay lit. */
+  var CONTENT_SELECTOR = [
+    'p', 'h1', 'h2', 'h3', 'h4', 'li', 'img', 'video',
+    '.project-card', '.article-card', '.history-card', '.photo-item',
+    '.cs2-problem-card', '.cs2-metric', '.cs-evolved', '.cs-meta-card', '.article-meta-card',
+    '.cs2-figure', '.cs2-media', '.cs-image-block',
+    '.cs2-hero-image-card', '.cs-hero-image-bg', '.cs2-hero-phones-row',
+    '.projects-cta-btn', '.panel-link'
+  ].join(', ');
 
   var x = 0, y = 0, active = false, ticking = false;
 
@@ -87,7 +97,7 @@
     glow.style.setProperty('--gx', x + 'px');
     glow.style.setProperty('--gy', y + 'px');
     var el = document.elementFromPoint(x, y);
-    glow.classList.toggle('is-dimmed', !!(el && el.closest(DIM_SELECTOR)));
+    glow.classList.toggle('is-over-content', !!(el && el.closest(CONTENT_SELECTOR)));
   }
 
   window.addEventListener('pointermove', function (e) {
