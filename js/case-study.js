@@ -286,3 +286,198 @@
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
 })();
+
+/* Global site nav — top-sheet panel, hamburger⇄X toggle, hover-bound circle
+   graphic. The header (#nav) stays mounted above the panel; only #nav-panel
+   transforms. */
+(function () {
+  const panel = document.getElementById('nav-panel');
+  if (!panel) return;
+  const root = document.documentElement;
+  const header = document.getElementById('nav');
+  const toggle = document.querySelector('[data-nav-toggle]');
+  const scrim = document.querySelector('.nav-scrim');
+  const closeEls = document.querySelectorAll('[data-nav-close]');
+  const menuLinks = panel.querySelectorAll('.nav-panel-item');
+  const modeBtn = panel.querySelector('[data-nav-mode]');
+  const modeLabel = panel.querySelector('[data-nav-mode-label]');
+  const graphic = panel.querySelector('[data-nav-graphic]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let lastFocused = null;
+
+  // Publish header height so the panel can pad its content clear of the header.
+  function setHeaderHeight() {
+    if (header) root.style.setProperty('--nav-height', header.offsetHeight + 'px');
+  }
+  setHeaderHeight();
+  window.addEventListener('resize', setHeaderHeight, { passive: true });
+
+  // Everything outside the header + panel is made inert while the panel is open.
+  const pageEls = Array.prototype.filter.call(document.body.children, function (el) {
+    return el !== panel && el !== scrim && el !== header &&
+      el.tagName !== 'SCRIPT' &&
+      !el.classList.contains('bg-grid') && !el.classList.contains('bg-top-fade');
+  });
+  function setInert(on) {
+    pageEls.forEach(function (el) {
+      if (on) { el.setAttribute('inert', ''); el.setAttribute('aria-hidden', 'true'); }
+      else { el.removeAttribute('inert'); el.removeAttribute('aria-hidden'); }
+    });
+  }
+
+  function isOpen() { return panel.classList.contains('is-open'); }
+
+  function openPanel() {
+    lastFocused = document.activeElement;
+    panel.classList.add('is-open');
+    if (scrim) scrim.classList.add('is-open');
+    panel.setAttribute('aria-hidden', 'false');
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+    root.classList.add('nav-open');
+    setInert(true);
+    const first = panel.querySelector('.nav-panel-item');
+    if (first) first.focus({ preventScroll: true });
+  }
+  function closePanel() {
+    panel.classList.remove('is-open');
+    if (scrim) scrim.classList.remove('is-open');
+    panel.setAttribute('aria-hidden', 'true');
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    root.classList.remove('nav-open');
+    setInert(false);
+    if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus({ preventScroll: true });
+  }
+
+  if (toggle) toggle.addEventListener('click', function () { isOpen() ? closePanel() : openPanel(); });
+  closeEls.forEach(function (el) { el.addEventListener('click', closePanel); });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && isOpen()) { closePanel(); if (toggle) toggle.focus(); }
+  });
+
+  // Trap Tab focus within the panel while it is open
+  panel.addEventListener('keydown', function (e) {
+    if (e.key !== 'Tab' || !isOpen()) return;
+    const f = panel.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  // Menu links are still same-page hash links to homepage sections. While that's
+  // true, close the panel first and scroll on the panel's transitionend so the two
+  // motions don't run at once. Remove this block once items point at real pages.
+  menuLinks.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      const href = a.getAttribute('href');
+      if (href && href.charAt(0) === '#') {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        const go = function () {
+          if (target) target.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' });
+          try { history.replaceState(null, '', href); } catch (_) {}
+        };
+        const onEnd = function (ev) {
+          if (ev.target === panel && ev.propertyName === 'transform') {
+            panel.removeEventListener('transitionend', onEnd);
+            go();
+          }
+        };
+        panel.addEventListener('transitionend', onEnd);
+        closePanel();
+        if (reduce.matches) { panel.removeEventListener('transitionend', onEnd); go(); }
+        // Safety net if transitionend never fires
+        setTimeout(function () { panel.removeEventListener('transitionend', onEnd); }, 500);
+      } else {
+        closePanel(); // cross-page navigation proceeds on its own
+      }
+    });
+  });
+
+  // Light ⇄ extra-dark toggle, label kept in sync
+  function currentTheme() {
+    const c = root.classList;
+    if (c.contains('theme-extra-dark')) return 'extra-dark';
+    if (c.contains('theme-light')) return 'light';
+    if (c.contains('theme-dark')) return 'dark';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'extra-dark' : 'light';
+  }
+  function syncModeLabel() {
+    if (modeLabel) modeLabel.textContent = currentTheme() === 'light' ? 'Turn the lights off' : 'Turn the lights on';
+  }
+  if (modeBtn) {
+    modeBtn.addEventListener('click', function () {
+      const next = currentTheme() === 'light' ? 'extra-dark' : 'light';
+      const c = root.classList;
+      c.remove('theme-light', 'theme-dark', 'theme-extra-dark');
+      c.add('theme-' + next);
+      try { localStorage.setItem('td-theme', next); } catch (_) {}
+      syncModeLabel();
+    });
+    syncModeLabel();
+  }
+
+  /* ── Circle graphic engine ──────────────────────────────────────────────
+     Tween r/cx/cy directly in a requestAnimationFrame loop. CSS transitions on
+     geometry attributes are Chrome/Safari-only, so rAF makes it behave the same
+     everywhere and lets the exact cubic-bezier apply. Fills transition via CSS. */
+  if (graphic) {
+    const svg = graphic.querySelector('svg');
+    const ids = ['Lo', 'Lc', 'Lm', 'Ro', 'Rc', 'Rm', 'X'];
+    const els = {};
+    ids.forEach(function (k) { els[k] = svg.querySelector('.' + k); });
+
+    // Exact geometry from the Figma SVGs, unified into a common 720×450 viewBox
+    // (rest/about artboards +0,+25y; work/writing artboards +63x). L = lower-cx
+    // form, R = higher-cx form. X is the small extra dot present only in About.
+    const STATES = {
+      rest:    { Lo: [200, 225, 196],       Lc: [200, 225, 111.5],           Lm: [199, 224, 50],           Ro: [520, 225, 196],       Rc: [519.5, 224.5, 111.5],       Rm: [519, 224, 50],           X: [520, 225, 0] },
+      work:    { Lo: [203, 225.689, 136],   Lc: [202.651, 225.34, 77.55],    Lm: [202.3, 224.989, 34.5],   Ro: [432, 225, 221],       Rc: [431.438, 224.438, 124.938], Rm: [430.875, 223.875, 55.75], X: [520, 225, 0] },
+      writing: { Lo: [288, 225, 221],       Lc: [287.438, 224.438, 124.938], Lm: [286.875, 223.875, 55.75],Ro: [517, 225.689, 136],   Rc: [516.651, 225.34, 77.55],    Rm: [516.3, 224.989, 34.5],   X: [520, 225, 0] },
+      about:   { Lo: [200, 225, 196],       Lc: [200, 225, 149.5],           Lm: [200, 225, 89.5],         Ro: [520, 225, 196],       Rc: [519.5, 224.5, 148],         Rm: [520, 225, 99.5],         X: [520, 225, 19.5] }
+    };
+
+    // cubic-bezier(0.16, 1, 0.3, 1) — solve x(u)=t then return y(u)
+    function bez(u, a, b) { const v = 1 - u; return 3 * v * v * u * a + 3 * v * u * u * b + u * u * u; }
+    function dbez(u, a, b) { const v = 1 - u; return 3 * v * v * a + 6 * v * u * (b - a) + 3 * u * u * (1 - b); }
+    function easeXY(t) {
+      let u = t;
+      for (let i = 0; i < 5; i++) { const x = bez(u, 0.16, 0.3); const d = dbez(u, 0.16, 0.3) || 1e-6; u -= (x - t) / d; u = Math.min(1, Math.max(0, u)); }
+      return bez(u, 1, 1);
+    }
+
+    const DUR = 420;
+    let raf = null, startT = 0, from = null, to = null;
+    function snapshot() { const s = {}; ids.forEach(function (k) { const e = els[k]; s[k] = [+e.getAttribute('cx'), +e.getAttribute('cy'), +e.getAttribute('r')]; }); return s; }
+    function apply(vals) { ids.forEach(function (k) { const e = els[k], v = vals[k]; e.setAttribute('cx', v[0]); e.setAttribute('cy', v[1]); e.setAttribute('r', Math.max(0, v[2])); }); }
+    function tick(now) {
+      if (!startT) startT = now;
+      const p = Math.min(1, (now - startT) / DUR);
+      const e = easeXY(p);
+      const cur = {};
+      ids.forEach(function (k) { cur[k] = [from[k][0] + (to[k][0] - from[k][0]) * e, from[k][1] + (to[k][1] - from[k][1]) * e, from[k][2] + (to[k][2] - from[k][2]) * e]; });
+      apply(cur);
+      raf = p < 1 ? requestAnimationFrame(tick) : null;
+    }
+    function goTo(name) {
+      const target = STATES[name] || STATES.rest;
+      graphic.dataset.state = name;
+      if (reduce.matches) { apply(target); return; }
+      if (raf) cancelAnimationFrame(raf);
+      from = snapshot(); to = target; startT = 0;
+      raf = requestAnimationFrame(tick);
+    }
+    graphic.dataset.state = 'rest';
+
+    // Hover only — touch devices keep the rest composition and nothing else.
+    if (window.matchMedia('(hover: hover)').matches) {
+      menuLinks.forEach(function (a) {
+        const name = a.getAttribute('data-nav-circle');
+        if (!name) return;
+        a.addEventListener('mouseenter', function () { goTo(name); });
+        a.addEventListener('mouseleave', function () { goTo('rest'); });
+      });
+    }
+  }
+})();

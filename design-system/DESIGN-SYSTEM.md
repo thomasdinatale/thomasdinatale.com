@@ -55,14 +55,15 @@ Don't use `<p>` for anything in this table.
 Every reusable pattern currently in the site, with its class and where it's defined. Prefer these; extend them rather than forking.
 
 ### Global (`css/styles.css`)
-- **Nav** — `nav` (sticky, transparent → `.scrolled` gives chalk bg + shale border). `.nav-inner`, `.nav-mark` + `.nav-square` (24px SVG circle) + `.nav-wordmark`, `.nav-links`, `.nav-jump-links` (hidden on mobile), `.nav-link` (jade underline-wipe on hover), `.nav-divider`, `.nav-icon` (LinkedIn — **CSS mask**, not `<img>`, not filter), `.nav-mail`, `.theme-toggle` (16px circle, spins 360° + turns jade on hover).
+- **Nav** — `nav` (sticky, transparent → `.scrolled` gives chalk bg + shale border). `.nav-inner` holds just two things now: `.nav-mark` + `.nav-square` (24px SVG circle) + `.nav-wordmark` on the left, and `.nav-hamburger` (24×16 three-bar button, ember on hover) on the right. All links/contact/theme moved into the slide-out panel below. Legacy `.nav-links`/`.nav-jump-links`/`.nav-link`/`.nav-divider`/`.nav-icon`/`.nav-mail`/`.theme-toggle` CSS still exists but is no longer used in markup.
+- **Nav panel (small slide-out menu)** — hamburger opens `.nav-panel` (560px, right-anchored, same slide easing + shadow as the case-study panel but smaller). `.nav-panel-scrim` + `:root.nav-open` lock scroll; `.nav-panel-top` → `.nav-panel-close` (20px X, rotates on hover) + `.nav-panel-menu`/`.nav-panel-item` (num `.nav-panel-num` + 80px `.nav-panel-word`, 2px metal rule, word→ember on hover) + `.nav-panel-note`; `.nav-panel-footer` → `.nav-panel-mode` (light/dark toggle, label flips "Turn the lights on/off") + `.nav-panel-social` (LinkedIn/GitHub/Instagram, inline SVG + `currentColor`, ember on hover). Controller lives in `js/case-study.js` (`data-nav-open`/`data-nav-close`/`data-nav-mode`), independent of the large `#evolved-panel` case-study panel.
 - **Tooltip** — `.tooltip` (shale bg, 6px radius); nav variant positions below icon and force-shows via `.is-visible` for the email "Copied!" state.
-- **Buttons / CTAs** — `.projects-cta-btn` (4px radius, shale border → jade border + jade text on hover, 20/600).
-- **Links** — `.text-link` (pitch text, jade underline, full jade on hover), `.connect-link` (jade + underline).
-- **Cards (homepage)** — `.project-card` (32px radius, gradient border, lifts on hover), `.project-card-image` with modifiers `--contain` / `--cover` / `--crop-bottom` and per-project hover fills `--primer/--butcherbox/--nara/--grapevine`. `.article-card` (24px radius, gradient border, jade stroke fades in via `::after`), `.article-image` (desaturated → full color on hover).
+- **Buttons / CTAs** — `.projects-cta-btn` (4px radius, shale border → ember border + ember text on hover, 20/600).
+- **Links** — `.text-link` (pitch text, ember underline, full ember on hover), `.connect-link` (ember + underline).
+- **Cards (homepage)** — `.project-card` (32px radius, gradient border, lifts on hover), `.project-card-image` with modifiers `--contain` / `--cover` / `--crop-bottom` and per-project hover fills `--primer/--butcherbox/--nara/--grapevine`. `.article-card` (24px radius, gradient border, ember stroke fades in via `::after`), `.article-image` (desaturated → full color on hover).
 - **Principles** — `.about-principles-list` / `.about-principle` (num + name row, shale bottom rule).
-- **Photos carousel** — `.photos`, `.photos-grid`, `.photo-item` (12px chalk frame + layered shadow), `.photos-btn` (jade arrows).
-- **Footer** — `.footer` / `.footer--linen`, `.footer-inner`, dot separators.
+- **Photos carousel** — `.photos`, `.photos-grid`, `.photo-item` (12px chalk frame + layered shadow), `.photos-btn` (ember arrows).
+- **Footer** — `.footer` / `.footer--linen` (linen bg), `.footer-inner` (space-between). `.footer-credits` (copyright • made-by, 14px flint, `.footer-dot` 4px separator) on the left; `.footer-social` (LinkedIn/GitHub/Instagram, 24px inline-SVG `currentColor`, pitch → ember on hover, same-tab) on the right. Mobile: `column-reverse` puts icons (32px) above the stacked credits; dot hidden.
 - **Scroll fade-in** — `.fade-in` → `.fade-in.visible` (JS adds `.visible`; see `js/case-study.js`).
 - **Work/history page** — `.history-grid`, `.history-card` (gradient border, chalk body), `.history-title` (40/700), `.history-date` (uppercase pill), `.history-tag`.
 
@@ -75,8 +76,8 @@ Every reusable pattern currently in the site, with its class and where it's defi
 
 ### Article (`css/article.css`)
 - **Layout** — `.article-layout` (667px + 405px sticky sidebar, 50px gap).
-- **Content** — `.article-header`, `.article-title-block`, `.article-date`, `.article-title`, `.article-intro`, `.article-divider`, `.article-section` (+ `.article-section-title`), `.article-body-semibold`, `.article-prompt` (italic, jade left rule), `.article-list`, `.article-img` (8px radius) + `.article-caption`.
-- **Sidebar TOC** — `.article-meta-card` (linen), `.article-toc` with shale `.article-toc-track` + sliding jade `.article-toc-indicator`; `.article-sections-list li.active`.
+- **Content** — `.article-header`, `.article-title-block`, `.article-date`, `.article-title`, `.article-intro`, `.article-divider`, `.article-section` (+ `.article-section-title`), `.article-body-semibold`, `.article-prompt` (italic, ember left rule), `.article-list`, `.article-img` (8px radius) + `.article-caption`.
+- **Sidebar TOC** — `.article-meta-card` (linen), `.article-toc` with shale `.article-toc-track` + sliding ember `.article-toc-indicator`; `.article-sections-list li.active`.
 
 ## Layout constants
 
@@ -104,7 +105,7 @@ Every reusable pattern currently in the site, with its class and where it's defi
 
 1. **Libre Franklin has no width axis — there is no condensed rendering.** `font-stretch` and `font-variation-settings: 'wdth' …` were stripped from the CSS because they did nothing. Don't add them back to "condense" a heading; they render at normal width. Weight (400–900) and italic are the only variable axes.
 2. **Two case-study systems coexist:** legacy `cs-*` (ButcherBox, Grapevine) and current `cs2-*` (Primer, Nara). **Build new case studies with `cs2-*`.** Only touch `cs-*` when editing those specific legacy pages.
-3. **LinkedIn icon is a CSS mask**, not an `<img>` and not a filter: `mask-image` + `background-color: var(--jade)` on hover. Use `<span class="nav-icon" aria-hidden="true">`.
+3. **LinkedIn icon is a CSS mask**, not an `<img>` and not a filter: `mask-image` + `background-color: var(--ember)` on hover. Use `<span class="nav-icon" aria-hidden="true">`.
 4. **Dark mode auto-dims images** (`brightness/contrast/opacity` filter on all `img` except `.about-portrait`), restoring to full on card hover. Account for this when adding imagery.
 5. **`.about-portrait` inverts in dark mode** (`filter: invert(1)`) because it's a transparent ink drawing — keep new line-art assets on transparent backgrounds if they should invert too.
 

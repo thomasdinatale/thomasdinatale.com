@@ -8,7 +8,9 @@
 ───────────────────────────────────────── */
 :root {
   --plaster: #f5f0eb;
-  --jade:   #3a7266;
+  --ember:   #d24f39;
+  --jade:    #3a7266;
+  --butter:  #cdbf4d;
   --pitch:   #302d2f;
   --flint:   #6a6869;
   --chalk:   #fffcf8;
@@ -24,7 +26,9 @@
 @media (prefers-color-scheme: dark) {
   :root:not(.theme-light) {
     --plaster: #252220;
-    --jade:   #5c9e91;
+    --ember:   #e8785f;
+    --jade:    #5c9f92;
+    --butter:  #e2d00f;
     --pitch:   #f4eee7;
     --flint:   #928c87;
     --chalk:   #1c1917;
@@ -38,7 +42,9 @@
 }
 :root.theme-dark {
   --plaster: #252220;
-  --jade:   #5c9e91;
+  --ember:   #e8785f;
+  --jade:    #5c9f92;
+  --butter:  #e2d00f;
   --pitch:   #f4eee7;
   --flint:   #928c87;
   --chalk:   #1c1917;
@@ -55,8 +61,10 @@
    retained but no longer reachable through the UI. Placed after .theme-dark so
    it wins on equal-specificity ties. */
 :root.theme-extra-dark {
-  --plaster: #181614;
-  --jade:   #5c9e91;
+  --plaster: #10100e;
+  --ember:   #e8785f;
+  --jade:    #5c9f92;
+  --butter:  #e2d00f;
   --pitch:   #f4eee7;
   --flint:   #928c87;
   --chalk:   #0f0e0d;
@@ -175,7 +183,7 @@ body {
   z-index: 1;
 }
 
-/* Cursor spotlight — a soft jade glow that lights up the grid lines near the
+/* Cursor spotlight — a soft ember glow that lights up the grid lines near the
    pointer. Pinned to the viewport with the SAME origin + 33px pattern as
    .bg-grid, so the accent lines render pixel-identical to the grid lines (no
    transform → no sub-pixel offset → no doubled lines). Only the radial MASK
@@ -184,7 +192,7 @@ body {
    set by JS via .is-active (dimmed over transparent surfaces). */
 .grid-glow {
   --glow-radius: 210px;
-  --glow-color: color-mix(in srgb, var(--jade) 55%, transparent);
+  --glow-color: color-mix(in srgb, var(--ember) 72%, transparent);
   position: fixed;
   inset: 0;
   pointer-events: none;
@@ -194,8 +202,8 @@ body {
   background-image:
     repeating-linear-gradient(to right,  var(--glow-color) 0px, var(--glow-color) 1px, transparent 1px, transparent 33px),
     repeating-linear-gradient(to bottom, var(--glow-color) 0px, var(--glow-color) 1px, transparent 1px, transparent 33px);
-  -webkit-mask-image: radial-gradient(circle var(--glow-radius) at var(--gx, -9999px) var(--gy, -9999px), #000 0%, rgba(0,0,0,0.4) 44%, transparent 72%);
-  mask-image: radial-gradient(circle var(--glow-radius) at var(--gx, -9999px) var(--gy, -9999px), #000 0%, rgba(0,0,0,0.4) 44%, transparent 72%);
+  -webkit-mask-image: radial-gradient(circle var(--glow-radius) at var(--gx, -9999px) var(--gy, -9999px), #000 0%, rgba(0,0,0,0.35) 30%, transparent 60%);
+  mask-image: radial-gradient(circle var(--glow-radius) at var(--gx, -9999px) var(--gy, -9999px), #000 0%, rgba(0,0,0,0.35) 30%, transparent 60%);
   will-change: mask-image;
 }
 .grid-glow.is-active {
@@ -224,19 +232,26 @@ body {
 /* ─────────────────────────────────────────
    Nav
 ───────────────────────────────────────── */
-nav {
+.site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 300; /* sits above the panel (290) so it never moves and stays interactive */
   width: 100%;
   background: transparent;
   border-bottom: 1px solid transparent;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-nav.scrolled {
+.site-header.scrolled {
   background: var(--chalk);
   border-bottom-color: var(--shale);
+}
+
+/* While the menu is open the header shows the panel (plaster) through it, so
+   drop the scrolled chalk background — header and panel stay the same colour. */
+:root.nav-open .site-header {
+  background: transparent;
+  border-bottom-color: transparent;
 }
 
 .nav-inner {
@@ -246,7 +261,7 @@ nav.scrolled {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 80px;
+  padding: 16px 48px;
 }
 
 .nav-mark {
@@ -280,7 +295,7 @@ nav.scrolled {
 }
 
 .nav-mark:hover .nav-wordmark {
-  color: var(--jade);
+  color: var(--ember);
 }
 
 .nav-links {
@@ -336,7 +351,7 @@ nav.scrolled {
 }
 
 .nav-icon-link:hover .nav-icon {
-  background-color: var(--jade);
+  background-color: var(--ember);
 }
 
 .nav-mail {
@@ -351,7 +366,7 @@ nav.scrolled {
 }
 
 .nav-mail:hover {
-  color: var(--jade);
+  color: var(--ember);
 }
 
 /* ─────────────────────────────────────────
@@ -414,7 +429,7 @@ nav.scrolled {
 }
 
 .theme-toggle:hover {
-  color: var(--jade);
+  color: var(--ember);
   transform: rotate(360deg);
 }
 
@@ -425,18 +440,405 @@ nav.scrolled {
   right: 0;
   width: 0;
   height: 2px;
-  background: var(--jade);
+  background: var(--ember);
   transition: width 0.25s ease;
 }
 
 .nav-link:hover {
-  color: var(--jade);
+  color: var(--ember);
 }
 
 .nav-link:hover::after {
   width: 100%;
   right: auto;
   left: 0;
+}
+
+/* ─────────────────────────────────────────
+   Nav toggle (hamburger ⇄ X, in place)
+───────────────────────────────────────── */
+.nav-toggle {
+  position: relative;
+  width: 24px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--pitch);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color 0.2s ease;
+}
+.nav-toggle:hover {
+  color: var(--ember);
+}
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 6px;
+  border-radius: 2px;
+}
+.nav-toggle .bar {
+  position: absolute;
+  left: 0;
+  width: 24px;
+  height: 3px;
+  background: currentColor;
+  border-radius: 1px;
+  transform-origin: center;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    top 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.16s ease;
+}
+.nav-toggle .bar:nth-child(1) { top: 0; }
+.nav-toggle .bar:nth-child(2) { top: 6.5px; }
+.nav-toggle .bar:nth-child(3) { top: 13px; }
+/* Open → X: outer bars slide to center and cross, middle fades out */
+.nav-toggle[aria-expanded="true"] .bar:nth-child(1) { top: 6.5px; transform: rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .bar:nth-child(3) { top: 6.5px; transform: rotate(-45deg); }
+
+/* ─────────────────────────────────────────
+   Nav panel — top sheet
+───────────────────────────────────────── */
+.nav-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s linear;
+  z-index: 280;
+}
+.nav-scrim.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  max-height: min(760px, 92vh);
+  background: var(--plaster);
+  border-bottom: 1px solid var(--metal);
+  box-shadow:
+    0 10px 21px 0 rgba(0, 0, 0, 0.10),
+    0 39px 39px 0 rgba(0, 0, 0, 0.09),
+    0 88px 53px 0 rgba(0, 0, 0, 0.05);
+  transform: translateY(-100%);
+  visibility: hidden;
+  /* Enter: 320ms; overridden to 220ms on close below. transform only. */
+  transition:
+    transform 0.32s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 0s;
+  z-index: 290;
+  display: flex;
+  flex-direction: column;
+  /* clip horizontal circle spill; scroll vertically only if a short viewport
+     can't fit the content + the 72px gaps */
+  overflow: hidden auto;
+}
+.nav-panel.is-open {
+  transform: translateY(0);
+  visibility: visible;
+}
+/* Exit is shorter and accelerates */
+.nav-panel:not(.is-open) {
+  transition:
+    transform 0.22s cubic-bezier(0.4, 0, 1, 1),
+    visibility 0s linear 0.22s;
+}
+
+.nav-panel-inner {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  /* 72px between the header and the first nav item */
+  padding: calc(var(--nav-height, 64px) + 72px) 48px 0;
+}
+
+.nav-panel-left {
+  flex: 0 1 496px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.nav-panel-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.nav-panel-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  height: 96px;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--metal);
+  text-decoration: none;
+}
+.nav-panel-word {
+  font-size: 80px;
+  font-weight: 800;
+  line-height: 1;
+  /* Two text-clipped layers: full pitch base + an ember layer wiping in from the
+     left on hover (left-to-right color fill), matching the nav link language. */
+  background-image:
+    linear-gradient(var(--ember), var(--ember)),
+    linear-gradient(var(--pitch), var(--pitch));
+  background-size: 0% 100%, 100% 100%;
+  background-position: left bottom, left bottom;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  transition: background-size 0.4s ease;
+}
+.nav-panel-item:hover .nav-panel-word,
+.nav-panel-item:focus-visible .nav-panel-word {
+  background-size: 100% 100%, 100% 100%;
+}
+.nav-panel-num {
+  flex-shrink: 0;
+  /* baseline-aligned with the word (the row is items-baseline) */
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 1.12px;
+  color: var(--metal);
+  transition: color 0.2s ease;
+}
+.nav-panel-item:hover .nav-panel-num,
+.nav-panel-item:focus-visible .nav-panel-num {
+  color: var(--flint);
+}
+
+.nav-panel-note {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--flint);
+  max-width: 496px;
+}
+.nav-panel-note a {
+  color: var(--flint);
+  text-decoration: none;
+  background-image:
+    linear-gradient(var(--ember), var(--ember)),
+    linear-gradient(var(--flint), var(--flint));
+  background-size: 0% 1px, 100% 1px;
+  background-position: left bottom, left bottom;
+  background-repeat: no-repeat;
+  padding-bottom: 2px;
+  transition: background-size 0.3s ease, color 0.3s ease;
+}
+.nav-panel-note a:hover,
+.nav-panel-note a:focus-visible {
+  color: var(--ember);
+  background-size: 100% 1px, 100% 1px;
+}
+
+/* Circle graphic — right side, hover-bound (see js/case-study.js) */
+.nav-panel-graphic {
+  flex: 1 1 0;
+  min-width: 0;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.nav-panel-graphic svg {
+  width: 100%;
+  height: 100%;
+  /* capped near the nav-column height so the graphic never drives the panel
+     taller than the text — keeps the note→footer gap constant at any size */
+  max-height: 408px;
+  overflow: visible;
+}
+.nav-panel-graphic circle { transition: fill 0.32s ease; }
+/* Outer disks carry an 8px stroke in the panel-bg colour so overlaps read as a
+   clean seam. Inner disk is a plaster "hole"; outer + center colours vary. */
+.nav-panel-graphic .Lo,
+.nav-panel-graphic .Ro { stroke: var(--plaster); stroke-width: 8; }
+.nav-panel-graphic .Lc,
+.nav-panel-graphic .Rc,
+.nav-panel-graphic .X  { fill: var(--plaster); }
+/* rest */
+.nav-panel-graphic .Lo { fill: var(--butter); }
+.nav-panel-graphic .Lm { fill: var(--ember); }
+.nav-panel-graphic .Ro { fill: var(--jade); }
+.nav-panel-graphic .Rm { fill: var(--butter); }
+/* Work */
+.nav-panel-graphic[data-state="work"] .Lo { fill: var(--ember); }
+.nav-panel-graphic[data-state="work"] .Lm { fill: var(--butter); }
+.nav-panel-graphic[data-state="work"] .Ro { fill: var(--butter); }
+.nav-panel-graphic[data-state="work"] .Rm { fill: var(--jade); }
+/* Writing */
+.nav-panel-graphic[data-state="writing"] .Lo { fill: var(--butter); }
+.nav-panel-graphic[data-state="writing"] .Lm { fill: var(--ember); }
+.nav-panel-graphic[data-state="writing"] .Ro { fill: var(--jade); }
+.nav-panel-graphic[data-state="writing"] .Rm { fill: var(--butter); }
+/* About */
+.nav-panel-graphic[data-state="about"] .Lo { fill: var(--butter); }
+.nav-panel-graphic[data-state="about"] .Lm { fill: var(--ember); }
+.nav-panel-graphic[data-state="about"] .Ro { fill: var(--jade); }
+.nav-panel-graphic[data-state="about"] .Rm { fill: var(--ember); }
+
+.nav-panel-footer {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1; /* sits above the graphic so its plaster fill masks any circle spill */
+  background: var(--plaster);
+  display: flex;
+  /* row-reverse: social icons on the left, light/dark toggle on the right */
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  /* 72px top = gap from the note to this bar; 72px bottom = gap to the panel's
+     bottom stroke. Constant at every size. */
+  padding: 72px 48px 72px;
+}
+.nav-panel-mode {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--flint);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.nav-panel-mode-icon {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: var(--pitch);
+  transition: color 0.2s ease, transform 0.6s ease;
+}
+.nav-panel-mode-icon svg { display: block; width: 24px; height: 24px; }
+/* The label rides above the toggle as a tag, revealed on hover/focus —
+   same treatment as the old envelope → email tooltip. JS keeps its text in
+   sync ("Turn the lights off" in light mode, "…on" in dark). */
+.nav-panel-mode-label {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  background: var(--shale);
+  color: var(--pitch);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 200;
+}
+.nav-panel-mode:hover .nav-panel-mode-label,
+.nav-panel-mode:focus-visible .nav-panel-mode-label {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+.nav-panel-mode:hover { color: var(--ember); }
+.nav-panel-mode:hover .nav-panel-mode-icon { color: var(--ember); transform: rotate(360deg); }
+.nav-panel-mode:focus-visible { outline: 2px solid var(--ember); outline-offset: 4px; border-radius: 2px; }
+
+.nav-panel-social { display: flex; align-items: center; gap: 16px; }
+.nav-panel-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--pitch);
+  transition: color 0.2s ease;
+}
+/* Icon spins 360° on hover, matching the light/dark toggle */
+.nav-panel-social a svg { display: block; width: 32px; height: 32px; transition: transform 0.6s ease; }
+.nav-panel-social a:hover { color: var(--ember); }
+.nav-panel-social a:hover svg { transform: rotate(360deg); }
+.nav-panel-social a:focus-visible { outline: 2px solid var(--ember); outline-offset: 4px; border-radius: 2px; }
+
+/* Staggered entrance — items translate up + fade. Delays apply on open only, so
+   on close they leave together (no delay). */
+.nav-stagger {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.24s ease, transform 0.24s ease;
+  transition-delay: 0ms;
+}
+.nav-panel.is-open .nav-stagger {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: calc(90ms + var(--si, 0) * 45ms);
+}
+
+/* Header sits above the panel in stacking order and never moves */
+#nav { z-index: 300; }
+
+/* Lock page scroll while the panel is open, without a layout shift */
+:root.nav-open { overflow: hidden; scrollbar-gutter: stable; }
+
+@media (max-width: 768px) {
+  /* Block flow (not flex) so inner + footer stack at their natural heights and
+     the panel scrolls when short — flex was shrinking inner and hiding the note
+     behind the footer. */
+  .nav-panel { display: block; height: auto; max-height: 92dvh; }
+  .nav-panel-inner {
+    align-items: flex-start;
+    padding: calc(var(--nav-height, 60px) + 48px) 24px 0;
+  }
+  .nav-panel-left { flex: 1 1 auto; }
+  .nav-panel-word { font-size: 56px; }
+  .nav-panel-item { height: 76px; }
+  .nav-panel-footer { padding: 48px 24px 48px; }
+  /* Decorative, hover-only — hidden where there is no room and no hover */
+  .nav-panel-graphic { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-panel,
+  .nav-panel:not(.is-open) {
+    transition: opacity 0.2s linear, visibility 0s linear;
+    transform: none;
+    opacity: 0;
+  }
+  .nav-panel.is-open { transform: none; opacity: 1; }
+  .nav-stagger,
+  .nav-panel.is-open .nav-stagger {
+    transform: none;
+    transition: opacity 0.2s linear;
+    transition-delay: 0ms;
+  }
+  .nav-toggle .bar { transition: none; }
+  .nav-panel-graphic circle { transition: fill 0s, fill-opacity 0s; }
 }
 
 /* ─────────────────────────────────────────
@@ -473,6 +875,11 @@ h1,
 .thinking,
 #about {
   scroll-margin-top: var(--nav-height, 80px);
+}
+/* #about's 80px top padding lands its heading 80px below the nav on jump;
+   .thinking has no top padding, so add the 80px to its scroll offset to match. */
+.thinking {
+  scroll-margin-top: calc(var(--nav-height, 80px) + 80px);
 }
 
 /* ─────────────────────────────────────────
@@ -522,6 +929,12 @@ h1,
 }
 .project-card--nara:hover .project-card-image {
   background-color: #31537C;
+}
+.project-card--primer-app:hover .project-card-image {
+  background-color: #367ef0;
+}
+.project-card--blue-apron:hover .project-card-image {
+  background-color: #313467;
 }
 .project-card--grapevine:hover .project-card-image {
   background-color: #ffea33;
@@ -591,8 +1004,8 @@ h1,
   transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 .projects-cta-btn:hover {
-  border-color: var(--jade);
-  color: var(--jade);
+  border-color: var(--ember);
+  color: var(--ember);
 }
 
 .project-meta {
@@ -662,18 +1075,7 @@ h1,
    Softly faded top/bottom edges make the held position readable without a hard
    line, so the lock is perceptible even with a subtle fill. */
 .linen-backdrop {
-  position: sticky;
-  top: 12vh;
-  height: 76vh;
-  background-color: var(--linen);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
-}
-
-/* One-off: the Thinking band runs a hair lighter (0.05) than the global
-   extra-dark linen token (0.075), which still drives the footer and elsewhere. */
-:root.theme-extra-dark .linen-backdrop {
-  background-color: rgba(146, 140, 135, 0.05);
+  display: none;
 }
 
 /* ─────────────────────────────────────────
@@ -761,26 +1163,9 @@ h1,
   cursor: pointer;
 }
 
-/* Hover: a flint border fades in slowly over the shale (and back out on leave).
-   Done on a pseudo-element so its transition isn't overridden by .fade-in. */
-.article-card::after {
-  content: "";
-  position: absolute;
-  inset: -1px; /* sit over the card's 1px shale border */
-  border: 1px solid var(--jade);
-  border-radius: 24px;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
 .article-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(26,24,25,0.08);
-}
-
-.article-card:hover::after {
-  opacity: 1;
 }
 
 .article-image {
@@ -800,12 +1185,12 @@ h1,
    the ember stroke). Grayscale on the container composes cleanly with the
    dark-mode img filters, so no per-theme overrides are needed. */
 .article-image {
-  opacity: 0.88;
-  transition: opacity 0.5s ease;
+  filter: brightness(0.62);
+  transition: filter 0.5s ease;
 }
 
 .article-card:hover .article-image {
-  opacity: 1;
+  filter: brightness(1);
 }
 
 .article-text {
@@ -970,7 +1355,7 @@ h1.article-title {
   font-size: 24px;
   font-weight: 600;
   line-height: 1;
-  color: var(--jade);
+  color: var(--ember);
 }
 
 .connect-body {
@@ -982,7 +1367,7 @@ h1.article-title {
 }
 
 .connect-link {
-  color: var(--jade);
+  color: var(--ember);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -991,14 +1376,14 @@ h1.article-title {
 .text-link {
   color: var(--pitch);
   text-decoration: underline;
-  text-decoration-color: var(--jade);
+  text-decoration-color: var(--pitch);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 2px;
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
 .text-link:hover {
-  color: var(--jade);
+  color: var(--ember);
 }
 
 /* ─────────────────────────────────────────
@@ -1043,7 +1428,7 @@ h1.article-title {
   align-items: center;
   justify-content: center;
   padding: 0;
-  color: var(--jade);
+  color: var(--ember);
   transition: opacity 0.2s ease;
 }
 
@@ -1115,8 +1500,18 @@ h1.article-title {
    Footer
 ───────────────────────────────────────── */
 .footer {
+  position: relative;
+  z-index: 2;
   margin-top: 160px;
-  background: var(--linen);
+  background-color: var(--plaster);
+  /* Redraw the page grid on the footer, viewport-anchored (background-attachment:
+     fixed) so its 33px lines line up exactly with the fixed .bg-grid. The plaster
+     fill hides the grid behind the footer; this overlay makes it read as one
+     continuous grid instead of a solid band that clips squares at its edges. */
+  background-image:
+    repeating-linear-gradient(to right,  var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 33px),
+    repeating-linear-gradient(to bottom, var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 33px);
+  background-attachment: fixed;
   border-top: 1px solid var(--shale);
 }
 
@@ -1129,35 +1524,65 @@ h1.article-title {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  padding: 48px 80px;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 40px 160px;
 }
 
-.footer-credits,
-.footer-signature {
+.footer-credits {
   display: flex;
   align-items: center;
   gap: 16px;
 }
-
-.footer-signature::before {
-  content: '';
-  display: block;
-  width: 2px;
-  height: 2px;
-  border-radius: 50%;
-  background: var(--pitch);
-  flex-shrink: 0;
+.footer-credits p {
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.5;
+  color: var(--flint);
+  white-space: nowrap;
 }
 
 .footer-dot {
   display: block;
-  width: 2px;
-  height: 2px;
+  width: 4px;
+  height: 4px;
   border-radius: 50%;
-  background: var(--pitch);
+  background: var(--flint);
   flex-shrink: 0;
+}
+
+.footer-social {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.footer-social a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--pitch);
+  transition: color 0.2s ease;
+}
+.footer-social a svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.6s ease;
+}
+.footer-social a:hover {
+  color: var(--ember);
+}
+/* Same treatment as the nav panel: full spin + ember on hover. */
+.footer-social a:hover svg {
+  transform: rotate(360deg);
+}
+.footer-social a:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 
 /* ─────────────────────────────────────────
@@ -1170,7 +1595,7 @@ h1.article-title {
   left: 0;
   width: 10px;
   height: 10px;
-  background: var(--jade);
+  background: var(--ember);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -1213,7 +1638,7 @@ h1.article-title {
   position: absolute;
   inset: 0;
   border-radius: 16px;
-  box-shadow: inset 0 0 0 1px var(--jade);
+  box-shadow: inset 0 0 0 1px var(--ember);
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.5s ease;
@@ -1289,38 +1714,35 @@ h1.article-title {
 @media (max-width: 768px) {
 
   .nav-inner {
-    padding: 16px;
-  }
-  /* Mobile nav: wordmark + theme toggle, contact, and LinkedIn; no jump links */
-  .nav-jump-links {
-    display: none;
-  }
-  .nav-divider {
-    display: none;
-  }
-  .nav-mail {
-    display: flex;
-  }
-  .nav-links {
-    gap: 16px;
+    padding: 16px 24px;
   }
 
+  /* column-reverse so icons sit above the credits (DOM order is credits, then
+     social); credits reverse to show "made by" above the copyright line. */
   .footer-inner {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: flex-start;
     gap: 16px;
-    padding: 24px 16px;
+    padding: 40px 24px;
   }
   .footer-credits {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: flex-start;
     gap: 8px;
   }
-  .footer-credits .footer-dot {
+  .footer-credits p {
+    white-space: normal;
+  }
+  .footer-dot {
     display: none;
   }
-  .footer-signature::before {
-    display: none;
+  .footer-social {
+    gap: 24px;
+  }
+  .footer-social a,
+  .footer-social a svg {
+    width: 32px;
+    height: 32px;
   }
 
   .hero {
@@ -1376,6 +1798,8 @@ h1.article-title {
   .thinking {
     padding: 0 16px;
     gap: 40px;
+    /* Mobile #about has no top padding, so no extra offset needed here */
+    scroll-margin-top: var(--nav-height, 80px);
   }
   .thinking-header {
     max-width: none;

@@ -45,7 +45,7 @@ assets/images/          — All images (permanent local copies)
 | Name      | Value     | Usage                        |
 |-----------|-----------|------------------------------|
 | --plaster | #f5f0eb   | Page background              |
-| --jade   | #3a7266   | Accent / hover color         |
+| --ember   | #d24f39   | Accent / hover color         |
 | --pitch   | #302d2f   | Primary text                 |
 | --flint   | #6a6869   | Secondary text               |
 | --chalk   | #fffcf8   | Light surface                |
@@ -75,8 +75,8 @@ Keep it clean: exactly one `<h1>`, no skipped levels. Don't use `<p>` for anythi
 
 ## Key conventions
 
-- LinkedIn icon uses CSS mask (`mask-image` + `background-color: var(--jade)` on hover) — not a filter
-- `<img>` tags for LinkedIn icon are replaced with `<span class="nav-icon" aria-hidden="true"></span>` across all pages
+- **Nav is a hamburger + slide-out panel** (all real pages): the top bar is just the circle mark + wordmark on the left and a `.nav-hamburger` button on the right. Work/Writing/About links, contact, and the light/dark toggle live inside `.nav-panel` (small right slide-out; opens from the hamburger, `data-nav-open`/`data-nav-close`). Controller + theme toggle are in `js/case-study.js`. Homepage menu links use `#projects/#thinking/#about`; subpages use `/#…`. Independent of the large case-study `#evolved-panel`. See DESIGN-SYSTEM.md for the full component list. (The three empty legacy stubs — `about-thomas/`, `design-thinking/`, `work/primer.html` — still use the old nav.)
+- Panel social icons (LinkedIn/GitHub/Instagram) are inline SVG using `fill="currentColor"` (theme-aware, ember on hover). The older nav LinkedIn CSS-mask (`mask-image` + `background-color: var(--ember)`) still exists but is no longer in markup.
 - Case study hero body paragraphs: `cs2-body` div with `display: flex; flex-direction: column; gap: 24px`
 - Figma asset images expire after 7 days — always download to `assets/images/` immediately
 - Nav autoscroll on homepage uses `window._scrollTarget` + `scrollIntoView` on load

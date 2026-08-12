@@ -241,11 +241,11 @@
   bottom: -1px;
   width: 0;
   height: 2px;
-  background: var(--jade);
+  background: var(--ember);
   transition: width 0.25s ease;
 }
 .panel-link:hover {
-  color: var(--jade);
+  color: var(--ember);
 }
 .panel-link:hover .panel-link-text::after {
   width: 100%;
@@ -265,7 +265,7 @@
   50% { transform: translateX(4px); }
 }
 .panel-link:focus-visible {
-  outline: 2px solid var(--jade);
+  outline: 2px solid var(--ember);
   outline-offset: 4px;
 }
 .cs-evolved > p {
@@ -1229,7 +1229,7 @@
   opacity: 0.6;
 }
 .panel-close:focus-visible {
-  outline: 2px solid var(--jade);
+  outline: 2px solid var(--ember);
   outline-offset: 2px;
 }
 
