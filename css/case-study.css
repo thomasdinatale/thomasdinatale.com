@@ -67,6 +67,11 @@
   color: var(--pitch);
 }
 
+/* Inline emphasis in body copy: semibold, not the browser-default bold (700). */
+strong {
+  font-weight: 600;
+}
+
 .cs-tags {
   display: flex;
   flex-wrap: wrap;
@@ -165,6 +170,19 @@
   font-weight: 400;
   line-height: 1.6;
   color: var(--pitch);
+}
+
+/* Inline body link — underlined pitch text, ember on hover. */
+.cs-inline-link {
+  color: var(--pitch);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+.cs-inline-link:hover,
+.cs-inline-link:focus-visible {
+  color: var(--ember);
 }
 
 .cs-copy-block p.cs-section-title {
@@ -808,6 +826,11 @@
   flex-direction: column;
   gap: 8px;
 }
+/* Extra separation between consecutive body paragraphs (a real paragraph break),
+   while keeping the tight 8px label→body gap. */
+.cs2-research-outcome p:not(.cs2-ro-label) + p:not(.cs2-ro-label) {
+  margin-top: 8px;
+}
 
 .cs2-research-outcome .cs2-ro-label {
   font-weight: 600;
@@ -1154,7 +1177,7 @@
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  z-index: 200;
+  z-index: 400; /* above the global header (300) so the drawer covers it */
 }
 .panel-scrim.is-open {
   opacity: 1;
@@ -1178,7 +1201,7 @@
   transform: translateX(100%);
   visibility: hidden;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.35s;
-  z-index: 201;
+  z-index: 401; /* above the scrim (400) and the global header (300) */
   display: flex;
   flex-direction: column;
 }

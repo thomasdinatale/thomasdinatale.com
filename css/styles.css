@@ -469,8 +469,12 @@ body {
   flex-shrink: 0;
   transition: color 0.2s ease;
 }
-.nav-toggle:hover {
-  color: var(--ember);
+/* Hover only on devices that truly hover — on touch the :hover state made the
+   first tap "hover" and required a second tap to actually open/close. */
+@media (hover: hover) {
+  .nav-toggle:hover {
+    color: var(--ember);
+  }
 }
 .nav-toggle:focus-visible {
   outline: 2px solid var(--ember);
@@ -545,6 +549,9 @@ body {
   transform: translateY(0);
   visibility: visible;
 }
+/* The panel takes focus on open (for screen readers) — no visible ring on the
+   container itself; the open menu is already the clear focus. */
+.nav-panel:focus { outline: none; }
 /* Exit is shorter and accelerates */
 .nav-panel:not(.is-open) {
   transition:
@@ -623,6 +630,15 @@ body {
 .nav-panel-item:focus-visible .nav-panel-num {
   color: var(--flint);
 }
+/* On open the panel moves focus to the first item for accessibility. Suppress the
+   browser's default outline for that (and any pointer) focus; show a clean ember
+   ring only for keyboard focus. */
+.nav-panel-item:focus { outline: none; }
+.nav-panel-item:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
 
 .nav-panel-note {
   font-size: 16px;
@@ -675,26 +691,21 @@ body {
 .nav-panel-graphic .Lc,
 .nav-panel-graphic .Rc,
 .nav-panel-graphic .X  { fill: var(--plaster); }
-/* rest */
-.nav-panel-graphic .Lo { fill: var(--butter); }
-.nav-panel-graphic .Lm { fill: var(--ember); }
-.nav-panel-graphic .Ro { fill: var(--jade); }
-.nav-panel-graphic .Rm { fill: var(--butter); }
-/* Work */
+/* Cream body with a single ember accent. Only the outer disks (Lo/Ro) swap
+   colour per state; centre dots stay cream, and the about accent (Lx) is ember.
+   --pitch is the theme foreground (cream on dark, ink on light). */
+/* rest — ember on the large right disk */
+.nav-panel-graphic .Lo { fill: var(--pitch); }
+.nav-panel-graphic .Lm { fill: var(--pitch); }
+.nav-panel-graphic .Ro { fill: var(--ember); }
+.nav-panel-graphic .Rm { fill: var(--pitch); }
+.nav-panel-graphic .Lx { fill: var(--ember); }
+/* Work — ember moves to the small left disk */
 .nav-panel-graphic[data-state="work"] .Lo { fill: var(--ember); }
-.nav-panel-graphic[data-state="work"] .Lm { fill: var(--butter); }
-.nav-panel-graphic[data-state="work"] .Ro { fill: var(--butter); }
-.nav-panel-graphic[data-state="work"] .Rm { fill: var(--jade); }
-/* Writing */
-.nav-panel-graphic[data-state="writing"] .Lo { fill: var(--butter); }
-.nav-panel-graphic[data-state="writing"] .Lm { fill: var(--ember); }
-.nav-panel-graphic[data-state="writing"] .Ro { fill: var(--jade); }
-.nav-panel-graphic[data-state="writing"] .Rm { fill: var(--butter); }
-/* About */
-.nav-panel-graphic[data-state="about"] .Lo { fill: var(--butter); }
-.nav-panel-graphic[data-state="about"] .Lm { fill: var(--ember); }
-.nav-panel-graphic[data-state="about"] .Ro { fill: var(--jade); }
-.nav-panel-graphic[data-state="about"] .Rm { fill: var(--ember); }
+.nav-panel-graphic[data-state="work"] .Ro { fill: var(--pitch); }
+/* Writing — ember on the small right disk (same fills as rest) */
+/* About — both outer disks cream; ember shows only in the left centre (Lx) */
+.nav-panel-graphic[data-state="about"] .Ro { fill: var(--pitch); }
 
 .nav-panel-footer {
   flex-shrink: 0;
@@ -821,6 +832,8 @@ body {
   .nav-panel-footer { padding: 48px 24px 48px; }
   /* Decorative, hover-only — hidden where there is no room and no hover */
   .nav-panel-graphic { display: none; }
+  /* No hover on touch, so the toggle's hover tag never appears — drop it */
+  .nav-panel-mode-label { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1503,15 +1516,9 @@ h1.article-title {
   position: relative;
   z-index: 2;
   margin-top: 160px;
-  background-color: var(--plaster);
-  /* Redraw the page grid on the footer, viewport-anchored (background-attachment:
-     fixed) so its 33px lines line up exactly with the fixed .bg-grid. The plaster
-     fill hides the grid behind the footer; this overlay makes it read as one
-     continuous grid instead of a solid band that clips squares at its edges. */
-  background-image:
-    repeating-linear-gradient(to right,  var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 33px),
-    repeating-linear-gradient(to bottom, var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 33px);
-  background-attachment: fixed;
+  /* Solid plaster band — covers the grid so the footer reads as one clean
+     block, distinct from the grid-lined page above it. */
+  background: var(--plaster);
   border-top: 1px solid var(--shale);
 }
 
@@ -1526,7 +1533,9 @@ h1.article-title {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 40px 160px;
+  /* Match the nav's horizontal inset (48px) so footer content lines up with the
+     wordmark / hamburger above it. */
+  padding: 40px 48px;
 }
 
 .footer-credits {
@@ -1776,7 +1785,9 @@ h1.article-title {
     padding: 16px;
   }
   .project-card-image--cover {
-    padding: 24px 104px 0;
+    /* Larger phone on mobile (~2x): the desktop 104px side inset is too wide once
+       the card is full-width, shrinking the phone. Taller image pushes copy down. */
+    padding: 24px 60px 0;
   }
   .project-card-image--crop-bottom {
     padding: 16px 16px 0;

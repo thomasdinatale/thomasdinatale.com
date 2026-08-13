@@ -335,8 +335,10 @@
     if (toggle) toggle.setAttribute('aria-expanded', 'true');
     root.classList.add('nav-open');
     setInert(true);
-    const first = panel.querySelector('.nav-panel-item');
-    if (first) first.focus({ preventScroll: true });
+    // Focus the dialog container itself (not the first menu item) so no item shows
+    // a focus ring on open; the Tab trap below still moves focus into the items.
+    panel.setAttribute('tabindex', '-1');
+    panel.focus({ preventScroll: true });
   }
   function closePanel() {
     panel.classList.remove('is-open');
@@ -424,18 +426,19 @@
      everywhere and lets the exact cubic-bezier apply. Fills transition via CSS. */
   if (graphic) {
     const svg = graphic.querySelector('svg');
-    const ids = ['Lo', 'Lc', 'Lm', 'Ro', 'Rc', 'Rm', 'X'];
+    const ids = ['Lo', 'Lc', 'Lm', 'Ro', 'Rc', 'Rm', 'X', 'Lx'];
     const els = {};
     ids.forEach(function (k) { els[k] = svg.querySelector('.' + k); });
 
     // Exact geometry from the Figma SVGs, unified into a common 720×450 viewBox
     // (rest/about artboards +0,+25y; work/writing artboards +63x). L = lower-cx
-    // form, R = higher-cx form. X is the small extra dot present only in About.
+    // form, R = higher-cx form. X is the small dot in About's right circle; Lx is
+    // the ember accent in About's left circle (r0 in every other state).
     const STATES = {
-      rest:    { Lo: [200, 225, 196],       Lc: [200, 225, 111.5],           Lm: [199, 224, 50],           Ro: [520, 225, 196],       Rc: [519.5, 224.5, 111.5],       Rm: [519, 224, 50],           X: [520, 225, 0] },
-      work:    { Lo: [203, 225.689, 136],   Lc: [202.651, 225.34, 77.55],    Lm: [202.3, 224.989, 34.5],   Ro: [432, 225, 221],       Rc: [431.438, 224.438, 124.938], Rm: [430.875, 223.875, 55.75], X: [520, 225, 0] },
-      writing: { Lo: [288, 225, 221],       Lc: [287.438, 224.438, 124.938], Lm: [286.875, 223.875, 55.75],Ro: [517, 225.689, 136],   Rc: [516.651, 225.34, 77.55],    Rm: [516.3, 224.989, 34.5],   X: [520, 225, 0] },
-      about:   { Lo: [200, 225, 196],       Lc: [200, 225, 149.5],           Lm: [200, 225, 89.5],         Ro: [520, 225, 196],       Rc: [519.5, 224.5, 148],         Rm: [520, 225, 99.5],         X: [520, 225, 19.5] }
+      rest:    { Lo: [200, 225, 196],       Lc: [200, 225, 111.5],           Lm: [199, 224, 50],           Ro: [520, 225, 196],       Rc: [519.5, 224.5, 111.5],       Rm: [519, 224, 30],           X: [520, 225, 0],    Lx: [200, 224, 0] },
+      work:    { Lo: [203, 225.689, 136],   Lc: [202.651, 225.34, 77.55],    Lm: [202.3, 224.989, 34.5],   Ro: [432, 225, 221],       Rc: [431.438, 224.438, 124.938], Rm: [430.875, 223.875, 55.75], X: [520, 225, 0],    Lx: [200, 224, 0] },
+      writing: { Lo: [288, 225, 221],       Lc: [287.438, 224.438, 124.938], Lm: [286.875, 223.875, 55.75],Ro: [517, 225.689, 136],   Rc: [516.651, 225.34, 77.55],    Rm: [516.3, 224.989, 34.5],   X: [520, 225, 0],    Lx: [200, 224, 0] },
+      about:   { Lo: [200, 225, 196],       Lc: [200, 225, 149.5],           Lm: [200, 225, 89.5],         Ro: [520, 225, 196],       Rc: [519.5, 224.5, 148],         Rm: [520, 225, 99.5],         X: [520, 225, 19.5], Lx: [200, 224, 53.5] }
     };
 
     // cubic-bezier(0.16, 1, 0.3, 1) — solve x(u)=t then return y(u)
@@ -449,8 +452,8 @@
 
     const DUR = 420;
     let raf = null, startT = 0, from = null, to = null;
-    function snapshot() { const s = {}; ids.forEach(function (k) { const e = els[k]; s[k] = [+e.getAttribute('cx'), +e.getAttribute('cy'), +e.getAttribute('r')]; }); return s; }
-    function apply(vals) { ids.forEach(function (k) { const e = els[k], v = vals[k]; e.setAttribute('cx', v[0]); e.setAttribute('cy', v[1]); e.setAttribute('r', Math.max(0, v[2])); }); }
+    function snapshot() { const s = {}; ids.forEach(function (k) { const e = els[k]; if (!e) return; s[k] = [+e.getAttribute('cx'), +e.getAttribute('cy'), +e.getAttribute('r')]; }); return s; }
+    function apply(vals) { ids.forEach(function (k) { const e = els[k], v = vals[k]; if (!e || !v) return; e.setAttribute('cx', v[0]); e.setAttribute('cy', v[1]); e.setAttribute('r', Math.max(0, v[2])); }); }
     function tick(now) {
       if (!startT) startT = now;
       const p = Math.min(1, (now - startT) / DUR);
