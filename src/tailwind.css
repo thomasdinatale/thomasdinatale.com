@@ -5,7 +5,12 @@
    convert one component at a time and everything else keeps working.
    ========================================================================= */
 
-@import 'tailwindcss';
+/* Reset-free build: theme tokens + utilities only, NO Preflight. Preflight is
+   Tailwind's global reset; omitting it means loading tw.css alongside the
+   hand-written site adds utilities WITHOUT restyling any existing element. */
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
 
 /* Tell Tailwind which files to scan for class names. Without this it only
    scans files next to this CSS file and your utilities silently never appear. */
@@ -100,32 +105,39 @@
   /* Libre Franklin, matching your existing stack. `font-sans` now means this. */
   --font-sans: 'Libre Franklin', sans-serif;
 
-  /* Your type scale, from tokens.json. `text-display` = 80px/1, etc.
-     Format: --text-<name> then --text-<name>--line-height / --font-weight. */
-  --text-display: 80px;
-  --text-display--line-height: 1;
-  --text-display-card: 64px;
-  --text-display-card--line-height: 1.1;
-  --text-section: 48px;
-  --text-section--line-height: 1.4;
-  --text-history: 40px;
-  --text-history--line-height: 1.29;
-  --text-problem: 32px;
-  --text-problem--line-height: 1.4;
-  --text-card: 24px;
-  --text-card--line-height: 1.3;
-  --text-lead: 24px;
-  --text-lead--line-height: 1.7;
-  --text-emphasis: 20px;
-  --text-emphasis--line-height: 1.5;
-  --text-body: 18px;
-  --text-body--line-height: 1.6;
-  --text-nav: 16px;
-  --text-nav--line-height: 1.5;
-  --text-caption: 16px;
-  --text-caption--line-height: 1.5;
-  --text-caption-sm: 14px;
-  --text-caption-sm--line-height: 1.5;
+  /* Type scale — BRIDGED to the CSS custom properties in styles.css :root
+     (the single source of truth). Because this is `@theme inline`, `text-h1`
+     emits `font-size: var(--text-h1)` rather than a baked px value — so the
+     Tailwind utilities and the site's semantic classes resolve to the EXACT
+     same token and can never drift. Figma names: H1–H6 + Body scale. */
+  --text-h1: var(--text-h1);
+  --text-h1--line-height: var(--text-h1-lh);
+  --text-h2: var(--text-h2);
+  --text-h2--line-height: var(--text-h2-lh);
+  --text-h3: var(--text-h3);
+  --text-h3--line-height: var(--text-h3-lh);
+  --text-h4: var(--text-h4);
+  --text-h4--line-height: var(--text-h4-lh);
+  --text-h5: var(--text-h5);
+  --text-h5--line-height: var(--text-h5-lh);
+  --text-h6: var(--text-h6);
+  --text-h6--line-height: var(--text-h6-lh);
+  --text-body-lg: var(--text-body-lg);
+  --text-body-lg--line-height: var(--text-body-lg-lh);
+  --text-body-md: var(--text-body-md);
+  --text-body-md--line-height: var(--text-body-md-lh);
+  --text-body: var(--text-body);
+  --text-body--line-height: var(--text-body-lh);
+  --text-body-sm: var(--text-body-sm);
+  --text-body-sm--line-height: var(--text-body-sm-lh);
+  --text-body-xs: var(--text-body-xs);
+  --text-body-xs--line-height: var(--text-body-xs-lh);
+  --text-eyebrow: var(--text-eyebrow);
+  --text-eyebrow--line-height: var(--text-eyebrow-lh);
+  --text-caption: var(--text-caption);
+  --text-caption--line-height: var(--text-caption-lh);
+  --text-tooltip: var(--text-tooltip);
+  --text-tooltip--line-height: var(--text-tooltip-lh);
 
   /* Radii from tokens.json. `rounded-card` = 32px, `rounded-well` = 16px. */
   --radius-tag: 4px;

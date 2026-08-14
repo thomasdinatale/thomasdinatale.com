@@ -20,9 +20,9 @@
 }
 
 .cs-headline {
-  font-size: 80px;
+  font-size: var(--text-h1);
   font-weight: 700;
-  line-height: 1;
+  line-height: var(--text-h1-lh);
   color: var(--pitch);
 }
 
@@ -30,9 +30,9 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--text-body-lh);
   color: var(--pitch);
 }
 
@@ -54,16 +54,16 @@
 }
 
 .cs-meta-label {
-  font-size: 20px;
+  font-size: var(--text-body-md);
   font-weight: 600;
-  line-height: 1;
+  line-height: var(--text-body-md-lh);
   color: var(--pitch);
 }
 
 .cs-meta-value {
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--text-body-lh);
   color: var(--pitch);
 }
 
@@ -81,9 +81,9 @@ strong {
 .cs-tag {
   background: rgba(26, 24, 25, 0.10);
   color: var(--pitch);
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--text-body-lh);
   padding: 4px 8px;
   border-radius: 4px;
   white-space: nowrap;
@@ -114,9 +114,9 @@ strong {
 }
 
 .cs-caption {
-  font-size: 16px;
+  font-size: var(--text-body-sm);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: var(--text-body-sm-lh);
   color: var(--flint);
   text-align: center;
   max-width: 950px;
@@ -144,9 +144,9 @@ strong {
 }
 
 .cs-section-title {
-  font-size: 24px;
+  font-size: var(--text-body-lg);
   font-weight: 600;
-  line-height: 1.5;
+  line-height: var(--text-body-lg-lh);
   color: var(--pitch);
 }
 
@@ -157,18 +157,18 @@ strong {
   content: attr(data-eyebrow);
   display: block;
   margin-bottom: 8px;
-  font-size: 14px;
+  font-size: var(--text-eyebrow);
   font-weight: 700;
-  line-height: 1.5;
+  line-height: var(--text-eyebrow-lh);
   letter-spacing: 1.12px;
   text-transform: uppercase;
   color: var(--flint);
 }
 
 .cs-copy-block p {
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.7;
+  line-height: var(--text-body-lh);
   color: var(--pitch);
 }
 
@@ -186,9 +186,9 @@ strong {
 }
 
 .cs-copy-block p.cs-section-title {
-  font-size: 24px;
+  font-size: var(--text-body-lg);
   font-weight: 600;
-  line-height: 1.5;
+  line-height: var(--text-body-lg-lh);
 }
 
 /* "How this evolved" — a pinned aside on a linen panel. Its 650px text
@@ -213,9 +213,9 @@ strong {
   flex-shrink: 0;
 }
 .cs-evolved-title {
-  font-size: 20px;
+  font-size: var(--text-body-md);
   font-weight: 600;
-  line-height: 1.5;
+  line-height: var(--text-body-md-lh);
   color: var(--pitch);
 }
 /* "View tradeoffs & iterations" link — opens the panel. Text + arrow.
@@ -230,9 +230,9 @@ strong {
   margin: 0;
   padding: 0;
   font: inherit;
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--text-body-lh);
   color: var(--pitch);
   display: inline-flex;
   align-items: center;
@@ -287,9 +287,9 @@ strong {
   outline-offset: 4px;
 }
 .cs-evolved > p {
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--text-body-lh);
   color: var(--pitch);
 }
 
@@ -437,9 +437,9 @@ strong {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--text-body-lh);
   color: var(--pitch);
 }
 
@@ -480,17 +480,17 @@ strong {
 }
 
 .cs-closing-copy p {
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--text-body-lh);
   color: var(--pitch);
 }
 
 .cs-closing-para {
   width: 650px;
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--text-body-lh);
   color: var(--pitch);
 }
 
@@ -520,9 +520,9 @@ strong {
 }
 
 .cs2-headline {
-  font-size: 80px;
+  font-size: var(--text-h1);
   font-weight: 900;
-  line-height: 1;
+  line-height: var(--text-h1-lh);
   color: var(--pitch);
 }
 
@@ -541,9 +541,9 @@ strong {
 }
 
 .cs2-tagline {
-  font-size: 24px;
+  font-size: var(--text-body-lg);
   font-weight: 600;
-  line-height: 1.5;
+  line-height: var(--text-body-lg-lh);
   color: var(--pitch);
 }
 
@@ -554,9 +554,9 @@ strong {
 }
 
 .cs2-body p {
-  font-size: 24px;
+  font-size: var(--text-body-lg);
   font-weight: 400;
-  line-height: 1.7;
+  line-height: var(--text-body-lg-lh);
   color: var(--pitch);
 }
 
@@ -583,9 +583,9 @@ strong {
 }
 
 .cs2-metric-value {
-  font-size: 20px;
+  font-size: var(--text-body-md);
   font-weight: 600;
-  line-height: 1.6;
+  line-height: var(--text-body-md-lh);
   color: var(--pitch);
   white-space: nowrap;
 }
@@ -598,9 +598,9 @@ strong {
 }
 
 .cs2-metric-label {
-  font-size: 16px;
+  font-size: var(--text-body-sm);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: var(--text-body-sm-lh);
   color: var(--pitch);
 }
 
@@ -626,9 +626,9 @@ strong {
 }
 
 .cs2-hero-caption {
-  font-size: 14px;
+  font-size: var(--text-body-xs);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: var(--text-body-xs-lh);
   color: var(--flint);
   text-align: center;
   max-width: 950px;
@@ -699,9 +699,9 @@ strong {
 }
 
 .cs2-cap {
-  font-size: 16px;
+  font-size: var(--text-body-sm);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: var(--text-body-sm-lh);
   color: var(--flint);
   text-align: center;
   max-width: 720px;
@@ -724,18 +724,18 @@ strong {
 }
 
 .cs2-problem-eyebrow {
-  font-size: 14px;
+  font-size: var(--text-eyebrow);
   font-weight: 700;
-  line-height: 1.5;
+  line-height: var(--text-eyebrow-lh);
   letter-spacing: 1.28px;
   text-transform: uppercase;
   color: var(--pitch);
 }
 
 .cs2-problem-title {
-  font-size: 32px; /* H2 */
+  font-size: var(--text-h5); /* H2 */
   font-weight: 700;
-  line-height: 1.4;
+  line-height: var(--text-h5-lh);
   color: var(--pitch);
 }
 
@@ -746,9 +746,9 @@ strong {
 }
 
 .cs2-problem-body p {
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--text-body-lh);
   color: var(--pitch);
 }
 
@@ -917,9 +917,9 @@ strong {
 }
 
 .cs2-tagline--display {
-  font-size: 32px;
+  font-size: var(--text-h5);
   font-weight: 700;
-  line-height: 1.4;
+  line-height: var(--text-h5-lh);
   max-width: 760px;
 }
 
@@ -966,9 +966,9 @@ strong {
 }
 
 .cs2-outcomes-label {
-  font-size: 14px;
+  font-size: var(--text-eyebrow);
   font-weight: 700;
-  line-height: 1.5;
+  line-height: var(--text-eyebrow-lh);
   letter-spacing: 1.12px;
   text-transform: uppercase;
   color: var(--pitch);
@@ -983,9 +983,9 @@ strong {
 }
 
 .cs2-outcomes-list li {
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--text-body-lh);
   color: var(--pitch);
 }
 
@@ -1051,13 +1051,10 @@ strong {
     gap: 16px;
   }
   .cs2-headline {
-    font-size: 48px;
   }
   .cs2-tagline {
-    font-size: 22px;
   }
   .cs2-body p {
-    font-size: 18px;
   }
   .cs2-metrics {
     flex-direction: column;
@@ -1069,7 +1066,6 @@ strong {
   }
   .cs2-metric-value,
   .cs2-metric-row p {
-    font-size: 18px;
   }
 
   .cs2-hero-image-card {
@@ -1088,10 +1084,8 @@ strong {
     width: 100%;
   }
   .cs2-flow .cs-section-title {
-    font-size: 22px;
   }
   .cs2-flow .cs-copy-block p {
-    font-size: 18px;
   }
 
   .cs2-problem-card {
@@ -1099,10 +1093,8 @@ strong {
     border-radius: 24px;
   }
   .cs2-problem-title {
-    font-size: 32px;
   }
   .cs2-problem-body p {
-    font-size: 18px;
   }
 
   /* Legacy cs- content sections (ButcherBox, Grapevine) */
@@ -1129,12 +1121,10 @@ strong {
     width: 100%;
   }
   .cs-section-title {
-    font-size: 22px;
   }
   .cs-copy-block p,
   .cs-closing-copy p,
   .cs-numbered-list {
-    font-size: 18px;
   }
 
   .cs-bb-phones-row,
@@ -1153,7 +1143,6 @@ strong {
 @media (max-width: 768px) {
   /* Primer hero — collapse the paragraph/metrics split into a stack */
   .cs2-tagline--display {
-    font-size: 28px;
   }
   .cs2-lead-row {
     flex-direction: column;
@@ -1163,7 +1152,6 @@ strong {
     width: 100%;
   }
   .cs2-outcomes-list li {
-    font-size: 18px;
   }
 }
 
@@ -1227,9 +1215,9 @@ strong {
   border-bottom-color: var(--shale);
 }
 .panel-title {
-  font-size: 20px;
+  font-size: var(--text-body-md);
   font-weight: 700;
-  line-height: 1.5;
+  line-height: var(--text-body-md-lh);
   color: var(--pitch);
 }
 .panel-close {
@@ -1285,9 +1273,9 @@ strong {
   gap: 16px;
 }
 .panel-block p {
-  font-size: 18px;
+  font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--text-body-lh);
   color: var(--pitch);
 }
 .panel-block .panel-date {
@@ -1323,7 +1311,6 @@ strong {
   .panel-title,
   .panel-date,
   .panel-block p {
-    font-size: 18px;
   }
   .panel-header {
     padding: 20px 20px 20px 24px;
