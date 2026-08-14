@@ -82,7 +82,7 @@
 .article-section p {
   font-size: 18px;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.7;
   color: var(--pitch);
 }
 
@@ -156,7 +156,7 @@
 }
 
 .article-meta-card {
-  background: var(--linen);
+  background: var(--plaster);
   border-radius: 24px;
   padding: 24px;
   display: flex;
@@ -271,7 +271,7 @@
 
   .article-section p {
     font-size: 18px;
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
   .article-section .article-body-semibold {
