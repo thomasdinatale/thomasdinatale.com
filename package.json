@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-tailwind-sandbox",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local-only Tailwind build for learning. The live site is still static CSS — this compiles src/tailwind.css -> css/tw.css so you can experiment. Nothing here runs on Vercel.",
+  "scripts": {
+    "watch:css": "tailwindcss -i src/tailwind.css -o css/tw.css --watch",
+    "build:css": "tailwindcss -i src/tailwind.css -o css/tw.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  }
+}

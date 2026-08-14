@@ -1,0 +1,160 @@
+/* ===========================================================================
+   tailwind.css — the ONE file Tailwind reads. Build output goes to css/tw.css
+   ===========================================================================
+   This does not replace css/styles.css. It sits alongside it, so you can
+   convert one component at a time and everything else keeps working.
+   ========================================================================= */
+
+@import 'tailwindcss';
+
+/* Tell Tailwind which files to scan for class names. Without this it only
+   scans files next to this CSS file and your utilities silently never appear. */
+@source '../**/*.html';
+@source '../js/**/*.js';
+
+/* ---------------------------------------------------------------------------
+   1. YOUR TOKENS — unchanged, still the source of truth, still theme-swapping.
+   This is a copy of what already lives at the top of css/styles.css. Once you
+   trust this file, delete the originals from styles.css so there's one copy.
+   ------------------------------------------------------------------------- */
+:root {
+  --plaster: #f5f0eb;
+  --ember: #d24f39;
+  --pitch: #302d2f;
+  --flint: #6a6869;
+  --chalk: #fffcf8;
+  --linen: rgba(237, 233, 220, 0.9);
+  --shale: #dcdcdc;
+  --cloud: #ffffff;
+  --metal: #b8b4b8;
+  --grid-line: rgba(26, 24, 25, 0.05);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.theme-light) {
+    --plaster: #252220;
+    --ember: #e8785f;
+    --pitch: #f4eee7;
+    --flint: #928c87;
+    --chalk: #1c1917;
+    --linen: rgba(48, 44, 42, 0.4);
+    --shale: #3a3532;
+    --cloud: #2e2a28;
+    --metal: #ffffff;
+    --grid-line: rgba(244, 238, 231, 0.05);
+    color-scheme: dark;
+  }
+}
+
+:root.theme-dark {
+  --plaster: #252220;
+  --ember: #e8785f;
+  --pitch: #f4eee7;
+  --flint: #928c87;
+  --chalk: #1c1917;
+  --linen: rgba(48, 44, 42, 0.4);
+  --shale: #3a3532;
+  --cloud: #2e2a28;
+  --metal: #ffffff;
+  --grid-line: rgba(244, 238, 231, 0.05);
+  color-scheme: dark;
+}
+
+:root.theme-extra-dark {
+  --plaster: #181614;
+  --ember: #e8785f;
+  --pitch: #f4eee7;
+  --flint: #928c87;
+  --chalk: #0f0e0d;
+  --linen: rgba(146, 140, 135, 0.075);
+  --shale: #2d2a27;
+  --cloud: #211f1c;
+  --metal: #383738;
+  --grid-line: rgba(244, 238, 231, 0.05);
+  color-scheme: dark;
+}
+
+/* ---------------------------------------------------------------------------
+   2. THE BRIDGE — this is the whole trick.
+
+   `@theme inline` tells Tailwind: generate a `text-pitch` utility, and make its
+   value the literal text `var(--pitch)` rather than baking in #302d2f.
+
+   The `inline` keyword is load-bearing. Without it Tailwind resolves each token
+   to a hex at BUILD time, your three themes collapse into one, and dark mode
+   silently stops working. With it, `text-pitch` emits `color: var(--pitch)` and
+   your existing runtime theme switching keeps working untouched.
+   ------------------------------------------------------------------------- */
+@theme inline {
+  --color-plaster: var(--plaster);
+  --color-ember: var(--ember);
+  --color-pitch: var(--pitch);
+  --color-flint: var(--flint);
+  --color-chalk: var(--chalk);
+  --color-linen: var(--linen);
+  --color-shale: var(--shale);
+  --color-cloud: var(--cloud);
+  --color-metal: var(--metal);
+
+  /* Libre Franklin, matching your existing stack. `font-sans` now means this. */
+  --font-sans: 'Libre Franklin', sans-serif;
+
+  /* Your type scale, from tokens.json. `text-display` = 80px/1, etc.
+     Format: --text-<name> then --text-<name>--line-height / --font-weight. */
+  --text-display: 80px;
+  --text-display--line-height: 1;
+  --text-display-card: 64px;
+  --text-display-card--line-height: 1.1;
+  --text-section: 48px;
+  --text-section--line-height: 1.4;
+  --text-history: 40px;
+  --text-history--line-height: 1.29;
+  --text-problem: 32px;
+  --text-problem--line-height: 1.4;
+  --text-card: 24px;
+  --text-card--line-height: 1.3;
+  --text-lead: 24px;
+  --text-lead--line-height: 1.7;
+  --text-emphasis: 20px;
+  --text-emphasis--line-height: 1.5;
+  --text-body: 18px;
+  --text-body--line-height: 1.6;
+  --text-nav: 16px;
+  --text-nav--line-height: 1.5;
+  --text-caption: 16px;
+  --text-caption--line-height: 1.5;
+  --text-caption-sm: 14px;
+  --text-caption-sm--line-height: 1.5;
+
+  /* Radii from tokens.json. `rounded-card` = 32px, `rounded-well` = 16px. */
+  --radius-tag: 4px;
+  --radius-well: 16px;
+  --radius-panel: 24px;
+  --radius-card: 32px;
+
+  /* Your single breakpoint. `md:` now means "769px and up". */
+  --breakpoint-md: 769px;
+
+  /* Signature shadows. `shadow-card-hover` etc. */
+  --shadow-card-hover: 0 12px 40px rgba(26, 24, 25, 0.08);
+  --shadow-media: 0px 16px 48px 0px rgba(0, 0, 0, 0.16);
+  --shadow-video: 0 16px 48px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* ---------------------------------------------------------------------------
+   3. THE ESCAPE HATCH — things that should NOT be utilities.
+
+   Your card border gradient layers a padding-box fill under a border-box
+   gradient. There is no sane utility for that, and there shouldn't be. Tailwind
+   is for the 95% that's repetitive; genuinely custom CSS stays custom CSS.
+   Knowing which is which is the actual skill.
+   ------------------------------------------------------------------------- */
+@layer components {
+  .gradient-stroke {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--chalk), var(--chalk)) padding-box,
+      linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
+  }
+}

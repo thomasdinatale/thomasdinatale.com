@@ -1,0 +1,9 @@
+# Local Tailwind learning sandbox + tooling — keep the production deploy a pure
+# static site. Excluding package.json also stops Vercel from treating this as a
+# Node project and trying to run a build; the live site stays zero-config static.
+node_modules
+package.json
+package-lock.json
+src/
+css/tw.css
+playground.html

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Tailwind Playground — Learning Sandbox</title>
+
+  <!-- Google Fonts: Libre Franklin, same as the real site -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+
+  <!--
+    THE CASCADE-LAYER FIX (a real Tailwind-migration technique).
+
+    styles.css line 4 has an UNLAYERED global reset: `* { padding: 0 }`.
+    Unlayered CSS beats anything inside an @layer, and every Tailwind utility
+    lives in @layer utilities — so without this, the reset silently zeroes out
+    `p-8`, `px-26`, etc. on the Tailwind card.
+
+    Fix: declare the layer order up front and load the legacy stylesheet INTO a
+    `site` layer positioned base < components < site < utilities. Result:
+      • Tailwind `utilities` beat the legacy reset  -> Tailwind card gets its padding
+      • legacy `site` beats Tailwind `base` preflight -> original card stays faithful
+    This is exactly how you'd fold Tailwind into an existing hand-written codebase.
+  -->
+  <style>
+    @layer theme, base, components, site, utilities;
+    @import url("css/styles.css") layer(site);
+  </style>
+  <link rel="stylesheet" href="css/tw.css" />
+
+  <style>
+    /* Playground chrome only — NOT part of the lesson. Kept in one place so
+       the cards below use nothing but real site CSS / real Tailwind utilities. */
+    body { padding: 0; }
+    .pg-wrap { max-width: 1120px; margin: 0 auto; padding: 48px 24px 96px; }
+    .pg-h1 { font-size: 40px; font-weight: 700; line-height: 1.1; color: var(--pitch); margin: 0 0 8px; }
+    .pg-sub { font-size: 18px; line-height: 1.6; color: var(--flint); margin: 0 0 32px; max-width: 68ch; }
+    .pg-toolbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 40px; padding: 12px 16px; border: 1px solid var(--shale); border-radius: 12px; background: var(--chalk); }
+    .pg-toolbar span { font-size: 14px; color: var(--flint); margin-right: 8px; }
+    .pg-btn { font: inherit; font-size: 14px; font-weight: 600; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--shale); background: var(--plaster); color: var(--pitch); cursor: pointer; }
+    .pg-btn[aria-pressed="true"] { border-color: var(--ember); color: var(--ember); }
+    .pg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    @media (max-width: 768px) { .pg-grid { grid-template-columns: 1fr; } }
+    .pg-col-label { display: flex; align-items: baseline; gap: 8px; margin-bottom: 16px; }
+    .pg-col-label b { font-size: 16px; font-weight: 700; color: var(--pitch); }
+    .pg-col-label em { font-size: 13px; font-style: normal; color: var(--flint); }
+    .pg-card-max { max-width: 460px; }
+    .pg-note { margin-top: 64px; }
+    .pg-note h2 { font-size: 28px; font-weight: 700; color: var(--pitch); margin: 0 0 16px; }
+    .pg-map { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .pg-map th, .pg-map td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--shale); vertical-align: top; color: var(--pitch); }
+    .pg-map th { color: var(--flint); font-weight: 600; }
+    .pg-map code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; background: var(--plaster); padding: 2px 6px; border-radius: 4px; }
+    .pg-map td:first-child code { color: var(--ember); }
+    .pg-callout { margin-top: 32px; padding: 16px 20px; border-left: 3px solid var(--ember); background: var(--linen); border-radius: 0 8px 8px 0; }
+    .pg-callout p { margin: 0 0 8px; font-size: 15px; line-height: 1.6; color: var(--pitch); }
+    .pg-callout p:last-child { margin-bottom: 0; }
+  </style>
+</head>
+
+<body>
+  <div class="pg-wrap">
+    <h1 class="pg-h1">Tailwind Playground</h1>
+    <p class="pg-sub">
+      The same Nara project card, built twice. On the left, your real
+      <code>styles.css</code> classes. On the right, Tailwind utilities compiled
+      from <code>src/tailwind.css</code>. They should look identical — and both
+      re-theme live when you switch themes, which is the whole point: your
+      <code>@theme inline</code> bridge makes <code>bg-plaster</code> emit
+      <code>var(--plaster)</code>, not a frozen hex.
+    </p>
+
+    <div class="pg-toolbar" role="group" aria-label="Theme switcher">
+      <span>Theme:</span>
+      <button class="pg-btn" data-theme="theme-light" aria-pressed="true">Light</button>
+      <button class="pg-btn" data-theme="theme-dark" aria-pressed="false">Dark</button>
+      <button class="pg-btn" data-theme="theme-extra-dark" aria-pressed="false">Extra dark</button>
+    </div>
+
+    <div class="pg-grid">
+      <!-- ============================ ORIGINAL ============================ -->
+      <div>
+        <div class="pg-col-label"><b>Original</b><em>styles.css — hand-written classes</em></div>
+        <div class="pg-card-max">
+          <a class="project-card project-card--half project-card--nara" href="#">
+            <div class="project-card-image project-card-image--cover">
+              <img src="assets/images/nara-project-card.webp" alt="Nara project screenshot" />
+            </div>
+            <div class="project-meta">
+              <h3 class="project-title">Nara</h3>
+              <div class="project-copy">
+                <p class="project-desc">Designed Nara's pregnancy and baby tracker from first concept forward. It holds a 4.9-star App Store rating across more than 23,000 reviews and 1 million&#8202;+ users.</p>
+                <div class="project-tags">
+                  <span class="project-tag">iOS &amp; Android apps</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ============================ TAILWIND ============================ -->
+      <div>
+        <div class="pg-col-label"><b>Tailwind</b><em>tw.css — utility classes</em></div>
+        <div class="pg-card-max">
+          <!--
+            group                       -> lets the image react to the CARD's hover (group-hover)
+            gradient-stroke             -> your @layer component; the border-gradient trick stays custom
+            flex flex-col gap-6 p-8     -> layout: column, 24px gap, 32px padding
+            rounded-card                -> 32px (your token)
+            hover:-translate-y-1        -> lift 4px on hover
+            hover:shadow-card-hover     -> your signature shadow token
+          -->
+          <a class="group gradient-stroke flex flex-col gap-6 p-6 md:p-8 rounded-panel md:rounded-card no-underline cursor-pointer transition-[transform,box-shadow] duration-300 ease-[ease] hover:-translate-y-1 hover:shadow-card-hover" href="#">
+            <!-- image well: responsive side padding (60px mobile -> 104px desktop),
+                 and bg swaps to Nara blue on card hover via group-hover -->
+            <div class="bg-plaster rounded-well overflow-hidden flex items-center justify-center transition-colors duration-300 pt-6 px-15 pb-0 md:px-26 group-hover:bg-[#31537C]">
+              <img class="w-full aspect-[277/392] object-cover object-top" src="assets/images/nara-project-card.webp" alt="Nara project screenshot" />
+            </div>
+            <div class="flex flex-col gap-2">
+              <h3 class="text-[20px]/[1.3] md:text-card font-semibold text-pitch">Nara</h3>
+              <div class="flex flex-col gap-4">
+                <p class="text-body text-pitch">Designed Nara's pregnancy and baby tracker from first concept forward. It holds a 4.9-star App Store rating across more than 23,000 reviews and 1 million&#8202;+ users.</p>
+                <div class="flex flex-wrap gap-4">
+                  <span class="bg-plaster border border-shale rounded-tag px-2 py-1 text-caption text-pitch whitespace-nowrap">iOS &amp; Android apps</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================ THE LESSON ============================ -->
+    <div class="pg-note">
+      <h2>Class-by-class: what maps to what</h2>
+      <table class="pg-map">
+        <thead>
+          <tr><th style="width:34%">Your CSS (styles.css)</th><th style="width:33%">Tailwind utility</th><th style="width:33%">Why</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>border-radius: 32px</code></td><td><code>rounded-card</code></td><td>Your radius token, not a random <code>rounded-3xl</code></td></tr>
+          <tr><td><code>gap: 24px</code></td><td><code>gap-6</code></td><td>Tailwind spacing = value ÷ 4px. 24 ÷ 4 = 6</td></tr>
+          <tr><td><code>padding: 32px</code></td><td><code>p-8</code></td><td>32 ÷ 4 = 8</td></tr>
+          <tr><td><code>background: var(--plaster)</code></td><td><code>bg-plaster</code></td><td>The token bridge — stays a live <code>var()</code></td></tr>
+          <tr><td><code>color: var(--pitch)</code></td><td><code>text-pitch</code></td><td>Same bridge, for text color</td></tr>
+          <tr><td><code>font-size: 24px; line-height: 1.3</code></td><td><code>text-card</code></td><td>One utility carries size <em>and</em> line-height</td></tr>
+          <tr><td><code>font-size: 18px; line-height: 1.6</code></td><td><code>text-body</code></td><td>Your workhorse body style</td></tr>
+          <tr><td><code>:hover { translateY(-4px) }</code></td><td><code>hover:-translate-y-1</code></td><td>State variant baked into the class</td></tr>
+          <tr><td><code>.card:hover .image { background: #31537C }</code></td><td><code>group</code> + <code>group-hover:bg-[#31537C]</code></td><td>Child reacts to parent hover. <code>[#31537C]</code> = one-off value, fine here</td></tr>
+          <tr><td><code>@media (max-width:768px){ padding: 60px }</code></td><td><code>px-15 md:px-26</code></td><td>Mobile-first: base = phone, <code>md:</code> = your 769px breakpoint token</td></tr>
+          <tr><td>the border-gradient trick</td><td><code>gradient-stroke</code> (component)</td><td><b>Stays custom.</b> Not everything should be a utility</td></tr>
+        </tbody>
+      </table>
+
+      <div class="pg-callout">
+        <p><b>The #1 real-world gotcha (learned live building this page):</b> your <code>styles.css</code> line 4 has an unlayered global reset — <code>* { padding: 0 }</code>. Unlayered CSS beats <em>everything</em> inside a <code>@layer</code>, and all Tailwind utilities live in <code>@layer utilities</code>. So the reset silently zeroed every <code>p-8</code> / <code>px-26</code> until I put <code>styles.css</code> into a <code>site</code> layer ordered below <code>utilities</code> (see the <code>&lt;style&gt;</code> in this file's <code>&lt;head&gt;</code>). This exact issue is what makes people say "Tailwind isn't working" when adding it to an existing codebase.</p>
+      </div>
+
+      <div class="pg-callout">
+        <p><b>The actual skill you're learning</b> isn't memorizing class names — it's the judgment call in that last row. Tailwind is for the repetitive 95% (spacing, color, type, flexbox). Genuinely custom CSS (your gradient border) stays as a named component. Knowing which is which is the whole game.</p>
+        <p><b>Try this:</b> hover each card (the lift + Nara-blue image well fire identically). Then flip the theme buttons above — both cards re-color together, proving the utilities resolve to your live tokens. Then open this file's source and read the two card blocks side by side.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Playground-only theme switcher. On the real site this is in js/case-study.js.
+    const root = document.documentElement;
+    const btns = document.querySelectorAll('.pg-btn[data-theme]');
+    btns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        root.className = btn.dataset.theme;
+        btns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      });
+    });
+  </script>
+</body>
+</html>
