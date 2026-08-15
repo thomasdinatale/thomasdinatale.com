@@ -334,6 +334,9 @@
     panel.setAttribute('aria-hidden', 'false');
     if (toggle) toggle.setAttribute('aria-expanded', 'true');
     root.classList.add('nav-open');
+    // Vercel Web Analytics custom event: count how often the nav menu is opened.
+    // Guarded so pages without the insights script (or blocked analytics) no-op.
+    if (typeof window.va === 'function') window.va('event', { name: 'nav_open' });
     setInert(true);
     // Focus the dialog container itself (not the first menu item) so no item shows
     // a focus ring on open; the Tab trap below still moves focus into the items.

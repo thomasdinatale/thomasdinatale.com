@@ -19,6 +19,44 @@
   --cloud:   #ffffff;
   --metal:   #b8b4b8;
   --grid-line: rgba(26, 24, 25, 0.05);
+
+  /* Per-case-study brand accents — project-card hover fills (theme-independent) */
+  --accent-primer:     #367ef0;
+  --accent-butcherbox: #c93835;
+  --accent-nara:       #31537C;
+  --accent-blueapron:  #313467;
+  --accent-grapevine:  #ffea33;
+
+  /* Radii — corner scale (theme-independent) */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* Elevation — signature shadows (theme-independent) */
+  --shadow-card-hover: 0 12px 40px rgba(26, 24, 25, 0.08);
+  --shadow-media:      0px 16px 48px 0px rgba(0, 0, 0, 0.16);
+  --shadow-video:      0 16px 48px 0 rgba(0, 0, 0, 0.25);
+  --shadow-photo:
+    0px 2px 5px rgba(0,0,0,0.10),
+    0px 9px 9px rgba(0,0,0,0.09),
+    0px 21px 13px rgba(0,0,0,0.05),
+    0px 38px 15px rgba(0,0,0,0.01),
+    0px 59px 17px rgba(0,0,0,0);
+  --shadow-panel:
+    -10px 0 21px 0 rgba(0, 0, 0, 0.10),
+    -39px 0 39px 0 rgba(0, 0, 0, 0.09),
+    -88px 0 53px 0 rgba(0, 0, 0, 0.05),
+    -156px 0 62px 0 rgba(0, 0, 0, 0.01);
+  --shadow-panel-shot:
+    0 2px 5px rgba(0, 0, 0, 0.10),
+    0 9px 9px rgba(0, 0, 0, 0.09),
+    0 21px 13px rgba(0, 0, 0, 0.05);
+  --shadow-nav-panel:
+    0 10px 21px 0 rgba(0, 0, 0, 0.10),
+    0 39px 39px 0 rgba(0, 0, 0, 0.09),
+    0 88px 53px 0 rgba(0, 0, 0, 0.05);
 }
 
 /* ─────────────────────────────────────────
@@ -203,7 +241,7 @@ body {
     var(--grid-line) 0px,
     var(--grid-line) 1px,
     transparent 1px,
-    transparent 33px
+    transparent 32px
   );
 }
 .bg-grid::after {
@@ -212,7 +250,7 @@ body {
     var(--grid-line) 0px,
     var(--grid-line) 1px,
     transparent 1px,
-    transparent 33px
+    transparent 32px
   );
 }
 
@@ -228,7 +266,7 @@ body {
 }
 
 /* Cursor spotlight — a soft ember glow that lights up the grid lines near the
-   pointer. Pinned to the viewport with the SAME origin + 33px pattern as
+   pointer. Pinned to the viewport with the SAME origin + 32px pattern as
    .bg-grid, so the accent lines render pixel-identical to the grid lines (no
    transform → no sub-pixel offset → no doubled lines). Only the radial MASK
    moves, following --gx/--gy set by JS. Created wherever .bg-grid exists;
@@ -244,8 +282,8 @@ body {
   opacity: 0;
   transition: opacity 0.35s ease;
   background-image:
-    repeating-linear-gradient(to right,  var(--glow-color) 0px, var(--glow-color) 1px, transparent 1px, transparent 33px),
-    repeating-linear-gradient(to bottom, var(--glow-color) 0px, var(--glow-color) 1px, transparent 1px, transparent 33px);
+    repeating-linear-gradient(to right,  var(--glow-color) 0px, var(--glow-color) 1px, transparent 1px, transparent 32px),
+    repeating-linear-gradient(to bottom, var(--glow-color) 0px, var(--glow-color) 1px, transparent 1px, transparent 32px);
   -webkit-mask-image: radial-gradient(circle var(--glow-radius) at var(--gx, -9999px) var(--gy, -9999px), #000 0%, rgba(0,0,0,0.35) 30%, transparent 60%);
   mask-image: radial-gradient(circle var(--glow-radius) at var(--gx, -9999px) var(--gy, -9999px), #000 0%, rgba(0,0,0,0.35) 30%, transparent 60%);
   will-change: mask-image;
@@ -423,7 +461,7 @@ body {
   font-weight: 400;
   line-height: var(--text-body-xs-lh);
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   text-align: center;
   white-space: nowrap;
 }
@@ -523,7 +561,7 @@ body {
 .nav-toggle:focus-visible {
   outline: 2px solid var(--ember);
   outline-offset: 6px;
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
 }
 .nav-toggle .bar {
   position: absolute;
@@ -572,10 +610,7 @@ body {
   max-height: min(812px, 96vh);
   background: var(--plaster);
   border-bottom: 1px solid var(--metal);
-  box-shadow:
-    0 10px 21px 0 rgba(0, 0, 0, 0.10),
-    0 39px 39px 0 rgba(0, 0, 0, 0.09),
-    0 88px 53px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-nav-panel);
   transform: translateY(-100%);
   visibility: hidden;
   /* Enter: 320ms; overridden to 220ms on close below. transform only. */
@@ -639,7 +674,7 @@ body {
   text-decoration: none;
 }
 .nav-panel-word {
-  font-size: 80px;
+  font-size: var(--text-h1);
   font-weight: 800;
   line-height: 1;
   /* Two text-clipped layers: full pitch base + an ember layer wiping in from the
@@ -681,7 +716,7 @@ body {
 .nav-panel-item:focus-visible {
   outline: 2px solid var(--ember);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
 }
 
 .nav-panel-note {
@@ -806,7 +841,7 @@ body {
   font-weight: 400;
   line-height: var(--text-body-xs-lh);
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
@@ -823,7 +858,7 @@ body {
 }
 .nav-panel-mode:hover { color: var(--ember); }
 .nav-panel-mode:hover .nav-panel-mode-icon { color: var(--ember); transform: rotate(360deg); }
-.nav-panel-mode:focus-visible { outline: 2px solid var(--ember); outline-offset: 4px; border-radius: 2px; }
+.nav-panel-mode:focus-visible { outline: 2px solid var(--ember); outline-offset: 4px; border-radius: var(--radius-xs); }
 
 .nav-panel-social { display: flex; align-items: center; gap: 16px; }
 .nav-panel-social a {
@@ -839,7 +874,7 @@ body {
 .nav-panel-social a svg { display: block; width: 32px; height: 32px; transition: transform 0.6s ease; }
 .nav-panel-social a:hover { color: var(--ember); }
 .nav-panel-social a:hover svg { transform: rotate(360deg); }
-.nav-panel-social a:focus-visible { outline: 2px solid var(--ember); outline-offset: 4px; border-radius: 2px; }
+.nav-panel-social a:focus-visible { outline: 2px solid var(--ember); outline-offset: 4px; border-radius: var(--radius-xs); }
 
 /* Staggered entrance — items translate up + fade. Delays apply on open only, so
    on close they leave together (no delay). */
@@ -871,7 +906,6 @@ body {
     padding: calc(var(--nav-height, 60px) + 48px) 24px 0;
   }
   .nav-panel-left { flex: 1 1 auto; }
-  .nav-panel-word { font-size: 56px; }
   .nav-panel-item { height: 76px; }
   .nav-panel-footer { padding: 48px 24px 48px; }
   /* Decorative, hover-only — hidden where there is no room and no hover */
@@ -951,7 +985,7 @@ h1,
 
 .project-card {
   border: 1px solid transparent;
-  border-radius: 32px;
+  border-radius: var(--radius-xl);
   background:
     linear-gradient(var(--chalk), var(--chalk)) padding-box,
     linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
@@ -965,12 +999,12 @@ h1,
 }
 .project-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(26,24,25,0.08);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .project-card-image {
   background: var(--plaster);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -979,22 +1013,22 @@ h1,
 }
 
 .project-card--primer:hover .project-card-image {
-  background-color: #367ef0;
+  background-color: var(--accent-primer);
 }
 .project-card--butcherbox:hover .project-card-image {
-  background-color: #c93835;
+  background-color: var(--accent-butcherbox);
 }
 .project-card--nara:hover .project-card-image {
-  background-color: #31537C;
+  background-color: var(--accent-nara);
 }
 .project-card--primer-app:hover .project-card-image {
-  background-color: #367ef0;
+  background-color: var(--accent-primer);
 }
 .project-card--blue-apron:hover .project-card-image {
-  background-color: #313467;
+  background-color: var(--accent-blueapron);
 }
 .project-card--grapevine:hover .project-card-image {
-  background-color: #ffea33;
+  background-color: var(--accent-grapevine);
 }
 
 .project-card-image--contain {
@@ -1048,14 +1082,14 @@ h1,
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 24px;
+  padding: 8px 16px;
   border: 1px solid var(--shale);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   background: var(--chalk);
   color: var(--pitch);
-  font-size: var(--text-body-md);
+  font-size: var(--text-body-sm);
   font-weight: 600;
-  line-height: var(--text-body-md-lh);
+  line-height: var(--text-body-sm-lh);
   text-decoration: none;
   white-space: nowrap;
   transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
@@ -1101,7 +1135,7 @@ h1,
 .project-tag {
   background: var(--plaster);
   border: 1px solid var(--shale);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   padding: 4px 8px;
   font-size: var(--text-body-sm);
   font-weight: 400;
@@ -1161,10 +1195,10 @@ h1,
 ───────────────────────────────────────── */
 .thinking {
   position: relative;
-  padding: 160px;
+  padding: 80px 160px 160px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 80px;
 }
 
 /* Full-bleed solid plaster fill for the ENTIRE Notes-on-design section, with a
@@ -1223,7 +1257,7 @@ h1,
 .article-card {
   position: relative;
   border: 1px solid transparent;
-  border-radius: 32px;
+  border-radius: var(--radius-xl);
   background:
     linear-gradient(var(--chalk), var(--chalk)) padding-box,
     linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
@@ -1238,13 +1272,13 @@ h1,
 
 .article-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(26,24,25,0.08);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .article-image {
   height: 243px;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   position: relative;
 }
 
@@ -1381,6 +1415,9 @@ h1.article-title {
   font-weight: 600;
   line-height: var(--text-h6-lh);
   color: var(--pitch);
+  /* Tag-independent spacing: match the old <p> default so the <h5>'s larger
+     UA heading margins don't shift the bio layout. */
+  margin-block: 1em;
 }
 
 .about-bio p:not(.about-bio-title) {
@@ -1398,7 +1435,6 @@ h1.article-title {
   width: 525px;
   height: 816px;
   overflow: hidden;
-  border-radius: 0 0 48px 48px;
   pointer-events: none;
 }
 
@@ -1449,7 +1485,7 @@ h1.article-title {
 .text-link {
   color: var(--pitch);
   text-decoration: underline;
-  text-decoration-color: var(--pitch);
+  text-decoration-color: var(--ember);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 2px;
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
@@ -1527,12 +1563,7 @@ h1.article-title {
   flex-shrink: 0;
   border: 12px solid var(--chalk);
   overflow: hidden;
-  box-shadow:
-    0px 2px 5px rgba(0,0,0,0.10),
-    0px 9px 9px rgba(0,0,0,0.09),
-    0px 21px 13px rgba(0,0,0,0.05),
-    0px 38px 15px rgba(0,0,0,0.01),
-    0px 59px 17px rgba(0,0,0,0);
+  box-shadow: var(--shadow-photo);
   position: relative;
 }
 
@@ -1651,7 +1682,7 @@ h1.article-title {
 .footer-social a:focus-visible {
   outline: 2px solid var(--ember);
   outline-offset: 4px;
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
 }
 
 /* ─────────────────────────────────────────
@@ -1684,7 +1715,7 @@ h1.article-title {
 }
 .history-card {
   border: 1px solid transparent;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   background: linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
   overflow: hidden;
   display: flex;
@@ -1706,7 +1737,7 @@ h1.article-title {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   box-shadow: inset 0 0 0 1px var(--ember);
   pointer-events: none;
   opacity: 0;
@@ -1715,7 +1746,7 @@ h1.article-title {
 }
 .history-card--link:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(26, 24, 25, 0.08);
+  box-shadow: var(--shadow-card-hover);
 }
 .history-card--link:hover::after {
   opacity: 1;
@@ -1768,7 +1799,7 @@ h1.article-title {
 .history-tag {
   background: var(--plaster);
   border: 1px solid var(--shale);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   padding: 4px 8px;
   font-size: var(--text-body);
   font-weight: 400;
@@ -1831,7 +1862,7 @@ h1.article-title {
     gap: 20px;
   }
   .project-card {
-    border-radius: 32px;
+    border-radius: var(--radius-xl);
     padding: 24px;
     gap: 24px;
   }

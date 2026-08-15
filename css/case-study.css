@@ -38,8 +38,8 @@
 
 /* Meta card */
 .cs-meta-card {
-  background: #ede9dc;
-  border-radius: 24px;
+  background: var(--linen);
+  border-radius: var(--radius-lg);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -85,7 +85,7 @@ strong {
   font-weight: 400;
   line-height: var(--text-body-lh);
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   white-space: nowrap;
 }
 
@@ -96,10 +96,10 @@ strong {
 
 .cs-hero-image-bg {
   background: var(--chalk);
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
   width: 1216px;
   margin: 0 auto;
-  padding: 34px 48px 48px;
+  padding: 32px 48px 48px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -197,7 +197,7 @@ strong {
   width: 730px;
   max-width: 100%;
   background: var(--linen);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -390,7 +390,7 @@ strong {
   display: block;
   width: 100%;
   height: auto;
-  box-shadow: 0px 16px 48px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: var(--shadow-media);
 }
 
 .cs-bb-mobile {
@@ -399,16 +399,16 @@ strong {
   height: auto;
   right: 0;
   top: 354px;
-  box-shadow: 0px 16px 48px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: var(--shadow-media);
 }
 
-/* Nara content flow — single flex column with 49px gap between all items */
+/* Nara content flow — single flex column with 48px gap between all items */
 .cs-content-flow {
   margin-top: 48px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 49px;
+  gap: 48px;
 }
 
 /* Watch card */
@@ -568,7 +568,7 @@ strong {
 
 .cs2-metric {
   background: var(--linen);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   padding: 16px 32px;
   display: flex;
   flex-direction: column;
@@ -607,7 +607,7 @@ strong {
 /* Hero image — wide breakout card */
 .cs2-hero-image-card {
   background: var(--chalk);
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
   width: 100%;
   height: auto;
   padding: 32px;
@@ -689,7 +689,7 @@ strong {
   display: block;
   width: 100%;
   height: auto;
-  box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: var(--shadow-video);
 }
 
 /* The caption's -12px pull is meant for images whose shadow is baked into a
@@ -712,7 +712,7 @@ strong {
    32px margin + the 48px flow gap = 80px of separation above and below each card. */
 .cs2-problem-card {
   background: var(--linen);
-  border-radius: 32px;
+  border-radius: var(--radius-xl);
   padding: 64px;
   width: 778px; /* 650px content + 64px padding each side */
   max-width: 100%;
@@ -1090,7 +1090,7 @@ strong {
 
   .cs2-problem-card {
     padding: 32px 24px;
-    border-radius: 24px;
+    border-radius: var(--radius-lg);
   }
   .cs2-problem-title {
   }
@@ -1181,11 +1181,7 @@ strong {
   max-width: 100%;
   background: var(--plaster);
   border-left: 1px solid var(--shale);
-  box-shadow:
-    -10px 0 21px 0 rgba(0, 0, 0, 0.10),
-    -39px 0 39px 0 rgba(0, 0, 0, 0.09),
-    -88px 0 53px 0 rgba(0, 0, 0, 0.05),
-    -156px 0 62px 0 rgba(0, 0, 0, 0.01);
+  box-shadow: var(--shadow-panel);
   transform: translateX(100%);
   visibility: hidden;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.35s;
@@ -1233,7 +1229,7 @@ strong {
   margin: 0;
   color: var(--pitch);
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   transition: opacity 0.2s ease;
 }
 .panel-close:hover {
@@ -1286,10 +1282,7 @@ strong {
   display: block;
   width: 100%;
   height: auto;
-  box-shadow:
-    0 2px 5px rgba(0, 0, 0, 0.10),
-    0 9px 9px rgba(0, 0, 0, 0.09),
-    0 21px 13px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-panel-shot);
 }
 
 /* Lock page scroll while the panel is open */
