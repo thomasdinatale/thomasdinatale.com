@@ -163,7 +163,7 @@
 .article-toc-title {
   font-size: var(--text-body-md);
   font-weight: 600;
-  line-height: 1.5;
+  line-height: var(--text-body-md-lh);
   color: var(--pitch);
 }
 

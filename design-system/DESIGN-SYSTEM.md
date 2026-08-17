@@ -31,7 +31,7 @@ Full details in `tokens.json > typography.scale`. The workhorse is **body: 18px 
 | H2 section | 48 / 700 · lh 1.4 | Section headlines | `.thinking-headline`, `.about-headline` |
 | H2 problem | 32 / 700 · lh 1.4 | Problem cards, display tagline | `.cs2-problem-title`, `.cs2-tagline--display` |
 | Card title | 24 / 600 | Card + section titles | `.project-title`, `.cs-section-title` |
-| Lead body | 24 / 400 · lh 1.7 | Hero / case-study lead | `.hero p`, `.cs2-body p` |
+| Lead body | 24 / 400 · lh 1.6 | Hero / case-study lead | `.hero p`, `.cs2-body p` |
 | **Body** | **18 / 400 · lh 1.6** | **default paragraph** | `.cs-copy-block p`, `.article-section p` |
 | Caption | 14–16 / 400 · flint | Image captions | `.cs2-cap`, `.cs-caption` |
 | Eyebrow | 14 / 700 · uppercase · +tracking | Labels, date pills | `.cs2-problem-eyebrow`, `.history-date` |
@@ -60,12 +60,14 @@ Every reusable pattern currently in the site, with its class and where it's defi
 - **Tooltip** — `.tooltip` (shale bg, 4px radius); nav variant positions below icon and force-shows via `.is-visible` for the email "Copied!" state.
 - **Buttons / CTAs** — `.projects-cta-btn` (4px radius, shale border → ember border + ember text on hover, 20/600).
 - **Links** — `.text-link` (pitch text, ember underline, full ember on hover), `.connect-link` (ember + underline).
-- **Cards (homepage)** — `.project-card` (32px radius, gradient border, lifts on hover), `.project-card-image` with modifiers `--contain` / `--cover` / `--crop-bottom` and per-project hover fills `--primer/--butcherbox/--nara/--grapevine`. `.article-card` (32px radius, gradient border, ember stroke fades in via `::after`), `.article-image` (desaturated → full color on hover).
+- **Cards (homepage)** — `.project-card` (32px radius, gradient border, lifts on hover), `.project-card-image` with modifiers `--contain` / `--cover` / `--crop-bottom` and per-project hover fills `--primer/--butcherbox/--nara/--grapevine`. `.article-card` (32px radius, gradient border, ember stroke fades in via `::after`), `.article-image` (dimmed → full on hover).
+- **Theme-paired artwork** — article thumbnails ship as two renders of the same generative frame: `thinking-article-N.webp` (dark ground) and `thinking-article-N-light.webp` (light ground), both 972×486. Markup carries both as `<img class="img-dark">` + `<img class="img-light">`; CSS shows one per theme (class-based, with a `prefers-color-scheme` fallback). Rest state differs by theme — dark dims with `brightness(0.62)`, light fades to `opacity: 0.75` (brightness would grey the plaster ground); both go full on card hover. **Adding an article means exporting both renders.**
 - **Principles** — `.about-principles-list` / `.about-principle` (num + name row, shale bottom rule).
 - **Photos carousel** — `.photos`, `.photos-grid`, `.photo-item` (12px chalk frame + layered shadow), `.photos-btn` (ember arrows).
 - **Footer** — `.footer` / `.footer--linen` (linen bg), `.footer-inner` (space-between). `.footer-credits` (copyright • made-by, 14px flint, `.footer-dot` 4px separator) on the left; `.footer-social` (LinkedIn/GitHub/Instagram, 24px inline-SVG `currentColor`, pitch → ember on hover, same-tab) on the right. Mobile: `column-reverse` puts icons (32px) above the stacked credits; dot hidden.
 - **Scroll fade-in** — `.fade-in` → `.fade-in.visible` (JS adds `.visible`; see `js/case-study.js`).
 - **Work/history page** — `.history-grid`, `.history-card` (gradient border, chalk body), `.history-title` (40/700), `.history-date` (uppercase pill), `.history-tag`.
+- **Writing index page** — `.writing` (section), `.writing-list` (32px gap column), `.writing-card` (full-width horizontal row: 32px radius, gradient border, 48px padding, lift + `--shadow-card-hover` on hover) with `.writing-card--reverse` on every other row to flip the image to the leading side. Inside: `.writing-card-text` (`.writing-date` uppercase eyebrow → `.writing-title` H4/700 → `.writing-desc` body/flint) and `.writing-image` (486×309 shrinkable, 24px radius, `brightness(0.62)` → `1` on card hover, same treatment as `.article-image`). Mobile: both variants stack to a column with the image forced first via `order: -1`.
 
 ### Case study (`css/case-study.css`)
 - **Legacy `cs-` hero** — `.cs-hero` (1fr / 405px grid), `.cs-headline`, `.cs-hero-body`, `.cs-meta-card` (label/value fields + `.cs-tags`/`.cs-tag`), `.cs-hero-image-bg` + `.cs-hero-image` + `.cs-caption`.

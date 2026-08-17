@@ -32,6 +32,9 @@ Git user: `hi@thomasdinatale.com` / Thomas DiNatale
 
 ```
 index.html              — Homepage
+work.html               — Work index (/work)
+writing.html            — Writing index (/writing)
+design-system.html      — Design system page (/design-system)
 case-study/             — Case study pages
 article/                — Article pages
 css/styles.css          — Global styles + design tokens
@@ -39,6 +42,12 @@ css/case-study.css      — Case study page styles
 js/case-study.js        — Scroll/fade animation
 assets/images/          — All images (permanent local copies)
 ```
+
+## URLs
+
+`vercel.json` sets `"cleanUrls": true`, so **every URL is extensionless** and any `*.html` request 308s to the clean path. Never write `.html` in an internal `href`, a canonical, an `og:url`, or a sitemap `<loc>`.
+
+Index pages live at the repo root as `<name>.html` and serve at `/<name>`; their detail pages keep their own folder name (`/work` → `/case-study/<slug>`, `/writing` → `/article/<slug>`). They're reached both from the nav and from a `.projects-cta-btn` at the bottom of the matching homepage section.
 
 ## Design tokens
 
@@ -75,7 +84,7 @@ Keep it clean: exactly one `<h1>`, no skipped levels. Don't use `<p>` for anythi
 
 ## Key conventions
 
-- **Nav is a hamburger + slide-out panel** (all real pages): the top bar is just the circle mark + wordmark on the left and a `.nav-hamburger` button on the right. Work/Writing/About links, contact, and the light/dark toggle live inside `.nav-panel` (small right slide-out; opens from the hamburger, `data-nav-open`/`data-nav-close`). Controller + theme toggle are in `js/case-study.js`. Homepage menu links use `#projects/#thinking/#about`; subpages use `/#…`. Independent of the large case-study `#evolved-panel`. See DESIGN-SYSTEM.md for the full component list. (The three empty legacy stubs — `about-thomas/`, `design-thinking/`, `work/primer.html` — still use the old nav.)
+- **Nav is a hamburger + slide-out panel** (all real pages): the top bar is just the circle mark + wordmark on the left and a `.nav-hamburger` button on the right. Work/Writing/About links, contact, and the light/dark toggle live inside `.nav-panel` (small right slide-out; opens from the hamburger, `data-nav-open`/`data-nav-close`). Controller + theme toggle are in `js/case-study.js`. Menu links (as of 2026-08-16): Work → `/work`, Writing → `/writing`, System → `/design-system` on every page; only About is still an anchor (`#about` on the homepage, `/#about` on subpages). Independent of the large case-study `#evolved-panel`. See DESIGN-SYSTEM.md for the full component list. (The three empty legacy stubs on the old nav — `about-thomas/`, `design-thinking/`, `work/primer.html` — were deleted on 2026-08-16; every page now uses this nav.)
 - Panel social icons (LinkedIn/GitHub/Instagram) are inline SVG using `fill="currentColor"` (theme-aware, ember on hover). The older nav LinkedIn CSS-mask (`mask-image` + `background-color: var(--ember)`) still exists but is no longer in markup.
 - Case study hero body paragraphs: `cs2-body` div with `display: flex; flex-direction: column; gap: 24px`
 - Figma asset images expire after 7 days — always download to `assets/images/` immediately

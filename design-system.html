@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="canonical" href="https://www.thomasdinatale.com/design-system" />
   <title>Design System — Thomas DiNatale</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
@@ -33,7 +34,7 @@
     .pg-wrap { max-width: 1120px; margin: 0 auto; padding: 64px 24px 96px; }
     .pg-hero { padding: 0 48px; margin-bottom: 40px; }
     .pg-h1 { font-size: var(--text-h1); font-weight: 800; line-height: 1; color: var(--pitch); margin: 0 0 40px; }
-    .pg-sub { font-size: var(--text-body-lg); line-height: 1.5; color: var(--pitch); margin: 0; }
+    .pg-sub { font-size: var(--text-body-lg); line-height: 1.6; color: var(--pitch); margin: 0; }
     /* Each documentation block is a card, like the other pages' sections */
     .pg-module { background: var(--chalk); border: 2px solid var(--cloud); border-radius: var(--radius-md); padding: 48px; margin-bottom: 24px; }
     .pg-sub code, .pg-section-sub code { color: var(--ember); font-family: inherit; }
@@ -41,9 +42,48 @@
     .pg-toolbar span { font-size: var(--text-body); color: var(--pitch); margin-right: 8px; }
     .pg-btn { font: inherit; font-size: 14px; font-weight: 600; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--shale); background: var(--plaster); color: var(--pitch); cursor: pointer; }
     .pg-btn[aria-pressed="true"] { border-color: var(--ember); color: var(--ember); }
-    .pg-section-h { font-size: var(--text-h3); font-weight: 700; line-height: 1; color: var(--pitch); margin: 0 0 24px; }
+    .pg-section-h { font-size: var(--text-h4); font-weight: 700; line-height: var(--text-h4-lh); color: var(--pitch); margin: 0 0 24px; }
     .pg-section-sub { font-size: var(--text-body); line-height: var(--text-body-lh); color: var(--pitch); margin: 0 0 28px; }
+    /* Code block — monospace on a recessed plaster surface inside the chalk
+       module. First used by the Hover & motion section. */
+    .pg-code { margin: 12px 0 0; padding: 12px 14px; background: var(--plaster); border: 1px solid var(--shale); border-radius: var(--radius-sm); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; line-height: 1.7; color: var(--pitch); overflow-x: auto; white-space: pre; }
+    .pg-code b { font-weight: 400; color: var(--ember); }
+
+    /* Motion token table */
+    .pg-motion { margin-bottom: 32px; }
+    .pg-motion-row { display: grid; grid-template-columns: 260px 1fr; gap: 24px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--shale); }
+    .pg-motion-row:last-child { border-bottom: 0; }
+    /* Scoped to the first column — an unscoped `code` rule here would also make
+       the inline code inside the description column break onto its own line. */
+    .pg-motion-row > div:first-child code { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; font-weight: 600; color: var(--ember); }
+    .pg-motion-row .val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--flint); }
+    .pg-motion-row .use { font-size: var(--text-body-sm); line-height: var(--text-body-sm-lh); color: var(--pitch); }
+    .pg-motion-row .use code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ember); }
+
+    /* Live specimens — each stage is the hover target */
+    .pg-demos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+    .pg-demo-stage { display: flex; align-items: center; justify-content: center; min-height: 140px; background: var(--plaster); border: 1px solid var(--shale); border-radius: var(--radius-md); padding: 24px; overflow: hidden; }
+    .pg-chip { background: var(--chalk); border: 1px solid var(--shale); border-radius: var(--radius-md); padding: 16px 20px; font-size: var(--text-body-sm); line-height: var(--text-body-sm-lh); color: var(--pitch); }
+    .pg-lift { transition: transform .3s ease, box-shadow .3s ease; }
+    .pg-lift:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+    .pg-wipe { position: relative; display: inline-block; font-size: var(--text-body); color: var(--pitch); text-decoration: none; padding-bottom: 4px; }
+    .pg-wipe::after { content: ""; position: absolute; right: 0; bottom: 0; width: 0; height: 2px; background: var(--ember); transition: width .25s ease; }
+    .pg-wipe:hover::after { width: 100%; left: 0; right: auto; }
+    .pg-fade { opacity: .2; transform: translateY(16px); transition: opacity .5s ease-out, transform .5s ease-out; }
+    .pg-demo-stage:hover .pg-fade { opacity: 1; transform: none; }
+    /* Full-width so translateX(100%) clears the stage completely at rest —
+       a narrower chip would leave a sliver hanging off the right edge. */
+    .pg-slide { width: 100%; text-align: center; transform: translateX(calc(100% + 24px)); transition: transform .35s cubic-bezier(.4, 0, .2, 1); }
+    .pg-demo-stage:hover .pg-slide { transform: none; }
+    .pg-spin svg { display: block; transition: transform .6s ease; }
+    .pg-demo-stage:hover .pg-spin svg { transform: rotate(360deg); }
+
     .pg-hint { display: inline-block; margin: 0 0 20px; font-size: 13px; color: var(--pitch); background: var(--linen); border: 1px solid var(--shale); border-radius: 6px; padding: 6px 12px; }
+    /* Trailing note under a module's specimens — plain copy, no chip. Distinct
+       from .pg-hint, which is an instruction that sits ABOVE the content and
+       keeps its linen chip + bottom margin. */
+    .pg-note { display: block; margin: 16px 0 0; font-size: 13px; line-height: 1.6; color: var(--pitch); }
+    .pg-note code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ember); }
     .pg-hint code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ember); }
     /* Color swatches */
     .pg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
@@ -71,6 +111,8 @@
       .pg-h1 { margin-bottom: 24px; }
       .pg-module { padding: 24px; }
       .pg-toolbar { padding: 16px; }
+      .pg-demos { grid-template-columns: 1fr; }
+      .pg-motion-row { grid-template-columns: 1fr; gap: 4px; }
     }
     .pg-col-label { display: flex; align-items: baseline; gap: 8px; margin-bottom: 16px; }
     .pg-col-label b { font-size: 16px; font-weight: 700; color: var(--pitch); }
@@ -120,7 +162,7 @@
     .pg-elev-swatch.video { box-shadow: 0 16px 48px rgba(0,0,0,0.25); }
     .pg-elev-item b { font-size: 14px; font-weight: 600; color: #302d2f; }
     .pg-elev-item code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: #d24f39; }
-    .pg-elev-item .val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: #6a6869; }
+    .pg-elev-item .val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: var(--flint); }
     /* Calls to action */
     .pg-ctas { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; align-items: start; }
     .pg-ctademo { display: flex; flex-direction: column; gap: 16px; border: 1px solid var(--shale); border-radius: 12px; background: var(--chalk); padding: 24px; }
@@ -165,11 +207,11 @@
   <div class="nav-panel-inner">
     <div class="nav-panel-left">
       <nav class="nav-panel-menu" aria-label="Primary">
-        <a class="nav-panel-item nav-stagger" style="--si:0" href="/#projects" data-nav-circle="work">
+        <a class="nav-panel-item nav-stagger" style="--si:0" href="/work" data-nav-circle="work">
           <span class="nav-panel-word">Work</span>
           <span class="nav-panel-num">01</span>
         </a>
-        <a class="nav-panel-item nav-stagger" style="--si:1" href="/#thinking" data-nav-circle="writing">
+        <a class="nav-panel-item nav-stagger" style="--si:1" href="/writing" data-nav-circle="writing">
           <span class="nav-panel-word">Writing</span>
           <span class="nav-panel-num">02</span>
         </a>
@@ -297,17 +339,17 @@
       <div class="pg-row"><div class="tk"><code>text-h1</code><span class="rng">48 → 80 / 1.0 · 800</span><span class="fluid">fluid</span></div><div class="sample text-h1 font-extrabold">Design systems</div></div>
       <div class="pg-row"><div class="tk"><code>text-h2</code><span class="rng">44 → 64 / 1.0 · 700</span><span class="fluid">fluid</span></div><div class="sample text-h2 font-bold">Design systems</div></div>
       <div class="pg-row"><div class="tk"><code>text-h3</code><span class="rng">36 → 48 / 1.0 · 700</span><span class="fluid">fluid</span></div><div class="sample text-h3 font-bold">Design systems</div></div>
-      <div class="pg-row"><div class="tk"><code>text-h4</code><span class="rng">32 → 40 / 1.29 · 600</span><span class="fluid">fluid</span></div><div class="sample text-h4 font-semibold">Design systems</div></div>
+      <div class="pg-row"><div class="tk"><code>text-h4</code><span class="rng">32 → 40 / 1.1 · 600</span><span class="fluid">fluid</span></div><div class="sample text-h4 font-semibold">Design systems</div></div>
       <div class="pg-row"><div class="tk"><code>text-h5</code><span class="rng">28 → 32 / 1.40 · 600</span><span class="fluid">fluid</span></div><div class="sample text-h5 font-semibold">Design systems</div></div>
       <div class="pg-row"><div class="tk"><code>text-h6</code><span class="rng">24 / 1.30 · 600</span></div><div class="sample text-h6 font-semibold">Design systems that prevent drift</div></div>
-      <div class="pg-row"><div class="tk"><code>text-body-lg</code><span class="rng">22 → 24 / 1.5</span><span class="fluid">fluid</span></div><div class="sample text-body-lg">Design systems that prevent drift by making token choices visible in the markup.</div></div>
-      <div class="pg-row"><div class="tk"><code>text-body-md</code><span class="rng">20 → 22 / 1.5</span><span class="fluid">fluid</span></div><div class="sample text-body-md">Design systems that prevent drift by making token choices visible in the markup.</div></div>
-      <div class="pg-row"><div class="tk"><code>text-body</code><span class="rng">18 / 1.5</span></div><div class="sample text-body">Design systems that prevent drift by making token choices visible in the markup. This is the workhorse body style.</div></div>
-      <div class="pg-row"><div class="tk"><code>text-body-sm</code><span class="rng">16 / 1.5</span></div><div class="sample text-body-sm">Design systems that prevent drift by making token choices visible in the markup.</div></div>
-      <div class="pg-row"><div class="tk"><code>text-body-xs</code><span class="rng">14 / 1.5</span></div><div class="sample text-body-xs">Design systems that prevent drift by making token choices visible in the markup.</div></div>
-      <div class="pg-row"><div class="tk"><code>text-eyebrow</code><span class="rng">14 / 1.5 · 700 · caps</span></div><div class="sample text-eyebrow font-bold uppercase tracking-wide">Selected work</div></div>
-      <div class="pg-row"><div class="tk"><code>text-caption</code><span class="rng">14 / 1.5</span></div><div class="sample text-caption muted">A caption sits under media and metrics. It is the smallest reading size.</div></div>
-      <div class="pg-row"><div class="tk"><code>text-tooltip</code><span class="rng">12 / 1.5</span></div><div class="sample text-tooltip muted">Tooltip, the finest print in the system.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-lg</code><span class="rng">22 → 24 / 1.6</span><span class="fluid">fluid</span></div><div class="sample text-body-lg">Design systems that prevent drift by making token choices visible in the markup.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-md</code><span class="rng">20 → 22 / 1.6</span><span class="fluid">fluid</span></div><div class="sample text-body-md">Design systems that prevent drift by making token choices visible in the markup.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body</code><span class="rng">18 / 1.6</span></div><div class="sample text-body">Design systems that prevent drift by making token choices visible in the markup. This is the workhorse body style.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-sm</code><span class="rng">16 / 1.6</span></div><div class="sample text-body-sm">Design systems that prevent drift by making token choices visible in the markup.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-xs</code><span class="rng">14 / 1.6</span></div><div class="sample text-body-xs">Design systems that prevent drift by making token choices visible in the markup.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-eyebrow</code><span class="rng">14 / 1.6 · 700 · caps</span></div><div class="sample text-eyebrow font-bold uppercase tracking-wide">Selected work</div></div>
+      <div class="pg-row"><div class="tk"><code>text-caption</code><span class="rng">14 / 1.6</span></div><div class="sample text-caption muted">A caption sits under media and metrics. It is the smallest reading size.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-tooltip</code><span class="rng">12 / 1.6</span></div><div class="sample text-tooltip muted">Tooltip, the finest print in the system.</div></div>
     </div>
 
     </section>
@@ -335,7 +377,7 @@
       <div class="pg-scale-row"><div class="tk"><code>64px</code><span class="px">gap-16 · p-16</span></div><div class="pg-bar" style="width:calc(var(--spacing)*16)"></div></div>
       <div class="pg-scale-row"><div class="tk"><code>80px</code><span class="px">gap-20 · p-20</span></div><div class="pg-bar" style="width:calc(var(--spacing)*20)"></div></div>
     </div>
-    <span class="pg-hint">Larger rhythm values carry section padding: the hero is <code>80px 192px 0</code>, most sections use <code>160px</code> sides, collapsing to <code>16px</code> on mobile.</span>
+    <span class="pg-note">Larger rhythm values carry section padding: the hero is <code>80px 192px 0</code>, most sections use <code>160px</code> sides, collapsing to <code>16px</code> on mobile.</span>
 
     </section>
 
@@ -370,7 +412,7 @@
       <div class="pg-elev-item"><div class="pg-elev-swatch media"></div><b>Media</b><code>shadow-media</code><span class="val">0 16px 48px · 16% black</span></div>
       <div class="pg-elev-item"><div class="pg-elev-swatch video"></div><b>Video</b><code>shadow-video</code><span class="val">0 16px 48px · 25% black</span></div>
     </div>
-    <span class="pg-hint">Two composite shadows stack many layers for realism: a 5-layer <code>layeredPhoto</code> drop, and a left-facing <code>panel</code> shadow for the slide-out drawer.</span>
+    <span class="pg-note">Two composite shadows stack many layers for realism: a 5-layer <code>layeredPhoto</code> drop, and a left-facing <code>panel</code> shadow for the slide-out drawer.</span>
 
     </section>
 
@@ -461,7 +503,9 @@
     </p>
     <div class="pg-ctas">
       <div class="pg-ctademo">
-        <div class="stage">Read the <a class="text-link" href="#">case study</a> for the full story.</div>
+        <!-- Wrapped in a span: .stage is a flex container, so bare text nodes
+             either side of the link would each become their own flex item. -->
+        <div class="stage"><span>Read the <a class="text-link" href="#">case study</a> for the full story.</span></div>
         <div class="lbl"><b>Text link</b><code>.text-link</code><em>Inline. Pitch text, ember underline (1.5px); text goes full ember on hover.</em></div>
       </div>
       <div class="pg-ctademo">
@@ -548,7 +592,8 @@
         <div class="pg-card-max">
           <a class="article-card" href="#">
             <div class="article-image">
-              <img src="assets/images/thinking-article-1.webp" alt="" />
+              <img class="img-dark" src="assets/images/thinking-article-1.webp" alt="" />
+              <img class="img-light" src="assets/images/thinking-article-1-light.webp" alt="" />
             </div>
             <div class="article-text">
               <h3 class="article-title">Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design</h3>
@@ -562,7 +607,8 @@
         <div class="pg-card-max">
           <a class="group gradient-stroke flex flex-col gap-6 p-6 md:p-8 rounded-card no-underline cursor-pointer transition-[transform,box-shadow] duration-300 ease-[ease] hover:-translate-y-1 hover:shadow-card-hover" href="#">
             <div class="h-[243px] overflow-hidden rounded-well brightness-[0.62] transition-[filter] duration-500 group-hover:brightness-100">
-              <img class="w-full h-full object-cover" src="assets/images/thinking-article-1.webp" alt="" />
+              <img class="img-dark w-full h-full object-cover" src="assets/images/thinking-article-1.webp" alt="" />
+              <img class="img-light w-full h-full object-cover" src="assets/images/thinking-article-1-light.webp" alt="" />
             </div>
             <div class="flex flex-col gap-2">
               <h3 class="text-[20px]/[1.3] md:text-h6 font-semibold text-pitch">Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design</h3>
@@ -570,6 +616,100 @@
             </div>
           </a>
         </div>
+      </div>
+    </div>
+    </section>
+
+    <section class="pg-module" id="hover-motion">
+    <h2 class="pg-section-h">Hover &amp; motion</h2>
+    <p class="pg-section-sub">
+      Five durations cover the whole site. The rule of thumb: the smaller the
+      change, the faster it resolves — a colour swap lands in <code>0.2s</code>,
+      a whole panel takes <code>0.35s</code>. Everything uses <code>ease</code>
+      except the slide-out panel, which needs a sharper curve to feel like it is
+      being pulled rather than floating. Hover any stage below to run it.
+    </p>
+
+    <div class="pg-motion">
+      <div class="pg-motion-row">
+        <div><code>hover</code><span class="val">0.2s ease</span></div>
+        <div class="use">Colour, border-colour and background changes — links, buttons, tags.</div>
+      </div>
+      <div class="pg-motion-row">
+        <div><code>transform</code><span class="val">0.3s ease</span></div>
+        <div class="use">Card lift and image reveal. Paired with <code>--shadow-card-hover</code>.</div>
+      </div>
+      <div class="pg-motion-row">
+        <div><code>fade</code><span class="val">0.5s ease / ease-out</span></div>
+        <div class="use">Opacity fades, the article border reveal, and the scroll-triggered <code>.fade-in</code>.</div>
+      </div>
+      <div class="pg-motion-row">
+        <div><code>underlineWipe</code><span class="val">0.25s ease</span></div>
+        <div class="use">The 2px ember bar under nav and panel links, growing from the right edge.</div>
+      </div>
+      <div class="pg-motion-row">
+        <div><code>panel</code><span class="val">0.35s cubic-bezier(.4, 0, .2, 1)</span></div>
+        <div class="use">Slide-out nav and case-study panels — the one non-<code>ease</code> curve.</div>
+      </div>
+      <div class="pg-motion-row">
+        <div><code>themeToggleSpin</code><span class="val">0.6s ease</span></div>
+        <div class="use">The nav mark rotating a full turn on hover. Deliberately slow; it is a flourish, not feedback.</div>
+      </div>
+      <div class="pg-motion-row">
+        <div><code>tocIndicator</code><span class="val">0.35s transform, 0.3s opacity</span></div>
+        <div class="use">The ember rail on article pages, tracking the section you are reading.</div>
+      </div>
+    </div>
+
+    <div class="pg-demos">
+      <div>
+        <div class="pg-col-label"><b>Card lift</b><em>transform · 0.3s ease</em></div>
+        <div class="pg-demo-stage"><div class="pg-chip pg-lift">Hover to lift</div></div>
+        <pre class="pg-code">transition: <b>transform</b> .3s ease, <b>box-shadow</b> .3s ease;
+:hover { transform: translateY(-4px);
+         box-shadow: var(--shadow-card-hover); }</pre>
+      </div>
+      <div>
+        <div class="pg-col-label"><b>Underline wipe</b><em>underlineWipe · 0.25s ease</em></div>
+        <div class="pg-demo-stage"><a class="pg-wipe" href="#hover-motion">Hover this link</a></div>
+        <pre class="pg-code">::after { right: 0; width: 0; height: 2px;
+          background: var(--ember);
+          transition: <b>width</b> .25s ease; }
+:hover::after { width: 100%; left: 0; right: auto; }</pre>
+      </div>
+      <div>
+        <div class="pg-col-label"><b>Scroll fade-in</b><em>fade · 0.5s ease-out</em></div>
+        <div class="pg-demo-stage"><div class="pg-chip pg-fade">Hover to replay</div></div>
+        <pre class="pg-code">.fade-in { opacity: 0; transform: translateY(16px); }
+.fade-in.visible { opacity: 1; transform: none; }
+/* js/case-study.js adds .visible on scroll */</pre>
+      </div>
+      <div>
+        <div class="pg-col-label"><b>Panel slide</b><em>panel · 0.35s cubic-bezier</em></div>
+        <div class="pg-demo-stage"><div class="pg-chip pg-slide">Hover to slide in</div></div>
+        <pre class="pg-code">transition: <b>transform</b> .35s cubic-bezier(.4, 0, .2, 1);
+/* closed */ transform: translateX(100%);
+/* open   */ transform: none;</pre>
+      </div>
+      <div>
+        <div class="pg-col-label"><b>Mark spin</b><em>themeToggleSpin · 0.6s ease</em></div>
+        <div class="pg-demo-stage">
+          <span class="pg-spin" aria-hidden="true">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="12" fill="var(--ember)"/>
+              <circle cx="12" cy="4" r="2" fill="var(--plaster)"/>
+            </svg>
+          </span>
+        </div>
+        <pre class="pg-code">svg { transition: <b>transform</b> .6s ease; }
+:hover svg { transform: rotate(360deg); }</pre>
+      </div>
+      <div>
+        <div class="pg-col-label"><b>Colour</b><em>hover · 0.2s ease</em></div>
+        <div class="pg-demo-stage"><a class="projects-cta-btn" href="#hover-motion">Hover this button</a></div>
+        <pre class="pg-code">transition: <b>color</b> .2s ease, <b>border-color</b> .2s ease;
+:hover { color: var(--ember);
+         border-color: var(--ember); }</pre>
       </div>
     </div>
     </section>

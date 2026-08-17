@@ -1,7 +1,5 @@
 {
-  "rewrites": [
-    { "source": "/design-system", "destination": "/design-system.html" },
-    { "source": "/work", "destination": "/work.html" },
-    { "source": "/case-study/primer-ios-android-app-ux-product-design", "destination": "/case-study/primer-ios-android-app-ux-product-design.html" }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false
 }

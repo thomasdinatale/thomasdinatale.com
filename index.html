@@ -11,16 +11,17 @@
     }
   </script>
   <title>Thomas DiNatale — Product Designer</title>
-  <meta name="description" content="Product designer, over a decade leading design across iOS &amp; Android consumer apps (Nara, Blue Apron) and responsive web platforms (Primer, Grapevine, ButcherBox)." />
+  <meta name="description" content="Product designer, over a decade across SaaS and workflow platforms (Pendo, PatientPay, Primer, Grapevine) and consumer apps (Nara, Blue Apron, ButcherBox)." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.thomasdinatale.com/" />
   <meta property="og:title" content="Thomas DiNatale — Product Designer" />
-  <meta property="og:description" content="Product designer, over a decade leading design across iOS &amp; Android consumer apps (Nara, Blue Apron) and responsive web platforms (Primer, Grapevine, ButcherBox)." />
+  <meta property="og:description" content="Product designer, over a decade across SaaS and workflow platforms (Pendo, PatientPay, Primer, Grapevine) and consumer apps (Nara, Blue Apron, ButcherBox)." />
   <meta property="og:image" content="https://www.thomasdinatale.com/assets/images/og-image.webp" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Thomas DiNatale — Product Designer" />
-  <meta name="twitter:description" content="Product designer, over a decade leading design across iOS &amp; Android consumer apps (Nara, Blue Apron) and responsive web platforms (Primer, Grapevine, ButcherBox)." />
+  <meta name="twitter:description" content="Product designer, over a decade across SaaS and workflow platforms (Pendo, PatientPay, Primer, Grapevine) and consumer apps (Nara, Blue Apron, ButcherBox)." />
   <meta name="twitter:image" content="https://www.thomasdinatale.com/assets/images/og-image.webp" />
+  <link rel="canonical" href="https://www.thomasdinatale.com/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400..900;1,400&display=swap" rel="stylesheet" />
@@ -28,42 +29,57 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Thomas DiNatale",
-    "url": "https://www.thomasdinatale.com/",
-    "image": "https://www.thomasdinatale.com/assets/images/og-image.webp",
-    "jobTitle": "Product Designer",
-    "description": "Product designer with over a decade leading design across iOS and Android consumer apps (Nara, Blue Apron, Harry's, Zola) and responsive web platforms (Primer, Grapevine, ButcherBox).",
-    "email": "hi@thomasdinatale.com",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Everyday Industries",
-      "url": "https://everydayindustries.com/"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Atlanta",
-      "addressRegion": "GA",
-      "addressCountry": "US"
-    },
-    "alumniOf": {
-      "@type": "CollegeOrUniversity",
-      "name": "Yale University"
-    },
-    "knowsAbout": [
-      "Product design",
-      "UX design",
-      "AI-powered product design",
-      "Design systems",
-      "0 to 1 product development"
-    ],
-    "sameAs": [
-      "https://www.linkedin.com/in/thomasdinatale/",
-      "https://everydayindustries.com/studio/",
-      "https://github.com/thomasdinatale",
-      "https://substack.com/@thomasdinatale"
-    ]
+      "@context": "https://schema.org",
+      "@graph": [
+          {
+              "@type": "Person",
+              "name": "Thomas DiNatale",
+              "url": "https://www.thomasdinatale.com/",
+              "image": "https://www.thomasdinatale.com/assets/images/og-image.webp",
+              "jobTitle": "Product Designer",
+              "description": "Product designer with over a decade designing complex digital products, from SaaS and workflow platforms (Pendo, PatientPay, Primer, Grapevine) to consumer apps (Nara, Blue Apron, Harry's, ButcherBox).",
+              "email": "hi@thomasdinatale.com",
+              "worksFor": {
+                  "@type": "Organization",
+                  "name": "Everyday Industries",
+                  "url": "https://everydayindustries.com/"
+              },
+              "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Atlanta",
+                  "addressRegion": "GA",
+                  "addressCountry": "US"
+              },
+              "alumniOf": {
+                  "@type": "CollegeOrUniversity",
+                  "name": "Yale University"
+              },
+              "knowsAbout": [
+                  "Product design",
+                  "UX design",
+                  "AI-powered product design",
+                  "Design systems",
+                  "0 to 1 product development"
+              ],
+              "sameAs": [
+                  "https://www.linkedin.com/in/thomasdinatale/",
+                  "https://everydayindustries.com/studio/",
+                  "https://github.com/thomasdinatale",
+                  "https://substack.com/@thomasdinatale"
+              ],
+              "@id": "https://www.thomasdinatale.com/#person"
+          },
+          {
+              "@type": "WebSite",
+              "@id": "https://www.thomasdinatale.com/#website",
+              "url": "https://www.thomasdinatale.com/",
+              "name": "Thomas DiNatale",
+              "publisher": {
+                  "@id": "https://www.thomasdinatale.com/#person"
+              },
+              "inLanguage": "en-US"
+          }
+      ]
   }
   </script>
   <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;if(t==='light')c.add('theme-light');else c.add('theme-extra-dark');}catch(e){}})();</script>
@@ -100,11 +116,11 @@
   <div class="nav-panel-inner">
     <div class="nav-panel-left">
       <nav class="nav-panel-menu" aria-label="Primary">
-        <a class="nav-panel-item nav-stagger" style="--si:0" href="#projects" data-nav-circle="work">
+        <a class="nav-panel-item nav-stagger" style="--si:0" href="/work" data-nav-circle="work">
           <span class="nav-panel-word">Work</span>
           <span class="nav-panel-num">01</span>
         </a>
-        <a class="nav-panel-item nav-stagger" style="--si:1" href="#thinking" data-nav-circle="writing">
+        <a class="nav-panel-item nav-stagger" style="--si:1" href="/writing" data-nav-circle="writing">
           <span class="nav-panel-word">Writing</span>
           <span class="nav-panel-num">02</span>
         </a>
@@ -149,13 +165,13 @@
 
   <section class="hero">
     <h1 class="fade-in">Product designer</h1>
-    <p class="fade-in">I've spent over a decade designing complex digital products: iOS &amp; Android consumer apps (Nara, Blue Apron, Harry's, Zola) and responsive web platforms (Primer, Grapevine, ButcherBox). Dense screens, real data, and a lot of decisions about what to leave out. Lately that's meant designing AI-powered product experiences. I do the design myself, not just direct it.</p>
+    <p class="fade-in">I've spent over a decade designing complex digital products, from SaaS and workflow platforms (Pendo, PatientPay, Primer, Grapevine) to consumer apps (Nara, Blue Apron, Harry's, ButcherBox). Dense screens, real data, and a lot of decisions about what to leave out. Lately that's meant designing AI-powered product experiences. I do the design myself.</p>
   </section>
 
   <section class="projects" id="projects">
 
     <div class="projects-row">
-      <a class="project-card project-card--half project-card--nara fade-in" href="case-study/nara-baby-mom-tracker-app-ux-product-design.html">
+      <a class="project-card project-card--half project-card--nara fade-in" href="case-study/nara-baby-mom-tracker-app-ux-product-design">
         <div class="project-card-image project-card-image--cover">
           <img src="assets/images/nara-project-card.webp" alt="Nara project screenshot" />
         </div>
@@ -186,7 +202,7 @@
       </a>
     </div>
 
-    <a class="project-card project-card--wide project-card--primer fade-in" href="case-study/primer-platform-ux-product-design.html">
+    <a class="project-card project-card--wide project-card--primer fade-in" href="case-study/primer-platform-ux-product-design">
       <div class="project-card-image project-card-image--crop-bottom">
         <img src="assets/images/primer-project-card.webp" alt="Primer education platform project screenshot" />
       </div>
@@ -202,7 +218,7 @@
     </a>
 
     <div class="projects-row">
-      <a class="project-card project-card--half project-card--butcherbox fade-in" href="case-study/butcherbox-ux-product-design.html">
+      <a class="project-card project-card--half project-card--butcherbox fade-in" href="case-study/butcherbox-ux-product-design">
         <div class="project-card-image project-card-image--cover">
           <img src="assets/images/butcherbox-project-card.webp" alt="ButcherBox project screenshot" />
         </div>
@@ -217,7 +233,7 @@
         </div>
       </a>
 
-      <a class="project-card project-card--half project-card--blue-apron fade-in" href="case-study/blue-apron-ios-app-ux-product-design.html">
+      <a class="project-card project-card--half project-card--blue-apron fade-in" href="case-study/blue-apron-ios-app-ux-product-design">
         <div class="project-card-image project-card-image--cover">
           <img src="assets/images/blue-apron-project-card.webp" alt="Blue Apron project screenshot" />
         </div>
@@ -233,7 +249,7 @@
       </a>
     </div>
 
-    <a class="project-card project-card--wide project-card--grapevine fade-in" href="case-study/grapevine-collective-giving-platform-ux-product-design.html">
+    <a class="project-card project-card--wide project-card--grapevine fade-in" href="case-study/grapevine-collective-giving-platform-ux-product-design">
       <div class="project-card-image project-card-image--crop-bottom">
         <img src="assets/images/grapevine-project-card.webp" alt="Grapevine project screenshot" />
       </div>
@@ -264,42 +280,50 @@
         <h2 class="thinking-headline fade-in">Notes on design</h2>
       </div>
       <div class="articles-grid">
-        <a class="article-card fade-in" href="article/AI-enabled-workflow-UX-design.html">
+        <a class="article-card fade-in" href="article/AI-enabled-workflow-UX-design">
           <div class="article-image">
-            <img src="assets/images/thinking-article-1.webp" alt="" />
+            <img class="img-dark" src="assets/images/thinking-article-1.webp" alt="" />
+            <img class="img-light" src="assets/images/thinking-article-1-light.webp" alt="" />
           </div>
           <div class="article-text">
             <h3 class="article-title">Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design</h3>
             <p class="article-desc">AI can generate more design options faster than any designer working alone. What it can't do is know which options belong in your product. A look at a workflow that uses AI where it's strongest and reserves the hardest thinking for the designer.</p>
           </div>
         </a>
-        <a class="article-card fade-in" href="article/visual-polish-design-feedback-process.html">
+        <a class="article-card fade-in" href="article/visual-polish-design-feedback-process">
           <div class="article-image">
-            <img src="assets/images/thinking-article-2.webp" alt="" />
+            <img class="img-dark" src="assets/images/thinking-article-2.webp" alt="" />
+            <img class="img-light" src="assets/images/thinking-article-2-light.webp" alt="" />
           </div>
           <div class="article-text">
             <h3 class="article-title">Why "Visual Polish" Is Not Design Feedback</h3>
             <p class="article-desc">"Visual polish" isn't feedback, it's a placeholder. It masks honest critique behind a fuzzy phrase, and without a shared definition of done, teams end up in endless revision cycles chasing a finish line no one has actually defined.</p>
           </div>
         </a>
-        <a class="article-card fade-in" href="article/generative-ui-dashboard-ux.html">
+        <a class="article-card fade-in" href="article/generative-ui-dashboard-ux">
           <div class="article-image">
-            <img src="assets/images/thinking-article-3.webp" alt="" />
+            <img class="img-dark" src="assets/images/thinking-article-3.webp" alt="" />
+            <img class="img-light" src="assets/images/thinking-article-3-light.webp" alt="" />
           </div>
           <div class="article-text">
             <h3 class="article-title">Beyond Dashboards with Generative UI</h3>
             <p class="article-desc">Most dashboards present data. Generative UI presents context. This article explores how contextual interfaces can help people understand complex information without relying on filters, saved views, or static dashboards.</p>
           </div>
         </a>
-        <a class="article-card fade-in" href="article/session-recording-analysis-ux-research.html">
+        <a class="article-card fade-in" href="article/session-recording-analysis-ux-research">
           <div class="article-image">
-            <img src="assets/images/thinking-article-4.webp" alt="" />
+            <img class="img-dark" src="assets/images/thinking-article-4.webp" alt="" />
+            <img class="img-light" src="assets/images/thinking-article-4-light.webp" alt="" />
           </div>
           <div class="article-text">
             <h3 class="article-title">Using Session Analysis Tools to Untangle Unclear User Needs</h3>
             <p class="article-desc">Analytics explain what happened. Session analysis helps explain why. This article explores how observing real user behavior uncovers product issues that metrics alone can't reveal.</p>
           </div>
         </a>
+      </div>
+
+      <div class="projects-cta fade-in">
+        <a class="projects-cta-btn" href="/writing">View all writing</a>
       </div>
     </section>
 

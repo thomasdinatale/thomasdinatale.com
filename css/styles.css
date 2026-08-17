@@ -75,27 +75,27 @@
   --text-h3:        clamp(36px, calc(31.03px + 1.33vw), 48px); /* fluid 36→48 */
   --text-h3-lh:     1;    /* mobile 1.1 (override below) → desktop 1.0 */
   --text-h4:        clamp(32px, calc(28.69px + 0.88vw), 40px); /* fluid 32→40 */
-  --text-h4-lh:     1.29;
+  --text-h4-lh:     1.1;
   --text-h5:        clamp(28px, calc(26.34px + 0.44vw), 32px); /* fluid 28→32 */
   --text-h5-lh:     1.4;
   --text-h6:        24px;
   --text-h6-lh:     1.3;
   --text-body-lg:   clamp(22px, calc(21.17px + 0.22vw), 24px); /* fluid 22→24 */
-  --text-body-lg-lh: 1.5;
+  --text-body-lg-lh: 1.6;
   --text-body-md:   clamp(20px, calc(19.17px + 0.22vw), 22px); /* fluid 20→22 */
-  --text-body-md-lh: 1.5;
+  --text-body-md-lh: 1.6;
   --text-body:      18px;
-  --text-body-lh:   1.5;
+  --text-body-lh:   1.6;
   --text-body-sm:   16px;
-  --text-body-sm-lh: 1.5;
+  --text-body-sm-lh: 1.6;
   --text-body-xs:   14px;
-  --text-body-xs-lh: 1.5;
+  --text-body-xs-lh: 1.6;
   --text-eyebrow:   14px;
-  --text-eyebrow-lh: 1.5;
+  --text-eyebrow-lh: 1.6;
   --text-caption:   14px;
-  --text-caption-lh: 1.5;
+  --text-caption-lh: 1.6;
   --text-tooltip:   12px;
-  --text-tooltip-lh: 1.5;
+  --text-tooltip-lh: 1.6;
 }
 
 /* H2/H3 leading loosens slightly on mobile (Figma: 1.1 mobile → 1.0 desktop). */
@@ -1098,6 +1098,11 @@ h1,
   border-color: var(--ember);
   color: var(--ember);
 }
+/* .thinking is a flex column with its own 80px gap, so the CTA there doesn't
+   need the extra top margin it takes inside .projects (a 32px-gap column). */
+.thinking .projects-cta {
+  margin-top: 0;
+}
 
 .project-meta {
   display: flex;
@@ -1116,7 +1121,7 @@ h1,
   font-size: var(--text-body);
   font-weight: 400;
   line-height: var(--text-body-lh);
-  color: var(--pitch);
+  color: var(--flint);
 }
 
 /* Description + tags group — tags sit 16px below the description */
@@ -1323,7 +1328,7 @@ h1.article-title {
   font-size: var(--text-body);
   font-weight: 400;
   line-height: var(--text-body-lh);
-  color: var(--pitch);
+  color: var(--flint);
 }
 
 /* ─────────────────────────────────────────
@@ -1391,7 +1396,7 @@ h1.article-title {
   font-size: var(--text-body);
   font-weight: 400;
   line-height: var(--text-body-lh);
-  color: var(--pitch);
+  color: var(--flint);
 }
 
 /* ─────────────────────────────────────────
@@ -1752,6 +1757,56 @@ h1.article-title {
   opacity: 1;
 }
 
+/* Case-study affordance — only on cards that link out, so the badge is the
+   signal that there is somewhere to go. A 64px tab flush into the card's
+   top-right corner; the card's own overflow:hidden trims its outer corner to
+   the card radius, and the rounded bottom-left is what reads as a tab. */
+/* 48px square: the card body is padded 48px, so the badge's left edge lands
+   exactly on the content's right margin and its bottom edge exactly on the top
+   of the title row. Dates stay right-aligned to the same margin as every other
+   card, and nothing needs pushing down to avoid the open state. */
+.history-arrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  /* 16px sides centres the 16px glyph in the 48px rest state, and keeps it
+     pinned 16px off the right edge as the panel grows leftward. */
+  padding: 0 16px;
+  background: var(--cloud);
+  border-left: 1px solid var(--shale);
+  border-bottom: 1px solid var(--shale);
+  border-bottom-left-radius: 24px;
+  color: var(--pitch);
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: width 0.3s ease, border-color 0.2s ease;
+}
+.history-arrow-label {
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: var(--pitch);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.history-card--link:hover .history-arrow {
+  width: 196px;
+  border-color: var(--ember);
+}
+.history-card--link:hover .history-arrow-label {
+  opacity: 1;
+  transition-delay: 0.1s;
+}
+.history-arrow svg {
+  display: block;
+  flex-shrink: 0;
+}
 .history-card-body {
   flex: 1 0 auto;
   background: var(--chalk);
@@ -1765,6 +1820,10 @@ h1.article-title {
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
+  /* The date is nowrap and the title can be long (ButcherBox); between the
+     mobile breakpoint and ~1360px the pair overflows the card. Let the date
+     drop to its own line rather than push past the edge. */
+  flex-wrap: wrap;
 }
 .history-title {
   font-size: var(--text-h4);
@@ -1774,6 +1833,9 @@ h1.article-title {
 }
 .history-date {
   flex-shrink: 0;
+  /* Keeps the date on the container's right margin even when the head wraps it
+     onto its own line — space-between alone would left-align a lone item. */
+  margin-left: auto;
   font-size: var(--text-eyebrow);
   font-weight: 700;
   line-height: var(--text-eyebrow-lh);
@@ -1806,6 +1868,135 @@ h1.article-title {
   line-height: var(--text-body-lh);
   color: var(--pitch);
   white-space: nowrap;
+}
+
+/* ─────────────────────────────────────────
+   Theme-paired artwork
+   The article thumbnails exist as two renders of the same generative frame —
+   one drawn on a dark ground, one on light — so each theme gets art made for
+   it instead of a filtered approximation. Swap by theme class, with a
+   prefers-color-scheme fallback for the (JS-off) case where no class is set.
+───────────────────────────────────────── */
+.img-light { display: none; }
+@media (prefers-color-scheme: light) {
+  :root:not(.theme-dark):not(.theme-extra-dark) .img-light { display: block; }
+  :root:not(.theme-dark):not(.theme-extra-dark) .img-dark  { display: none; }
+}
+:root.theme-light .img-light { display: block; }
+:root.theme-light .img-dark  { display: none; }
+
+/* The dark-mode rest state dims the thumbnail with brightness(0.62). On light
+   art that just turns the plaster ground grey, so fade instead — same
+   rest-to-hover payoff, clean ground. */
+:root.theme-light .article-image,
+:root.theme-light .writing-image {
+  filter: none;
+  opacity: 0.75;
+  transition: opacity 0.5s ease;
+}
+:root.theme-light .article-card:hover .article-image,
+:root.theme-light .writing-card:hover .writing-image {
+  opacity: 1;
+}
+@media (prefers-color-scheme: light) {
+  :root:not(.theme-dark):not(.theme-extra-dark) .article-image,
+  :root:not(.theme-dark):not(.theme-extra-dark) .writing-image {
+    filter: none;
+    opacity: 0.75;
+    transition: opacity 0.5s ease;
+  }
+  :root:not(.theme-dark):not(.theme-extra-dark) .article-card:hover .article-image,
+  :root:not(.theme-dark):not(.theme-extra-dark) .writing-card:hover .writing-image {
+    opacity: 1;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Writing index page (/writing)
+───────────────────────────────────────── */
+.writing {
+  padding: 64px 160px 96px;
+}
+.writing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Full-width article row. Same card family as .article-card on the homepage —
+   gradient stroke, lift on hover, thumbnail brightening in sync — laid out
+   horizontally with the image alternating sides down the list. */
+.writing-card {
+  position: relative;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(var(--chalk), var(--chalk)) padding-box,
+    linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
+  padding: 48px;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.writing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+/* Every other row leads with the image. */
+.writing-card--reverse {
+  flex-direction: row-reverse;
+}
+
+.writing-card-text {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.writing-date {
+  font-size: var(--text-eyebrow);
+  font-weight: 700;
+  line-height: var(--text-eyebrow-lh);
+  letter-spacing: 1.12px;
+  text-transform: uppercase;
+  color: var(--flint);
+}
+.writing-title {
+  font-size: var(--text-h4);
+  font-weight: 700;
+  line-height: var(--text-h4-lh);
+  color: var(--pitch);
+}
+.writing-desc {
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: var(--text-body-lh);
+  color: var(--flint);
+}
+
+/* Shrinkable rather than fixed at 486px: there is no tablet breakpoint between
+   768px and the 1440px max, so the image has to give ground on its own. */
+.writing-image {
+  flex: 0 1 486px;
+  min-width: 0;
+  aspect-ratio: 486 / 309;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  filter: brightness(0.62);
+  transition: filter 0.5s ease;
+}
+.writing-card:hover .writing-image {
+  filter: brightness(1);
+}
+.writing-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ─────────────────────────────────────────
@@ -1944,6 +2135,30 @@ h1.article-title {
     gap: 8px;
   }
   .history-tag {
+  }
+
+  .writing {
+    padding: 40px 16px 64px;
+  }
+  .writing-list {
+    gap: 20px;
+  }
+  /* Both variants stack the same way on mobile — image first, then copy — so
+     the alternation doesn't turn into an arbitrary ordering shuffle. */
+  .writing-card,
+  .writing-card--reverse {
+    flex-direction: column;
+    padding: 24px;
+    gap: 20px;
+  }
+  .writing-image {
+    order: -1;
+    flex: 0 0 auto;
+    width: 100%;
+    border-radius: var(--radius-md);
+  }
+  .writing-date {
+    letter-spacing: 0.96px;
   }
 
   .about-approach {

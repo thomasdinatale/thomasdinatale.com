@@ -6,3 +6,8 @@ node_modules
 package.json
 package-lock.json
 src/
+
+# Internal AI-facing doc (gotchas, deployment notes) — not for public serving.
+# design-system/tokens.json IS shipped: it's the machine-readable artifact the
+# /design-system page documents, and worth having at a stable public URL.
+design-system/DESIGN-SYSTEM.md
