@@ -38,9 +38,10 @@
     /* Each documentation block is a card, like the other pages' sections */
     .pg-module { background: var(--chalk); border: 2px solid var(--cloud); border-radius: var(--radius-md); padding: 48px; margin-bottom: 24px; }
     .pg-sub code, .pg-section-sub code { color: var(--ember); font-family: inherit; }
-    .pg-toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-bottom: 24px; padding: 24px 32px; border: 2px solid var(--cloud); border-radius: var(--radius-md); background: var(--chalk); }
-    .pg-toolbar span { font-size: var(--text-body); color: var(--pitch); margin-right: 8px; }
-    .pg-btn { font: inherit; font-size: 14px; font-weight: 600; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--shale); background: var(--plaster); color: var(--pitch); cursor: pointer; }
+    .pg-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; margin-bottom: 24px; padding: 32px 48px; border: 2px solid var(--cloud); border-radius: var(--radius-md); background: var(--chalk); }
+    .pg-toolbar p { font-size: var(--text-body); line-height: var(--text-body-lh); color: var(--pitch); margin: 0; }
+    .pg-toolbar-btns { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+    .pg-btn { font: inherit; font-size: var(--text-body-sm); font-weight: 600; line-height: 1.5; padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--shale); background: var(--chalk); color: var(--pitch); cursor: pointer; }
     .pg-btn[aria-pressed="true"] { border-color: var(--ember); color: var(--ember); }
     .pg-section-h { font-size: var(--text-h4); font-weight: 700; line-height: var(--text-h4-lh); color: var(--pitch); margin: 0 0 24px; }
     .pg-section-sub { font-size: var(--text-body); line-height: var(--text-body-lh); color: var(--pitch); margin: 0 0 28px; }
@@ -224,7 +225,7 @@
           <span class="nav-panel-num">04</span>
         </a>
       </nav>
-      <p class="nav-panel-note nav-stagger" style="--si:4">I'm a product designer in Atlanta. Currently open to new work. You can reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a>.</p>
+      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. You can reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
     </div>
     <div class="nav-panel-graphic" aria-hidden="true" data-nav-graphic>
       <svg viewBox="0 0 720 450" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -269,10 +270,12 @@
     </div>
 
     <div class="pg-toolbar" role="group" aria-label="Theme">
-      <span>Theme:</span>
-      <button class="pg-btn" data-theme="theme-light" aria-pressed="false">Light</button>
-      <button class="pg-btn" data-theme="theme-dark" aria-pressed="false">Dark</button>
-      <button class="pg-btn" data-theme="theme-extra-dark" aria-pressed="true">Extra dark</button>
+      <p>Select a theme to update the site styles.</p>
+      <div class="pg-toolbar-btns">
+        <button class="pg-btn" data-theme="theme-extra-dark" aria-pressed="true">Extra dark</button>
+        <button class="pg-btn" data-theme="theme-dark" aria-pressed="false">Dark</button>
+        <button class="pg-btn" data-theme="theme-light" aria-pressed="false">Light</button>
+      </div>
     </div>
 
     <!-- ===================== COLORS ===================== -->
@@ -296,7 +299,7 @@
     </div>
 
     <p class="pg-section-sub" style="margin-top: 20px;">
-      Beyond the core nine, five <b>brand accents</b> live in <code>styles.css</code> as
+      Beyond the core nine, five brand accents live in <code>styles.css</code> as
       tokens — the fill each project card animates to on hover:
       <code>--accent-primer</code>, <code>--accent-butcherbox</code>,
       <code>--accent-nara</code>, <code>--accent-blueapron</code>, and
@@ -318,10 +321,10 @@
       transparent) keeps the header area clean, and on fine-pointer devices a
       cursor glow lights the nearest lines in ember.
     </p>
-    <span class="pg-hint">The lattice below is painted from the same <code>--grid-line</code> token and 32px step as the live background behind this page.</span>
     <div class="pg-griddemo">
       <div class="cell">32px cells</div>
     </div>
+    <span class="pg-note">The lattice above is painted from the same <code>--grid-line</code> token and 32px step as the live background behind this page.</span>
 
     </section>
 
@@ -358,7 +361,7 @@
     <section class="pg-module">
     <h2 class="pg-section-h">Spacing</h2>
     <p class="pg-section-sub">
-      One scale on a <b>4px base</b> (<code>--spacing: 0.25rem</code>) with an 8px
+      One scale on a 4px base (<code>--spacing: 0.25rem</code>) with an 8px
       rhythm for most gaps and padding. Tailwind's <code>p-*</code>,
       <code>gap-*</code>, and <code>m-*</code> utilities all step in 4px units, so
       <code>gap-4</code> is 16px. Each bar is drawn at
@@ -506,7 +509,7 @@
         <!-- Wrapped in a span: .stage is a flex container, so bare text nodes
              either side of the link would each become their own flex item. -->
         <div class="stage"><span>Read the <a class="text-link" href="#">case study</a> for the full story.</span></div>
-        <div class="lbl"><b>Text link</b><code>.text-link</code><em>Inline. Pitch text, ember underline (1.5px); text goes full ember on hover.</em></div>
+        <div class="lbl"><b>Text link</b><code>.text-link</code><em>Inline. Pitch text and underline (1.5px); both go ember on hover.</em></div>
       </div>
       <div class="pg-ctademo">
         <div class="stage">
@@ -529,7 +532,7 @@
     <section class="pg-module">
     <h2 class="pg-section-h">Project card</h2>
     <p class="pg-section-sub">
-      The signature component, built twice, class-for-class. Real
+      The project card component, built twice, class-for-class. Real
       <code>styles.css</code> left, Tailwind utilities right. Title is
       <code>text-h6</code>, body is <code>text-body</code>, both bridged to the
       same tokens as the Original, so they render identically.
@@ -564,7 +567,7 @@
             <div class="flex flex-col gap-2">
               <h3 class="text-[20px]/[1.3] md:text-h6 font-semibold text-pitch">Nara</h3>
               <div class="flex flex-col gap-4">
-                <p class="text-body text-pitch">Designed Nara's pregnancy and baby tracker from first concept forward. It holds a 4.9-star App Store rating across more than 23,000 reviews and 1 million&#8202;+ users.</p>
+                <p class="text-body text-flint">Designed Nara's pregnancy and baby tracker from first concept forward. It holds a 4.9-star App Store rating across more than 23,000 reviews and 1 million&#8202;+ users.</p>
                 <div class="flex flex-wrap gap-4">
                   <span class="bg-plaster border border-shale rounded-tag px-2 py-1 text-body-sm text-pitch whitespace-nowrap">iOS &amp; Android apps</span>
                 </div>
@@ -612,7 +615,7 @@
             </div>
             <div class="flex flex-col gap-2">
               <h3 class="text-[20px]/[1.3] md:text-h6 font-semibold text-pitch">Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design</h3>
-              <p class="text-body text-pitch">AI can generate more design options faster than any designer working alone. What it can't do is know which options belong in your product.</p>
+              <p class="text-body text-flint">AI can generate more design options faster than any designer working alone. What it can't do is know which options belong in your product.</p>
             </div>
           </a>
         </div>
@@ -624,7 +627,7 @@
     <h2 class="pg-section-h">Hover &amp; motion</h2>
     <p class="pg-section-sub">
       Five durations cover the whole site. The rule of thumb: the smaller the
-      change, the faster it resolves — a colour swap lands in <code>0.2s</code>,
+      change, the faster it resolves. A colour swap lands in <code>0.2s</code>,
       a whole panel takes <code>0.35s</code>. Everything uses <code>ease</code>
       except the slide-out panel, which needs a sharper curve to feel like it is
       being pulled rather than floating. Hover any stage below to run it.

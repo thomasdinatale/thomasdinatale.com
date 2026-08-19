@@ -30,11 +30,12 @@ Full details in `tokens.json > typography.scale`. The workhorse is **body: 18px 
 | Display | 80 / 800 · lh 1 | Page H1, project name | `.hero h1`, `.cs2-headline` |
 | H2 section | 48 / 700 · lh 1.4 | Section headlines | `.thinking-headline`, `.about-headline` |
 | H2 problem | 32 / 700 · lh 1.4 | Problem cards, display tagline | `.cs2-problem-title`, `.cs2-tagline--display` |
-| Card title | 24 / 600 | Card + section titles | `.project-title`, `.cs-section-title` |
+| Card title | 24 / 600 | Card + section titles | `.project-title`, `.cs-section-title`, `.history-group-title` |
 | Lead body | 24 / 400 · lh 1.6 | Hero / case-study lead | `.hero p`, `.cs2-body p` |
 | **Body** | **18 / 400 · lh 1.6** | **default paragraph** | `.cs-copy-block p`, `.article-section p` |
+| Body semibold | 18 / 600 · lh 1.6 | Sub-heads below a section title | `.text-body-semibold` (global), `.cs-body-semibold` (inline) |
 | Caption | 14–16 / 400 · flint | Image captions | `.cs2-cap`, `.cs-caption` |
-| Eyebrow | 14 / 700 · uppercase · +tracking | Labels, date pills | `.cs2-problem-eyebrow`, `.history-date` |
+| Eyebrow | 14 / 700 · uppercase · +tracking | Labels, date pills | `.cs2-problem-eyebrow`, `.history-date` (pitch) |
 | Section kicker | 14 / 700 · uppercase · +tracking · flint | Label above a section title | `.cs-section-title[data-eyebrow]::before` |
 
 ## Semantic heading hierarchy (case studies)
@@ -47,6 +48,8 @@ Exactly one `<h1>` per page, no skipped levels. Tags are chosen for semantics; c
 | `<h2>` | `cs2-tagline cs2-tagline--display` | Hero tagline |
 | `<h2>` | `cs2-problem-title` | Problem-card section titles |
 | `<h3>` | `cs-section-title` | Feature section titles |
+| `<h2>` | `cs-more-title` | "More case studies" cross-link section |
+| `<h3>` | `project-title` | Cross-link card titles |
 
 Don't use `<p>` for anything in this table.
 
@@ -66,14 +69,15 @@ Every reusable pattern currently in the site, with its class and where it's defi
 - **Photos carousel** — `.photos`, `.photos-grid`, `.photo-item` (12px chalk frame + layered shadow), `.photos-btn` (ember arrows).
 - **Footer** — `.footer` / `.footer--linen` (linen bg), `.footer-inner` (space-between). `.footer-credits` (copyright • made-by, 14px flint, `.footer-dot` 4px separator) on the left; `.footer-social` (LinkedIn/GitHub/Instagram, 24px inline-SVG `currentColor`, pitch → ember on hover, same-tab) on the right. Mobile: `column-reverse` puts icons (32px) above the stacked credits; dot hidden.
 - **Scroll fade-in** — `.fade-in` → `.fade-in.visible` (JS adds `.visible`; see `js/case-study.js`).
-- **Work/history page** — `.history-grid`, `.history-card` (gradient border, chalk body), `.history-title` (40/700), `.history-date` (uppercase pill), `.history-tag`.
+- **Work/history page** — `.history` splits into `.history-group` bands, each a `.history-group-title` (24/600, indented to sit on the hero paragraph's left edge) over its own `.history-grid`. `.history-card` carries the same 1px gradient stroke and 32px radius as `.project-card`/`.article-card`; `.history-title` (40/700), `.history-date` (uppercase eyebrow, pitch), `.history-desc` (body, flint), `.history-tag` (the shared Tag — identical to `.project-tag`).
 - **Writing index page** — `.writing` (section), `.writing-list` (32px gap column), `.writing-card` (full-width horizontal row: 32px radius, gradient border, 48px padding, lift + `--shadow-card-hover` on hover) with `.writing-card--reverse` on every other row to flip the image to the leading side. Inside: `.writing-card-text` (`.writing-date` uppercase eyebrow → `.writing-title` H4/700 → `.writing-desc` body/flint) and `.writing-image` (486×309 shrinkable, 24px radius, `brightness(0.62)` → `1` on card hover, same treatment as `.article-image`). Mobile: both variants stack to a column with the image forced first via `order: -1`.
 
 ### Case study (`css/case-study.css`)
-- **Legacy `cs-` hero** — `.cs-hero` (1fr / 405px grid), `.cs-headline`, `.cs-hero-body`, `.cs-meta-card` (label/value fields + `.cs-tags`/`.cs-tag`), `.cs-hero-image-bg` + `.cs-hero-image` + `.cs-caption`.
+- **Legacy `cs-` hero** — `.cs-hero` (1fr / 405px grid), `.cs-headline`, `.cs-hero-body`, `.cs-meta-card` (label/value fields), `.cs-hero-image-bg` + `.cs-hero-image` + `.cs-caption`. Inside `.cs-content-section`, captioned images use the `cs2-figure` + `cs2-cap` pair (ButcherBox); `.cs2-figure > img.cs-hero-image` keeps the legacy 1120px width instead of stretching to the figure.
 - **Current `cs2-` hero** — `.cs2-hero` → `.cs2-hero-and-image` → `.cs2-hero-inner`; `.cs2-headline`, `.cs2-title-desc-metrics`, `.cs2-tagline(--display)`, `.cs2-body`, `.cs2-metrics` / `.cs2-metric` (linen card: value + arrow + label; `--stack` variant for vertical). Hero image: `.cs2-hero-image-card` (chalk, 24px) or `.cs2-hero-phones-row` (desktop) / `--mobile`.
 - **Content flow** — `.cs2-flow` (48px gap column, max 1200px), `.cs-copy-block` (650px reading column), `.cs2-figure` + `.cs2-cap`, `.cs2-media` (+ `--wide` / `-img--sm` / `-img--watch`), `.cs2-image-pair`, `.cs2-phone-row`, `.cs2-watch-grid`, `.cs2-video`.
 - **Problem card** — `.cs2-problem-card` (linen, 32px radius, 778px) with `.cs2-problem-eyebrow` / `.cs2-problem-title` / `.cs2-problem-body`; `--outcomes` variant adds `.cs2-outcomes-list`.
+- **More case studies (cross-links)** — `.cs-more` sits between the content and the footer on every case study: `0 160px` padding, 48px gap, centered `.cs-more-title` (H5) over homepage `.project-card`s. Two links go in a `.projects-row` (`--half` + `--cover`); a single link is a `--wide` card with `--crop-bottom` directly in the section. Always **96px** below the last content block — `margin-top: 96px`, dropping to 64px via `:is(.cs2-flow, .cs-content-section):has(> .cs2-problem-card:last-child) + .cs-more` because a trailing results card already carries 32px. Mobile: 64px/32px, 16px padding, 32px gap.
 - **"How this evolved" aside + slide-out panel** — `.cs-evolved` (linen card), `.panel-link` (opens panel, arrow bounces on hover), `.panel-scrim` + `.panel` (880px, right, `cubic-bezier(0.4,0,0.2,1)` slide), `.panel-header/.panel-body/.panel-content/.panel-section/.panel-block/.panel-shot`. Body scroll locks via `:root.panel-open`.
 
 ### Article (`css/article.css`)

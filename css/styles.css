@@ -1200,7 +1200,9 @@ h1,
 ───────────────────────────────────────── */
 .thinking {
   position: relative;
-  padding: 80px 160px 160px;
+  /* Bottom matches the 80px column gap above the "View all writing" CTA, so the
+     button sits with equal air on both sides. */
+  padding: 80px 160px;
   display: flex;
   flex-direction: column;
   gap: 80px;
@@ -1486,11 +1488,21 @@ h1.article-title {
   text-underline-offset: 2px;
 }
 
-/* Inline text link — pitch text with an ember underline; full ember on hover */
+/* Body semibold — the body size (18px) at 600. Fills the gap between
+   .article-body-semibold (emphasis body, 20→22px) and plain body copy;
+   use it for sub-heads that shouldn't outrank a section title. */
+.text-body-semibold {
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: var(--text-body-lh);
+  color: var(--pitch);
+}
+
+/* Inline text link — pitch text and pitch underline; both go ember on hover.
+   The underline inherits currentColor, so it travels with the text. */
 .text-link {
   color: var(--pitch);
   text-decoration: underline;
-  text-decoration-color: var(--ember);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 2px;
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
@@ -1711,7 +1723,28 @@ h1.article-title {
    Project history page (/work)
 ───────────────────────────────────────── */
 .history {
-  padding: 64px 160px 96px;
+  padding: 80px 160px 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 96px;
+}
+
+/* Grouped index — each band is a 24/600 label over its own two-up grid, so the
+   long-term work reads apart from the shorter engagements. Label sits 40px off
+   its grid, matching the hero's rhythm; groups get a wider 96px break. */
+.history-group {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+/* Aligned to the hero paragraph above (.hero is padded 192px, .history 160px),
+   so every label sits on the same left edge as the intro copy. */
+.history-group-title {
+  padding-left: 32px;
+  font-size: var(--text-h6);
+  font-weight: 600;
+  line-height: var(--text-h6-lh);
+  color: var(--pitch);
 }
 .history-grid {
   display: grid;
@@ -1720,8 +1753,10 @@ h1.article-title {
 }
 .history-card {
   border: 1px solid transparent;
-  border-radius: var(--radius-md);
-  background: linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(var(--chalk), var(--chalk)) padding-box,
+    linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1742,7 +1777,7 @@ h1.article-title {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xl);
   box-shadow: inset 0 0 0 1px var(--ember);
   pointer-events: none;
   opacity: 0;
@@ -1761,23 +1796,24 @@ h1.article-title {
    signal that there is somewhere to go. A 64px tab flush into the card's
    top-right corner; the card's own overflow:hidden trims its outer corner to
    the card radius, and the rounded bottom-left is what reads as a tab. */
-/* 48px square: the card body is padded 48px, so the badge's left edge lands
-   exactly on the content's right margin and its bottom edge exactly on the top
-   of the title row. Dates stay right-aligned to the same margin as every other
-   card, and nothing needs pushing down to avoid the open state. */
+/* 96×48: the 48px height still lands the badge's bottom edge exactly on the top
+   of the title row, so nothing needs pushing down to avoid the open state.
+   Dates stay right-aligned to the same margin as every other card. */
 .history-arrow {
   position: absolute;
   top: 0;
   right: 0;
-  width: 48px;
+  width: 96px;
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
-  /* 16px sides centres the 16px glyph in the 48px rest state, and keeps it
-     pinned 16px off the right edge as the panel grows leftward. */
-  padding: 0 16px;
+  /* 40px right padding centres the 16px glyph in the 96px rest state
+     (16 + 40 + 40 = 96), and keeps it pinned 40px off the right edge as the
+     panel grows leftward. The 16px left padding is the label's inset once the
+     panel opens. */
+  padding: 0 40px 0 16px;
   background: var(--cloud);
   border-left: 1px solid var(--shale);
   border-bottom: 1px solid var(--shale);
@@ -1796,7 +1832,7 @@ h1.article-title {
   transition: opacity 0.2s ease;
 }
 .history-card--link:hover .history-arrow {
-  width: 196px;
+  width: 220px;
   border-color: var(--ember);
 }
 .history-card--link:hover .history-arrow-label {
@@ -1841,14 +1877,14 @@ h1.article-title {
   line-height: var(--text-eyebrow-lh);
   letter-spacing: 1.12px;
   text-transform: uppercase;
-  color: var(--flint);
+  color: var(--pitch);
   white-space: nowrap;
 }
 .history-desc {
   font-size: var(--text-body);
   font-weight: 400;
   line-height: var(--text-body-lh);
-  color: var(--pitch);
+  color: var(--flint);
 }
 .history-tags {
   background: var(--chalk);
@@ -1863,9 +1899,9 @@ h1.article-title {
   border: 1px solid var(--shale);
   border-radius: var(--radius-sm);
   padding: 4px 8px;
-  font-size: var(--text-body);
+  font-size: var(--text-body-sm);
   font-weight: 400;
-  line-height: var(--text-body-lh);
+  line-height: var(--text-body-sm-lh);
   color: var(--pitch);
   white-space: nowrap;
 }
@@ -1979,10 +2015,13 @@ h1.article-title {
   color: var(--flint);
 }
 
-/* Shrinkable rather than fixed at 486px: there is no tablet breakpoint between
-   768px and the 1440px max, so the image has to give ground on its own. */
+/* Proportional rather than a fixed 486px basis: there is no tablet breakpoint
+   between 768px and the 1440px max, so the image has to give ground on its own.
+   47.5% reproduces 486px inside the 1024px card at 1440, and keeps that ratio
+   all the way down. A fixed basis starved the text column to 0 around 900px,
+   where the title then overflowed on top of the image. */
 .writing-image {
-  flex: 0 1 486px;
+  flex: 0 1 47.5%;
   min-width: 0;
   aspect-ratio: 486 / 309;
   overflow: hidden;
@@ -1997,6 +2036,23 @@ h1.article-title {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* The 160px section inset costs 320px before the card even starts, so the row
+   layout runs out of measure early: below ~1120px the text column drops under
+   ~350px and a 32–40px headline wraps into slivers. Stack the card there
+   instead (image first, matching the mobile order); the 768px block still
+   handles padding and radius from there down. */
+@media (max-width: 1120px) {
+  .writing-card,
+  .writing-card--reverse {
+    flex-direction: column;
+  }
+  .writing-image {
+    order: -1;
+    flex: 0 0 auto;
+    width: 100%;
+  }
 }
 
 /* ─────────────────────────────────────────
@@ -2111,6 +2167,13 @@ h1.article-title {
 
   .history {
     padding: 40px 16px 64px;
+    gap: 56px;
+  }
+  .history-group {
+    gap: 24px;
+  }
+  .history-group-title {
+    padding-left: 0;
   }
   .history-grid {
     grid-template-columns: 1fr;
@@ -2132,7 +2195,6 @@ h1.article-title {
   }
   .history-tags {
     padding: 20px 24px;
-    gap: 8px;
   }
   .history-tag {
   }

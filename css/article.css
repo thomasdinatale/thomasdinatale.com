@@ -137,11 +137,16 @@
   border-radius: var(--radius-md);
 }
 
+/* Same caption treatment as the case studies: caption type, flint,
+   centered, 720px container (the 667px article column clamps it here) */
 .article-caption {
-  margin-top: 12px;
-  font-size: var(--text-body-xs);
+  margin: 12px auto 0;
+  font-size: var(--text-caption);
+  font-weight: 400;
+  line-height: var(--text-caption-lh);
   color: var(--flint);
   text-align: center;
+  max-width: 720px;
 }
 
 /* Right sidebar */

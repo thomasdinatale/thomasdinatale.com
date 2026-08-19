@@ -72,23 +72,6 @@ strong {
   font-weight: 600;
 }
 
-.cs-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.cs-tag {
-  background: rgba(26, 24, 25, 0.10);
-  color: var(--pitch);
-  font-size: var(--text-body);
-  font-weight: 400;
-  line-height: var(--text-body-lh);
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
-  white-space: nowrap;
-}
-
 /* Hero image */
 .cs-hero-image-section {
   margin-top: 48px;
@@ -113,18 +96,29 @@ strong {
   margin: 0 auto;
 }
 
-.cs-caption {
-  font-size: var(--text-body-sm);
-  font-weight: 400;
-  line-height: var(--text-body-sm-lh);
-  color: var(--flint);
-  text-align: center;
-  max-width: 950px;
-  margin: 0 auto;
+/* A legacy 1120px image inside a cs2-figure keeps its own width —
+   .cs2-figure > img would otherwise stretch it to the full page width */
+.cs2-figure > img.cs-hero-image {
+  width: 1120px;
+  max-width: 100%;
 }
 
-.cs-caption--narrow {
-  max-width: 654px;
+/* ─────────────────────────────────────────
+   Image captions — ONE treatment site-wide: caption type (14px),
+   flint, centered, in a 720px container. Hero captions, flow figures,
+   and legacy cs- captions all share this. Only the gap to the image
+   varies (see .cs2-figure .cs2-cap).
+───────────────────────────────────────── */
+.cs-caption,
+.cs2-cap,
+.cs2-hero-caption {
+  font-size: var(--text-caption);
+  font-weight: 400;
+  line-height: var(--text-caption-lh);
+  color: var(--flint);
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
 }
 
 /* Content sections */
@@ -625,14 +619,7 @@ strong {
   object-fit: cover;
 }
 
-.cs2-hero-caption {
-  font-size: var(--text-body-xs);
-  font-weight: 400;
-  line-height: var(--text-body-xs-lh);
-  color: var(--flint);
-  text-align: center;
-  max-width: 950px;
-}
+/* .cs2-hero-caption shares the one caption treatment defined near the top */
 
 /* Content flow — consistent 48px gap between every block */
 .cs2-flow {
@@ -698,15 +685,7 @@ strong {
   margin-top: 32px;
 }
 
-.cs2-cap {
-  font-size: var(--text-body-sm);
-  font-weight: 400;
-  line-height: var(--text-body-sm-lh);
-  color: var(--flint);
-  text-align: center;
-  max-width: 720px;
-  margin: 0 auto;
-}
+/* .cs2-cap shares the one caption treatment defined near the top */
 
 /* Problem statements — set apart from feature copy in a Linen card.
    32px margin + the 48px flow gap = 80px of separation above and below each card. */
@@ -989,6 +968,33 @@ strong {
   color: var(--pitch);
 }
 
+/* ─────────────────────────────────────────
+   More case studies — cross-links between the end of the content
+   and the footer. Reuses the homepage .project-card grid.
+   Always 96px below the last content block: pages ending in a
+   .cs2-problem-card (the results card) already carry its 32px
+   bottom margin, so those drop to 64px.
+───────────────────────────────────────── */
+.cs-more {
+  margin-top: 96px;
+  padding: 0 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+:is(.cs2-flow, .cs-content-section):has(> .cs2-problem-card:last-child) + .cs-more {
+  margin-top: 64px;
+}
+
+.cs-more-title {
+  font-size: var(--text-h5);
+  font-weight: 700;
+  line-height: var(--text-h5-lh);
+  color: var(--pitch);
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .cs2-hero-phones-row--desktop {
     display: none;
@@ -1097,6 +1103,15 @@ strong {
   .cs2-problem-body p {
   }
 
+  .cs-more {
+    margin-top: 64px;
+    padding: 0 16px;
+    gap: 32px;
+  }
+  :is(.cs2-flow, .cs-content-section):has(> .cs2-problem-card:last-child) + .cs-more {
+    margin-top: 32px; /* + the card's 32px bottom margin = 64px */
+  }
+
   /* Legacy cs- content sections (ButcherBox, Grapevine) */
   .cs-hero-image-section {
     margin-top: 32px;
@@ -1105,9 +1120,6 @@ strong {
   .cs-hero-image-bg {
     width: 100%;
     padding: 24px 16px;
-  }
-  .cs-caption {
-    max-width: 100%;
   }
 
   .cs-content-section {
