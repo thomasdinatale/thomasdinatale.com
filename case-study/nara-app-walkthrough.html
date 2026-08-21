@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nara walkthrough</title>
+  <!-- Staging: isolated from the site, deliberately not indexed and not in the sitemap. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400..900;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/nara-walkthrough.css" />
+</head>
+<!-- theme-light is pinned on <html>: every screen is an exported render with the
+     light --plaster page colour baked in behind it, so the deck can't follow the
+     OS preference the way the rest of the site does. -->
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- ── Fixed chrome ─────────────────────────────────────────────────────
+       The band never re-renders; js/walkthrough.js rewrites .nw-title from the
+       active screen's data-title and grows the fill in the closing rule.     -->
+  <header class="nw-band">
+    <h1 class="visually-hidden">Nara walkthrough</h1>
+    <div class="nw-band-inner">
+      <div class="nw-band-lead">
+        <p class="nw-title" data-wt-title></p>
+        <!-- Screen 01 has no title, so the deck signs itself there instead.
+             Swapped purely on .nw-title:empty — no JS involved. -->
+        <p class="nw-brand"><span class="nw-brand-mark" aria-hidden="true"></span>Thomas DiNatale</p>
+      </div>
+      <div class="nw-arrows">
+        <button type="button" class="nw-arrow" data-wt-prev aria-label="Previous screen">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M15 8H1m0 0 6.2-6.2M1 8l6.2 6.2" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </button>
+        <button type="button" class="nw-arrow" data-wt-next aria-label="Next screen">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M1 8h14m0 0-6.2-6.2M15 8l-6.2 6.2" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="nw-progress" data-wt-progress data-wt-progress-from-zero role="progressbar" aria-valuemin="1" aria-valuenow="1" aria-label="Walkthrough progress">
+      <div class="nw-progress-fill" data-wt-fill></div>
+    </div>
+  </header>
+
+  <!-- No loading="lazy" anywhere below. Inactive screens are display:none, so a
+       lazy image is never fetched until you advance onto it — which in a deck
+       means artwork popping in mid-sentence. The whole set is ~1MB; eager. -->
+  <main class="nw" data-walkthrough="Nara walkthrough" data-wt-slide="1440x816">
+
+    <!-- ── 01 — Title (Figma 1476:279367) ───────────────────────────────
+         No data-title: the band stays empty here and the document title
+         falls back to the deck name.                                     -->
+    <section class="nw-screen wt-screen" aria-label="Screen 1 of 11: Nara">
+      <div class="nw-body nw-body--intro">
+        <div class="nw-intro">
+          <svg class="nw-wordmark" viewBox="0 0 121 31" fill="none" role="img" aria-label="Nara">
+            <path d="M51.7296 20.5346L50.982 15.2156C50.9076 14.6704 50.3752 14.3134 49.8429 14.4389C45.0242 15.5647 41.3446 17.7574 41.3446 21.6957C41.3446 24.7945 43.4975 26.6224 46.3707 26.6224C49.244 26.6224 51.894 23.6334 51.7296 20.5307M64.5808 28.2385C64.7335 28.6229 64.6121 29.0662 64.2912 29.3251C62.7567 30.5568 60.6546 31 59.0771 31C56.5366 31 53.5538 30.0037 52.5556 26.1831H52.2816C50.293 29.7801 46.3159 31 43.1687 31C37.8646 31 33.6683 28.0659 33.6683 23.0294C33.6683 15.8158 41.5442 13.5015 49.6432 11.956C50.1325 11.8618 50.4614 11.4068 50.3909 10.9126L49.9603 7.86081C49.6276 5.20524 48.0266 3.546 45.8736 3.546C43.8303 3.546 42.1157 4.93066 42.3388 6.8684C42.836 9.30432 41.0118 10.8537 38.9137 10.8537C36.702 10.8537 35.3789 9.41415 35.3789 7.08807C35.4337 3.76566 38.9137 0 46.4255 0C52.2268 0 57.1981 3.21258 58.0828 10.3516L59.5742 23.1941C59.907 25.9046 60.9012 27.6227 62.5022 27.6227C62.7802 27.6227 63.0738 27.5717 63.3869 27.4775C63.841 27.3403 64.3225 27.5874 64.4947 28.0267L64.5808 28.2424V28.2385Z" fill="currentColor"/>
+            <path d="M90.2284 5.36999C90.2284 7.97064 88.2399 10.0731 85.6994 10.0731C81.0607 10.0731 82.329 5.36999 79.6241 5.36999C78.0231 5.36999 75.8662 7.69214 75.8662 10.74V23.7472C75.8662 25.885 76.7979 27.2461 78.0388 27.8345C78.4224 28.0149 78.6142 28.4543 78.5398 28.87L78.4928 29.1329C78.4067 29.6232 78.0192 29.9488 77.569 29.9488H66.7534C66.3032 29.9488 65.9157 29.6232 65.8413 29.1799L65.7747 28.7955C65.7043 28.3915 65.9313 28.011 66.3032 27.8345C67.5558 27.2422 68.4053 25.8811 68.4053 23.7472V10.2418C68.4053 8.10793 67.5519 6.7468 66.3032 6.1545C65.9313 5.97798 65.7043 5.60142 65.7747 5.19347L65.853 4.75022C65.9313 4.2952 66.2327 4.00494 66.6085 3.93041C69.2077 3.40086 71.7443 2.10249 74.5431 0.113754C74.6449 0.0431482 74.7702 0 74.8915 0C75.2164 0 75.4865 0.254966 75.5022 0.584462L75.6979 4.8169H75.9171C77.9644 1.773 80.9472 0 84.2588 0C88.0167 0 90.2245 2.43591 90.2245 5.36999" fill="currentColor"/>
+            <path d="M108.082 20.5385L107.339 15.2195C107.26 14.6743 106.732 14.3173 106.196 14.4429C101.377 15.5686 97.6972 17.7614 97.6972 21.6996C97.6972 24.8024 99.8541 26.6263 102.723 26.6263C105.593 26.6263 108.247 23.6374 108.082 20.5385ZM120.933 28.2385C121.086 28.6229 120.965 29.0662 120.644 29.3251C119.109 30.5607 117.007 31 115.43 31C112.889 31 109.906 30.0037 108.912 26.1831H108.634C106.646 29.7801 102.669 31 99.5213 31C94.2173 31 90.0209 28.0659 90.0209 23.0294C90.0209 15.8158 97.8968 13.5015 105.996 11.956C106.481 11.8618 106.814 11.4068 106.744 10.9126L106.313 7.86081C105.98 5.20132 104.379 3.54207 102.226 3.54207C100.183 3.54207 98.4684 4.92674 98.6915 6.86448C99.1886 9.30039 97.3645 10.8498 95.2663 10.8498C93.0586 10.8498 91.7316 9.41022 91.7316 7.08415C91.7864 3.76174 95.2663 0 102.782 0C108.583 0 113.555 3.21258 114.435 10.3516L115.927 23.1941C116.26 25.9046 117.254 27.6227 118.855 27.6227C119.133 27.6227 119.426 27.5717 119.74 27.4775C120.194 27.3403 120.675 27.5874 120.847 28.0267L120.933 28.2424V28.2385Z" fill="currentColor"/>
+            <path d="M32.9364 28.8857L32.8777 29.1839C32.7994 29.6271 32.4158 29.9448 31.9657 29.9448H21.1187C20.6803 29.9448 20.3005 29.6389 20.2144 29.2113L20.1401 28.8897C20.05 28.466 20.2692 28.0542 20.6568 27.862C21.8624 27.2304 22.5944 25.8811 22.3596 23.806L21.2518 11.4068C20.9229 7.25674 19.044 4.59724 15.6737 4.59724C12.3033 4.59724 10.0407 7.42541 10.0407 10.9636V23.806C10.0407 25.8811 10.9606 27.2343 12.225 27.862C12.6165 28.0542 12.8396 28.466 12.7456 28.8936L12.6791 29.2113C12.5891 29.6389 12.2093 29.9448 11.7748 29.9448H1.00615C0.548161 29.9448 0.156715 29.6114 0.0901692 29.1525L0.0431956 28.8465C-0.0194358 28.4464 0.199774 28.0581 0.559905 27.8776C1.78122 27.2579 2.6424 25.8967 2.6424 23.806V10.183C2.6424 8.10793 1.80079 6.71543 0.55599 6.11135C0.172373 5.92307 -0.0585805 5.52297 0.0197088 5.09933L0.0979981 4.66C0.164544 4.29128 0.458129 3.99709 0.830003 3.91864H0.849575C1.73424 3.74212 2.615 3.46362 3.49184 3.11059C5.26118 2.42414 7.06183 1.41212 8.96426 0.0235354C9.00732 0.00784512 9.04646 0.00392256 9.09344 0.00392256H9.17173C9.45748 0.0196128 9.68061 0.227509 9.72758 0.50601L9.87241 4.48741H10.1464C11.6418 2.15741 14.2331 0 18.2181 0C24.399 0 28.1569 3.76174 28.8771 11.956L29.8127 23.8021C30.0045 25.8928 31.0497 27.254 32.3923 27.8737C32.7838 28.0502 33.0108 28.4621 32.9325 28.8857H32.9364Z" fill="currentColor"/>
+          </svg>
+          <p>Over an eight year engagement I led UX &amp; product design for Nara, a baby tracking app. I worked directly with the product and engineering team. Every design decision started the same way: user interviews, survey mining, App Store reviews, and inbound email. The product began as a baby tracker and took on postpartum, then pregnancy, without changing shape.</p>
+          <ul class="nw-metrics">
+            <li class="nw-metric">
+              <span class="nw-metric-value">over 1 million+</span>
+              <span class="nw-metric-label">Caregivers &amp; parents</span>
+            </li>
+            <li class="nw-metric">
+              <span class="nw-metric-value">3 platforms</span>
+              <span class="nw-metric-label">iOS, Android &amp; watchOS</span>
+            </li>
+            <li class="nw-metric">
+              <span class="nw-metric-value">4.9
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M7.68 1.53a.36.36 0 0 1 .64 0l1.54 3.12c.1.2.25.38.44.52.18.13.4.22.62.25l3.45.5a.35.35 0 0 1 .19.61l-2.49 2.42c-.16.16-.29.36-.36.58a1.2 1.2 0 0 0-.05.68l.59 3.42a.36.36 0 0 1-.52.38l-3.08-1.62a1.2 1.2 0 0 0-1.14 0l-3.08 1.62a.36.36 0 0 1-.51-.38l.58-3.43a1.2 1.2 0 0 0-.34-1.06L1.44 6.53a.35.35 0 0 1 .19-.6l3.45-.51c.22-.03.44-.12.62-.25.19-.14.34-.32.44-.52L7.68 1.53Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span class="nw-metric-label">App store rating</span>
+            </li>
+            <li class="nw-metric">
+              <span class="nw-metric-value">23,000+</span>
+              <span class="nw-metric-label">Parent reviews</span>
+            </li>
+          </ul>
+        </div>
+        <div class="nw-intro-art">
+          <img src="../assets/images/nara-walkthrough/nara-activity-history.webp"
+               width="732" height="671" decoding="async"
+               alt="Two Nara phone screens side by side: an Activity feed of coloured Feed, Sleep and Pump cards, and a History view showing a week of days as vertical bands of logged sleep, feeds and diapers." />
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 02 — Four different relationships (Figma 1476:281448) ───────── -->
+    <section class="nw-screen wt-screen" data-title-prefix="Research:" data-title="4 different relationships with the same data" aria-label="Screen 2 of 11">
+      <div class="nw-body">
+        <figure class="nw-figure">
+          <img src="../assets/images/nara-walkthrough/nara-user-types.webp"
+               width="1087" height="621" decoding="async"
+               alt="A research board titled User types &amp; app perceptions, splitting parents into four columns — necessary/unnecessary vice, companion to doing it right, tool to reach my goals, and the deciding-factor &amp; optimizer — each with a description and verbatim quotes." />
+        </figure>
+        <figcaption class="nw-caption">One fixed layout can’t serve a parent who finds tracking anxious and a parent who exports the data to spreadsheets.</figcaption>
+      </div>
+    </section>
+
+    <!-- ── 03 — Version 1.01 (Figma 1473:277127) ───────────────────────── -->
+    <section class="nw-screen wt-screen" data-title-prefix="Version 1.01:" data-title="Spring 2019" aria-label="Screen 3 of 11">
+      <div class="nw-body">
+        <figure class="nw-figure">
+          <img src="../assets/images/nara-walkthrough/nara-v1-2019.webp"
+               width="1367" height="686" decoding="async"
+               alt="Four screens from Nara’s 2019 release: the original stacked Sleep, Feed, Pump and Change cards, a reworked Activity feed, a Bottle Feed entry sheet, and a chronological History list." />
+        </figure>
+        <figcaption class="nw-caption">Cards from day one, with sheets for adding content. No customization.</figcaption>
+      </div>
+    </section>
+
+    <!-- ── 04 — One system, eight kinds of data (Figma 1476:279667) ────── -->
+    <section class="nw-screen wt-screen" data-title-prefix="One cohesive paradigm:" data-title="eight kinds of data" aria-label="Screen 4 of 11">
+      <div class="nw-body">
+        <figure class="nw-figure">
+          <img src="../assets/images/nara-walkthrough/nara-eight-cards.webp"
+               width="1114" height="634" decoding="async"
+               alt="Eight Nara activity cards in a four-by-two grid — Feed, Diaper, Pump, Growth, Sleep, Baby Firsts, Routine and Health — each a coloured header over a last-entry summary and an expandable list." />
+        </figure>
+        <figcaption class="nw-caption">Cards post launch included baby firsts, routines, and health. Additional data for cards like diaper and feed were also incorporated.</figcaption>
+      </div>
+    </section>
+
+    <!-- ── 05 — Feeding at the top (Figma 1473:277894) ─────────────────── -->
+    <section class="nw-screen wt-screen" data-title-prefix="Research:" data-title="&ldquo;Feeding at the top, diapers at the bottom for me.&rdquo;" aria-label="Screen 5 of 11">
+      <div class="nw-body">
+        <figure class="nw-figure">
+          <img src="../assets/images/nara-walkthrough/nara-interview-notes.webp"
+               width="1141" height="659" decoding="async"
+               alt="A stack of interview note cards, the top one headed “16 weeks old, feeding &amp; pumping”, listing app feedback on the pumping timer, manual entry, diaper details, milestones, exporting info and customizing card order." />
+        </figure>
+        <figcaption class="nw-caption">Ongoing UX research cycle: surveys, user interviews, VIP surveys, support email analysis</figcaption>
+      </div>
+    </section>
+
+    <!-- ── 06 — Customizing the order of cards (Figma 1480:282768) ─────── -->
+    <section class="nw-screen wt-screen" data-title-prefix="Evolution:" data-title="Customizing the order" aria-label="Screen 6 of 11">
+      <div class="nw-body">
+        <figure class="nw-figure nw-figure--stage">
+          <div class="nw-stage nw-stage--reorder">
+            <img class="nw-stage-still" src="../assets/images/nara-walkthrough/nara-card-onboarding.webp"
+                 width="389" height="742" decoding="async"
+                 alt="An onboarding question, “What baby activities do you want to track?”, with toggles for breastfeeding, bottle feeding, solid feeding, combo feeding, pumping, diaper changes and sleep." />
+            <!-- Figma fills this phone with a video rather than an image, so it is a
+                 real <video> here: the 6px bezel, 32px radius and --shadow-video are
+                 drawn in CSS instead of being baked into an export. Muted + playsinline
+                 are what let autoplay run at all; walkthrough.js pauses it and holds
+                 the poster when the visitor prefers reduced motion. -->
+            <video class="nw-stage-video"
+                   width="302" height="656"
+                   autoplay loop muted playsinline
+                   poster="../assets/images/nara-walkthrough/nara-reorder-demo-poster.webp"
+                   aria-label="Screen recording of reordering the activity cards: the Activity feed opens an Edit Activities sheet, rows are dragged into a new order, and the feed comes back reflecting it.">
+              <source src="../assets/images/nara-walkthrough/nara-reorder-demo.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </figure>
+        <figcaption class="nw-caption">Hide first happens in onboarding. Reorder &amp; hide are available from the activity screen. No settings, no separate mode.</figcaption>
+      </div>
+    </section>
+
+    <!-- ── 07 — Whoever has the baby needs the log (Figma 1476:279937) ── -->
+    <section class="nw-screen wt-screen" data-title-prefix="Evolution:" data-title="Custom views of the activity" aria-label="Screen 7 of 11">
+      <div class="nw-body">
+        <figure class="nw-figure">
+          <img src="../assets/images/nara-walkthrough/nara-shared-log.webp"
+               width="826" height="750" decoding="async"
+               alt="The same Nara log seen on two phones minutes apart — one expanded on the Feed card with four timestamped entries, the other scrolled to Sleep and Pump — showing one shared record read at different depths." />
+        </figure>
+        <figcaption class="nw-caption">A partner, a grandparent, a night nurse, a daycare all need the same log. None of them need the same screen.</figcaption>
+      </div>
+    </section>
+
+    <!-- ── 08 — The baby is asleep (Figma 1476:280213) ────────────────── -->
+    <section class="nw-screen wt-screen" data-title-prefix="Evolution:" data-title="The baby is asleep &amp; the room is dark" aria-label="Screen 8 of 11">
+      <div class="nw-body">
+        <figure class="nw-figure">
+          <img src="../assets/images/nara-walkthrough/nara-night-mode.webp"
+               width="1302" height="750" decoding="async"
+               alt="Nara in dark mode at 3am: a Sleep timer sheet and a Combo Feed sheet on two phones, plus four Apple Watch screens for closing a sleep session, starting a timer, entering a bottle amount, and logging a diaper." />
+        </figure>
+        <figcaption class="nw-caption">Night hours are the baby’s, not the system’s. Dark mode runs on the baby’s schedule even when the phone is in light mode.</figcaption>
+      </div>
+    </section>
+
+    <!-- ── 09 — Exporting to spreadsheets (Figma 1480:283557) ─────────── -->
+    <section class="nw-screen wt-screen" data-title-prefix="Evolution:" data-title="Parents were exporting their data to spreadsheets" aria-label="Screen 9 of 11">
+      <div class="nw-body">
+        <figure class="nw-figure">
+          <img src="../assets/images/nara-walkthrough/nara-history-trends.webp"
+               width="1262" height="755" decoding="async"
+               alt="Three phone screens: a week-long History chart of stacked sleep and feed bands, a Trends summary of total sleep, daytime sleep, wake window and feed sessions, and a Total Diapers breakdown with a bar graph and dirty, wet and dry counts." />
+        </figure>
+        <figcaption class="nw-caption">Two surfaces: History for the chronological question, Trends for the crosswise one.</figcaption>
+      </div>
+    </section>
+
+    <!-- ── 10 — Pregnancy & postpartum (Figma 1476:281833) ────────────── -->
+    <section class="nw-screen wt-screen" data-title-prefix="Evolution:" data-title="Extending the system: pregnancy &amp; postpartum" aria-label="Screen 10 of 11">
+      <div class="nw-body">
+        <figure class="nw-figure nw-figure--stage">
+          <div class="nw-stage nw-stage--switcher">
+            <img class="nw-stage-still" src="../assets/images/nara-walkthrough/nara-pregnancy-still.webp"
+                 width="393" height="755" decoding="async"
+                 alt="Jane’s pregnancy view: Hydration, Nutrition and Health cards in the same layout the baby product uses, each with a last-entry summary and a View History row." />
+            <!-- Second video fill on the deck; see screen 06 for the geometry note. -->
+            <video class="nw-stage-video"
+                   width="308" height="667"
+                   autoplay loop muted playsinline
+                   poster="../assets/images/nara-walkthrough/nara-switcher-demo-poster.webp"
+                   aria-label="Screen recording of the avatar switcher: tapping the name at the top of Nara’s activity feed toggles to the other subject and the cards change with it.">
+              <source src="../assets/images/nara-walkthrough/nara-switcher-demo.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </figure>
+        <figcaption class="nw-caption">One new pattern for a second subject: the avatar switcher. Two people and it toggles, more and it opens a sheet.</figcaption>
+      </div>
+    </section>
+
+    <!-- ── 11 — Questions (Figma 1482:283855) ─────────────────────────── -->
+    <section class="nw-screen wt-screen" data-title="Questions…" aria-label="Screen 11 of 11">
+      <div class="nw-body nw-body--intro">
+        <div class="nw-intro">
+          <svg class="nw-wordmark" viewBox="0 0 121 31" fill="none" role="img" aria-label="Nara">
+            <path d="M51.7296 20.5346L50.982 15.2156C50.9076 14.6704 50.3752 14.3134 49.8429 14.4389C45.0242 15.5647 41.3446 17.7574 41.3446 21.6957C41.3446 24.7945 43.4975 26.6224 46.3707 26.6224C49.244 26.6224 51.894 23.6334 51.7296 20.5307M64.5808 28.2385C64.7335 28.6229 64.6121 29.0662 64.2912 29.3251C62.7567 30.5568 60.6546 31 59.0771 31C56.5366 31 53.5538 30.0037 52.5556 26.1831H52.2816C50.293 29.7801 46.3159 31 43.1687 31C37.8646 31 33.6683 28.0659 33.6683 23.0294C33.6683 15.8158 41.5442 13.5015 49.6432 11.956C50.1325 11.8618 50.4614 11.4068 50.3909 10.9126L49.9603 7.86081C49.6276 5.20524 48.0266 3.546 45.8736 3.546C43.8303 3.546 42.1157 4.93066 42.3388 6.8684C42.836 9.30432 41.0118 10.8537 38.9137 10.8537C36.702 10.8537 35.3789 9.41415 35.3789 7.08807C35.4337 3.76566 38.9137 0 46.4255 0C52.2268 0 57.1981 3.21258 58.0828 10.3516L59.5742 23.1941C59.907 25.9046 60.9012 27.6227 62.5022 27.6227C62.7802 27.6227 63.0738 27.5717 63.3869 27.4775C63.841 27.3403 64.3225 27.5874 64.4947 28.0267L64.5808 28.2424V28.2385Z" fill="currentColor"/>
+            <path d="M90.2284 5.36999C90.2284 7.97064 88.2399 10.0731 85.6994 10.0731C81.0607 10.0731 82.329 5.36999 79.6241 5.36999C78.0231 5.36999 75.8662 7.69214 75.8662 10.74V23.7472C75.8662 25.885 76.7979 27.2461 78.0388 27.8345C78.4224 28.0149 78.6142 28.4543 78.5398 28.87L78.4928 29.1329C78.4067 29.6232 78.0192 29.9488 77.569 29.9488H66.7534C66.3032 29.9488 65.9157 29.6232 65.8413 29.1799L65.7747 28.7955C65.7043 28.3915 65.9313 28.011 66.3032 27.8345C67.5558 27.2422 68.4053 25.8811 68.4053 23.7472V10.2418C68.4053 8.10793 67.5519 6.7468 66.3032 6.1545C65.9313 5.97798 65.7043 5.60142 65.7747 5.19347L65.853 4.75022C65.9313 4.2952 66.2327 4.00494 66.6085 3.93041C69.2077 3.40086 71.7443 2.10249 74.5431 0.113754C74.6449 0.0431482 74.7702 0 74.8915 0C75.2164 0 75.4865 0.254966 75.5022 0.584462L75.6979 4.8169H75.9171C77.9644 1.773 80.9472 0 84.2588 0C88.0167 0 90.2245 2.43591 90.2245 5.36999" fill="currentColor"/>
+            <path d="M108.082 20.5385L107.339 15.2195C107.26 14.6743 106.732 14.3173 106.196 14.4429C101.377 15.5686 97.6972 17.7614 97.6972 21.6996C97.6972 24.8024 99.8541 26.6263 102.723 26.6263C105.593 26.6263 108.247 23.6374 108.082 20.5385ZM120.933 28.2385C121.086 28.6229 120.965 29.0662 120.644 29.3251C119.109 30.5607 117.007 31 115.43 31C112.889 31 109.906 30.0037 108.912 26.1831H108.634C106.646 29.7801 102.669 31 99.5213 31C94.2173 31 90.0209 28.0659 90.0209 23.0294C90.0209 15.8158 97.8968 13.5015 105.996 11.956C106.481 11.8618 106.814 11.4068 106.744 10.9126L106.313 7.86081C105.98 5.20132 104.379 3.54207 102.226 3.54207C100.183 3.54207 98.4684 4.92674 98.6915 6.86448C99.1886 9.30039 97.3645 10.8498 95.2663 10.8498C93.0586 10.8498 91.7316 9.41022 91.7316 7.08415C91.7864 3.76174 95.2663 0 102.782 0C108.583 0 113.555 3.21258 114.435 10.3516L115.927 23.1941C116.26 25.9046 117.254 27.6227 118.855 27.6227C119.133 27.6227 119.426 27.5717 119.74 27.4775C120.194 27.3403 120.675 27.5874 120.847 28.0267L120.933 28.2424V28.2385Z" fill="currentColor"/>
+            <path d="M32.9364 28.8857L32.8777 29.1839C32.7994 29.6271 32.4158 29.9448 31.9657 29.9448H21.1187C20.6803 29.9448 20.3005 29.6389 20.2144 29.2113L20.1401 28.8897C20.05 28.466 20.2692 28.0542 20.6568 27.862C21.8624 27.2304 22.5944 25.8811 22.3596 23.806L21.2518 11.4068C20.9229 7.25674 19.044 4.59724 15.6737 4.59724C12.3033 4.59724 10.0407 7.42541 10.0407 10.9636V23.806C10.0407 25.8811 10.9606 27.2343 12.225 27.862C12.6165 28.0542 12.8396 28.466 12.7456 28.8936L12.6791 29.2113C12.5891 29.6389 12.2093 29.9448 11.7748 29.9448H1.00615C0.548161 29.9448 0.156715 29.6114 0.0901692 29.1525L0.0431956 28.8465C-0.0194358 28.4464 0.199774 28.0581 0.559905 27.8776C1.78122 27.2579 2.6424 25.8967 2.6424 23.806V10.183C2.6424 8.10793 1.80079 6.71543 0.55599 6.11135C0.172373 5.92307 -0.0585805 5.52297 0.0197088 5.09933L0.0979981 4.66C0.164544 4.29128 0.458129 3.99709 0.830003 3.91864H0.849575C1.73424 3.74212 2.615 3.46362 3.49184 3.11059C5.26118 2.42414 7.06183 1.41212 8.96426 0.0235354C9.00732 0.00784512 9.04646 0.00392256 9.09344 0.00392256H9.17173C9.45748 0.0196128 9.68061 0.227509 9.72758 0.50601L9.87241 4.48741H10.1464C11.6418 2.15741 14.2331 0 18.2181 0C24.399 0 28.1569 3.76174 28.8771 11.956L29.8127 23.8021C30.0045 25.8928 31.0497 27.254 32.3923 27.8737C32.7838 28.0502 33.0108 28.4621 32.9325 28.8857H32.9364Z" fill="currentColor"/>
+          </svg>
+          <p>Eight years, three platforms, three products, one design system. Every change came out of the same research cycle: interviews, surveys, App Store reviews, support email. Every design change traced back to something a parent needed.</p>
+          <ul class="nw-metrics">
+            <li class="nw-metric">
+              <span class="nw-metric-value">over 1 million+</span>
+              <span class="nw-metric-label">caregivers &amp; parents</span>
+            </li>
+            <li class="nw-metric">
+              <span class="nw-metric-value">3 platforms</span>
+              <span class="nw-metric-label">iOS, Android &amp; watchOS</span>
+            </li>
+            <li class="nw-metric">
+              <span class="nw-metric-value">4.9
+                <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path d="M7.68 1.53a.36.36 0 0 1 .64 0l1.54 3.12c.1.2.25.38.44.52.18.13.4.22.62.25l3.45.5a.35.35 0 0 1 .19.61l-2.49 2.42c-.16.16-.29.36-.36.58a1.2 1.2 0 0 0-.05.68l.59 3.42a.36.36 0 0 1-.52.38l-3.08-1.62a1.2 1.2 0 0 0-1.14 0l-3.08 1.62a.36.36 0 0 1-.51-.38l.58-3.43a1.2 1.2 0 0 0-.34-1.06L1.44 6.53a.35.35 0 0 1 .19-.6l3.45-.51c.22-.03.44-.12.62-.25.19-.14.34-.32.44-.52L7.68 1.53Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span class="nw-metric-label">app store rating</span>
+            </li>
+            <li class="nw-metric">
+              <span class="nw-metric-value">23,000+</span>
+              <span class="nw-metric-label">parent reviews</span>
+            </li>
+          </ul>
+        </div>
+        <div class="nw-intro-art">
+          <img src="../assets/images/nara-walkthrough/nara-activity-history.webp"
+               width="732" height="671" decoding="async"
+               alt="The same two Nara screens the deck opened on: the Activity feed of coloured tracking cards, and the History view showing a week of logged sleep, feeds and diapers." />
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../js/walkthrough.js"></script>
+</body>
+</html>

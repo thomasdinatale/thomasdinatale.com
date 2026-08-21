@@ -1,0 +1,522 @@
+/* ─────────────────────────────────────────
+   Nara walkthrough — deck-style screens
+   Used by /case-study/nara-app-walkthrough. Loads AFTER styles.css and
+   relies on its tokens; this file adds no colors of its own.
+
+   Model: every screen lives in the DOM, only .is-active is displayed.
+   js/walkthrough.js swaps them, retitles the band and drives the progress
+   fill. The band is fixed to the top of the viewport and never re-renders —
+   which is why the screen title lives in the band rather than in each screen.
+
+   The comp is a 1440x900 slide (Figma "Walkthroughs", frames 01–11). The band
+   is real chrome at its native size; everything under it scales down to fit
+   the viewport, so a screen never scrolls on desktop. Sibling of
+   css/walkthrough.css, which does the same job for the Primer deck with the
+   chrome at the bottom; the two are never loaded together.
+───────────────────────────────────────── */
+
+:root {
+  /* Top chrome. Comp: 24 + 34 arrow + 24 = 82, closed by a rule.
+     The comp draws that rule as a 1px shale hairline; here it doubles as the
+     progress track, so it is 2px. That is the one deliberate deviation. */
+  --nw-arrow-size: 34px;
+  --nw-arrow-radius: 8px;
+  --nw-progress-h: 2px;
+  --nw-band-h: calc(82px + var(--nw-progress-h));
+
+  /* The comp puts both the title and the arrows on a 64px gutter, and the
+     body content roughly inside that. One gutter, unlike the Primer deck. */
+  --nw-gutter: 64px;
+
+  /* The comp is a 1440x900 slide; 816 is what is left under the 84px band.
+     Every screen is laid out once at this size and scaled to fit, so the deck
+     stays proportionally identical to Figma at any window size. */
+  --nw-slide-w: 1440;
+  --nw-slide-h: 816;
+
+  /* Device chrome from the comp, not a site colour — the phone bezel on
+     screen 06. Deliberately not themed: it is part of the hardware, and the
+     same grey Figma draws in both the light and dark screens. */
+  --nw-bezel: #454545;
+}
+
+/* Screen-reader-only. The deck's one <h1> is hidden because the band shows a
+   per-screen label instead, and screen 01 shows nothing at all. Standard rules,
+   kept local — styles.css has no such utility yet. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Fixed band ──────────────────────────────────────────────────────────
+   Solid chalk, full-bleed, closed by the progress rule. It masks the fixed
+   background grid so the grid only reads in the body below.
+───────────────────────────────────────── */
+
+.nw-band {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  background: var(--chalk);
+}
+
+.nw-band-inner {
+  height: calc(var(--nw-band-h) - var(--nw-progress-h));
+  padding: 0 var(--nw-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.nw-band-lead {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Screen 01 carries no title, so the deck signs itself with the site's mark
+   and name in that slot instead. Keyed off :empty — walkthrough.js clears
+   .nw-title to an empty string there, so no JS knows about this. The comp
+   draws the mark as a flat ember disc; the site's animated orbiting version
+   stays on the site. */
+.nw-brand { display: none; }
+.nw-title:empty + .nw-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-h6);
+  line-height: var(--text-h6-lh);
+  font-weight: 600;
+  color: var(--pitch);
+  white-space: nowrap;
+}
+.nw-brand-mark {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--ember);
+}
+
+/* Screen label, not the page heading — js/walkthrough.js rewrites it on every
+   step and screen 01 deliberately leaves it empty. min-height keeps the band
+   from twitching when it does. */
+.nw-title {
+  min-height: calc(var(--text-h6) * var(--text-h6-lh));
+  font-size: var(--text-h6);
+  line-height: var(--text-h6-lh);
+  font-weight: 600;
+  color: var(--pitch);
+}
+
+/* The accent lead-in on a band title — "Research:", "Evolution:". Written by
+   js/walkthrough.js from data-title-prefix; the class is deck-neutral because
+   that script is shared, and butcherbox-walkthrough.css defines the same rule
+   for its own deck. */
+.wt-title-prefix { color: var(--ember); }
+
+.nw-arrows {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 8px;
+}
+
+.nw-arrow {
+  width: var(--nw-arrow-size);
+  height: var(--nw-arrow-size);
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--shale);
+  border-radius: var(--nw-arrow-radius);
+  background: var(--chalk);
+  color: var(--pitch);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+.nw-arrow svg { display: block; width: 16px; height: 16px; }
+.nw-arrow:hover:not(:disabled) {
+  border-color: var(--ember);
+  color: var(--ember);
+}
+.nw-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* The band's closing rule, doing double duty as the progress track. */
+.nw-progress {
+  height: var(--nw-progress-h);
+  background: var(--shale);
+}
+.nw-progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--ember);
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Shell ───────────────────────────── */
+
+.nw {
+  position: relative;
+  z-index: 2;
+  padding-top: var(--nw-band-h);
+  /* Contains the enter animation's translate. A transform doesn't change
+     layout, but it does extend the scrollable overflow area — without this a
+     scrollbar flashes on every step. Safe at every width: .nw is only ever as
+     tall as its in-flow children, so this clips the transform and nothing
+     else. */
+  overflow: hidden;
+}
+
+.nw-screen { display: none; }
+.nw-screen.is-active {
+  display: grid;
+  place-items: center;
+  height: calc(100dvh - var(--nw-band-h));
+}
+
+/* Screens swap by display, which restarts this animation every time one
+   becomes active — no JS, no exit animation to sequence. A short lift rather
+   than a slide: the deck moves in both directions and a directional slide
+   would have to know which way it went.
+
+   Deliberately NO fill-mode. `both` back-fills opacity: 0 before the first
+   frame, so anything that stalls the animation — a throttled background tab,
+   an engine that skips it — leaves the screen permanently invisible. Without
+   a fill the un-animated state is the finished state, so the worst case is
+   simply no animation. */
+@media (prefers-reduced-motion: no-preference) {
+  .nw-screen.is-active {
+    animation: nw-enter 340ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@keyframes nw-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Body: artwork over a caption ────────────────────────────────────────
+   Screens 02–10. The artwork is one exported image per screen, so fitting it
+   is just object-fit against a flex row that owns the leftover height —
+   .nw-figure needs flex: 1 (not 0 1 auto) for its own height to be definite,
+   which is what makes the image's max-height: 100% resolve at all.
+───────────────────────────────────────── */
+
+/* The slide itself. Fixed at the comp box so every value inside this file is
+   a literal Figma number; js/walkthrough.js supplies --nw-scale to fit it to
+   the window. The box keeps its untransformed size in layout, which is why
+   .nw is set to clip. */
+.nw-body {
+  width: calc(var(--nw-slide-w) * 1px);
+  height: calc(var(--nw-slide-h) * 1px);
+  transform: scale(var(--nw-scale, 1));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 24px var(--nw-gutter) 28px;
+}
+
+.nw-figure {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nw-figure img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ── Stage: a still beside a live phone ──────────────────────────────────
+   Screens 06 and 10. On both, the right-hand phone is a video fill in Figma,
+   so instead of one flat export the screen is the left phone as an image plus
+   a real <video>, laid out against the comp's bounding box.
+
+   The machinery is shared; every per-screen number lives in the custom
+   properties on the .nw-stage--* modifier, so adding a third of these means
+   adding one block and nothing else.
+
+   Fitting the box needs container units rather than aspect-ratio: with
+   `aspect-ratio` + `height: 100%`, a tall narrow window (iPad portrait) makes
+   the derived width exceed the container, max-width clamps it, and — both
+   axes now being definite — the ratio is dropped and the composition
+   squashes. min() against cqw/cqh has no such failure mode.
+───────────────────────────────────────── */
+
+.nw-figure--stage { container-type: size; }
+
+.nw-stage {
+  position: relative;
+  width: min(100cqw, 100cqh * var(--stage-w) / var(--stage-h));
+  height: min(100cqh, 100cqw * var(--stage-h) / var(--stage-w));
+}
+.nw-stage > * { position: absolute; }
+
+/* Left phone: exported with its shadow baked in, so it needs no elevation. */
+.nw-stage-still {
+  left: 0;
+  top: 0;
+  width: var(--still-w);
+  height: 100%;
+}
+
+/* Right phone. On both screens the comp draws the 6px bezel OUTSIDE the video
+   box and hangs the site's video shadow off it, so the element is the OUTER
+   box and border-box sizing puts the bezel back where Figma had it.
+   The 32px radius is a fixed comp value and doesn't scale with the stage —
+   at presentation size the stage runs near 1:1, so it lands right. */
+.nw-stage-video {
+  left: var(--video-x);
+  top: var(--video-y);
+  width: var(--video-w);
+  height: var(--video-h);
+  box-sizing: border-box;
+  border: 6px solid var(--nw-bezel);
+  border-radius: 32px;
+  box-shadow: var(--shadow-video);
+  background: var(--plaster);
+  /* Each source is encoded to its own box within ~0.3%; cover absorbs it. */
+  object-fit: cover;
+}
+
+/* Screen 06 — bbox x 312→1094, y 106→848. Still 389 wide; video outer
+   314 x 668 at (780, 129). */
+.nw-stage--reorder {
+  --stage-w: 782;
+  --stage-h: 742;
+  --still-w: 49.744%;
+  --video-x: 59.847%;
+  --video-y: 3.100%;
+  --video-w: 40.153%;
+  --video-h: 90.027%;
+}
+
+/* Screen 10 — bbox x 301.5→1050, y 99→854. Still 393 wide; video outer
+   320 x 679 at (730, 127). */
+.nw-stage--switcher {
+  --stage-w: 748.5;
+  --stage-h: 755;
+  --still-w: 52.505%;
+  --video-x: 57.248%;
+  --video-y: 3.709%;
+  --video-w: 42.752%;
+  --video-h: 89.934%;
+}
+
+.nw-caption {
+  flex: 0 0 auto;
+  max-width: 1110px;
+  text-align: center;
+  font-size: var(--text-caption);
+  /* Figma "desktop/Caption" is 14/1.5; the --text-caption-lh token is 1.6.
+     Honour the Figma value here — see the drifts note in DESIGN-SYSTEM.md. */
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
+/* ── Intro / outro ───────────────────────────────────────────────────────
+   Screens 01 and 11 are ONE layout — the opener and the closer are bookends,
+   so they differ only in band text and body copy, never in geometry.
+
+   Drawn to exact comp coordinates rather than the deck's centred gutter:
+   copy column at x=77, artwork at x=651, 77 left / 57 right. The comp is NOT
+   centred. Vertically the artwork's box starts at y=112 (28px under the 84px
+   band) and the copy at y=147 — 4px BELOW the phone bezel, which itself sits
+   31px into the export, rather than flush with it.
+───────────────────────────────────────── */
+
+.nw-body--intro {
+  display: grid;
+  grid-template-columns: minmax(0, 542px) minmax(0, 732px);
+  grid-template-rows: minmax(0, 1fr);
+  justify-content: start;
+  gap: 32px;
+  padding: 28px 57px 24px 77px;
+}
+
+.nw-intro {
+  min-height: 0;
+  align-self: start;
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.nw-wordmark {
+  display: block;
+  width: 158px;      /* comp draws it 158 x 40; height follows the viewBox */
+  height: auto;
+  color: var(--pitch);
+}
+
+.nw-intro p {
+  font-size: var(--text-body);
+  line-height: var(--text-body-lh);
+  color: var(--pitch);
+}
+
+.nw-intro-art {
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Screen 01 only. The comp aligns the copy column to the top of the phone
+   rather than to the artwork's box — and the exported artwork carries 31px of
+   shadow margin above the bezel, so both columns start at the cell top and the
+   copy drops by exactly that much. Screen 11 keeps the centred arrangement its
+   own comp uses, which is why this is a modifier and not the default.
+
+   Exact wherever the artwork renders at its natural 671px height — i.e. any
+   viewport at least ~800px tall. Shorter than that it scales and the copy sits
+   a few px low; acceptable for a deck that is presented full-height. */
+/* The art cell has to keep stretching — .nw-body's align-items: center would
+   otherwise centre it, and a start-aligned cell would be content-sized, which
+   breaks the img's max-height: 100% and lets tall artwork overflow. So the
+   cell fills the row and the image is pinned to the top inside it. */
+.nw-body--intro .nw-intro-art {
+  align-self: stretch;
+  align-items: flex-start;
+}
+.nw-intro-art img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ── Metric cards ────────────────────────────────────────────────────────
+   Comp fills these with linen at 80%; on plaster that lands within a shade
+   of the solid token, so they take var(--linen) and stay theme-correct.
+───────────────────────────────────────── */
+
+/* No margin-top: the comp runs one 24px rhythm all the way down the column —
+   wordmark, paragraph, paragraph, cards — which .nw-intro's gap already sets.
+   A margin here stacks on top of that gap and doubles it to 48. */
+/* An even 2x2. The comp's row 2 is really 255/271 rather than 263/263 —
+   the rating card is inset 24px where the others are 32, and Figma hugs the
+   result — which leaves the right-hand cards 8px out of line between the two
+   rows. That reads as a slip rather than intent, so the grid is even here and
+   every card takes the same 32px inset. */
+.nw-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.nw-metric {
+  background: var(--linen);
+  border-radius: var(--radius-md);
+  padding: 16px 32px;
+  display: flex;
+  flex-direction: column;
+}
+.nw-metric-value {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-body);
+  line-height: var(--text-body-lh);
+  font-weight: 600;
+  color: var(--pitch);
+}
+.nw-metric-value svg {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+}
+.nw-metric-label {
+  font-size: var(--text-body-sm);
+  line-height: 1.5;            /* Figma "Body Small - Semibold" is 1.5, not 1.6 */
+  font-weight: 600;
+  color: var(--flint);
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────
+   The deck is a 1440-wide comp meant for a laptop or a projector. Narrower
+   than the intro grid can hold, it stops pretending to be a slide: screens
+   stack and the page scrolls again.
+───────────────────────────────────────── */
+
+@media (max-width: 1100px) {
+  :root { --nw-gutter: 32px; }
+  .nw-title { font-size: var(--text-body-md); }
+  /* Screen 01's comp-exact 77/57 gutters only hold at the comp width; below it
+     the slide goes back to the deck's shared gutter. */
+  .nw-body--intro {
+    padding-left: var(--nw-gutter);
+    padding-right: var(--nw-gutter);
+  }
+}
+
+@media (max-width: 900px) {
+  :root { --nw-gutter: 24px; }
+
+  /* Off the slide model: the page scrolls again, so the body goes back to
+     being a fluid block and the scale factor is ignored. */
+  .nw-screen.is-active {
+    display: block;
+    height: auto;
+    min-height: calc(100dvh - var(--nw-band-h));
+  }
+  .nw-body {
+    width: auto;
+    height: auto;
+    min-height: calc(100dvh - var(--nw-band-h));
+    transform: none;
+  }
+
+  .nw-body { padding-bottom: 48px; }
+  /* Height is no longer capped, so the image goes back to sizing itself. */
+  .nw-figure { flex: 0 0 auto; }
+  .nw-figure img { max-height: none; }
+
+  /* Height is auto here, so a size container would resolve 100cqh to zero. */
+  .nw-figure--stage { container-type: normal; }
+  .nw-stage {
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--stage-w) / var(--stage-h);
+  }
+
+  .nw-body--intro {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    gap: 40px;
+  }
+  .nw-intro-art img { max-height: 60vh; }
+  /* Stacked, so there is no phone alongside to align to. */
+  .nw-body--intro .nw-intro { margin-top: 0; }
+  .nw-body--intro { padding-top: 24px; }
+  .nw-metrics { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .nw-metrics { grid-template-columns: minmax(0, 1fr); }
+  .nw-metric { padding: 16px 24px; }
+}
+
+/* Screens swap instantly; nothing here animates except the progress fill,
+   which a reduced-motion preference turns into a jump. */
+@media (prefers-reduced-motion: reduce) {
+  .nw-progress-fill { transition: none; }
+}

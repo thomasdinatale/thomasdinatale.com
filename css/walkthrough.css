@@ -1,0 +1,454 @@
+/* ─────────────────────────────────────────
+   Walkthrough — deck-style screens
+   Used by /case-study/primer-walkthrough. Loads AFTER styles.css and
+   relies on its tokens; this file adds no colors of its own.
+
+   Model: every screen lives in the DOM, only .is-active is displayed.
+   js/walkthrough.js swaps them and drives the progress fill. The nav and
+   progress bar are fixed to the viewport and never re-render.
+───────────────────────────────────────── */
+
+:root {
+  /* Bottom chrome. Comp: 84px nav + a 2px progress rule sitting on its top edge
+     (the rule replaces the nav's top hairline rather than doubling it). */
+  --wt-nav-h: 84px;
+  --wt-progress-h: 2px;
+  --wt-chrome-h: calc(var(--wt-nav-h) + var(--wt-progress-h));
+
+  /* Two gutters: body content sits at 72, while the header band and bottom
+     nav both sit at 96 — the chrome frames the content rather than aligning
+     to it. */
+  --wt-gutter: 72px;
+  --wt-chrome-gutter: 96px;
+
+  --wt-arrow-size: 34px;
+  --wt-arrow-radius: 8px;
+
+  /* The comp is drawn at 1440. Above that, content stops tracking the window
+     edges and centres instead — the gutter grows to absorb the extra width.
+     1296 = 1440 - 2 x 72 (content); 1248 = 1440 - 2 x 96 (nav). */
+  --wt-content-w: 1296px;
+  --wt-chrome-w: 1248px;
+  --wt-center: max(var(--wt-gutter), calc((100% - var(--wt-content-w)) / 2));
+  --wt-chrome-center: max(var(--wt-chrome-gutter), calc((100% - var(--wt-chrome-w)) / 2));
+}
+
+/* ── Shell ───────────────────────────── */
+
+.wt {
+  position: relative;
+  z-index: 2;
+  padding-bottom: var(--wt-chrome-h);
+}
+
+.wt-screen { display: none; }
+.wt-screen.is-active {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh - var(--wt-chrome-h));
+}
+
+/* ── Header band ─────────────────────────────────────────────────────────
+   Solid chalk, full-bleed, closed by a shale hairline. It masks the fixed
+   background grid so the grid only reads in the body below.
+
+   Title left, question right, the two bottom-aligned: in the comp both text
+   boxes end at y=66, which is what align-items: flex-end reproduces (42-tall
+   title from 24, 33-tall subtitle from 33). Band total is 24 + 42 + 24 + 1.
+───────────────────────────────────────── */
+
+.wt-band {
+  background: var(--chalk);
+  border-bottom: 1px solid var(--shale);
+  padding: 24px var(--wt-chrome-center);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.wt-title {
+  flex: 0 0 auto;
+  font-size: var(--text-h5);
+  /* Figma's H5 style is 32/1.3; the --text-h5-lh token is 1.4. Honour the
+     Figma value here — see the note in DESIGN-SYSTEM.md drifts. */
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--pitch);
+}
+
+.wt-subtitle {
+  flex: 0 1 auto;
+  text-align: right;
+  font-size: var(--text-body-md);
+  line-height: 1.5;            /* Figma "Body Medium - Regular" is 1.5, not the 1.6 default */
+  font-weight: 400;
+  color: var(--pitch);
+}
+
+/* ── Body ────────────────────────────── */
+
+.wt-body {
+  flex: 1;
+  padding: 48px var(--wt-center) 64px;
+  display: grid;
+  grid-template-columns: 496px minmax(0, 1fr);
+  gap: 86px;
+  align-items: start;
+  /* .wt-body flexes to fill the screen's min-height; without this a grid's
+     default align-content: stretch spreads the slack across the rows and
+     silently inflates every gap. */
+  align-content: start;
+}
+
+/* Single-column variants for screens that are all copy or all visual. */
+.wt-body--copy,
+.wt-body--visual,
+.wt-body--flow { grid-template-columns: minmax(0, 1fr); }
+
+/* Stacked screens (05, 06) space their own blocks with margins, so the grid
+   row gap has to get out of the way. */
+.wt-body--flow { gap: 0; }
+
+/* Screen 04: the mapping diagram column is 720 wide, so the gutter is 80. */
+.wt-body--map { gap: 80px; }
+
+.wt-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.wt-copy p {
+  font-size: var(--text-body-md);
+  line-height: 1.5;            /* Figma "Body Medium - Regular" is 1.5 */
+  color: var(--pitch);
+}
+.wt-body--copy .wt-copy { max-width: 822px; }
+
+.wt-visual { max-width: 700px; }
+.wt-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.wt-body--visual .wt-visual {
+  max-width: none;
+  margin-inline: auto;
+}
+
+/* Bold lead-in paragraph (screen 04's "We'll walk through 4 versions…"). */
+.wt-copy p.is-lead { font-weight: 600; }
+
+.wt-copy ol {
+  padding-left: 1.5em;
+  font-size: var(--text-body-md);
+  line-height: 1.5;
+  color: var(--pitch);
+}
+
+/* ── Stage: absolutely-positioned image collage ──────────────────────────
+   Screen 03. Every child is placed in percentages against the composition's
+   real bounding box, so it scales as one unit and the overlaps never drift.
+
+   That box is 1813 wide, not 1440: in the Figma frame the teacher view runs
+   to x=1761 and the student view starts at x=-52, and the frame simply clips
+   both. Sizing the stage to 1440 reproduced that clip in the browser and cut
+   the teacher table's right-hand columns off, so the stage is the full 1813
+   instead — nothing is cropped at any width, and on a viewport wide enough
+   the composition reaches its true comp size.
+───────────────────────────────────────── */
+
+.wt-stage {
+  position: relative;
+  width: 100%;
+  max-width: 1813px;
+  margin-inline: auto;
+  aspect-ratio: 1813 / 2308;
+}
+.wt-stage img {
+  position: absolute;
+  display: block;
+  height: auto;
+}
+
+/* x measured from -52 (the composition's true left edge), y from the band. */
+.wt-stage-tv        { left:  5.736%; top:  1.127%; width: 73.745%; z-index: 1; }
+.wt-stage-goals     { left: 25.924%; top: 35.139%; width: 74.076%; z-index: 2; }
+.wt-stage-dashboard { left:  0;      top: 70.277%; width: 73.028%; z-index: 3; }
+.wt-stage-phone     { left:  7.722%; top: 38.605%; width: 17.154%; z-index: 4; }
+
+/* Full-bleed body — the collage deliberately runs off both edges. The comp's
+   26px gap below the band is baked into the stage box, so no padding-top here. */
+.wt-body--stage {
+  grid-template-columns: minmax(0, 1fr);
+  padding: 0 0 110px;
+}
+
+/* ── Mapping: app icon → leader line → metric label ──────────────────────
+   Screen 04. Built as real markup rather than an exported image so the
+   labels stay selectable and the rules follow --shale across themes.
+───────────────────────────────────────── */
+
+.wt-map {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;              /* 76 + 28 = the comp's ~104px row pitch */
+  list-style: none;
+}
+.wt-map-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.wt-map-icon {
+  flex: 0 0 auto;
+  width: 76px;
+  height: 76px;
+  display: grid;
+  place-items: center start;
+}
+.wt-map-icon img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+}
+.wt-map-rule {
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--shale);
+}
+.wt-map-label {
+  flex: 0 0 auto;
+  font-size: var(--text-body-md);
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--pitch);
+  text-align: right;
+}
+
+/* ── Media block: a screenshot with a caption under it ───────────────────
+   Screens 05 and 06. The caption is flint, 16/1.5, aligned to the media's
+   left edge (the comp's 3px offset is a text bounding-box artifact).
+───────────────────────────────────────── */
+
+.wt-media { width: 100%; }
+.wt-media img,
+.wt-media video {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* The video frame is an opaque 1920x1104 render with no baked shadow, so it
+   gets the same CSS elevation the case study gives its demo reel. object-fit
+   keeps the slightly-shorter poster from letterboxing before playback. */
+.wt-video {
+  box-shadow: var(--shadow-video);
+  border-radius: var(--radius-md);   /* the comp rounds the card; the raw frame is square */
+  object-fit: cover;
+}
+/* Screen 05's screenshot is inset to 1257 rather than the full 1296 column. */
+.wt-media--inset {
+  max-width: 1257px;
+  margin-inline: auto;
+}
+.wt-caption {
+  margin-top: 25px;
+  font-size: var(--text-body-sm);
+  line-height: 1.5;
+  color: var(--flint);
+}
+
+/* ── Card pair ───────────────────────────────────────────────────────────
+   Screen 06. Two equal linen panels side by side; they stretch to a shared
+   height so the pair reads as one band.
+───────────────────────────────────────── */
+
+.wt-cards {
+  margin-top: 72px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+.wt-card {
+  background: var(--linen);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.wt-card h3 {
+  font-size: var(--text-body-md);
+  line-height: 1.4;
+  font-weight: 700;
+  color: var(--pitch);
+}
+.wt-card p,
+.wt-card ol {
+  font-size: var(--text-body);
+  line-height: var(--text-body-lh);
+  color: var(--pitch);
+}
+.wt-card ol { padding-left: 1.5em; }
+
+/* ── Takeaway ────────────────────────────────────────────────────────────
+   Screen 06. The closing statement, indented to the cards' inner padding
+   and separated by a full-width hairline.
+───────────────────────────────────────── */
+
+.wt-takeaway {
+  margin-top: 24px;
+  padding-top: 25px;
+  border-top: 1px solid var(--shale);
+}
+.wt-takeaway p {
+  padding-left: 24px;
+  font-size: var(--text-h5);
+  line-height: var(--text-h5-lh);
+  font-weight: 700;
+  color: var(--pitch);
+}
+
+/* ── Fixed bottom chrome ─────────────── */
+
+.wt-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  background: var(--chalk);
+}
+
+.wt-progress {
+  height: var(--wt-progress-h);
+  background: var(--shale);
+}
+.wt-progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--ember);
+  transition: width 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wt-nav-inner {
+  height: var(--wt-nav-h);
+  padding: 0 var(--wt-chrome-center);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* Deck label — replaced the Primer wordmark. Dropped entirely on mobile,
+   where there is no room for it beside the arrows. */
+.wt-nav-copy {
+  font-size: var(--text-body);
+  line-height: var(--text-body-lh);
+  color: var(--flint);
+}
+
+.wt-nav-arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.wt-arrow {
+  width: var(--wt-arrow-size);
+  height: var(--wt-arrow-size);
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--shale);
+  border-radius: var(--wt-arrow-radius);
+  background: var(--chalk);
+  color: var(--pitch);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+.wt-arrow svg { display: block; width: 16px; height: 16px; }
+.wt-arrow:hover:not(:disabled) {
+  border-color: var(--ember);
+  color: var(--ember);
+}
+.wt-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ── Responsive ──────────────────────── */
+
+@media (max-width: 1200px) {
+  .wt-body {
+    grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+    gap: 48px;
+  }
+}
+
+/* The title and question stop fitting on one line together; stack them. */
+@media (max-width: 1100px) {
+  .wt-band {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .wt-subtitle { text-align: left; }
+}
+
+/* Below the two-column threshold the copy leads and the visual follows. */
+@media (max-width: 1024px) {
+  :root {
+    --wt-gutter: 40px;
+    --wt-chrome-gutter: 40px;
+  }
+  .wt-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    padding-bottom: 56px;
+  }
+  .wt-copy,
+  .wt-visual { max-width: 700px; }
+  .wt-body--stage { padding-inline: 0; }
+  .wt-map-icon { width: 56px; height: 56px; }
+  .wt-map-row { gap: 16px; }
+  .wt-media--inset { max-width: none; }
+  .wt-cards { margin-top: 48px; gap: 16px; }
+}
+
+/* Below this width the collage's overlaps are unreadable, so it un-stacks
+   into a plain vertical sequence of the four surfaces. */
+@media (max-width: 768px) {
+  .wt-stage {
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-inline: var(--wt-gutter);
+  }
+  .wt-stage img {
+    position: static;
+    width: 100%;
+  }
+  .wt-stage-phone { max-width: 220px; margin-inline: auto; }
+  .wt-body--stage { padding-bottom: 56px; }
+  .wt-map { gap: 20px; }
+  .wt-map-icon { width: 44px; height: 44px; }
+  .wt-map-label { font-size: var(--text-body-sm); }
+  .wt-cards { grid-template-columns: minmax(0, 1fr); margin-top: 40px; }
+  .wt-takeaway p { padding-left: 0; }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --wt-gutter: 24px;
+    --wt-chrome-gutter: 24px;
+    --wt-nav-h: 68px;
+  }
+  .wt-body { padding-top: 32px; }
+  .wt-nav-copy { display: none; }
+  .wt-nav-inner { justify-content: flex-end; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wt-progress-fill { transition: none; }
+}

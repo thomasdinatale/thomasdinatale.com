@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
 
+# Staging — in-progress walkthroughs, not part of the public site yet.
+Disallow: /case-study/primer-walkthrough
+Disallow: /case-study/nara-app-walkthrough
+Disallow: /case-study/butcherbox-walkthrough
+
 Sitemap: https://www.thomasdinatale.com/sitemap.xml

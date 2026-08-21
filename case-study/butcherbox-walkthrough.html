@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ButcherBox walkthrough</title>
+  <!-- Staging: isolated from the site, deliberately not indexed and not in the sitemap. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400..900;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/butcherbox-walkthrough.css" />
+</head>
+<!-- theme-light is pinned on <html>, same as the Nara deck: the screenshots are
+     light-mode captures of a light-mode product, so the deck can't follow the OS
+     preference the way the rest of the site does. -->
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- Wordmark, defined once and referenced by the title and closing screens.
+       currentColor still resolves through <use>, so it stays theme-aware. -->
+  <svg class="bw-sprite" aria-hidden="true" focusable="false">
+    <symbol id="bb-wordmark" viewBox="0 0 291 24" fill="none">
+      <path d="M10.73 22.7282H0V0.525269H10.4726C15.0816 0.525269 17.9183 2.77876 17.9183 6.2671V6.32952C17.9183 8.83577 16.5631 10.2335 14.9522 11.1197C17.562 12.1033 19.1744 13.5925 19.1744 16.5753V16.6392C19.1744 20.7001 15.8216 22.7282 10.73 22.7282ZM12.9865 7.09236C12.9865 5.63216 11.8262 4.8069 9.73111 4.8069H4.83282V9.50116H9.40679C11.5994 9.50116 12.985 8.80227 12.985 7.15327V7.09236H12.9865ZM14.2442 15.9723C14.2442 14.4817 13.1159 13.562 10.5686 13.562H4.83282V18.4466H10.73C12.9225 18.4466 14.2442 17.6868 14.2442 16.0363V15.9738V15.9723Z" fill="currentColor"/>
+      <path d="M217.996 22.5838H207.266V0.380859H217.738C222.347 0.380859 225.184 2.63283 225.184 6.12269V6.18664C225.184 8.69136 223.829 10.0876 222.218 10.9753C224.828 11.9589 226.44 13.4496 226.44 16.4324V16.4948C226.44 20.5542 223.087 22.5838 217.996 22.5838ZM220.252 6.94643C220.252 5.48623 219.092 4.66249 216.997 4.66249H212.098V9.35523H216.672C218.867 9.35523 220.251 8.65938 220.251 7.00886V6.94643H220.252ZM221.51 15.8279C221.51 14.3357 220.382 13.4176 217.834 13.4176H212.1V18.3022H217.997C220.19 18.3022 221.511 17.5424 221.511 15.8919V15.8294L221.51 15.8279Z" fill="currentColor"/>
+      <path d="M39.1308 22.9325C33.0723 22.9325 29.3662 19.6025 29.3662 13.0674V0.380859H34.33V12.9425C34.33 16.5588 36.1663 18.4301 39.1948 18.4301C42.2233 18.4301 44.0611 16.6212 44.0611 13.0994V0.380859H49.0233V12.9075C49.0233 19.6345 45.1878 22.9325 39.1293 22.9325" fill="currentColor"/>
+      <path d="M71.2897 5.00216V22.6997H66.3274V5.00216H59.4619V0.496704H78.1537V5.00216H71.2897Z" fill="currentColor"/>
+      <path d="M99.5748 22.9644C92.9361 22.9644 88.0059 17.9199 88.0059 11.5447V11.4823C88.0059 5.16944 92.8387 0.00012207 99.7682 0.00012207C104.021 0.00012207 106.567 1.39637 108.662 3.42603L105.505 7.00878C103.765 5.45417 101.991 4.50253 99.7347 4.50253C95.9327 4.50253 93.1935 7.61174 93.1935 11.4183V11.4807C93.1935 15.2873 95.8687 18.4574 99.7347 18.4574C102.314 18.4574 103.891 17.4433 105.667 15.8568L108.823 18.9979C106.503 21.4402 103.923 22.9629 99.5748 22.9629" fill="currentColor"/>
+      <path d="M132.604 22.6706V13.7587H123.45V22.6706H118.487V0.467651H123.45V9.25626H132.604V0.467651H137.566V22.6706H132.604Z" fill="currentColor"/>
+      <path d="M149.046 22.6432V0.438721H166.06V4.7843H153.975V9.28823H164.612V13.6338H153.975V18.2976H166.221V22.6432H149.046Z" fill="currentColor"/>
+      <path d="M191.191 22.6127L186.357 15.5097H182.457V22.6127H177.495V0.40979H187.808C193.125 0.40979 196.315 3.17031 196.315 7.7382V7.80062C196.315 11.3849 194.349 13.6369 191.48 14.6829L196.992 22.6127H191.191ZM191.287 7.99095C191.287 5.89886 189.806 4.81932 187.388 4.81932H182.457V11.1961H187.485C189.9 11.1961 191.287 9.92621 191.287 8.05643V7.99248V7.99095Z" fill="currentColor"/>
+      <path d="M246.431 22.9644C239.471 22.9644 234.476 17.8605 234.476 11.5462V11.4838C234.476 5.17096 239.534 0.00012207 246.495 0.00012207C253.457 0.00012207 258.452 5.10701 258.452 11.4183V11.4823C258.452 17.7951 253.393 22.9629 246.433 22.9629L246.431 22.9644ZM253.265 11.4823C253.265 7.67569 250.428 4.50405 246.433 4.50405C242.437 4.50405 239.665 7.61326 239.665 11.4183V11.4823C239.665 15.2888 242.5 18.4589 246.495 18.4589C250.491 18.4589 253.265 15.3513 253.265 11.5447V11.4823Z" fill="currentColor"/>
+      <path d="M281.067 22.5838L276.007 14.9707L270.917 22.5838H265.275L273.138 11.2905L265.597 0.380859H271.398L276.136 7.58136L280.905 0.380859H286.543L279.005 11.2296L286.866 22.5838H281.067Z" fill="currentColor"/>
+      <path d="M290.998 1.95198C290.998 2.80618 290.327 3.47765 289.454 3.47765C288.582 3.47765 287.901 2.80618 287.901 1.95198C287.901 1.09779 288.591 0.44458 289.454 0.44458C290.318 0.44458 290.998 1.11606 290.998 1.95198ZM288.288 1.95198C288.288 2.62346 288.784 3.15638 289.464 3.15638C290.143 3.15638 290.612 2.62346 290.612 1.96112C290.612 1.29877 290.124 0.747583 289.454 0.747583C288.785 0.747583 288.288 1.28964 288.288 1.95198ZM289.217 2.74223H288.868V1.23482C289.007 1.20742 289.199 1.18914 289.447 1.18914C289.732 1.18914 289.859 1.23482 289.971 1.29877C290.053 1.36272 290.118 1.48301 290.118 1.62918C290.118 1.79515 289.99 1.92305 289.806 1.97787V1.99614C289.952 2.05095 290.036 2.1621 290.082 2.36309C290.127 2.59301 290.155 2.68437 290.191 2.73918H289.815C289.77 2.68437 289.742 2.54581 289.697 2.37223C289.669 2.20626 289.578 2.13317 289.384 2.13317H289.218V2.73918L289.217 2.74223ZM289.226 1.88803H289.392C289.585 1.88803 289.741 1.82408 289.741 1.66725C289.741 1.52869 289.64 1.43733 289.419 1.43733C289.328 1.43733 289.263 1.44647 289.226 1.4556V1.88803Z" fill="currentColor"/>
+    </symbol>
+  </svg>
+
+  <!-- ── Fixed chrome ─────────────────────────────────────────────────────
+       The band never re-renders; js/walkthrough.js rewrites .bw-title from the
+       active screen's data-title-prefix + data-title and grows the fill in the
+       closing rule.                                                          -->
+  <header class="bw-band">
+    <h1 class="visually-hidden">ButcherBox walkthrough</h1>
+    <div class="bw-band-inner">
+      <div class="bw-band-lead">
+        <p class="bw-title" data-wt-title></p>
+        <!-- Screen 01 has no title, so the deck signs itself there instead.
+             Swapped purely on .bw-title:empty — no JS involved. -->
+        <p class="bw-brand"><span class="bw-brand-mark" aria-hidden="true"></span>Thomas DiNatale</p>
+      </div>
+      <div class="bw-arrows">
+        <button type="button" class="bw-arrow" data-wt-prev aria-label="Previous screen">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M15 8H1m0 0 6.2-6.2M1 8l6.2 6.2" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </button>
+        <button type="button" class="bw-arrow" data-wt-next aria-label="Next screen">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M1 8h14m0 0-6.2-6.2M15 8l-6.2 6.2" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="bw-progress" data-wt-progress data-wt-progress-from-zero role="progressbar" aria-valuemin="1" aria-valuenow="1" aria-label="Walkthrough progress">
+      <div class="bw-progress-fill" data-wt-fill></div>
+    </div>
+  </header>
+
+  <!-- Every --x/--y/--w/--h below is the element's Figma box, straight off the
+       frame, with the 83.25px band subtracted from y. css/butcherbox-walkthrough.css
+       scales them by one unit; nothing here is a guess or a fit.
+
+       No loading="lazy" anywhere. Inactive screens are display:none, so a lazy
+       image is never fetched until you advance onto it — which in a deck means
+       artwork popping in mid-sentence. The whole set is ~990KB; eager. -->
+  <main class="bw" data-walkthrough="ButcherBox walkthrough">
+
+    <!-- ── 01 — Title (Figma 1487:284252) ───────────────────────────────
+         No data-title: the band stays empty here and the document title
+         falls back to the deck name.                                     -->
+    <section class="bw-screen wt-screen" aria-label="Screen 1 of 6: ButcherBox">
+      <div class="bw-stage">
+
+        <div class="bw-copy" style="--x: 77; --y: 64.75; --w: 483">
+          <svg class="bw-wordmark" viewBox="0 0 291 24" role="img" aria-label="ButcherBox"><use href="#bb-wordmark" /></svg>
+          <p>ButcherBox had strong product-market fit and a digital experience that hadn’t kept up. The signup flow was built for desktop and fell apart on mobile.</p>
+          <p>Four years, led UX &amp; product design, directed a small team while doing the core design work.</p>
+          <ul class="bw-metrics">
+            <li class="bw-metric">
+              <span class="bw-metric-value">4 years</span>
+              <span class="bw-metric-label">Led UX &amp; product design</span>
+            </li>
+            <li class="bw-metric">
+              <span class="bw-metric-value">Conversion &uarr;</span>
+              <span class="bw-metric-label">Mobile signup flow</span>
+            </li>
+            <li class="bw-metric">
+              <span class="bw-metric-value">AOV &uarr;</span>
+              <span class="bw-metric-label">Shopping &amp; member deals</span>
+            </li>
+            <li class="bw-metric">
+              <span class="bw-metric-value">CX inbound &darr;</span>
+              <span class="bw-metric-label">Subscription management</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Runs 7px past the right edge of the frame; the stage clips it there. -->
+        <img class="bw-shot" style="--x: 621; --y: 44.75; --w: 826; --h: 768"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-homepage.webp"
+             width="1652" height="1536" decoding="async"
+             alt="The ButcherBox marketing site on desktop: a hero reading “The search for high-quality meat ends here” beside a cast-iron pan of raw pork, steak, chicken and salmon, over a What We Deliver row of three cards for quality, value and flexibility." />
+
+      </div>
+    </section>
+
+    <!-- ── 02 — Research (Figma 1487:284556) ───────────────────────────── -->
+    <section class="bw-screen wt-screen" data-title-prefix="Research:" data-title="A clear picture before a single pixel moved" aria-label="Screen 2 of 6">
+      <div class="bw-stage">
+
+        <div class="bw-copy" style="--x: 72; --y: 63.75; --w: 542">
+          <p>I ran a UX assessment with a UX researcher that included a UX audit, unmoderated usability testing, and interviews with current members. The assessment allowed us to understand where and why the experience was breaking down.</p>
+          <p class="bw-lede">Three findings shaped everything that followed.</p>
+          <ol class="bw-list">
+            <li>The signup flow asked for too many decisions at once, with no sense of how long it would take or what customers were committing to.</li>
+            <li>ButcherBox’s quality and flexibility weren’t communicated until too late in the funnel.</li>
+            <li>Members managing their subscriptions faced a fragmented interface that generated confusion and drove unnecessary calls to customer service.</li>
+          </ol>
+          <p>Those findings aligned the team on two priorities: communicate ButcherBox’s value early and often, and design a consistent, mobile-first experience that anticipates what members need next.</p>
+        </div>
+
+        <img class="bw-shot" style="--x: 695; --y: 50.75; --w: 286; --h: 618"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-before-boxes.webp"
+             width="572" height="1236" decoding="async"
+             alt="ButcherBox on mobile web before the redesign: a grid of box types — Mixed Box, Beef &amp; Pork, Beef &amp; Chicken, All Beef and a Custom Box — each an unlabelled animal illustration with a small checkbox." />
+
+        <img class="bw-shot" style="--x: 1031; --y: 50.75; --w: 286; --h: 618"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-before-cuts.webp"
+             width="572" height="1236" decoding="async"
+             alt="The same flow a step later: a “Choose 6 cuts from the selections below” list with plus and minus steppers per cut, a fixed 6/6 View Cart bar, and the phone’s own browser chrome crowding the screen." />
+
+        <p class="bw-caption" style="--x: 696; --y: 703.75; --w: 621">Mobile web screenshots before redesign</p>
+
+      </div>
+    </section>
+
+    <!-- ── 03 — Redesign: the signup flow (Figma 1487:284824) ───────────
+         Comp lays the three phones out as a 38px flex row inside an 822-wide
+         box at x=561, so the x values below are 561 / 848 / 1134.          -->
+    <section class="bw-screen wt-screen" data-title-prefix="Redesign:" data-title="A clear flow focused on subscription" aria-label="Screen 3 of 6">
+      <div class="bw-stage">
+
+        <div class="bw-copy" style="--x: 64; --y: 63.75; --w: 424">
+          <p>The subscription onboarding redesign was four steps, mobile-first with a progress indicator and a persistent &ldquo;Your Box&rdquo; panel. Fixed Next CTAs and an easy protein jump navigation provided big touch targets to keep moving.</p>
+        </div>
+
+        <img class="bw-shot" style="--x: 561; --y: 32.75; --w: 249; --h: 743"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-signup-box.webp"
+             width="498" height="1486" decoding="async"
+             alt="Step one of the redesigned signup: “Choose your box”, a numbered four-step progress indicator at the top, box options tagged Best Value and Most Popular, and a fixed “Next, choose box size” button." />
+
+        <img class="bw-shot" style="--x: 848; --y: 32.75; --w: 248; --h: 743"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-signup-size.webp"
+             width="496" height="1486" decoding="async"
+             alt="Step two: “Choose your box size” with Classic Box at $149 and Big Box at $270, then a How often? group offering every 4, 6 or 8 weeks, over a fixed “Next, select cuts” button." />
+
+        <img class="bw-shot" style="--x: 1134; --y: 32.75; --w: 249; --h: 743"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-signup-cuts.webp"
+             width="498" height="1486" decoding="async"
+             alt="Step three: “Select 6 cuts” as a photographed grid with Add to Box on each, a Beef / Chicken / Pork / Seafood jump bar, and a fixed counter reading 0 of 6 selected." />
+
+      </div>
+    </section>
+
+    <!-- ── 04 — Redesign: a visual box (Figma 1489:285172) ─────────────── -->
+    <section class="bw-screen wt-screen" data-title-prefix="Redesign:" data-title="A visual box" aria-label="Screen 4 of 6">
+      <div class="bw-stage">
+
+        <div class="bw-copy" style="--x: 64; --y: 63.75; --w: 424">
+          <p>Members had a box manager and nothing else. There was no browsing, no product pages, nowhere for deals and add-ons to live.</p>
+          <p>I designed the shopping experience members didn’t have: product listing pages, product detail pages, and a place to browse and save recipes. Box management moved to its own screen.</p>
+        </div>
+
+        <img class="bw-shot" style="--x: 262; --y: 324.75; --w: 208; --h: 451"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-before-addons.webp"
+             width="416" height="902" decoding="async"
+             alt="The old add-on flow on mobile: a native picker listing sausage, ground beef, ribeye and pork chops with prices and quantity steppers, over a Cancel / Save add-ons bar." />
+
+        <img class="bw-shot" style="--x: 531; --y: 64.79; --w: 828.631; --h: 677.291"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-shopping.webp"
+             width="1657" height="1355" decoding="async"
+             alt="The redesigned member shopping experience on desktop: a Salmon &amp; Filet product detail page over a full-bleed photograph with an Add to Box button, and a Recurring Add-ons carousel of photographed products underneath." />
+
+        <!-- Sits on top of the desktop shot, as in the comp. -->
+        <img class="bw-shot" style="--x: 1166; --y: 296.22; --w: 209.534; --h: 479.53"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-shopping-mobile.webp"
+             width="419" height="959" decoding="async"
+             alt="The same product detail page on mobile, with Add to Next Box and the add-ons row stacked beneath it." />
+
+      </div>
+    </section>
+
+    <!-- ── 05 — Redesign: easy management (Figma 1489:285477) ───────────
+         The "after" artwork is still loose on the canvas rather than parented
+         into the frame; placed at the box it occupies there (488, 124), which
+         runs 24px past the bottom of the frame. No shadow — the comp doesn't
+         give it one, and its fill is transparent around the artwork.       -->
+    <section class="bw-screen wt-screen" data-title-prefix="Redesign:" data-title="Easy management" aria-label="Screen 5 of 6">
+      <div class="bw-stage">
+
+        <div class="bw-copy" style="--x: 64; --y: 63.75; --w: 424">
+          <p>Box management was redesigned around bill date and estimated delivery. Totals break out by subscription, deals, and add-ons, and every product is editable with a thumbnail.</p>
+          <p>The goal throughout was that nobody feels locked into a plan they can’t adjust.</p>
+        </div>
+
+        <img class="bw-shot" style="--x: 262; --y: 324.75; --w: 208; --h: 451"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-before-box-settings.webp"
+             width="416" height="902" decoding="async"
+             alt="The old My Box Settings screen on mobile web: a promotional gift-box banner above a plain list of Mixed Box, Classic Size and Every 2 Months rows, each with a small Change link and no delivery date anywhere." />
+
+        <img class="bw-shot bw-shot--flat" style="--x: 488; --y: 40.75; --w: 945; --h: 800"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-next-box.webp"
+             width="1890" height="1600" decoding="async"
+             alt="The redesigned Next Box view on desktop and mobile: bill date and estimated delivery at the top, then the box broken into Custom Classic Box, Add-ons and Member Deals sections, each product a photograph with its quantity and an inline way to edit it." />
+
+      </div>
+    </section>
+
+    <!-- ── 06 — Close ──────────────────────────────────────────────────
+         Not a Figma frame. Screen 01's composition and copy again, with the
+         band carrying "Questions…" instead of standing empty — the same close
+         the Nara deck uses. Every coordinate below is screen 01's.        -->
+    <section class="bw-screen wt-screen" data-title="Questions…" aria-label="Screen 6 of 6">
+      <div class="bw-stage">
+
+        <div class="bw-copy" style="--x: 77; --y: 64.75; --w: 483">
+          <svg class="bw-wordmark" viewBox="0 0 291 24" role="img" aria-label="ButcherBox"><use href="#bb-wordmark" /></svg>
+          <p>ButcherBox had strong product-market fit and a digital experience that hadn’t kept up. The signup flow was built for desktop and fell apart on mobile.</p>
+          <p>Four years, led UX &amp; product design, directed a small team while doing the core design work.</p>
+          <ul class="bw-metrics">
+            <li class="bw-metric">
+              <span class="bw-metric-value">4 years</span>
+              <span class="bw-metric-label">Led UX &amp; product design</span>
+            </li>
+            <li class="bw-metric">
+              <span class="bw-metric-value">Conversion &uarr;</span>
+              <span class="bw-metric-label">Mobile signup flow</span>
+            </li>
+            <li class="bw-metric">
+              <span class="bw-metric-value">AOV &uarr;</span>
+              <span class="bw-metric-label">Shopping &amp; member deals</span>
+            </li>
+            <li class="bw-metric">
+              <span class="bw-metric-value">CX inbound &darr;</span>
+              <span class="bw-metric-label">Subscription management</span>
+            </li>
+          </ul>
+        </div>
+
+        <img class="bw-shot" style="--x: 621; --y: 44.75; --w: 826; --h: 768"
+             src="../assets/images/butcherbox-walkthrough/butcherbox-homepage.webp"
+             width="1652" height="1536" decoding="async"
+             alt="The same ButcherBox marketing page the deck opened on: the high-quality-meat hero over the What We Deliver row." />
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="../js/walkthrough.js"></script>
+</body>
+</html>
