@@ -18,67 +18,19 @@
 @source '../js/**/*.js';
 
 /* ---------------------------------------------------------------------------
-   1. YOUR TOKENS — unchanged, still the source of truth, still theme-swapping.
-   This is a copy of what already lives at the top of css/styles.css. Once you
-   trust this file, delete the originals from styles.css so there's one copy.
+   1. TOKENS — NOT redefined here.
+
+   css/styles.css is the single source of truth for every color token and for
+   all three theme blocks (light / .theme-dark / .theme-extra-dark). This file
+   used to carry a copy of them, and the copy drifted: its extra-dark
+   --plaster said #181614 while styles.css said #10100e. Because the copy
+   compiled out UNLAYERED it beat the layered styles.css import on
+   design-system.html, so that page rendered a different background from every
+   other page on the site.
+
+   The @theme inline bridge below only needs the var *names* to exist at
+   runtime — styles.css provides them — so there is nothing to declare here.
    ------------------------------------------------------------------------- */
-:root {
-  --plaster: #f5f0eb;
-  --ember: #d24f39;
-  --pitch: #302d2f;
-  --flint: #6a6869;
-  --chalk: #fffcf8;
-  --linen: rgba(237, 233, 220, 0.9);
-  --shale: #dcdcdc;
-  --cloud: #ffffff;
-  --metal: #b8b4b8;
-  --grid-line: rgba(26, 24, 25, 0.05);
-  color-scheme: light;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not(.theme-light) {
-    --plaster: #252220;
-    --ember: #e8785f;
-    --pitch: #f4eee7;
-    --flint: #928c87;
-    --chalk: #1c1917;
-    --linen: rgba(48, 44, 42, 0.4);
-    --shale: #3a3532;
-    --cloud: #2e2a28;
-    --metal: #ffffff;
-    --grid-line: rgba(244, 238, 231, 0.05);
-    color-scheme: dark;
-  }
-}
-
-:root.theme-dark {
-  --plaster: #252220;
-  --ember: #e8785f;
-  --pitch: #f4eee7;
-  --flint: #928c87;
-  --chalk: #1c1917;
-  --linen: rgba(48, 44, 42, 0.4);
-  --shale: #3a3532;
-  --cloud: #2e2a28;
-  --metal: #ffffff;
-  --grid-line: rgba(244, 238, 231, 0.05);
-  color-scheme: dark;
-}
-
-:root.theme-extra-dark {
-  --plaster: #181614;
-  --ember: #e8785f;
-  --pitch: #f4eee7;
-  --flint: #928c87;
-  --chalk: #0f0e0d;
-  --linen: rgba(146, 140, 135, 0.075);
-  --shale: #2d2a27;
-  --cloud: #211f1c;
-  --metal: #383738;
-  --grid-line: rgba(244, 238, 231, 0.05);
-  color-scheme: dark;
-}
 
 /* ---------------------------------------------------------------------------
    2. THE BRIDGE — this is the whole trick.

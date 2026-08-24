@@ -3,8 +3,6 @@
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-    monospace;
     --spacing: 0.25rem;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
@@ -464,60 +462,6 @@
       line-height: var(--tw-leading, var(--text-h6-lh));
     }
   }
-}
-:root {
-  --plaster: #f5f0eb;
-  --ember: #d24f39;
-  --pitch: #302d2f;
-  --flint: #6a6869;
-  --chalk: #fffcf8;
-  --linen: rgba(237, 233, 220, 0.9);
-  --shale: #dcdcdc;
-  --cloud: #ffffff;
-  --metal: #b8b4b8;
-  --grid-line: rgba(26, 24, 25, 0.05);
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not(.theme-light) {
-    --plaster: #252220;
-    --ember: #e8785f;
-    --pitch: #f4eee7;
-    --flint: #928c87;
-    --chalk: #1c1917;
-    --linen: rgba(48, 44, 42, 0.4);
-    --shale: #3a3532;
-    --cloud: #2e2a28;
-    --metal: #ffffff;
-    --grid-line: rgba(244, 238, 231, 0.05);
-    color-scheme: dark;
-  }
-}
-:root.theme-dark {
-  --plaster: #252220;
-  --ember: #e8785f;
-  --pitch: #f4eee7;
-  --flint: #928c87;
-  --chalk: #1c1917;
-  --linen: rgba(48, 44, 42, 0.4);
-  --shale: #3a3532;
-  --cloud: #2e2a28;
-  --metal: #ffffff;
-  --grid-line: rgba(244, 238, 231, 0.05);
-  color-scheme: dark;
-}
-:root.theme-extra-dark {
-  --plaster: #181614;
-  --ember: #e8785f;
-  --pitch: #f4eee7;
-  --flint: #928c87;
-  --chalk: #0f0e0d;
-  --linen: rgba(146, 140, 135, 0.075);
-  --shale: #2d2a27;
-  --cloud: #211f1c;
-  --metal: #383738;
-  --grid-line: rgba(244, 238, 231, 0.05);
-  color-scheme: dark;
 }
 @layer components {
   .gradient-stroke {

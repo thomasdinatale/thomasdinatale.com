@@ -27,6 +27,41 @@
   // fill first appears on screen 2. Primer, which opens on content, doesn't
   // set this and keeps the step/total reading.
   var progressFromZero = !!(bar && bar.hasAttribute('data-wt-progress-from-zero'));
+  /* ── Preload window ─────────────────────────────────────────────────────
+     Opt-in via data-wt-preload="N". Screens are display:none, so an image
+     marked loading="lazy" is never in the viewport and is never fetched until
+     you advance onto it — which in a deck means artwork popping in mid-
+     sentence. Loading the whole set eagerly is the right answer at six screens
+     (ButcherBox, ~990KB) and the wrong one at 24, so this promotes the images
+     within N steps of the current screen to eager instead. Setting .loading
+     starts the fetch straight away even though the screen is still hidden, so
+     the window always lands before the reader does.
+
+     Decks without the attribute keep loading exactly as they always have.
+  ───────────────────────────────────────── */
+  var preloadRadius = parseInt(root.dataset.wtPreload, 10);
+  if (isNaN(preloadRadius) || preloadRadius < 0) preloadRadius = 0;
+
+  function preload(step) {
+    if (!preloadRadius) return;
+    var first = Math.max(0, step - 1 - preloadRadius);
+    var last = Math.min(total - 1, step - 1 + preloadRadius);
+    for (var i = first; i <= last; i++) {
+      Array.prototype.forEach.call(
+        screens[i].querySelectorAll('img[loading="lazy"]'),
+        function (img) { img.loading = 'eager'; }
+      );
+      // Video gets the same treatment for the same reason: a screen's demo
+      // ships preload="none" so its megabytes are not spent by a visitor who
+      // never reaches it, and starts fetching once they are a step or two away.
+      // Arriving to a spinner mid-presentation is the thing being avoided.
+      Array.prototype.forEach.call(
+        screens[i].querySelectorAll('video[preload="none"]'),
+        function (v) { v.preload = 'auto'; v.load(); }
+      );
+    }
+  }
+
   var reduceMotion = !!(window.matchMedia &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   var current = 0;
@@ -84,10 +119,38 @@
       var active = i === step - 1;
       screen.classList.toggle('is-active', active);
       screen.setAttribute('aria-hidden', active ? 'false' : 'true');
+
+      /* Video has to be driven by hand here. Inactive screens are display:none,
+         and the autoplay attribute is evaluated ONCE — while the screen is
+         still hidden — so a deck video only ever starts on its own if you load
+         straight onto its screen. Arriving from any other step leaves it
+         sitting on the poster forever.
+
+         So: start it when its screen becomes active, from the top, and pause
+         the one being left behind. Rewinding matters for a deck — you come
+         back to a slide expecting the demo to run again, not to resume
+         wherever it happened to stop.
+
+         Gated on the autoplay property, not the markup: the reduced-motion
+         branch below strips it before the first render, and those visitors
+         should keep their poster. play() returns a promise that rejects if the
+         browser blocks it; swallowed, because the poster is a fine fallback. */
+      Array.prototype.forEach.call(screen.querySelectorAll('video'), function (v) {
+        if (active && v.autoplay) {
+          if (v.currentTime) { try { v.currentTime = 0; } catch (e) {} }
+          var playing = v.play();
+          if (playing && playing.catch) playing.catch(function () {});
+        } else if (!active && !v.paused) {
+          v.pause();
+        }
+      });
     });
 
     // The newly active screen is the one that now has a measurable box.
     fitSlide();
+
+    // This screen plus its neighbours, so the next step is already decoded.
+    preload(step);
 
     if (fill) {
       var progressed = progressFromZero

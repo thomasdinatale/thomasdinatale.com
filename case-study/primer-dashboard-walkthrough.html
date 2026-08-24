@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Primer dashboard walkthrough</title>
+  <!-- Staging: isolated from the site, deliberately not indexed and not in the sitemap. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,400..900;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/primer-dashboard-walkthrough.css" />
+</head>
+<!-- theme-light is pinned on <html>, as in the Nara and ButcherBox decks: the
+     screens are light-mode captures of a light-mode product, so the deck can't
+     follow the OS preference the way the rest of the site does. -->
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- Primer's logotype, defined once and referenced by <use>. currentColor
+       still resolves through <use>, so it stays theme-aware. Figma draws it in
+       #242424; that becomes currentColor here and the element takes --pitch. -->
+  <svg class="pw-sprite" aria-hidden="true" focusable="false">
+    <symbol id="primer-wordmark" viewBox="0 0 177 48" fill="none">
+      <path d="M13.9696 25.1402H10.8127V36.8716C10.8127 44.3135 10.9473 45.3854 12.1558 46.9282H0C1.20846 45.3865 1.3431 44.3135 1.3431 36.8716V10.0565C1.3431 2.61465 1.20846 1.54169 0 0H16.9251C27.1335 0 32.3056 5.0949 32.3056 12.0003C32.3056 19.9786 25.589 25.1402 13.9707 25.1402H13.9696ZM22.6335 12.0003C22.6335 7.24082 20.0809 4.69282 13.9028 4.69282C12.7611 4.69282 11.6194 4.75946 10.8138 4.82721V20.2463H13.7693C19.6124 20.2463 22.6346 17.4306 22.6346 12.0003H22.6335Z" fill="currentColor"/>
+      <path d="M42.7155 20.1785C44.7975 16.2899 47.8197 14.4805 51.4462 14.4805C52.2519 14.4805 52.8561 14.5472 52.8561 14.5472V21.4526C52.2519 21.3182 51.3783 21.1849 50.5727 21.1849C45.9381 21.1849 43.5211 23.3974 43.5211 28.559V36.8716C43.5211 44.3135 43.6558 45.3853 44.8642 46.9281H33.8502C35.0586 45.3865 35.1933 44.3135 35.1933 36.8716V27.4194C35.1933 19.9775 35.0586 18.9057 33.8502 17.3629L42.7155 14.7482V20.1785Z" fill="currentColor"/>
+      <path d="M57.04 27.3238C57.04 19.882 56.9054 18.8101 55.6969 17.2673L65.4358 15.2558V36.9772C65.4358 44.419 65.5705 45.4909 66.7789 47.0337H55.6969C56.9054 45.492 57.04 44.419 57.04 36.9772V27.3238ZM55.9651 7.21194C55.9651 4.59729 58.2485 2.31808 60.9347 2.31808C63.6209 2.31808 65.8375 4.59729 65.8375 7.21194C65.8375 9.82659 63.5541 12.1724 60.9347 12.1724C58.3153 12.1724 55.9651 9.82659 55.9651 7.21194Z" fill="currentColor"/>
+      <path d="M97.8847 25.8778C97.8847 26.0121 97.9514 26.2132 97.9514 26.3465V36.8717C97.9514 44.3136 98.0861 45.3854 99.2946 46.9282H88.2126C89.421 45.3865 89.5557 44.3136 89.5557 36.8717V27.1506C89.5557 22.1901 87.8765 19.7088 84.6529 19.7088C81.4292 19.7088 79.414 22.0546 79.414 25.81V36.8717C79.414 44.3136 79.5486 45.3854 80.7571 46.9282H69.743C70.9514 45.3865 71.0861 44.3136 71.0861 36.8717V27.4194C71.0861 19.9776 70.9514 18.9057 69.743 17.3629L78.6083 14.7483V18.5692C81.0264 15.7535 83.914 14.4795 87.3391 14.4795C91.3016 14.4795 94.4585 16.29 96.2044 19.3733C98.9585 15.9545 102.182 14.4795 105.809 14.4795C112.324 14.4795 116.42 19.1057 116.42 26.3454V36.8706C116.42 44.3125 116.555 45.3843 117.763 46.9271H106.749C107.957 45.3854 108.092 44.3125 108.092 36.8706V27.1495C108.092 22.189 106.413 19.7077 103.122 19.7077C100.033 19.7077 97.9503 22.0535 97.9503 25.8089L97.8836 25.8755L97.8847 25.8778Z" fill="currentColor"/>
+      <path d="M140.562 43.6426C143.785 43.6426 146.942 42.5697 149.091 40.8269L149.359 41.0946C146.941 45.5197 142.374 48 136.733 48C126.994 48 119.808 40.7592 119.808 31.1059C119.808 21.4525 126.994 14.6138 136.195 14.6138C143.852 14.6138 149.426 19.5743 150.501 27.4183H128.808C128.673 28.4235 128.673 29.4964 128.673 30.636C128.673 38.48 133.441 43.6415 140.56 43.6415L140.562 43.6426ZM129.681 23.7318H141.905C140.964 20.2452 138.816 18.3681 135.995 18.3681C133.174 18.3681 130.891 20.3118 129.681 23.7318Z" fill="currentColor"/>
+      <path d="M161.103 20.1785C163.185 16.2899 166.207 14.4805 169.834 14.4805C170.639 14.4805 171.244 14.5472 171.244 14.5472V21.4526C170.639 21.3182 169.766 21.1849 168.96 21.1849C164.326 21.1849 161.909 23.3974 161.909 28.559V36.8716C161.909 44.3135 162.043 45.3853 163.252 46.9281H152.238C153.446 45.3865 153.581 44.3135 153.581 36.8716V27.4194C153.581 19.9775 153.446 18.9057 152.238 17.3629L161.103 14.7482V20.1785Z" fill="currentColor"/>
+      <path d="M177 38.5466H168.604V46.9282H177V38.5466Z" fill="currentColor"/>
+    </symbol>
+  </svg>
+
+  <!-- ── Fixed chrome ─────────────────────────────────────────────────────
+       Identical in structure to the ButcherBox band, because the Figma frames
+       are: every one of the 24 carries the same "Frame 1307814804" at 0,0 —
+       1440 x 83.25, title on the 64px gutter, two 34.25px arrows at the right.
+       The band never re-renders; js/walkthrough.js rewrites .pw-title from the
+       active screen's data-title-prefix + data-title and grows the fill.     -->
+  <header class="pw-band">
+    <h1 class="visually-hidden">Primer dashboard walkthrough</h1>
+    <div class="pw-band-inner">
+      <div class="pw-band-lead">
+        <p class="pw-title" data-wt-title></p>
+        <!-- Screen 01's band carries the signature rather than a title — that
+             is what the comp draws there. Swapped purely on .pw-title:empty. -->
+        <p class="pw-brand"><span class="pw-brand-mark" aria-hidden="true"></span>Thomas DiNatale</p>
+      </div>
+      <div class="pw-arrows">
+        <button type="button" class="pw-arrow" data-wt-prev aria-label="Previous screen">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M15 8H1m0 0 6.2-6.2M1 8l6.2 6.2" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </button>
+        <button type="button" class="pw-arrow" data-wt-next aria-label="Next screen">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M1 8h14m0 0-6.2-6.2M15 8l-6.2 6.2" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="pw-progress" data-wt-progress data-wt-progress-from-zero role="progressbar" aria-valuemin="1" aria-valuenow="1" aria-label="Walkthrough progress">
+      <div class="pw-progress-fill" data-wt-fill></div>
+    </div>
+  </header>
+
+  <!-- ── Screens ──────────────────────────────────────────────────────────
+       24 of them, the longest deck on the site. Every --x/--y/--w/--h written
+       here is the element's Figma box straight off the frame, with the 83.25px
+       band subtracted from y; css/primer-dashboard-walkthrough.css scales them
+       by one unit. Nothing is a guess or a fit.
+
+       data-wt-preload="2" is why these can carry loading="lazy" at all. A lazy
+       image on a display:none screen is never fetched until you advance onto
+       it, which in a deck means artwork popping in mid-sentence — the reason
+       ButcherBox loads its six screens eagerly. At 24 screens eager is far too
+       much, so the controller instead promotes the images within two steps of
+       the current one, and the window always lands before you do.
+
+       Source: Figma "Walkthroughs" (qPuBngzVnrtnOQkjqPMOrk), frames 01-24 at
+       y = -3478.                                                             -->
+  <main class="pw" data-walkthrough="Primer dashboard walkthrough" data-wt-preload="2">
+
+    <!-- ── 01 (Figma 1505:287030) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" aria-label="Screen 1 of 24">
+      <div class="pw-stage">
+
+        <!-- Figma "content" @72,127 450x543, a 16px auto-layout column. -->
+        <div class="pw-copy pw-copy--tight" style="--x: 72; --y: 43.75; --w: 450">
+          <svg class="pw-wordmark" viewBox="0 0 177 48" role="img" aria-label="Primer"><use href="#primer-wordmark" /></svg>
+          <p>Primer pivoted from an after school product to a full time, in person K-8 school network. Running physical schools needs a platform, and there wasn’t one. Teachers, students, and parents each worked across five to eleven separate tools.</p>
+          <p>I led design for the platform for nearly three years, working with the head of product, the head of engineering, a small engineering team, and one other product designer.</p>
+          <!-- One column here, not ButcherBox's two: the comp stacks three
+               full-width cards. Their horizontal padding in the file is
+               32/24/32, which is auto-layout drift rather than a design, so
+               all three take 32. -->
+          <ul class="pw-metrics">
+            <li class="pw-metric">
+              <span class="pw-metric-value">6 &rarr; 18</span>
+              <span class="pw-metric-label">Campus expansion</span>
+            </li>
+            <li class="pw-metric">
+              <span class="pw-metric-value">150 &rarr; 1,200</span>
+              <span class="pw-metric-label">Student enrollment growth</span>
+            </li>
+            <li class="pw-metric">
+              <span class="pw-metric-value">4 surfaces</span>
+              <span class="pw-metric-label">One data model</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- The comp sets this to multiply. The fill has real transparency
+             around the tiles, but the tiles themselves are light cards that
+             multiply tints into the plaster — so the blend is load-bearing,
+             not decorative, and stays. -->
+        <img class="pw-shot pw-shot--multiply" style="--x: 656; --y: 43.75; --w: 624; --h: 645"
+             src="../assets/images/primer-dashboard-walkthrough/primer-different-tools.webp"
+             width="1248" height="1290" decoding="async"
+             alt="Eleven third-party product logos — Notion, Slack, Zoom, Google Drive, Khan Academy, IXL, Newsela and others — arranged in a ring with faint lines radiating inward to a single small empty circle at the centre." />
+
+      </div>
+    </section>
+
+    <!-- ── 02 (Figma 1528:302923) — TALL FRAME (2575px; stage scrolls) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="Surfaces:"
+            data-title="One data model, four audiences, four different questions."
+            aria-label="Screen 2 of 24: Surfaces: One data model, four audiences, four different questions.">
+      <div class="pw-stage pw-stage--tall" style="--frame-h: 2491.75">
+
+        <!-- Four surfaces on one data model, top to bottom: the classroom
+             television, the educator dashboard, the parent's phone, the
+             student's own view.
+
+             The television, phone and student shots carry their shadows IN THE
+             PIXELS — their Figma layers are named "... shadow" and hold no
+             effect, so adding a CSS shadow here would double it. Only the
+             educator dashboard has a real Figma effect, and it gets the
+             five-layer "photo shadow" rather than the case-study one. -->
+
+        <!-- The fill does not fill its box: Figma draws it at 97.04% height,
+             1.48% down, which in comp pixels is 1337 x 778.32 at y + 11.87.
+             Reproduced as a window so the box stays the comp's box. -->
+        <div class="pw-window pw-window--square" style="--x: 52; --y: 12.75; --w: 1337; --h: 802">
+          <img style="--ix: 0; --iy: 11.87; --iw: 1337; --ih: 778.32"
+               src="../assets/images/primer-dashboard-walkthrough/primer-television-display.webp"
+               width="2144" height="1248" loading="lazy" decoding="async"
+               alt="A classroom television showing the current class with each student's weekly goal progress, visible to students and teachers at a glance." />
+        </div>
+        <p class="pw-caption pw-caption--center" style="--x: 80; --y: 809.75; --w: 1280">Television display shows current class with weekly goals progress visible to students and teachers.</p>
+
+        <img class="pw-shot pw-shot--photo" style="--x: 462; --y: 892.75; --w: 1211; --h: 698.65"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-final.webp"
+             width="2422" height="1397" loading="lazy" decoding="async"
+             alt="The educator dashboard tracking goals across a week, a row per student and a column per day." />
+
+        <img class="pw-shot pw-shot--flat" style="--x: 88; --y: 934.75; --w: 311; --h: 593"
+             src="../assets/images/primer-dashboard-walkthrough/primer-parent-ios.webp"
+             width="622" height="1186" loading="lazy" decoding="async"
+             alt="The parent's native iOS view in dark mode, listing the day's goals for their child." />
+        <p class="pw-caption" style="--x: 115; --y: 1513.75; --w: 253">Parent, native iOS view of daily goals.</p>
+        <p class="pw-caption" style="--x: 463; --y: 1617.75; --w: 1054">Educator goal tracking across a week.</p>
+
+        <img class="pw-shot pw-shot--flat" style="--x: -20; --y: 1699.75; --w: 1324; --h: 686"
+             src="../assets/images/primer-dashboard-walkthrough/primer-student-dashboard.webp"
+             width="2648" height="1372" loading="lazy" decoding="async"
+             alt="The student's own dashboard, showing their daily and weekly goal tracking." />
+        <p class="pw-caption" style="--x: 33; --y: 2335.75; --w: 1054">Student daily and weekly goal tracking</p>
+
+      </div>
+    </section>
+
+    <!-- ── 03 (Figma 1508:288448) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="Problem:"
+            data-title="How do we take a complex data set and distill it into a glanceable view?"
+            aria-label="Screen 3 of 24: Problem: How do we take a complex data set and distill it into a glanceable view?">
+      <div class="pw-stage">
+
+        <!-- Copy column beside the six-apps diagram. The diagram is a vector
+             group with no shadow, so its export came back at exactly 2x its box
+             (1348x1190) with zero padding — the clean case. -->
+
+        <div class="pw-copy pw-copy--tight" style="--x: 96; --y: 64.75; --w: 450">
+          <p>A student&rsquo;s progress lived across six learning apps and grew as the product evolved. Each one counts differently: points, skills, quiz scores, minutes, topics. To check one student, a teacher opened six apps and translated six scoring systems in their head.</p>
+          <p class="pw-lede">Four versions over about a year. Each one answers a question the last one exposed.</p>
+          <ol class="pw-copy-list" style="--w: 403">
+            <li>Flat grid</li>
+            <li>Interpretation layer</li>
+            <li>Data on demand</li>
+            <li>Dynamic week</li>
+          </ol>
+        </div>
+
+        <img class="pw-shot pw-shot--flat" style="--x: 694; --y: 64.75; --w: 674; --h: 595"
+             src="../assets/images/primer-dashboard-walkthrough/primer-six-apps-diagram.webp"
+             width="1348" height="1190" loading="lazy" decoding="async"
+             alt="A diagram fanning out from a column of six learning-app icons to the unit each one counts in: points, skills, quiz scores, minutes, topics, minutes." />
+
+      </div>
+    </section>
+
+    <!-- ── 04 (Figma 1508:288747) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="Product:"
+            data-title="Where we will end up."
+            aria-label="Screen 4 of 24: Product: Where we will end up.">
+      <div class="pw-stage">
+
+        <!-- Where the four versions land, shown once up front — and the one
+             screen in the deck that moves. The source recording is 2878x1654
+             H.264, remuxed to MP4 without re-encoding (container swap only, so
+             no generation loss) rather than downscaled: at 1280 the dashboard
+             type goes soft on a retina display, and this box is 1211 wide.
+
+             Poster is a real frame from the video, NOT the still used on 23/24
+             — those differ by about a tenth of their pixels, so reusing the
+             still would jump the moment playback began.
+
+             muted + playsinline are what let autoplay run at all; loop keeps it
+             going while the presenter talks over it. js/walkthrough.js strips
+             autoplay under prefers-reduced-motion, leaving the poster. -->
+
+        <video class="pw-shot pw-video" style="--x: 115; --y: 40.75; --w: 1211; --h: 698.65; --radius: 16"
+               width="2422" height="1398"
+               autoplay loop muted playsinline preload="none"
+               poster="../assets/images/primer-dashboard-walkthrough/primer-dashboard-demo-poster.webp"
+               aria-label="A screen recording of the version-four educator dashboard: the whole week on screen at once, each day collapsed to a circle showing goal completion, and a day expanding in place to reveal the detail behind it.">
+          <source src="../assets/images/primer-dashboard-walkthrough/primer-dashboard-demo.mp4" type="video/mp4" />
+        </video>
+
+      </div>
+    </section>
+
+    <!-- ── 05 (Figma 1508:289044) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 1:"
+            data-title="Flat grid"
+            aria-label="Screen 5 of 24: version 1: Flat grid">
+      <div class="pw-stage">
+
+        <!-- The flat grid, whole, before anything is called out. -->
+
+        <img class="pw-shot" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v1.webp" width="2422" height="1345" loading="lazy" decoding="async"
+             alt="The version-one educator dashboard: a class roster with a row per student, a Goals column of small coloured app tiles, and per-app columns for Khan, IXL, Boost and Newsela." />
+
+      </div>
+    </section>
+
+    <!-- ── 06 (Figma 1511:290754) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 1:"
+            data-title="Flat grid"
+            aria-label="Screen 6 of 24: version 1: Flat grid">
+      <div class="pw-stage">
+
+        <img class="pw-shot" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v1.webp" width="2422" height="1345" loading="lazy" decoding="async"
+             alt="The version-one educator dashboard: a class roster with a row per student, a Goals column of small coloured app tiles, and per-app columns for Khan, IXL, Boost and Newsela." />
+
+        <div class="pw-callout" style="--x: 958; --y: 502.75; --w: 450; --h: 282">
+          <p class="pw-callout-title">Design approach</p>
+          <p>Consolidate every app&rsquo;s daily goals into a single color coded grid. One row per student, one cell per goal. Green met, red missed, grey no data.</p>
+          <p>The design tradeoff: six different measurement systems (points, skills, quiz scores, minutes, topics) collapsed into one binary state. That discarded nuance on purpose, to buy a view a teacher could read in seconds while class was happening.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 07 (Figma 1508:289337) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 1:"
+            data-title="Flat grid"
+            aria-label="Screen 7 of 24: version 1: Flat grid">
+      <div class="pw-stage">
+
+        <!-- 07-10 are one cumulative reveal: identical shot, identical scrim,
+             identical callout box — only the window moves and one more line of
+             feedback appears. The callout is a FIXED 178 tall with all four
+             rows always present, which is why the unfilled ones are empty
+             rather than absent: the box must not resize between screens.
+
+             The window is not a second export. Figma scales the same fill by
+             a percentage that resolves to the dashboard at its own size and
+             position, so the offset is just (115 - x, 124 - y). Framing here:
+             the Goals column. -->
+        <img class="pw-shot" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v1.webp" width="2422" height="1345" loading="lazy" decoding="async"
+             alt="The version-one educator dashboard: a class roster for Darlene Waters with a row per student, a Goals column of small coloured app tiles, and per-app columns for Khan, IXL, Boost and Newsela." />
+
+        <div class="pw-scrim" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46"></div>
+
+        <div class="pw-window" style="--x: 424; --y: 228.75; --w: 360; --h: 472">
+          <img style="--ix: -309; --iy: -188; --iw: 1211; --ih: 672.46"
+               src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v1.webp" width="2422" height="1345" loading="lazy" decoding="async"
+               alt="" />
+        </div>
+
+        <div class="pw-callout" style="--x: 958; --y: 606.75; --w: 450; --h: 178">
+          <p class="pw-callout-title">Teacher feedback</p>
+          <ol class="pw-callout-list">
+            <li class="is-current">green and red couldn’t express partial progress</li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 08 (Figma 1508:289646) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 1:"
+            data-title="Flat grid"
+            aria-label="Screen 8 of 24: version 1: Flat grid">
+      <div class="pw-stage">
+
+        <!-- 07-10 are one cumulative reveal: identical shot, identical scrim,
+             identical callout box — only the window moves and one more line of
+             feedback appears. The callout is a FIXED 178 tall with all four
+             rows always present, which is why the unfilled ones are empty
+             rather than absent: the box must not resize between screens.
+
+             The window is not a second export. Figma scales the same fill by
+             a percentage that resolves to the dashboard at its own size and
+             position, so the offset is just (115 - x, 124 - y). Framing here:
+             the Khan and IXL alert columns. -->
+        <img class="pw-shot" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v1.webp" width="2422" height="1345" loading="lazy" decoding="async"
+             alt="The version-one educator dashboard: a class roster for Darlene Waters with a row per student, a Goals column of small coloured app tiles, and per-app columns for Khan, IXL, Boost and Newsela." />
+
+        <div class="pw-scrim" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46"></div>
+
+        <div class="pw-window" style="--x: 792; --y: 228.75; --w: 220; --h: 481">
+          <img style="--ix: -677; --iy: -188; --iw: 1211; --ih: 672.46"
+               src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v1.webp" width="2422" height="1345" loading="lazy" decoding="async"
+               alt="" />
+        </div>
+
+        <div class="pw-callout" style="--x: 958; --y: 606.75; --w: 450; --h: 178">
+          <p class="pw-callout-title">Teacher feedback</p>
+          <ol class="pw-callout-list">
+            <li>green and red couldn’t express partial progress</li>
+            <li class="is-current">learning alerts weren’t decodable at a glance</li>
+            <li></li>
+            <li></li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 09 (Figma 1508:289923) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 1:"
+            data-title="Flat grid"
+            aria-label="Screen 9 of 24: version 1: Flat grid">
+      <div class="pw-stage">
+
+        <!-- 07-10 are one cumulative reveal: identical shot, identical scrim,
+             identical callout box — only the window moves and one more line of
+             feedback appears. The callout is a FIXED 178 tall with all four
+             rows always present, which is why the unfilled ones are empty
+             rather than absent: the box must not resize between screens.
+
+             The window is not a second export. Figma scales the same fill by
+             a percentage that resolves to the dashboard at its own size and
+             position, so the offset is just (115 - x, 124 - y). Framing here:
+             the Notes column. -->
+        <img class="pw-shot" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v1.webp" width="2422" height="1345" loading="lazy" decoding="async"
+             alt="The version-one educator dashboard: a class roster for Darlene Waters with a row per student, a Goals column of small coloured app tiles, and per-app columns for Khan, IXL, Boost and Newsela." />
+
+        <div class="pw-scrim" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46"></div>
+
+        <div class="pw-window" style="--x: 1185; --y: 228.75; --w: 127; --h: 484">
+          <img style="--ix: -1070; --iy: -188; --iw: 1211; --ih: 672.46"
+               src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v1.webp" width="2422" height="1345" loading="lazy" decoding="async"
+               alt="" />
+        </div>
+
+        <div class="pw-callout" style="--x: 958; --y: 606.75; --w: 450; --h: 178">
+          <p class="pw-callout-title">Teacher feedback</p>
+          <ol class="pw-callout-list">
+            <li>green and red couldn’t express partial progress</li>
+            <li>learning alerts weren’t decodable at a glance</li>
+            <li class="is-current">notes didn’t carry tone or class</li>
+            <li></li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 10 (Figma 1508:290197) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 1:"
+            data-title="Flat grid"
+            aria-label="Screen 10 of 24: version 1: Flat grid">
+      <div class="pw-stage">
+
+        <!-- 07-10 are one cumulative reveal: identical shot, identical scrim,
+             identical callout box — only the window moves and one more line of
+             feedback appears. The callout is a FIXED 178 tall with all four
+             rows always present, which is why the unfilled ones are empty
+             rather than absent: the box must not resize between screens.
+
+             The window is not a second export. Figma scales the same fill by
+             a percentage that resolves to the dashboard at its own size and
+             position, so the offset is just (115 - x, 124 - y). Framing here:
+             the full roster row band. -->
+        <img class="pw-shot" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v1.webp" width="2422" height="1345" loading="lazy" decoding="async"
+             alt="The version-one educator dashboard: a class roster for Darlene Waters with a row per student, a Goals column of small coloured app tiles, and per-app columns for Khan, IXL, Boost and Newsela." />
+
+        <div class="pw-scrim" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46"></div>
+
+        <div class="pw-window" style="--x: 198; --y: 232.75; --w: 1114; --h: 468">
+          <img style="--ix: -83; --iy: -192; --iw: 1211; --ih: 672.46"
+               src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v1.webp" width="2422" height="1345" loading="lazy" decoding="async"
+               alt="" />
+        </div>
+
+        <div class="pw-callout" style="--x: 957; --y: 610.75; --w: 450; --h: 178">
+          <p class="pw-callout-title">Teacher feedback</p>
+          <ol class="pw-callout-list">
+            <li>green and red couldn’t express partial progress</li>
+            <li>learning alerts weren’t decodable at a glance</li>
+            <li>notes didn’t carry tone or class</li>
+            <li class="is-current">milestones were missing from the dashboard</li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 11 (Figma 1508:290470) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 1:"
+            data-title="Flat grid"
+            aria-label="Screen 11 of 24: version 1: Flat grid">
+      <div class="pw-stage">
+
+        <!-- Closing beat of version 1: the same shot, smaller, with the verdict
+             under it. 1037x575.84 is the v1 file scaled — identical aspect. -->
+
+        <img class="pw-shot" style="--x: 202; --y: 40.75; --w: 1037; --h: 575.84; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v1.webp" width="2422" height="1345" loading="lazy" decoding="async"
+             alt="The version-one educator dashboard: a class roster with a row per student, a Goals column of small coloured app tiles, and per-app columns for Khan, IXL, Boost and Newsela." />
+
+        <p class="pw-lead" style="--x: 320; --y: 666.75; --w: 800">The flat grid answered who is off track. It did not answer what to do about it. A teacher could see a problem and still not know what it was.</p>
+
+      </div>
+    </section>
+
+    <!-- ── 12 (Figma 1511:291032) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 2:"
+            data-title="Interpretation layer"
+            aria-label="Screen 12 of 24: version 2: Interpretation layer">
+      <div class="pw-stage">
+
+        <!-- The version-two dashboard whole, before anything is called out.
+             12-17 is the version-2 reveal, the same machine as 07-10: one file
+             (byte-identical across all six), a black 50% scrim, and a window
+             that re-shows the shot undimmed. Window offsets are (186 - x,
+             122 - y) — measured against the SHOT, which Figma placed at y=122
+             while drawing the scrim at y=124. -->
+
+        <img class="pw-shot" style="--x: 186; --y: 38.75; --w: 1069; --h: 739; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v2.webp" width="2138" height="1478" loading="lazy" decoding="async"
+             alt="The version-two educator dashboard: an interpretation layer of learning alerts, milestones and class goal completion sitting above the roster, with the raw goals moved to their own tab." />
+
+      </div>
+    </section>
+
+    <!-- ── 13 (Figma 1511:291308) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 2:"
+            data-title="Interpretation layer"
+            aria-label="Screen 13 of 24: version 2: Interpretation layer">
+      <div class="pw-stage">
+
+        <!-- Same shot; the approach card is the only thing added.
+             12-17 is the version-2 reveal, the same machine as 07-10: one file
+             (byte-identical across all six), a black 50% scrim, and a window
+             that re-shows the shot undimmed. Window offsets are (186 - x,
+             122 - y) — measured against the SHOT, which Figma placed at y=122
+             while drawing the scrim at y=124. -->
+
+        <img class="pw-shot" style="--x: 186; --y: 38.75; --w: 1069; --h: 739; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v2.webp" width="2138" height="1478" loading="lazy" decoding="async"
+             alt="The version-two educator dashboard: an interpretation layer of learning alerts, milestones and class goal completion sitting above the roster, with the raw goals moved to their own tab." />
+
+        <div class="pw-callout" style="--x: 958; --y: 534.75; --w: 450; --h: 258">
+          <p class="pw-callout-title">Design approach</p>
+          <p>Rather than put meaning in the grid, I built a layer on top that read the data and told the teacher what it meant: learning alerts, milestones, class goal completion. Raw goals moved to their own tab.</p>
+          <p>The tradeoff: I gave up the single view for interpretation, betting teachers wanted conclusions more than data.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 14 (Figma 1525:291857) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 2:"
+            data-title="Interpretation layer"
+            aria-label="Screen 14 of 24: version 2: Interpretation layer">
+      <div class="pw-stage">
+
+        <!-- Scrim down, the class-goal band lifted back out.
+             12-17 is the version-2 reveal, the same machine as 07-10: one file
+             (byte-identical across all six), a black 50% scrim, and a window
+             that re-shows the shot undimmed. Window offsets are (186 - x,
+             122 - y) — measured against the SHOT, which Figma placed at y=122
+             while drawing the scrim at y=124. -->
+
+        <img class="pw-shot" style="--x: 186; --y: 38.75; --w: 1069; --h: 739; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v2.webp" width="2138" height="1478" loading="lazy" decoding="async"
+             alt="The version-two educator dashboard: an interpretation layer of learning alerts, milestones and class goal completion sitting above the roster, with the raw goals moved to their own tab." />
+
+        <div class="pw-scrim" style="--x: 186; --y: 38.75; --w: 1069; --h: 739"></div>
+
+        <div class="pw-window" style="--x: 255; --y: 476.75; --w: 713; --h: 281">
+          <img style="--ix: -69; --iy: -438; --iw: 1069; --ih: 739"
+               src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v2.webp" width="2138" height="1478" loading="lazy" decoding="async"
+               alt="" />
+        </div>
+
+        <div class="pw-callout" style="--x: 958; --y: 486.75; --w: 450; --h: 298">
+          <p class="pw-callout-title">Educator feedback</p>
+          <ol class="pw-callout-list">
+            <li class="is-current">Class goals landed flat; teachers wanted to help individual students, not track an aggregate.</li>
+            <li>Learning alerts were helpful but the tech sync lagged and by the time an alert was sent, the class or lab was over.</li>
+            <li>Milestones worked, teachers used them to call kids out for a job well done, and they worked well enough that we later folded them into the large-screen classroom display.</li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 15 (Figma 1525:292140) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 2:"
+            data-title="Interpretation layer"
+            aria-label="Screen 15 of 24: version 2: Interpretation layer">
+      <div class="pw-stage">
+
+        <!-- Same run, window moved up to the alerts region.
+             12-17 is the version-2 reveal, the same machine as 07-10: one file
+             (byte-identical across all six), a black 50% scrim, and a window
+             that re-shows the shot undimmed. Window offsets are (186 - x,
+             122 - y) — measured against the SHOT, which Figma placed at y=122
+             while drawing the scrim at y=124. -->
+
+        <img class="pw-shot" style="--x: 186; --y: 38.75; --w: 1069; --h: 739; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v2.webp" width="2138" height="1478" loading="lazy" decoding="async"
+             alt="The version-two educator dashboard: an interpretation layer of learning alerts, milestones and class goal completion sitting above the roster, with the raw goals moved to their own tab." />
+
+        <div class="pw-scrim" style="--x: 186; --y: 38.75; --w: 1069; --h: 739"></div>
+
+        <div class="pw-window" style="--x: 255; --y: 164.75; --w: 713; --h: 296">
+          <img style="--ix: -69; --iy: -126; --iw: 1069; --ih: 739"
+               src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v2.webp" width="2138" height="1478" loading="lazy" decoding="async"
+               alt="" />
+        </div>
+
+        <div class="pw-callout" style="--x: 958; --y: 486.75; --w: 450; --h: 298">
+          <p class="pw-callout-title">Educator feedback</p>
+          <ol class="pw-callout-list">
+            <li>Class goals landed flat; teachers wanted to help individual students, not track an aggregate.</li>
+            <li class="is-current">Learning alerts were helpful but the tech sync lagged and by the time an alert was sent, the class or lab was over.</li>
+            <li>Milestones worked, teachers used them to call kids out for a job well done, and they worked well enough that we later folded them into the large-screen classroom display.</li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 16 (Figma 1525:292706) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 2:"
+            data-title="Interpretation layer"
+            aria-label="Screen 16 of 24: version 2: Interpretation layer">
+      <div class="pw-stage">
+
+        <!-- Same run, window moved right to the milestones column.
+             12-17 is the version-2 reveal, the same machine as 07-10: one file
+             (byte-identical across all six), a black 50% scrim, and a window
+             that re-shows the shot undimmed. Window offsets are (186 - x,
+             122 - y) — measured against the SHOT, which Figma placed at y=122
+             while drawing the scrim at y=124. -->
+
+        <img class="pw-shot" style="--x: 186; --y: 38.75; --w: 1069; --h: 739; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v2.webp" width="2138" height="1478" loading="lazy" decoding="async"
+             alt="The version-two educator dashboard: an interpretation layer of learning alerts, milestones and class goal completion sitting above the roster, with the raw goals moved to their own tab." />
+
+        <div class="pw-scrim" style="--x: 186; --y: 38.75; --w: 1069; --h: 739"></div>
+
+        <div class="pw-window" style="--x: 982; --y: 164.75; --w: 262; --h: 416">
+          <img style="--ix: -796; --iy: -126; --iw: 1069; --ih: 739"
+               src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v2.webp" width="2138" height="1478" loading="lazy" decoding="async"
+               alt="" />
+        </div>
+
+        <div class="pw-callout" style="--x: 958; --y: 486.75; --w: 450; --h: 298">
+          <p class="pw-callout-title">Educator feedback</p>
+          <ol class="pw-callout-list">
+            <li>Class goals landed flat; teachers wanted to help individual students, not track an aggregate.</li>
+            <li>Learning alerts were helpful but the tech sync lagged and by the time an alert was sent, the class or lab was over.</li>
+            <li class="is-current">Milestones worked, teachers used them to call kids out for a job well done, and they worked well enough that we later folded them into the large-screen classroom display.</li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 17 (Figma 1525:292978) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 2:"
+            data-title="Interpretation layer"
+            aria-label="Screen 17 of 24: version 2: Interpretation layer">
+      <div class="pw-stage">
+
+        <!-- The shot drops to 832x575 — the same file, scaled, not a crop — and the verdict sits under it.
+             12-17 is the version-2 reveal, the same machine as 07-10: one file
+             (byte-identical across all six), a black 50% scrim, and a window
+             that re-shows the shot undimmed. Window offsets are (186 - x,
+             122 - y) — measured against the SHOT, which Figma placed at y=122
+             while drawing the scrim at y=124. -->
+
+        <img class="pw-shot" style="--x: 304; --y: 38.75; --w: 832; --h: 575; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v2.webp" width="2138" height="1478" loading="lazy" decoding="async"
+             alt="The version-two educator dashboard: an interpretation layer of learning alerts, milestones and class goal completion sitting above the roster, with the raw goals moved to their own tab." />
+
+        <p class="pw-lead pw-lead--h6" style="--x: 372; --y: 662.75; --w: 697">Doing the teacher&rsquo;s thinking for them was the wrong bet. They needed data to assess, not a conclusion to accept. This is the version I would take back.</p>
+
+      </div>
+    </section>
+
+    <!-- ── 18 (Figma 1525:293517) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 3:"
+            data-title="Data on demand"
+            aria-label="Screen 18 of 24: version 3: Data on demand">
+      <div class="pw-stage">
+
+        <!-- Hover state. The shot is a COMPOSITE — the v1 dashboard with the
+             hover card and its marker drawn over it. Figma's own export of that
+             group came back 2614x1556 against a true box of 2422x1345, padded
+             by the card's shadow bleed; correlating it against the v1 file
+             located the real origin at (95, 64) and it was cropped back there.
+             Never write comp coordinates against an unmeasured group export. -->
+
+        <img class="pw-shot" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v3-hover.webp" width="2422" height="1345" loading="lazy" decoding="async"
+             alt="The version-three dashboard with a goal hovered: a small card floats over the roster showing the number behind the colour — goal 35 minutes, today 39." />
+
+        <div class="pw-callout" style="--x: 32; --y: 558.75; --w: 450; --h: 226">
+          <p class="pw-callout-title">Design approach</p>
+          <p>Instead of choosing between the glance and the detail, I layered them. The grid still answers who is off track. Hovering a goal shows the number behind the color, goal 35 minutes, today 39, so a teacher can tell &ldquo;just missed&rdquo; from &ldquo;never started&rdquo; without leaving the roster.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 19 (Figma 1527:297374) — TALL FRAME (2739px; stage scrolls) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 3:"
+            data-title="Data on demand"
+            aria-label="Screen 19 of 24: version 3: Data on demand">
+      <div class="pw-stage pw-stage--tall" style="--frame-h: 2655.75">
+
+        <!-- The one screen in the deck that is not a product screenshot: a spec
+             sheet of the alert card itself, six app sections deep. Its 53 Figma
+             children are real vectors and text, so it COULD be markup — but it
+             ships as one 2x export of the card, which is what every other screen
+             here does and keeps the deck consistent. The lead line stays real
+             text: it is the only sentence on the screen a reader has to read,
+             and it should stay selectable and crisp.
+
+             Exported from the frame at scale 2 and cropped to the card's own box
+             (134,240 1172x2432 -> 268,480 2344x4864), so the file is exactly 2x
+             the comp box with no shadow bleed padding. The card carries no Figma
+             effect — it is flat chalk at radius 24 — so nothing is drawn here. -->
+
+        <p class="pw-lead" style="--x: 274; --y: 42.75; --w: 892">Six apps, six ways to measure. Each alert type carries its own unit: minutes, attempts, quiz accuracy, Lexile level, score, sessions.</p>
+
+        <img class="pw-shot pw-shot--card" style="--x: 134; --y: 156.75; --w: 1172; --h: 2432"
+             src="../assets/images/primer-dashboard-walkthrough/primer-alert-spec.webp"
+             width="2344" height="4864" loading="lazy" decoding="async"
+             alt="A specification sheet of the alert card, one section per app — Khan Academy, IXL, Reflex, Newsela, Habits of work and MathFactLab. Each section shows three alert cards (limited progress, proficiency struggles, wrong course) carrying a metric in that app’s own unit alongside a date, plus a smaller goal card showing the target and today’s figure." />
+
+      </div>
+    </section>
+
+    <!-- ── 20 (Figma 1525:293792) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 3:"
+            data-title="Data on demand"
+            aria-label="Screen 20 of 24: version 3: Data on demand">
+      <div class="pw-stage">
+
+        <!-- The record view. Shares its fill byte-for-byte with screen 22; the
+             two comp boxes differ in aspect by 0.1%, well under a pixel here,
+             so one file baked to 2x this box serves both. -->
+
+        <img class="pw-shot" style="--x: 115; --y: 36.75; --w: 1211; --h: 699; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v3.webp" width="2422" height="1398" loading="lazy" decoding="async"
+             alt="The version-three record view: one student's day opened out into the week alongside it, and the year plotted as a graph." />
+
+        <div class="pw-callout" style="--x: 32; --y: 654.75; --w: 450; --h: 130">
+          <p class="pw-callout-title">Design approach</p>
+          <p>Clicking opens the full record: today in the context of the week, and the year as a graph.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 21 (Figma 1527:296447) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 3:"
+            data-title="Data on demand"
+            aria-label="Screen 21 of 24: version 3: Data on demand">
+      <div class="pw-stage">
+
+        <!-- Same composite as 18, dimmed, with a single roster row lifted back
+             out — a 1103x47 band, the flattest window in the deck. Offset is
+             (115 - 201, 124 - 265) as everywhere else. The scrim starts at
+             x=114 rather than 115; that 1px is in the file, left as drawn. -->
+
+        <img class="pw-shot" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v3-hover.webp" width="2422" height="1345" loading="lazy" decoding="async"
+             alt="The version-three dashboard with a goal hovered: a small card floats over the roster showing the number behind the colour — goal 35 minutes, today 39." />
+
+        <div class="pw-scrim" style="--x: 115; --y: 40.75; --w: 1211; --h: 672.46"></div>
+
+        <div class="pw-window" style="--x: 201; --y: 181.75; --w: 1103; --h: 47">
+          <img style="--ix: -86; --iy: -141; --iw: 1211; --ih: 672.46"
+               src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v3-hover.webp" width="2422" height="1345" loading="lazy" decoding="async"
+               alt="" />
+        </div>
+
+        <div class="pw-callout" style="--x: 32; --y: 534.75; --w: 450; --h: 250">
+          <p class="pw-callout-title">Teacher feedback</p>
+          <ol class="pw-callout-list">
+            <li>This was the first version where teachers could diagnose. Hover gave the immediate read, close to goal or nowhere near it. Click gave the day in the context of the week and the year as a graph.</li>
+            <li class="is-current">Weekly progress still meant clicking through each day one at a time. Teachers wanted to see the week as a unit.</li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 22 (Figma 1528:303206) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 3:"
+            data-title="Data on demand"
+            aria-label="Screen 22 of 24: version 3: Data on demand">
+      <div class="pw-stage">
+
+        <!-- Closing beat of version 3: the record view with the verdict under
+             it. Same fill as screen 20. -->
+
+        <img class="pw-shot" style="--x: 202; --y: 36.75; --w: 1037; --h: 598; --radius: 16"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-v3.webp" width="2422" height="1398" loading="lazy" decoding="async"
+             alt="The version-three record view: one student's day opened out into the week alongside it, and the year plotted as a graph." />
+
+        <p class="pw-lead" style="--x: 320; --y: 666.75; --w: 800">Teachers could now see a problem and get to the detail behind it. But the dashboard still thought in days. By Thursday, understanding one student&rsquo;s week meant clicking back through four of them.</p>
+
+      </div>
+    </section>
+
+    <!-- ── 23 (Figma 1527:296838) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="version 4:"
+            data-title="Dynamic week"
+            aria-label="Screen 23 of 24: version 4: Dynamic week">
+      <div class="pw-stage">
+
+        <!-- Same demo as screen 04, deliberately: both screens are the
+             version-four dashboard, so they share one file and one download.
+             The browser fetches it once and serves the second from cache. -->
+        <video class="pw-shot pw-video" style="--x: 115; --y: 40.75; --w: 1211; --h: 698.65; --radius: 16"
+               width="2422" height="1398"
+               autoplay loop muted playsinline preload="none"
+               poster="../assets/images/primer-dashboard-walkthrough/primer-dashboard-demo-poster.webp"
+               aria-label="A screen recording of the version-four educator dashboard: the whole week on screen at once, each day collapsed to a circle showing goal completion, and a day expanding in place to reveal the detail behind it.">
+          <source src="../assets/images/primer-dashboard-walkthrough/primer-dashboard-demo.mp4" type="video/mp4" />
+        </video>
+
+        <div class="pw-callout" style="--x: 32; --y: 526.75; --w: 450; --h: 258">
+          <p class="pw-callout-title">Design approach</p>
+          <p>The full week is on screen. Each day collapses to a circle showing goal completion, and any day expands in place. App goals sum across the week, so a teacher can tell who is on track without opening a single day.</p>
+          <p>Teachers stopped navigating to answer the question. The week became the default unit, and the day became the detail.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── 24 (Figma 1527:299656) — TALL FRAME (2904px; stage scrolls) ─────────────────────────
+         Skeleton. Comp children land here as absolutely positioned
+         --x/--y/--w/--h boxes, with the 83.25 band already removed from y. -->
+    <section class="pw-screen wt-screen" data-title-prefix="Impact:"
+            data-title="One data model, four audiences, four different questions."
+            aria-label="Screen 24 of 24: Impact: One data model, four audiences, four different questions.">
+      <div class="pw-stage pw-stage--tall" style="--frame-h: 2820.75">
+
+        <!-- The closing screen. Below the copy it is screen 02 shifted down by
+             exactly 296px — same four shots, same four captions, same files —
+             so it costs nothing but coordinates. The copy above it is new: one
+             24px line across the full measure, then two 22px columns.
+
+             The lead here is LEFT aligned; screens 11, 19 and 22 centre theirs.
+             That is in the file, so it stays. -->
+
+        <p class="pw-lead pw-lead--left" style="--x: 80; --y: 68.75; --w: 1271">The four versions were about one question: what does this person need to know, right now, to act.</p>
+        <p class="pw-body-md" style="--x: 80; --y: 132.75; --w: 552">Teachers stopped opening the learning apps. All six sources resolved into one view, and the same data extended to the parent app, the student view, and the classroom display with a different interface for each.</p>
+        <p class="pw-body-md" style="--x: 680; --y: 132.75; --w: 600">It held as the network grew from 6 campuses to 18, and as the academic team added and dropped learning apps. The model absorbed the changes without a redesign.</p>
+
+        <div class="pw-window pw-window--square" style="--x: 52; --y: 308.75; --w: 1337; --h: 802">
+          <img style="--ix: 0; --iy: 11.87; --iw: 1337; --ih: 778.32"
+               src="../assets/images/primer-dashboard-walkthrough/primer-television-display.webp"
+               width="2144" height="1248" loading="lazy" decoding="async"
+               alt="A classroom television showing the current class with each student&rsquo;s weekly goal progress, visible to students and teachers at a glance." />
+        </div>
+        <p class="pw-caption pw-caption--center" style="--x: 80; --y: 1105.75; --w: 1280">Television display shows current class with weekly goals progress visible to students and teachers.</p>
+
+        <img class="pw-shot pw-shot--photo" style="--x: 462; --y: 1188.75; --w: 1211; --h: 698.65"
+             src="../assets/images/primer-dashboard-walkthrough/primer-class-dashboard-final.webp"
+             width="2422" height="1397" loading="lazy" decoding="async"
+             alt="The educator dashboard tracking goals across a week, a row per student and a column per day." />
+
+        <img class="pw-shot pw-shot--flat" style="--x: 88; --y: 1230.75; --w: 311; --h: 593"
+             src="../assets/images/primer-dashboard-walkthrough/primer-parent-ios.webp"
+             width="622" height="1186" loading="lazy" decoding="async"
+             alt="The parent&rsquo;s native iOS view in dark mode, listing the day&rsquo;s goals for their child." />
+        <p class="pw-caption" style="--x: 115; --y: 1809.75; --w: 253">Parent, native iOS view of daily goals.</p>
+        <p class="pw-caption" style="--x: 463; --y: 1913.75; --w: 1054">Educator goal tracking across a week.</p>
+
+        <img class="pw-shot pw-shot--flat" style="--x: -20; --y: 1995.75; --w: 1324; --h: 686"
+             src="../assets/images/primer-dashboard-walkthrough/primer-student-dashboard.webp"
+             width="2648" height="1372" loading="lazy" decoding="async"
+             alt="The student&rsquo;s own dashboard, showing their daily and weekly goal tracking." />
+        <p class="pw-caption" style="--x: 33; --y: 2631.75; --w: 1054">Student daily and weekly goal tracking</p>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/walkthrough.js"></script>
+</body>
+</html>

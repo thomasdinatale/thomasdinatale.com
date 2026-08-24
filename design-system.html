@@ -3,8 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="canonical" href="https://www.thomasdinatale.com/design-system" />
   <title>Design System — Thomas DiNatale</title>
+  <meta name="description" content="The living reference for thomasdinatale.com: color tokens, the fluid type scale, spacing, radii, elevation, and the components they build, rendered live from the CSS the site actually ships." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.thomasdinatale.com/design-system" />
+  <meta property="og:title" content="Design System — Thomas DiNatale" />
+  <meta property="og:description" content="The living reference for thomasdinatale.com: color tokens, the fluid type scale, spacing, radii, elevation, and the components they build, rendered live from the CSS the site actually ships." />
+  <meta property="og:image" content="https://www.thomasdinatale.com/assets/images/og-image.webp" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Design System — Thomas DiNatale" />
+  <meta name="twitter:description" content="The living reference for thomasdinatale.com: color tokens, the fluid type scale, spacing, radii, elevation, and the components they build, rendered live from the CSS the site actually ships." />
+  <meta name="twitter:image" content="https://www.thomasdinatale.com/assets/images/og-image.webp" />
+  <link rel="canonical" href="https://www.thomasdinatale.com/design-system" />
+  <script type="application/ld+json">
+  {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Design System",
+      "description": "The living reference for thomasdinatale.com: color tokens, the fluid type scale, spacing, radii, elevation, and the components they build, rendered live from the CSS the site actually ships.",
+      "url": "https://www.thomasdinatale.com/design-system",
+      "isPartOf": {
+          "@id": "https://www.thomasdinatale.com/#website",
+          "@type": "WebSite",
+          "name": "Thomas DiNatale",
+          "url": "https://www.thomasdinatale.com/"
+      },
+      "author": {
+                  "@id": "https://www.thomasdinatale.com/#person",
+                  "@type": "Person",
+                  "name": "Thomas DiNatale",
+                  "url": "https://www.thomasdinatale.com/"
+              },
+      "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+              {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://www.thomasdinatale.com/"
+              },
+              {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Design System",
+                  "item": "https://www.thomasdinatale.com/design-system"
+              }
+          ]
+      }
+  }
+  </script>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 
   <!-- Google Fonts: Libre Franklin, same as the real site -->
@@ -31,13 +79,12 @@
     /* Page chrome only. Everything inside the sections uses real site CSS or
        real Tailwind utilities backed by the token source of truth. */
     body { padding: 0; }
-    .pg-wrap { max-width: 1120px; margin: 0 auto; padding: 64px 24px 96px; }
-    .pg-hero { padding: 0 48px; margin-bottom: 40px; }
-    .pg-h1 { font-size: var(--text-h1); font-weight: 800; line-height: 1; color: var(--pitch); margin: 0 0 40px; }
-    .pg-sub { font-size: var(--text-body-lg); line-height: 1.6; color: var(--pitch); margin: 0; }
+    /* Modules sit on the homepage's content gutter (.projects = 160px) so they
+       line up under the .hero (192px) exactly as the homepage cards do. */
+    .pg-wrap { padding: 64px 160px 96px; }
     /* Each documentation block is a card, like the other pages' sections */
     .pg-module { background: var(--chalk); border: 2px solid var(--cloud); border-radius: var(--radius-md); padding: 48px; margin-bottom: 24px; }
-    .pg-sub code, .pg-section-sub code { color: var(--ember); font-family: inherit; }
+    .hero code, .pg-section-sub code { color: var(--ember); font-family: inherit; }
     .pg-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; margin-bottom: 24px; padding: 32px 48px; border: 2px solid var(--cloud); border-radius: var(--radius-md); background: var(--chalk); }
     .pg-toolbar p { font-size: var(--text-body); line-height: var(--text-body-lh); color: var(--pitch); margin: 0; }
     .pg-toolbar-btns { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
@@ -91,10 +138,11 @@
     .pg-swatch { border: 1px solid var(--shale); border-radius: 12px; overflow: hidden; background: var(--chalk); }
     .pg-swatch .chip { height: 72px; box-shadow: inset 0 0 0 1px var(--shale); }
     .pg-swatch .meta { padding: 12px; border-top: 1px solid var(--shale); }
-    .pg-swatch .meta b { display: block; font-size: 14px; font-weight: 600; color: var(--pitch); }
-    .pg-swatch .meta code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ember); }
-    .pg-swatch .meta em { display: block; font-style: normal; font-size: 12px; color: var(--flint); margin: 4px 0; }
-    .pg-swatch .meta .hex { font-size: 11px; color: var(--flint); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    /* Role leads, in the weight/size/color the token name used to carry, then
+       the utility class, then the live hex. Each on its own line. */
+    .pg-swatch .meta b { display: block; font-size: 14px; font-weight: 600; color: var(--pitch); margin-bottom: 4px; }
+    .pg-swatch .meta code { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ember); margin-bottom: 4px; }
+    .pg-swatch .meta .hex { display: block; font-size: 11px; color: var(--flint); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
     /* Type + spec rows */
     .pg-rows { border-top: 1px solid var(--shale); }
     .pg-row { display: grid; grid-template-columns: 190px 1fr; gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--shale); }
@@ -108,8 +156,6 @@
     @media (max-width: 768px) { .pg-grid { grid-template-columns: 1fr; } .pg-row { grid-template-columns: 1fr; gap: 8px; } }
     @media (max-width: 768px) {
       .pg-wrap { padding: 40px 16px 64px; }
-      .pg-hero { padding: 0; margin-bottom: 32px; }
-      .pg-h1 { margin-bottom: 24px; }
       .pg-module { padding: 24px; }
       .pg-toolbar { padding: 16px; }
       .pg-demos { grid-template-columns: 1fr; }
@@ -254,21 +300,25 @@
 </div>
 
 <div class="page">
-  <div class="pg-wrap">
-    <div class="pg-hero">
-    <h1 class="pg-h1">Design system</h1>
-    <p class="pg-sub">
-      The living reference, rendered from the actual tokens the site runs on.
-      Colors and type are CSS custom properties in <code>styles.css</code> (the single
-      source of truth), and Tailwind's <code>@theme inline</code> points every type
-      and color utility (<code>text-h1</code>, <code>bg-ember</code>, …) at those same
-      vars, so for <b>color and type</b>, what you see here and what ships can't drift. Spacing,
-      radii, and shadows are documented from the same values, but they're literal
-      tokens rather than live vars, so those stay in sync by hand. Flip the theme;
-      drag the width.
-    </p>
-    </div>
 
+  <!-- The page header uses the site's real .hero component (same as the
+       homepage) rather than page-local type, so spacing, fluid size and
+       measure can't drift from /. -->
+  <section class="hero">
+    <h1>Design system</h1>
+    <p>
+      Colors and type are CSS custom properties in <code>styles.css</code>, the single
+      source of truth. Tailwind's <code>@theme inline</code> maps every type and color
+      utility (<code>text-h1</code>, <code>bg-ember</code>, …) to those same variables,
+      so what you see here and what ships can't drift. Spacing, radii, and shadows come
+      from the same values, but they're written out as literal tokens rather than live
+      variables, so those stay in sync by hand. On desktop, scale the browser window.
+      The type scale is fluid, so it interpolates continuously instead of snapping at
+      breakpoints.
+    </p>
+  </section>
+
+  <div class="pg-wrap">
     <div class="pg-toolbar" role="group" aria-label="Theme">
       <p>Select a theme to update the site styles.</p>
       <div class="pg-toolbar-btns">
@@ -287,15 +337,15 @@
       the theme buttons and both the swatch and its value re-map at once.
     </p>
     <div class="pg-swatches">
-      <div class="pg-swatch"><div class="chip bg-plaster"></div><div class="meta"><b>plaster</b><code>bg-plaster</code><em>Page background</em><span class="hex">#f5f0eb</span></div></div>
-      <div class="pg-swatch"><div class="chip bg-ember"></div><div class="meta"><b>ember</b><code>bg-ember</code><em>Accent / hover / links</em><span class="hex">#d24f39</span></div></div>
-      <div class="pg-swatch"><div class="chip bg-pitch"></div><div class="meta"><b>pitch</b><code>bg-pitch</code><em>Primary text</em><span class="hex">#302d2f</span></div></div>
-      <div class="pg-swatch"><div class="chip bg-flint"></div><div class="meta"><b>flint</b><code>bg-flint</code><em>Secondary text / muted</em><span class="hex">#6a6869</span></div></div>
-      <div class="pg-swatch"><div class="chip bg-chalk"></div><div class="meta"><b>chalk</b><code>bg-chalk</code><em>Light surface / cards</em><span class="hex">#fffcf8</span></div></div>
-      <div class="pg-swatch"><div class="chip bg-linen"></div><div class="meta"><b>linen</b><code>bg-linen</code><em>Tinted panel background</em><span class="hex">rgba(237,233,220,.9)</span></div></div>
-      <div class="pg-swatch"><div class="chip bg-shale"></div><div class="meta"><b>shale</b><code>bg-shale</code><em>Borders / dividers</em><span class="hex">#dcdcdc</span></div></div>
-      <div class="pg-swatch"><div class="chip bg-cloud"></div><div class="meta"><b>cloud</b><code>bg-cloud</code><em>Gradient stroke, stop A</em><span class="hex">#ffffff</span></div></div>
-      <div class="pg-swatch"><div class="chip bg-metal"></div><div class="meta"><b>metal</b><code>bg-metal</code><em>Gradient stroke, stop B</em><span class="hex">#b8b4b8</span></div></div>
+      <div class="pg-swatch"><div class="chip bg-plaster"></div><div class="meta"><b>Page background</b><code>bg-plaster</code><span class="hex">#f5f0eb</span></div></div>
+      <div class="pg-swatch"><div class="chip bg-ember"></div><div class="meta"><b>Accent / hover / links</b><code>bg-ember</code><span class="hex">#d24f39</span></div></div>
+      <div class="pg-swatch"><div class="chip bg-pitch"></div><div class="meta"><b>Primary text</b><code>bg-pitch</code><span class="hex">#302d2f</span></div></div>
+      <div class="pg-swatch"><div class="chip bg-flint"></div><div class="meta"><b>Secondary text / muted</b><code>bg-flint</code><span class="hex">#6a6869</span></div></div>
+      <div class="pg-swatch"><div class="chip bg-chalk"></div><div class="meta"><b>Light surface / cards</b><code>bg-chalk</code><span class="hex">#fffcf8</span></div></div>
+      <div class="pg-swatch"><div class="chip bg-linen"></div><div class="meta"><b>Tinted panel background</b><code>bg-linen</code><span class="hex">rgba(237,233,220,.9)</span></div></div>
+      <div class="pg-swatch"><div class="chip bg-shale"></div><div class="meta"><b>Borders / dividers</b><code>bg-shale</code><span class="hex">#dcdcdc</span></div></div>
+      <div class="pg-swatch"><div class="chip bg-cloud"></div><div class="meta"><b>Gradient stroke, stop A</b><code>bg-cloud</code><span class="hex">#ffffff</span></div></div>
+      <div class="pg-swatch"><div class="chip bg-metal"></div><div class="meta"><b>Gradient stroke, stop B</b><code>bg-metal</code><span class="hex">#b8b4b8</span></div></div>
     </div>
 
     <p class="pg-section-sub" style="margin-top: 20px;">
@@ -318,8 +368,8 @@
       theme so it reads on light and dark alike). It is <code>position: fixed</code>
       with <code>pointer-events: none</code> at <code>z-index: 0</code>, so content
       scrolls over a grid that never moves. A top fade (<code>--plaster</code> to
-      transparent) keeps the header area clean, and on fine-pointer devices a
-      cursor glow lights the nearest lines in ember.
+      transparent) keeps the header area clean, and on desktop a cursor glow
+      lights the nearest lines in ember.
     </p>
     <div class="pg-griddemo">
       <div class="cell">32px cells</div>
@@ -335,7 +385,7 @@
       Headings <b>H1–H6</b> then the <b>Body</b> scale, all Libre Franklin, all
       rendered with real <code>text-*</code> utilities bridged to the tokens. Each
       utility carries its line-height. Rows marked <b>fluid</b> scale with the
-      viewport (<code>clamp</code>, 375→1280px). Drag the window to watch them.
+      viewport (<code>clamp</code>, 375→1440px). Drag the window to watch them.
     </p>
     <span class="pg-hint">↔ Drag the browser width. H1–H5 and Body Large/Medium glide between their mobile and desktop sizes; H6 and the smaller styles hold fixed.</span>
     <div class="pg-rows">
@@ -730,7 +780,7 @@
     <div class="footer-credits">
       <p>&copy; Thomas DiNatale, 2026</p>
       <span class="footer-dot"></span>
-      <p>Designed in Figma &amp; built with Claude Code</p>
+      <p>Designed in Figma, built with Claude Code, on a <a href="/design-system">custom design system</a></p>
     </div>
     <div class="footer-social">
       <a href="https://www.linkedin.com/in/thomasdinatale/" aria-label="LinkedIn"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 12C0 5.37258 5.37258 0 12 0C18.6274 0 24 5.37258 24 12C24 18.6274 18.6274 24 12 24C5.37258 24 0 18.6274 0 12ZM8.48027 9.93892H5.76081V18.1098H8.48027V9.93892ZM8.65938 7.41135C8.64173 6.6102 8.06883 6 7.13852 6C6.2082 6 5.6 6.6102 5.6 7.41135C5.6 8.1959 6.19023 8.82367 7.10322 8.82367H7.12059C8.06883 8.82367 8.65938 8.1959 8.65938 7.41135ZM18.2877 13.4249C18.2877 10.9151 16.9461 9.74706 15.1566 9.74706C13.7127 9.74706 13.0663 10.5401 12.7053 11.0965V9.93914H9.98555C10.0214 10.7059 9.98555 18.11 9.98555 18.11H12.7053V13.5467C12.7053 13.3025 12.723 13.0589 12.7949 12.8841C12.9914 12.3962 13.4389 11.8911 14.1903 11.8911C15.1747 11.8911 15.5682 12.6404 15.5682 13.7384V18.1098H18.2876L18.2877 13.4249Z"/></svg></a>
