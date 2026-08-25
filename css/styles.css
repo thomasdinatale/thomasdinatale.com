@@ -1774,8 +1774,9 @@ h1.article-title {
   flex-direction: column;
   gap: 40px;
 }
-/* Aligned to the hero paragraph above (.hero is padded 192px, .history 160px),
-   so every label sits on the same left edge as the intro copy. */
+/* 32px in from the section edge, so labels sit on the same left edge as the
+   text inside the cards below them. They no longer line up with the hero copy:
+   .hero is capped at 1280 inside a 1376 .page, which insets it a further 48px. */
 .history-group-title {
   padding-left: 32px;
   font-size: var(--text-h6);
