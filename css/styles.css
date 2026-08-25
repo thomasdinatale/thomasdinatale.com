@@ -1834,54 +1834,6 @@ h1.article-title {
    signal that there is somewhere to go. A 64px tab flush into the card's
    top-right corner; the card's own overflow:hidden trims its outer corner to
    the card radius, and the rounded bottom-left is what reads as a tab. */
-/* 96×48: the 48px height still lands the badge's bottom edge exactly on the top
-   of the title row, so nothing needs pushing down to avoid the open state.
-   Dates stay right-aligned to the same margin as every other card. */
-.history-arrow {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 96px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  /* 40px right padding centres the 16px glyph in the 96px rest state
-     (16 + 40 + 40 = 96), and keeps it pinned 40px off the right edge as the
-     panel grows leftward. The 16px left padding is the label's inset once the
-     panel opens. */
-  padding: 0 40px 0 16px;
-  background: var(--cloud);
-  border-left: 1px solid var(--shale);
-  border-bottom: 1px solid var(--shale);
-  /* half the 32px height, so the corner stays a true quarter-round */
-  border-bottom-left-radius: 16px;
-  color: var(--pitch);
-  overflow: hidden;
-  white-space: nowrap;
-  pointer-events: none;
-  transition: width 0.3s ease, border-color 0.2s ease;
-}
-.history-arrow-label {
-  font-size: var(--text-body);
-  line-height: 1.6;
-  color: var(--pitch);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-.history-card--link:hover .history-arrow {
-  width: 220px;
-  border-color: var(--ember);
-}
-.history-card--link:hover .history-arrow-label {
-  opacity: 1;
-  transition-delay: 0.1s;
-}
-.history-arrow svg {
-  display: block;
-  flex-shrink: 0;
-}
 .history-card-body {
   flex: 1 0 auto;
   background: var(--chalk);
@@ -1945,6 +1897,37 @@ h1.article-title {
   line-height: var(--text-body-sm-lh);
   color: var(--pitch);
   white-space: nowrap;
+}
+
+/* Case-study CTA. Sits in the tag row, pushed to the far edge opposite the
+   tags, and borrows .history-tag's box so it reads as one of them. stretch +
+   aspect-ratio rather than a fixed size, so it stays square and exactly tag
+   height even if the tag's type changes. */
+.history-cta {
+  margin-left: auto;
+  flex-shrink: 0;
+  /* Square, at exactly .history-tag's height: its line box (1.6em at
+     --text-body-sm) plus the tag's 4px vertical padding and 1px border, both
+     sides. border-box, so this is the outer size. Derived rather than fixed,
+     so it tracks the tag if that type ever changes. */
+  font-size: var(--text-body-sm);
+  width: calc(1.6em + 10px);
+  height: calc(1.6em + 10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--plaster);
+  border: 1px solid var(--shale);
+  border-radius: var(--radius-sm);
+  color: var(--pitch);
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.history-cta svg { display: block; }
+.history-card--link:hover .history-cta,
+.history-card--link:focus-visible .history-cta {
+  background: var(--ember);
+  border-color: var(--ember);
+  color: var(--chalk);
 }
 
 /* ─────────────────────────────────────────
