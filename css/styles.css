@@ -358,7 +358,11 @@ h1,
 .page {
   position: relative;
   z-index: 2;
-  max-width: 1440px;
+  /* 1280, not 1440: at 1440 the hero paragraph ran 1056px, which is 78
+     characters at Body Large. Narrowing the container instead of the
+     paragraph brings that to 67 while the card grid narrows with it, so the
+     192px text rail still closes on both edges and no orphan gap opens up. */
+  max-width: 1280px;
   margin: 0 auto;
 }
 
