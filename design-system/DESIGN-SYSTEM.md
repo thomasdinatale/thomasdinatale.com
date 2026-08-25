@@ -31,7 +31,7 @@ Full details in `tokens.json > typography.scale`. The workhorse is **body: 18px 
 | H2 section | 48 / 700 · lh 1.4 | Section headlines | `.thinking-headline`, `.about-headline` |
 | H2 problem | 32 / 700 · lh 1.4 | Problem cards, display tagline | `.cs2-problem-title`, `.cs2-tagline--display` |
 | Card title | 24 / 600 | Card + section titles | `.project-title`, `.cs-section-title`, `.history-group-title` |
-| Lead body | 24 / 400 · lh 1.6 | Hero / case-study lead | `.hero p`, `.cs2-body p` |
+| Lead body | 24 / 400 · lh 1.6 | Hero / case-study lead | `.hero p` (**flint**), `.cs2-body p` (pitch) |
 | **Body** | **18 / 400 · lh 1.6** | **default paragraph** | `.cs-copy-block p`, `.article-section p` |
 | Body semibold | 18 / 600 · lh 1.6 | Sub-heads below a section title | `.text-body-semibold` (global), `.cs-body-semibold` (inline) |
 | Caption | 14–16 / 400 · flint | Image captions | `.cs2-cap`, `.cs-caption` |
@@ -129,6 +129,10 @@ stacked blocks: each is a `<details class="pg-module" id="<slug>">` whose
 - **Colors ships `open`.** It is the section that demonstrates live tokens
   ("switch themes and the swatch and its value change together"), so the page
   proves itself without a click. Everything else starts closed.
+- The **Themes** row (`.pg-toolbar`) sits above the stack and is not a
+  `<details>` — there is nothing to disclose. It borrows `.pg-summary`'s
+  geometry (H5 title left, controls right, same card box) so it reads as the
+  first row rather than a different kind of object; on mobile it stacks.
 - Section ids are slugs of the title (`type-scale`, `calls-to-action`,
   `hover-motion`). An inline script at the end of `<body>` opens the section
   named in `location.hash` on load and on `hashchange`, re-settles the scroll

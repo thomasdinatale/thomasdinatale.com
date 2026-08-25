@@ -106,8 +106,7 @@
     /* .hero's own 40px gap stays between the h1 and the copy block; inside the
        block, paragraphs take the tighter 24px body rhythm used on case studies. */
     .hero-copy { display: flex; flex-direction: column; gap: 24px; }
-    .pg-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; margin-bottom: 24px; padding: 32px; border: 1px solid transparent; border-radius: var(--radius-xl); background: var(--fill-card) padding-box, var(--stroke-card) border-box; }
-    .pg-toolbar p { font-size: var(--text-body); line-height: var(--text-body-lh); color: var(--pitch); margin: 0; }
+    .pg-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; padding: 32px; border: 1px solid transparent; border-radius: var(--radius-xl); background: var(--fill-card) padding-box, var(--stroke-card) border-box; }
     .pg-toolbar-btns { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
     .pg-btn { font: inherit; font-size: var(--text-body-sm); font-weight: 600; line-height: 1.5; padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--shale); background: var(--chalk); color: var(--pitch); cursor: pointer; }
     .pg-btn[aria-pressed="true"] { border-color: var(--ember); color: var(--ember); }
@@ -178,7 +177,7 @@
     @media (max-width: 768px) {
       .pg-wrap { padding: 40px 16px 64px; }
       .pg-module { padding: 24px; }
-      .pg-toolbar { padding: 24px; }
+      .pg-toolbar { padding: 24px; align-items: flex-start; }
       .pg-demos { grid-template-columns: 1fr; }
       .pg-motion-row { grid-template-columns: 1fr; gap: 4px; }
     }
@@ -186,10 +185,6 @@
     .pg-col-label b { font-size: var(--text-body-sm); font-weight: 700; color: var(--pitch); }
     .pg-col-label em { font-size: var(--text-body-xs); font-style: normal; color: var(--flint); }
     .pg-card-max { max-width: 460px; }
-    .pg-callout { margin-top: 32px; padding: 16px 20px; border-left: 3px solid var(--ember); background: var(--linen); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
-    .pg-callout p { margin: 0 0 8px; font-size: var(--text-body-sm); line-height: 1.6; color: var(--pitch); }
-    .pg-callout p:last-child { margin-bottom: 0; }
-    .pg-callout code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-body-xs); color: var(--ember); }
     /* Icon grid */
     .pg-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
     .pg-icon { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; border: 1px solid var(--shale); border-radius: var(--radius-md); background: var(--chalk); padding: 20px; }
@@ -356,7 +351,7 @@
 
   <div class="pg-wrap">
     <div class="pg-toolbar" role="group" aria-label="Theme">
-      <p>Pick a theme. Every value on this page repaints with it.</p>
+      <h2 class="pg-section-h">Themes</h2>
       <div class="pg-toolbar-btns">
         <button class="pg-btn" data-theme="theme-extra-dark" aria-pressed="true">Extra dark</button>
         <button class="pg-btn" data-theme="theme-dark" aria-pressed="false">Dark</button>
@@ -839,11 +834,6 @@
       </div>
     </div>
     </details>
-
-    <!-- ===================== HOW IT WORKS ===================== -->
-    <div class="pg-callout" style="margin-top:64px;">
-      <p><b>One source of truth.</b> Every color and type value is defined once as a design token. The site and this page both read from the same tokens, so they can never drift out of sync. Change a token, and everything moves together.</p>
-    </div>
   </div>
 
 </div>

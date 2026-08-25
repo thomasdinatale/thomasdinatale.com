@@ -955,7 +955,7 @@ h1,
   font-size: var(--text-body-lg);
   font-weight: 400;
   line-height: var(--text-body-lg-lh);
-  color: var(--pitch);
+  color: var(--flint);
 }
 
 /* ─────────────────────────────────────────
@@ -1246,13 +1246,6 @@ h1,
   text-align: center;
 }
 
-.thinking-body {
-  font-size: var(--text-body-lg);
-  font-weight: 400;
-  line-height: var(--text-body-lg-lh);
-  color: var(--pitch);
-  text-align: left;
-}
 
 .articles-grid {
   display: grid;
@@ -2157,8 +2150,6 @@ h1.article-title {
   .project-card-image--crop-bottom {
     padding: 16px 16px 0;
   }
-  .project-desc {
-  }
 
   .thinking-about-wrap {
     margin-top: 40px;
@@ -2172,8 +2163,6 @@ h1.article-title {
     gap: 40px;
     /* Mobile #about has no top padding, so no extra offset needed here */
     scroll-margin-top: var(--nav-height, 80px);
-  }
-  .thinking-body {
   }
   .articles-grid {
     grid-template-columns: 1fr;
