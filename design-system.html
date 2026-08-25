@@ -84,6 +84,24 @@
     .pg-wrap { padding: 64px 160px 96px; }
     /* Each documentation block is a card, like the other pages' sections */
     .pg-module { border: 1px solid transparent; border-radius: var(--radius-xl); background: var(--fill-card) padding-box, var(--stroke-card) border-box; padding: 32px; margin-bottom: 24px; }
+    /* ── Accordion ──────────────────────────────────────────
+       <details>/<summary>, not JS: keyboard behaviour and the
+       correct semantics come free, it works with JS off, and
+       find-in-page auto-expands a closed section in engines
+       that support it. Colors alone ships open, so the page
+       still demonstrates itself above the fold. */
+    .pg-summary { display: flex; align-items: center; justify-content: space-between; gap: 24px; cursor: pointer; list-style: none; }
+    .pg-summary::-webkit-details-marker { display: none; }
+    .pg-summary:focus { outline: none; }
+    .pg-summary:focus-visible { outline: 2px solid var(--ember); outline-offset: 8px; border-radius: var(--radius-sm); }
+    .pg-summary .pg-section-h { transition: color 0.2s ease; }
+    .pg-summary:hover .pg-section-h { color: var(--ember); }
+    .pg-summary-chevron { flex-shrink: 0; color: var(--flint); transition: transform 0.25s ease, color 0.2s ease; }
+    .pg-summary:hover .pg-summary-chevron { color: var(--ember); }
+    .pg-module[open] .pg-summary-chevron { transform: rotate(180deg); }
+    /* Restores the gap the heading's own margin used to provide, but only
+       once there is content under it. */
+    .pg-module[open] .pg-summary { margin-bottom: 24px; }
     .hero code, .pg-section-sub code { color: var(--ember); font-family: inherit; }
     /* .hero's own 40px gap stays between the h1 and the copy block; inside the
        block, paragraphs take the tighter 24px body rhythm used on case studies. */
@@ -93,7 +111,7 @@
     .pg-toolbar-btns { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
     .pg-btn { font: inherit; font-size: var(--text-body-sm); font-weight: 600; line-height: 1.5; padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--shale); background: var(--chalk); color: var(--pitch); cursor: pointer; }
     .pg-btn[aria-pressed="true"] { border-color: var(--ember); color: var(--ember); }
-    .pg-section-h { font-size: var(--text-h5); font-weight: 700; line-height: var(--text-h5-lh); color: var(--pitch); margin: 0 0 24px; }
+    .pg-section-h { font-size: var(--text-h5); font-weight: 700; line-height: var(--text-h5-lh); color: var(--pitch); margin: 0; }
     .pg-section-sub { font-size: var(--text-body); line-height: var(--text-body-lh); color: var(--pitch); margin: 0 0 28px; }
     /* Code block — monospace on a recessed plaster surface inside the chalk
        module. First used by the Hover & motion section. */
@@ -347,8 +365,11 @@
     </div>
 
     <!-- ===================== COLORS ===================== -->
-    <section class="pg-module">
-    <h2 class="pg-section-h">Colors</h2>
+    <details class="pg-module" id="colors" open>
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Colors</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       Nine tokens, three themes. Every swatch is painted with a real
       <code>bg-*</code> utility that resolves to a live <code>var()</code>. There
@@ -376,11 +397,14 @@
       rather than shown as part of the shared palette.
     </p>
 
-    </section>
+        </details>
 
     <!-- ===================== BACKGROUND GRID ===================== -->
-    <section class="pg-module">
-    <h2 class="pg-section-h">Background grid</h2>
+    <details class="pg-module" id="background-grid">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Background grid</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       The site sits on a fixed lattice: 1px lines every 32px, painted at
       <code>--grid-line</code> at 5% ink, inverted per theme so it reads on light
@@ -394,11 +418,14 @@
     </div>
     <span class="pg-note">The lattice above is painted from the same <code>--grid-line</code> token and 32px step as the live background behind this page.</span>
 
-    </section>
+        </details>
 
     <!-- ===================== TYPE ===================== -->
-    <section class="pg-module">
-    <h2 class="pg-section-h">Type scale</h2>
+    <details class="pg-module" id="type-scale">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Type scale</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       Six heading sizes, then the body scale. All Libre Franklin, all rendered with
       real <code>text-*</code> utilities bridged to the tokens, each carrying its own
@@ -423,11 +450,14 @@
       <div class="pg-row"><div class="tk"><code>text-tooltip</code><span class="rng">12 / 1.6</span></div><div class="sample text-tooltip muted">Tooltip, the finest print in the system.</div></div>
     </div>
 
-    </section>
+        </details>
 
     <!-- ===================== SPACING ===================== -->
-    <section class="pg-module">
-    <h2 class="pg-section-h">Spacing</h2>
+    <details class="pg-module" id="spacing">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Spacing</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       One scale on a 4px base (<code>--spacing: 0.25rem</code>), with an 8px rhythm
       carrying most gaps and padding. Tailwind's <code>p-*</code>,
@@ -451,11 +481,14 @@
     </div>
     <span class="pg-note">The larger steps carry section rhythm: the hero runs <code>80px 192px 0</code>, most sections use <code>160px</code> sides, collapsing to <code>16px</code> on mobile.</span>
 
-    </section>
+        </details>
 
     <!-- ===================== RADII ===================== -->
-    <section class="pg-module">
-    <h2 class="pg-section-h">Radii</h2>
+    <details class="pg-module" id="radii">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Radii</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       Four radii carry the system, bridged as <code>rounded-*</code> utilities. The
       larger the radius, the softer and more prominent the surface reads. Swatches
@@ -468,11 +501,14 @@
       <div class="pg-radius"><div class="box rounded-card"></div><b>Card</b><code>rounded-card · 32px</code><em>Project, article &amp; problem cards</em></div>
     </div>
 
-    </section>
+        </details>
 
     <!-- ===================== ELEVATION ===================== -->
-    <section class="pg-module">
-    <h2 class="pg-section-h">Elevation</h2>
+    <details class="pg-module" id="elevation">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Elevation</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       Shadows are dark-on-light, reserved for surfaces that lift off the page.
       <code>shadow-card-hover</code> handles the card lift; the heavier
@@ -486,11 +522,14 @@
     </div>
     <span class="pg-note">Two composite shadows stack many layers for realism: a 5-layer <code>layeredPhoto</code> drop, and a left-facing <code>panel</code> shadow for the slide-out drawer.</span>
 
-    </section>
+        </details>
 
     <!-- ===================== ICONS ===================== -->
-    <section class="pg-module">
-    <h2 class="pg-section-h">Icons</h2>
+    <details class="pg-module" id="icons">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Icons</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       Every icon is a 24×24 inline SVG that paints with <code>currentColor</code>,
       so it inherits the text color and flips to ember on hover without a second
@@ -533,11 +572,14 @@
       </div>
     </div>
 
-    </section>
+        </details>
 
     <!-- ===================== TAG ===================== -->
-    <section class="pg-module">
-    <h2 class="pg-section-h">Tag</h2>
+    <details class="pg-module" id="tag">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Tag</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       The metadata pill. <code>bg-plaster</code> chip, <code>border-shale</code>
       hairline, <code>rounded-tag</code> (4px), <code>px-2 py-1</code>,
@@ -563,11 +605,14 @@
       </div>
     </div>
 
-    </section>
+        </details>
 
     <!-- ===================== CALLS TO ACTION ===================== -->
-    <section class="pg-module">
-    <h2 class="pg-section-h">Calls to action</h2>
+    <details class="pg-module" id="calls-to-action">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Calls to action</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       The interactive text and button atoms, built from the real classes. They
       share one hover language: the accent shifts to ember over a quick
@@ -595,11 +640,14 @@
       </div>
     </div>
 
-    </section>
+        </details>
 
     <!-- ===================== PROJECT CARD ===================== -->
-    <section class="pg-module">
-    <h2 class="pg-section-h">Project card</h2>
+    <details class="pg-module" id="project-card">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Project card</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       The project card component, built twice, class-for-class. Real
       <code>styles.css</code> left, Tailwind utilities right. Title is
@@ -647,11 +695,14 @@
       </div>
     </div>
 
-    </section>
+        </details>
 
     <!-- ===================== ARTICLE CARD ===================== -->
-    <section class="pg-module">
-    <h2 class="pg-section-h">Article card</h2>
+    <details class="pg-module" id="article-card">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Article card</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       The writing-index card. Same <code>gradient-stroke</code> border and
       <code>rounded-card</code> radius as the project card (unified, no drift).
@@ -690,10 +741,13 @@
         </div>
       </div>
     </div>
-    </section>
+        </details>
 
-    <section class="pg-module" id="hover-motion">
-    <h2 class="pg-section-h">Hover &amp; motion</h2>
+    <details class="pg-module" id="hover-motion">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Hover &amp; motion</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 9.5 12 15.5 18 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </summary>
     <p class="pg-section-sub">
       Five durations cover the whole site. The rule of thumb: the smaller the
       change, the faster it resolves. A color swap lands in <code>0.2s</code>,
@@ -784,7 +838,7 @@
          border-color: var(--ember); }</pre>
       </div>
     </div>
-    </section>
+    </details>
 
     <!-- ===================== HOW IT WORKS ===================== -->
     <div class="pg-callout" style="margin-top:64px;">
@@ -856,6 +910,47 @@
     window.addEventListener('resize', updateNav);
   })();
 </script>
+<script>
+  /* Deep links into a collapsed section: /design-system#radii should open Radii
+     and land on it. The open has to happen before we scroll, because the
+     browser's own hash jump runs against the collapsed layout and lands short.
+     We re-settle on load once fonts and images have stopped moving things. */
+  (function () {
+    function sectionFromHash() {
+      var id = decodeURIComponent(location.hash.slice(1));
+      if (!id) return null;
+      var el = document.getElementById(id);
+      return el && el.tagName === 'DETAILS' ? el : null;
+    }
+    function settle(el) {
+      var navH = parseInt(getComputedStyle(document.documentElement)
+                   .getPropertyValue('--nav-height'), 10) || 0;
+      window.scrollTo({
+        top: el.getBoundingClientRect().top + window.scrollY - navH - 24,
+        behavior: 'auto'
+      });
+    }
+    function reveal() {
+      var el = sectionFromHash();
+      if (!el) return;
+      el.open = true;
+      settle(el);
+      // Anything still loading above this section will shift it; land again.
+      window.addEventListener('load', function () { settle(el); }, { once: true });
+    }
+    reveal();
+    window.addEventListener('hashchange', reveal);
+
+    /* Keep the URL shareable as sections are opened. replaceState, so this
+       never piles up history entries the back button has to walk. */
+    document.querySelectorAll('details.pg-module').forEach(function (d) {
+      d.addEventListener('toggle', function () {
+        if (d.open && d.id) history.replaceState(null, '', '#' + d.id);
+      });
+    });
+  })();
+</script>
+
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>

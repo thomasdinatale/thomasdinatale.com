@@ -115,6 +115,30 @@ Every reusable pattern currently in the site, with its class and where it's defi
 4. **Dark mode auto-dims images** (`brightness/contrast/opacity` filter on all `img` except `.about-portrait`), restoring to full on card hover. Account for this when adding imagery.
 5. **`.about-portrait` inverts in dark mode** (`filter: invert(1)`) because it's a transparent ink drawing — keep new line-art assets on transparent backgrounds if they should invert too.
 
+## The /design-system page itself
+
+`design-system.html` carries its own inline `<style>`; it does not add rules to
+`styles.css`. As of 2026-08-25 its twelve sections are **accordions**, not
+stacked blocks: each is a `<details class="pg-module" id="<slug>">` whose
+`<summary class="pg-summary">` holds the `<h2 class="pg-section-h">` and a
+`.pg-summary-chevron` that rotates 180° on `[open]`.
+
+- `<details>`, not a JS accordion, on purpose: keyboard behaviour and semantics
+  are free, it works with JS off, and find-in-page auto-expands a closed
+  section in engines that support it.
+- **Colors ships `open`.** It is the section that demonstrates live tokens
+  ("switch themes and the swatch and its value change together"), so the page
+  proves itself without a click. Everything else starts closed.
+- Section ids are slugs of the title (`type-scale`, `calls-to-action`,
+  `hover-motion`). An inline script at the end of `<body>` opens the section
+  named in `location.hash` on load and on `hashchange`, re-settles the scroll
+  on `load`, and `replaceState`s the hash as sections are opened.
+- No open/close animation, deliberately: animating the height would reintroduce
+  the layout-property transitions the rest of the site removed. Animate
+  `opacity` if motion is wanted later.
+- The page's own chrome uses only scale tokens — no raw `font-size` or
+  `border-radius` values. Keep it that way; it is the page that publishes them.
+
 ## Where things live
 
 ```
