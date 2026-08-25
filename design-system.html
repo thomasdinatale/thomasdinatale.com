@@ -102,7 +102,15 @@
     /* Restores the gap the heading's own margin used to provide, but only
        once there is content under it. */
     .pg-module[open] .pg-summary { margin-bottom: 24px; }
-    .hero code, .pg-section-sub code { color: var(--ember); font-family: inherit; }
+    /* Code in prose. The monospace face carries "this is code", so colour is free
+       to mean something else: ember in a section intro marks a token that appears
+       in the specimen right below it, which is why those match .pg-swatch .meta
+       code. The hero has no specimens under it, so its spans stay pitch and let
+       the face do the work. 0.85em because mono runs large against Libre Franklin
+       at the same nominal size. */
+    .hero code, .pg-section-sub code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; }
+    .hero code { color: var(--pitch); }
+    .pg-section-sub code { color: var(--ember); }
     /* .hero's own 40px gap stays between the h1 and the copy block; inside the
        block, paragraphs take the tighter 24px body rhythm used on case studies. */
     .hero-copy { display: flex; flex-direction: column; gap: 24px; }
