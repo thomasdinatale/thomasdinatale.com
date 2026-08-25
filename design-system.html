@@ -156,7 +156,11 @@
     /* Color swatches */
     .pg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
     .pg-swatch { border: 1px solid var(--shale); border-radius: var(--radius-md); overflow: hidden; background: var(--chalk); }
-    .pg-swatch .chip { height: 72px; box-shadow: inset 0 0 0 1px var(--shale); }
+    .pg-swatch .chip { height: 72px; }
+    /* No ring on the chip: it is already bounded on three sides by the tile
+       border and on the fourth by .meta's border-top. An inset ring here put
+       a second shale line immediately inside each of those. A white swatch
+       still reads, because those four strokes fully enclose it. */
     .pg-swatch .meta { padding: 12px; border-top: 1px solid var(--shale); }
     /* Role leads, in the weight/size/color the token name used to carry, then
        the utility class, then the live hex. Each on its own line. */
