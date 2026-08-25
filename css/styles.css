@@ -1927,7 +1927,9 @@ h1.article-title {
 .history-tags {
   background: var(--chalk);
   border-top: 1px solid var(--shale);
-  padding: 24px 48px;
+  /* 32px horizontal to sit on .history-card-body's inset; the 24px vertical is
+     the band's own, deliberately tighter than the body above it. */
+  padding: 24px 32px;
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
