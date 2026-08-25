@@ -9,8 +9,6 @@
 :root {
   --plaster: #f5f0eb;
   --ember:   #d24f39;
-  --jade:    #3a7266;
-  --butter:  #cdbf4d;
   --pitch:   #302d2f;
   --flint:   #6a6869;
   --chalk:   #fffcf8;
@@ -112,8 +110,6 @@
   :root:not(.theme-light) {
     --plaster: #252220;
     --ember:   #e8785f;
-    --jade:    #5c9f92;
-    --butter:  #e2d00f;
     --pitch:   #f4eee7;
     --flint:   #928c87;
     --chalk:   #1c1917;
@@ -128,8 +124,6 @@
 :root.theme-dark {
   --plaster: #252220;
   --ember:   #e8785f;
-  --jade:    #5c9f92;
-  --butter:  #e2d00f;
   --pitch:   #f4eee7;
   --flint:   #928c87;
   --chalk:   #1c1917;
@@ -148,8 +142,6 @@
 :root.theme-extra-dark {
   --plaster: #10100e;
   --ember:   #e8785f;
-  --jade:    #5c9f92;
-  --butter:  #e2d00f;
   --pitch:   #f4eee7;
   --flint:   #928c87;
   --chalk:   #0f0e0d;
@@ -224,6 +216,57 @@ body {
 }
 
 /* ─────────────────────────────────────────
+   Text wrapping
+   Wrapping policy lives in one place rather than on each component, so the
+   set stays greppable and a new heading only has to join the list below.
+   Sizes and line-heights stay with their own rules — this sets wrapping only.
+   Loaded by every page, so it reaches the case-study, article and walkthrough
+   stylesheets too; none of them set text-wrap, so nothing here is overridden.
+───────────────────────────────────────── */
+
+/* pretty — the site-wide default. Inherits everywhere, leaves line breaking
+   essentially alone, and only protects the last line from a one-word orphan.
+   Anything that must not re-rag already carries white-space: nowrap, which
+   wins outright, so this is safe to set globally. */
+body {
+  text-wrap: pretty;
+}
+
+/* balance — headings and short display text only. Evens the rag so a two-line
+   title can't strand an orphan. Deliberately NOT global: browsers cap
+   balancing at a few lines (so it silently no-ops on body copy), it re-runs
+   the line breaker on every resize — expensive against a fluid clamp scale —
+   and an even rag reads as machined in a paragraph. Selectors whose rule
+   already sets white-space: nowrap are omitted: balance can't apply there
+   (.projects-cta-btn, .nav-wordmark, .nav-panel-mode-label, .pw-title). */
+h1,
+.hero h1,
+.h3,
+.h4,
+.thinking-headline,
+.history-group-title,
+.history-title,
+.writing-title,
+.project-title,
+.article-title,
+.about-principle-name,
+.about-bio-title,
+.nav-panel-word,
+/* case-study.css */
+.cs2-headline,
+.cs2-tagline,
+.cs2-problem-title,
+.cs-section-title,
+/* article.css */
+.article-section-title,
+.article-toc-title,
+/* walkthrough decks */
+.nw-title,
+.bw-title {
+  text-wrap: balance;
+}
+
+/* ─────────────────────────────────────────
    Background grid
 ───────────────────────────────────────── */
 .bg-grid {
@@ -289,7 +332,6 @@ body {
     repeating-linear-gradient(to bottom, var(--glow-color) 0px, var(--glow-color) 1px, transparent 1px, transparent 32px);
   -webkit-mask-image: radial-gradient(circle var(--glow-radius) at var(--gx, -9999px) var(--gy, -9999px), #000 0%, rgba(0,0,0,0.35) 30%, transparent 60%);
   mask-image: radial-gradient(circle var(--glow-radius) at var(--gx, -9999px) var(--gy, -9999px), #000 0%, rgba(0,0,0,0.35) 30%, transparent 60%);
-  will-change: mask-image;
 }
 .grid-glow.is-active {
   opacity: 1;
@@ -328,15 +370,33 @@ body {
 }
 
 .site-header.scrolled {
+  /* Fallback for engines without backdrop-filter: stay fully opaque, since a
+     translucent bar with no blur behind it is unreadable over the grid. */
   background: var(--chalk);
   border-bottom-color: var(--shale);
 }
 
+/* Frosted bar once the page scrolls. The tint is mixed from --chalk rather
+   than hard-coded, so it re-maps with the theme like every other surface.
+   backdrop-filter isn't in the transition: it can't interpolate from `none`,
+   and the 0.2s background fade already carries the change perceptually. */
+@supports (backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px)) {
+  .site-header.scrolled {
+    background: color-mix(in srgb, var(--chalk) 72%, transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
+
 /* While the menu is open the header shows the panel (plaster) through it, so
-   drop the scrolled chalk background — header and panel stay the same colour. */
-:root.nav-open .site-header {
+   drop the scrolled chalk background — header and panel stay the same color.
+   The blur goes with it: it would frost the panel sliding underneath. */
+:root.nav-open .site-header,
+:root.nav-open .site-header.scrolled {
   background: transparent;
   border-bottom-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .nav-inner {
@@ -381,37 +441,6 @@ body {
 
 .nav-mark:hover .nav-wordmark {
   color: var(--ember);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.nav-jump-links {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-
-.nav-link {
-  font-size: var(--text-body-sm);
-  font-weight: 700;
-  color: var(--pitch);
-  text-decoration: none;
-  position: relative;
-  transition: color 0.2s ease;
-}
-
-.nav-divider {
-  display: block;
-  width: 1px;
-  height: 16px;
-  background: var(--shale);
-  flex-shrink: 0;
-  /* 12px on either side of the pipe (nav-links gap is 24px; -12 trims each side) */
-  margin: 0 -12px;
 }
 
 .nav-icon-link {
@@ -516,27 +545,6 @@ body {
 .theme-toggle:hover {
   color: var(--ember);
   transform: rotate(360deg);
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  right: 0;
-  width: 0;
-  height: 2px;
-  background: var(--ember);
-  transition: width 0.25s ease;
-}
-
-.nav-link:hover {
-  color: var(--ember);
-}
-
-.nav-link:hover::after {
-  width: 100%;
-  right: auto;
-  left: 0;
 }
 
 /* ─────────────────────────────────────────
@@ -669,8 +677,6 @@ body {
 .nav-panel-item {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
   height: 96px;
   padding: 0 8px;
   border-bottom: 1px solid var(--metal);
@@ -697,20 +703,6 @@ body {
 .nav-panel-item:hover .nav-panel-word,
 .nav-panel-item:focus-visible .nav-panel-word {
   background-size: 100% 100%, 100% 100%;
-}
-.nav-panel-num {
-  flex-shrink: 0;
-  /* baseline-aligned with the word (the row is items-baseline) */
-  font-size: var(--text-body-xs);
-  font-weight: 700;
-  line-height: var(--text-body-xs-lh);
-  letter-spacing: 1.12px;
-  color: var(--metal);
-  transition: color 0.2s ease;
-}
-.nav-panel-item:hover .nav-panel-num,
-.nav-panel-item:focus-visible .nav-panel-num {
-  color: var(--flint);
 }
 /* On open the panel moves focus to the first item for accessibility. Suppress the
    browser's default outline for that (and any pointer) focus; show a clean ember
@@ -766,15 +758,15 @@ body {
   overflow: visible;
 }
 .nav-panel-graphic circle { transition: fill 0.32s ease; }
-/* Outer disks carry an 8px stroke in the panel-bg colour so overlaps read as a
-   clean seam. Inner disk is a plaster "hole"; outer + center colours vary. */
+/* Outer disks carry an 8px stroke in the panel-bg color so overlaps read as a
+   clean seam. Inner disk is a plaster "hole"; outer + center colors vary. */
 .nav-panel-graphic .Lo,
 .nav-panel-graphic .Ro { stroke: var(--plaster); stroke-width: 8; }
 .nav-panel-graphic .Lc,
 .nav-panel-graphic .Rc,
 .nav-panel-graphic .X  { fill: var(--plaster); }
 /* Cream body with a single ember accent. Only the outer disks (Lo/Ro) swap
-   colour per state; centre dots stay cream, and the about accent (Lx) is ember.
+   color per state; centre dots stay cream, and the about accent (Lx) is ember.
    --pitch is the theme foreground (cream on dark, ink on light). */
 /* rest — ember on the large right disk */
 .nav-panel-graphic .Lo { fill: var(--pitch); }
@@ -1298,7 +1290,7 @@ h1,
   object-fit: cover;
 }
 
-/* Article thumbnails: desaturated at rest, full colour on hover (in sync with
+/* Article thumbnails: desaturated at rest, full color on hover (in sync with
    the ember stroke). Grayscale on the container composes cleanly with the
    dark-mode img filters, so no per-theme overrides are needed. */
 .article-image {
@@ -1522,7 +1514,7 @@ h1.article-title {
   padding: 120px 160px 0;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 32px;
 }
 
 .photos-top {
@@ -1573,7 +1565,7 @@ h1.article-title {
 
 .photos-grid {
   display: flex;
-  gap: 52px;
+  gap: 48px;
   align-items: center;
 }
 
@@ -1883,7 +1875,7 @@ h1.article-title {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 48px 48px 32px;
+  padding: 32px;
 }
 .history-card-head {
   display: flex;
@@ -1896,9 +1888,9 @@ h1.article-title {
   flex-wrap: wrap;
 }
 .history-title {
-  font-size: var(--text-h4);
+  font-size: var(--text-h5);
   font-weight: 700;
-  line-height: var(--text-h4-lh);
+  line-height: var(--text-h5-lh);
   color: var(--pitch);
 }
 .history-date {
@@ -2037,9 +2029,9 @@ h1.article-title {
   color: var(--flint);
 }
 .writing-title {
-  font-size: var(--text-h4);
+  font-size: var(--text-h5);
   font-weight: 700;
-  line-height: var(--text-h4-lh);
+  line-height: var(--text-h5-lh);
   color: var(--pitch);
 }
 .writing-desc {
@@ -2214,13 +2206,11 @@ h1.article-title {
     gap: 20px;
   }
   .history-card-body {
-    padding: 24px 24px 20px;
-    gap: 16px;
+    padding: 24px;
+    gap: 24px;
   }
   .history-card-head {
     gap: 12px;
-  }
-  .history-title {
   }
   .history-date {
     letter-spacing: 0.96px;

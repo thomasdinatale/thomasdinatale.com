@@ -1,5 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/article/apple-watch-app-product-design-nara-baby-tracker",
+      "destination": "/writing",
+      "permanent": false
+    }
+  ]
 }

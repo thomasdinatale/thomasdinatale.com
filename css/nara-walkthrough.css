@@ -34,7 +34,7 @@
   --nw-slide-w: 1440;
   --nw-slide-h: 816;
 
-  /* Device chrome from the comp, not a site colour — the phone bezel on
+  /* Device chrome from the comp, not a site color — the phone bezel on
      screen 06. Deliberately not themed: it is part of the hardware, and the
      same grey Figma draws in both the light and dark screens. */
   --nw-bezel: #454545;

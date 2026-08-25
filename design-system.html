@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Design System — Thomas DiNatale</title>
-  <meta name="description" content="The living reference for thomasdinatale.com: color tokens, the fluid type scale, spacing, radii, elevation, and the components they build, rendered live from the CSS the site actually ships." />
+  <meta name="description" content="The design system behind thomasdinatale.com, built in Figma and shipped with Claude Code: color tokens, the fluid type scale, spacing, radii, elevation, and components shown as both component classes and Tailwind utilities that point back to the same CSS variables." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.thomasdinatale.com/design-system" />
   <meta property="og:title" content="Design System — Thomas DiNatale" />
-  <meta property="og:description" content="The living reference for thomasdinatale.com: color tokens, the fluid type scale, spacing, radii, elevation, and the components they build, rendered live from the CSS the site actually ships." />
+  <meta property="og:description" content="The design system behind thomasdinatale.com, built in Figma and shipped with Claude Code: color tokens, the fluid type scale, spacing, radii, elevation, and components shown as both component classes and Tailwind utilities that point back to the same CSS variables." />
   <meta property="og:image" content="https://www.thomasdinatale.com/assets/images/og-image.webp" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Design System — Thomas DiNatale" />
-  <meta name="twitter:description" content="The living reference for thomasdinatale.com: color tokens, the fluid type scale, spacing, radii, elevation, and the components they build, rendered live from the CSS the site actually ships." />
+  <meta name="twitter:description" content="The design system behind thomasdinatale.com, built in Figma and shipped with Claude Code: color tokens, the fluid type scale, spacing, radii, elevation, and components shown as both component classes and Tailwind utilities that point back to the same CSS variables." />
   <meta name="twitter:image" content="https://www.thomasdinatale.com/assets/images/og-image.webp" />
   <link rel="canonical" href="https://www.thomasdinatale.com/design-system" />
   <script type="application/ld+json">
@@ -20,7 +20,7 @@
       "@context": "https://schema.org",
       "@type": "WebPage",
       "name": "Design System",
-      "description": "The living reference for thomasdinatale.com: color tokens, the fluid type scale, spacing, radii, elevation, and the components they build, rendered live from the CSS the site actually ships.",
+      "description": "The design system behind thomasdinatale.com, built in Figma and shipped with Claude Code: color tokens, the fluid type scale, spacing, radii, elevation, and components shown as both component classes and Tailwind utilities that point back to the same CSS variables.",
       "url": "https://www.thomasdinatale.com/design-system",
       "isPartOf": {
           "@id": "https://www.thomasdinatale.com/#website",
@@ -85,16 +85,19 @@
     /* Each documentation block is a card, like the other pages' sections */
     .pg-module { background: var(--chalk); border: 2px solid var(--cloud); border-radius: var(--radius-md); padding: 48px; margin-bottom: 24px; }
     .hero code, .pg-section-sub code { color: var(--ember); font-family: inherit; }
+    /* .hero's own 40px gap stays between the h1 and the copy block; inside the
+       block, paragraphs take the tighter 24px body rhythm used on case studies. */
+    .hero-copy { display: flex; flex-direction: column; gap: 24px; }
     .pg-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; margin-bottom: 24px; padding: 32px 48px; border: 2px solid var(--cloud); border-radius: var(--radius-md); background: var(--chalk); }
     .pg-toolbar p { font-size: var(--text-body); line-height: var(--text-body-lh); color: var(--pitch); margin: 0; }
     .pg-toolbar-btns { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
     .pg-btn { font: inherit; font-size: var(--text-body-sm); font-weight: 600; line-height: 1.5; padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--shale); background: var(--chalk); color: var(--pitch); cursor: pointer; }
     .pg-btn[aria-pressed="true"] { border-color: var(--ember); color: var(--ember); }
-    .pg-section-h { font-size: var(--text-h4); font-weight: 700; line-height: var(--text-h4-lh); color: var(--pitch); margin: 0 0 24px; }
+    .pg-section-h { font-size: var(--text-h5); font-weight: 700; line-height: var(--text-h5-lh); color: var(--pitch); margin: 0 0 24px; }
     .pg-section-sub { font-size: var(--text-body); line-height: var(--text-body-lh); color: var(--pitch); margin: 0 0 28px; }
     /* Code block — monospace on a recessed plaster surface inside the chalk
        module. First used by the Hover & motion section. */
-    .pg-code { margin: 12px 0 0; padding: 12px 14px; background: var(--plaster); border: 1px solid var(--shale); border-radius: var(--radius-sm); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; line-height: 1.7; color: var(--pitch); overflow-x: auto; white-space: pre; }
+    .pg-code { margin: 12px 0 0; padding: 12px 14px; background: var(--plaster); border: 1px solid var(--shale); border-radius: var(--radius-sm); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); line-height: 1.7; color: var(--pitch); overflow-x: auto; white-space: pre; }
     .pg-code b { font-weight: 400; color: var(--ember); }
 
     /* Motion token table */
@@ -103,10 +106,10 @@
     .pg-motion-row:last-child { border-bottom: 0; }
     /* Scoped to the first column — an unscoped `code` rule here would also make
        the inline code inside the description column break onto its own line. */
-    .pg-motion-row > div:first-child code { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; font-weight: 600; color: var(--ember); }
-    .pg-motion-row .val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--flint); }
+    .pg-motion-row > div:first-child code { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-body-xs); font-weight: 600; color: var(--ember); }
+    .pg-motion-row .val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--flint); }
     .pg-motion-row .use { font-size: var(--text-body-sm); line-height: var(--text-body-sm-lh); color: var(--pitch); }
-    .pg-motion-row .use code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ember); }
+    .pg-motion-row .use code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--ember); }
 
     /* Live specimens — each stage is the hover target */
     .pg-demos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
@@ -126,29 +129,29 @@
     .pg-spin svg { display: block; transition: transform .6s ease; }
     .pg-demo-stage:hover .pg-spin svg { transform: rotate(360deg); }
 
-    .pg-hint { display: inline-block; margin: 0 0 20px; font-size: 13px; color: var(--pitch); background: var(--linen); border: 1px solid var(--shale); border-radius: 6px; padding: 6px 12px; }
+    .pg-hint { display: inline-block; margin: 0 0 20px; font-size: var(--text-body-xs); color: var(--pitch); background: var(--linen); border: 1px solid var(--shale); border-radius: var(--radius-sm); padding: 6px 12px; }
     /* Trailing note under a module's specimens — plain copy, no chip. Distinct
        from .pg-hint, which is an instruction that sits ABOVE the content and
        keeps its linen chip + bottom margin. */
-    .pg-note { display: block; margin: 16px 0 0; font-size: 13px; line-height: 1.6; color: var(--pitch); }
-    .pg-note code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ember); }
-    .pg-hint code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ember); }
+    .pg-note { display: block; margin: 16px 0 0; font-size: var(--text-body-xs); line-height: 1.6; color: var(--pitch); }
+    .pg-note code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--ember); }
+    .pg-hint code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--ember); }
     /* Color swatches */
     .pg-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
-    .pg-swatch { border: 1px solid var(--shale); border-radius: 12px; overflow: hidden; background: var(--chalk); }
+    .pg-swatch { border: 1px solid var(--shale); border-radius: var(--radius-md); overflow: hidden; background: var(--chalk); }
     .pg-swatch .chip { height: 72px; box-shadow: inset 0 0 0 1px var(--shale); }
     .pg-swatch .meta { padding: 12px; border-top: 1px solid var(--shale); }
     /* Role leads, in the weight/size/color the token name used to carry, then
        the utility class, then the live hex. Each on its own line. */
-    .pg-swatch .meta b { display: block; font-size: 14px; font-weight: 600; color: var(--pitch); margin-bottom: 4px; }
-    .pg-swatch .meta code { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--ember); margin-bottom: 4px; }
-    .pg-swatch .meta .hex { display: block; font-size: 11px; color: var(--flint); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
+    .pg-swatch .meta b { display: block; font-size: var(--text-caption); font-weight: 600; color: var(--pitch); margin-bottom: 4px; }
+    .pg-swatch .meta code { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--ember); margin-bottom: 4px; }
+    .pg-swatch .meta .hex { display: block; font-size: var(--text-tooltip); color: var(--flint); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
     /* Type + spec rows */
     .pg-rows { border-top: 1px solid var(--shale); }
     .pg-row { display: grid; grid-template-columns: 190px 1fr; gap: 24px; align-items: baseline; padding: 20px 0; border-bottom: 1px solid var(--shale); }
-    .pg-row .tk code { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; font-weight: 600; color: var(--ember); }
-    .pg-row .tk .rng { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--flint); margin-top: 3px; }
-    .pg-row .tk .fluid { display: inline-block; margin-top: 6px; font-size: 11px; padding: 2px 6px; border-radius: 4px; border: 1px solid var(--shale); color: var(--flint); }
+    .pg-row .tk code { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-body-xs); font-weight: 600; color: var(--ember); }
+    .pg-row .tk .rng { display: block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--flint); margin-top: 3px; }
+    .pg-row .tk .fluid { display: inline-block; margin-top: 6px; font-size: var(--text-tooltip); padding: 2px 6px; border-radius: var(--radius-sm); border: 1px solid var(--shale); color: var(--flint); }
     .pg-row .sample { min-width: 0; overflow-wrap: anywhere; color: var(--pitch); }
     .pg-row .sample.muted { color: var(--flint); }
     /* Component comparison grid */
@@ -162,62 +165,62 @@
       .pg-motion-row { grid-template-columns: 1fr; gap: 4px; }
     }
     .pg-col-label { display: flex; align-items: baseline; gap: 8px; margin-bottom: 16px; }
-    .pg-col-label b { font-size: 16px; font-weight: 700; color: var(--pitch); }
-    .pg-col-label em { font-size: 13px; font-style: normal; color: var(--flint); }
+    .pg-col-label b { font-size: var(--text-body-sm); font-weight: 700; color: var(--pitch); }
+    .pg-col-label em { font-size: var(--text-body-xs); font-style: normal; color: var(--flint); }
     .pg-card-max { max-width: 460px; }
-    .pg-callout { margin-top: 32px; padding: 16px 20px; border-left: 3px solid var(--ember); background: var(--linen); border-radius: 0 8px 8px 0; }
-    .pg-callout p { margin: 0 0 8px; font-size: 15px; line-height: 1.6; color: var(--pitch); }
+    .pg-callout { margin-top: 32px; padding: 16px 20px; border-left: 3px solid var(--ember); background: var(--linen); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+    .pg-callout p { margin: 0 0 8px; font-size: var(--text-body-sm); line-height: 1.6; color: var(--pitch); }
     .pg-callout p:last-child { margin-bottom: 0; }
-    .pg-callout code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: var(--ember); }
+    .pg-callout code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-body-xs); color: var(--ember); }
     /* Icon grid */
     .pg-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
-    .pg-icon { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; border: 1px solid var(--shale); border-radius: 12px; background: var(--chalk); padding: 20px; }
+    .pg-icon { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; border: 1px solid var(--shale); border-radius: var(--radius-md); background: var(--chalk); padding: 20px; }
     .pg-icon .ic { color: var(--pitch); transition: color 0.2s ease; }
     .pg-icon:hover .ic { color: var(--ember); }
-    .pg-icon .lbl b { display: block; font-size: 14px; font-weight: 600; color: var(--pitch); }
-    .pg-icon .lbl code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: var(--ember); }
-    .pg-icon .lbl em { display: block; font-style: normal; font-size: 12px; color: var(--flint); margin-top: 3px; }
+    .pg-icon .lbl b { display: block; font-size: var(--text-caption); font-weight: 600; color: var(--pitch); }
+    .pg-icon .lbl code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--ember); }
+    .pg-icon .lbl em { display: block; font-style: normal; font-size: var(--text-tooltip); color: var(--flint); margin-top: 3px; }
     /* Background-grid demo: same token + 33px step as the live .bg-grid */
-    .pg-griddemo { position: relative; height: 260px; border: 1px solid var(--shale); border-radius: 12px; overflow: hidden; background: var(--plaster); }
+    .pg-griddemo { position: relative; height: 260px; border: 1px solid var(--shale); border-radius: var(--radius-md); overflow: hidden; background: var(--plaster); }
     .pg-griddemo::before, .pg-griddemo::after { content: ''; position: absolute; inset: 0; }
     .pg-griddemo::before { background-image: repeating-linear-gradient(to right, var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 32px); }
     .pg-griddemo::after { background-image: repeating-linear-gradient(to bottom, var(--grid-line) 0px, var(--grid-line) 1px, transparent 1px, transparent 32px); }
-    .pg-griddemo .cell { position: absolute; top: 32px; left: 32px; width: 128px; height: 96px; border: 1px solid var(--ember); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--ember); background: color-mix(in srgb, var(--ember) 8%, transparent); }
+    .pg-griddemo .cell { position: absolute; top: 32px; left: 32px; width: 128px; height: 96px; border: 1px solid var(--ember); border-radius: var(--radius-xs); display: flex; align-items: center; justify-content: center; font-size: var(--text-tooltip); color: var(--ember); background: color-mix(in srgb, var(--ember) 8%, transparent); }
     /* Spacing scale: each bar is drawn at calc(var(--spacing) * n), reading the live 4px base */
     .pg-scale { border-top: 1px solid var(--shale); }
     .pg-scale-row { display: grid; grid-template-columns: 190px 1fr; gap: 24px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--shale); }
     .pg-scale-row .tk { display: flex; align-items: baseline; gap: 10px; }
-    .pg-scale-row .tk code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; font-weight: 600; color: var(--ember); }
-    .pg-scale-row .tk .px { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--flint); }
-    .pg-bar { height: 16px; background: var(--ember); border-radius: 2px; }
+    .pg-scale-row .tk code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-body-xs); font-weight: 600; color: var(--ember); }
+    .pg-scale-row .tk .px { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--flint); }
+    .pg-bar { height: 16px; background: var(--ember); border-radius: var(--radius-xs); }
     /* Radii */
     .pg-radii { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     @media (max-width: 768px) { .pg-radii { grid-template-columns: repeat(2, 1fr); } }
-    .pg-radius { display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--shale); border-radius: 12px; background: var(--chalk); padding: 20px; }
+    .pg-radius { display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--shale); border-radius: var(--radius-md); background: var(--chalk); padding: 20px; }
     .pg-radius .box { height: 72px; border: 1px solid var(--ember); background: color-mix(in srgb, var(--ember) 12%, transparent); }
-    .pg-radius b { font-size: 14px; font-weight: 600; color: var(--pitch); }
-    .pg-radius code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: var(--ember); }
-    .pg-radius em { font-style: normal; font-size: 12px; color: var(--flint); }
+    .pg-radius b { font-size: var(--text-caption); font-weight: 600; color: var(--pitch); }
+    .pg-radius code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--ember); }
+    .pg-radius em { font-style: normal; font-size: var(--text-tooltip); color: var(--flint); }
     /* Elevation demo sits on a deliberately light surface in every theme: the signature
        shadows are dark-on-light (used on chalk/cloud cards) and vanish on the dark page.
        Ink is fixed to the light-theme token values to match that surface. */
-    .pg-elev { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 32px 24px; background: var(--chalk); border: 1px solid var(--shale); border-radius: 16px; padding: 44px 28px; }
+    .pg-elev { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 32px 24px; background: var(--chalk); border: 1px solid var(--shale); border-radius: var(--radius-md); padding: 44px 28px; }
     .pg-elev-item { display: flex; flex-direction: column; gap: 14px; }
-    .pg-elev-swatch { height: 88px; background: #ffffff; border-radius: 12px; }
+    .pg-elev-swatch { height: 88px; background: #ffffff; border-radius: var(--radius-md); }
     .pg-elev-swatch.card-hover { box-shadow: 0 12px 40px rgba(26,24,25,0.08); }
     .pg-elev-swatch.media { box-shadow: 0 16px 48px rgba(0,0,0,0.16); }
     .pg-elev-swatch.video { box-shadow: 0 16px 48px rgba(0,0,0,0.25); }
-    .pg-elev-item b { font-size: 14px; font-weight: 600; color: #302d2f; }
-    .pg-elev-item code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: #d24f39; }
-    .pg-elev-item .val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: var(--flint); }
+    .pg-elev-item b { font-size: var(--text-caption); font-weight: 600; color: #302d2f; }
+    .pg-elev-item code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: #d24f39; }
+    .pg-elev-item .val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--flint); }
     /* Calls to action */
     .pg-ctas { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; align-items: start; }
-    .pg-ctademo { display: flex; flex-direction: column; gap: 16px; border: 1px solid var(--shale); border-radius: 12px; background: var(--chalk); padding: 24px; }
+    .pg-ctademo { display: flex; flex-direction: column; gap: 16px; border: 1px solid var(--shale); border-radius: var(--radius-md); background: var(--chalk); padding: 24px; }
     .pg-ctademo .stage { display: flex; align-items: center; min-height: 44px; color: var(--pitch); font-size: var(--text-body-sm); }
     .pg-ctademo .stage .panel-link { align-self: center; }
-    .pg-ctademo .lbl b { display: block; font-size: 14px; font-weight: 600; color: var(--pitch); }
-    .pg-ctademo .lbl code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: var(--ember); }
-    .pg-ctademo .lbl em { display: block; font-style: normal; font-size: 12px; color: var(--flint); margin-top: 4px; }
+    .pg-ctademo .lbl b { display: block; font-size: var(--text-caption); font-weight: 600; color: var(--pitch); }
+    .pg-ctademo .lbl code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--ember); }
+    .pg-ctademo .lbl em { display: block; font-style: normal; font-size: var(--text-tooltip); color: var(--flint); margin-top: 4px; }
   </style>
   <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;if(t==='light')c.add('theme-light');else c.add('theme-extra-dark');}catch(e){}})();</script>
 </head>
@@ -256,22 +259,18 @@
       <nav class="nav-panel-menu" aria-label="Primary">
         <a class="nav-panel-item nav-stagger" style="--si:0" href="/work" data-nav-circle="work">
           <span class="nav-panel-word">Work</span>
-          <span class="nav-panel-num">01</span>
         </a>
         <a class="nav-panel-item nav-stagger" style="--si:1" href="/writing" data-nav-circle="writing">
           <span class="nav-panel-word">Writing</span>
-          <span class="nav-panel-num">02</span>
         </a>
         <a class="nav-panel-item nav-stagger" style="--si:2" href="/#about" data-nav-circle="about">
           <span class="nav-panel-word">About</span>
-          <span class="nav-panel-num">03</span>
         </a>
         <a class="nav-panel-item nav-stagger" style="--si:3" href="/design-system" data-nav-circle="system">
           <span class="nav-panel-word">System</span>
-          <span class="nav-panel-num">04</span>
         </a>
       </nav>
-      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. You can reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
+      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
     </div>
     <div class="nav-panel-graphic" aria-hidden="true" data-nav-graphic>
       <svg viewBox="0 0 720 450" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -302,25 +301,44 @@
 <div class="page">
 
   <!-- The page header uses the site's real .hero component (same as the
-       homepage) rather than page-local type, so spacing, fluid size and
-       measure can't drift from /. -->
+       homepage) rather than page-local type, so padding, fluid size and
+       measure can't drift from /. The one local addition is .hero-copy: this
+       is the only hero on the site with more than one paragraph, and .hero's
+       40px gap is the h1-to-copy step, not a paragraph rhythm. -->
   <section class="hero">
-    <h1>Design system</h1>
-    <p>
-      Colors and type are CSS custom properties in <code>styles.css</code>, the single
-      source of truth. Tailwind's <code>@theme inline</code> maps every type and color
-      utility (<code>text-h1</code>, <code>bg-ember</code>, …) to those same variables,
-      so what you see here and what ships can't drift. Spacing, radii, and shadows come
-      from the same values, but they're written out as literal tokens rather than live
-      variables, so those stay in sync by hand. On desktop, scale the browser window.
-      The type scale is fluid, so it interpolates continuously instead of snapping at
-      breakpoints.
-    </p>
+    <h1 class="fade-in">Design system</h1>
+    <div class="hero-copy">
+      <p class="fade-in">
+        I built this design system in Figma, designed my site with it, and evolved it as
+        the site grew. This page is the system as it actually ships.
+      </p>
+      <p class="fade-in">
+        The site itself is built with Claude Code. I don't write the CSS. Every color and
+        type value is defined once, as a CSS custom property in <code>styles.css</code>, and
+        Tailwind's <code>@theme inline</code> maps each utility (<code>text-h1</code>,
+        <code>bg-ember</code>) back to those same variables. A utility isn't a copy of a
+        token. It's a pointer to one.
+      </p>
+      <p class="fade-in">
+        I built this page to understand and visualize that. Three components below exist in
+        both forms: as component classes, and composed from Tailwind utilities. Reading them
+        side by side is how variables and utilities stopped being abstract to me.
+      </p>
+      <p class="fade-in">
+        Colors change with theme. Type changes with viewport. Spacing, radii and shadows
+        change with neither, so they're written as fixed tokens rather than live variables.
+        The indirection only earns its keep where something has to move.
+      </p>
+      <p class="fade-in">
+        On desktop, resize the browser. The type scale is fluid, so sizes interpolate
+        continuously instead of snapping at breakpoints.
+      </p>
+    </div>
   </section>
 
   <div class="pg-wrap">
     <div class="pg-toolbar" role="group" aria-label="Theme">
-      <p>Select a theme to update the site styles.</p>
+      <p>Pick a theme. Every value on this page repaints with it.</p>
       <div class="pg-toolbar-btns">
         <button class="pg-btn" data-theme="theme-extra-dark" aria-pressed="true">Extra dark</button>
         <button class="pg-btn" data-theme="theme-dark" aria-pressed="false">Dark</button>
@@ -333,8 +351,9 @@
     <h2 class="pg-section-h">Colors</h2>
     <p class="pg-section-sub">
       Nine tokens, three themes. Every swatch is painted with a real
-      <code>bg-*</code> utility that resolves to a live <code>var()</code>. Flip
-      the theme buttons and both the swatch and its value re-map at once.
+      <code>bg-*</code> utility that resolves to a live <code>var()</code>. There
+      isn't a hard-coded hex on this page. Switch themes and the swatch and its
+      value change together.
     </p>
     <div class="pg-swatches">
       <div class="pg-swatch"><div class="chip bg-plaster"></div><div class="meta"><b>Page background</b><code>bg-plaster</code><span class="hex">#f5f0eb</span></div></div>
@@ -349,12 +368,12 @@
     </div>
 
     <p class="pg-section-sub" style="margin-top: 20px;">
-      Beyond the core nine, five brand accents live in <code>styles.css</code> as
-      tokens — the fill each project card animates to on hover:
+      Five brand accents sit alongside the core nine in <code>styles.css</code>:
       <code>--accent-primer</code>, <code>--accent-butcherbox</code>,
-      <code>--accent-nara</code>, <code>--accent-blueapron</code>, and
-      <code>--accent-grapevine</code>. They're intentionally per-project, so they're
-      referenced here rather than shown as part of the shared palette.
+      <code>--accent-nara</code>, <code>--accent-blueapron</code>,
+      <code>--accent-grapevine</code>. Each one is the fill its project card animates
+      to on hover. They belong to a single project apiece, so they're named here
+      rather than shown as part of the shared palette.
     </p>
 
     </section>
@@ -363,13 +382,12 @@
     <section class="pg-module">
     <h2 class="pg-section-h">Background grid</h2>
     <p class="pg-section-sub">
-      The whole site sits on a viewport-fixed lattice. 1px lines every 32px,
-      painted at the <code>--grid-line</code> token (5% ink, which inverts per
-      theme so it reads on light and dark alike). It is <code>position: fixed</code>
-      with <code>pointer-events: none</code> at <code>z-index: 0</code>, so content
-      scrolls over a grid that never moves. A top fade (<code>--plaster</code> to
-      transparent) keeps the header area clean, and on desktop a cursor glow
-      lights the nearest lines in ember.
+      The site sits on a fixed lattice: 1px lines every 32px, painted at
+      <code>--grid-line</code> at 5% ink, inverted per theme so it reads on light
+      and dark alike. It's <code>position: fixed</code> with
+      <code>pointer-events: none</code> at <code>z-index: 0</code>. Content scrolls,
+      the grid holds still. A <code>--plaster</code>-to-transparent fade keeps the
+      header clear, and on desktop the cursor lights the nearest lines in ember.
     </p>
     <div class="pg-griddemo">
       <div class="cell">32px cells</div>
@@ -382,25 +400,25 @@
     <section class="pg-module">
     <h2 class="pg-section-h">Type scale</h2>
     <p class="pg-section-sub">
-      Headings <b>H1–H6</b> then the <b>Body</b> scale, all Libre Franklin, all
-      rendered with real <code>text-*</code> utilities bridged to the tokens. Each
-      utility carries its line-height. Rows marked <b>fluid</b> scale with the
-      viewport (<code>clamp</code>, 375→1440px). Drag the window to watch them.
+      Six heading sizes, then the body scale. All Libre Franklin, all rendered with
+      real <code>text-*</code> utilities bridged to the tokens, each carrying its own
+      line-height. Rows marked <b>fluid</b> scale with the viewport via
+      <code>clamp</code>, 375 to 1440px.
     </p>
-    <span class="pg-hint">↔ Drag the browser width. H1–H5 and Body Large/Medium glide between their mobile and desktop sizes; H6 and the smaller styles hold fixed.</span>
+    <span class="pg-hint">↔ Drag the browser width. H1–H5 and Body Large/Medium move between their mobile and desktop sizes. Body and everything below it holds fixed.</span>
     <div class="pg-rows">
-      <div class="pg-row"><div class="tk"><code>text-h1</code><span class="rng">48 → 80 / 1.0 · 800</span><span class="fluid">fluid</span></div><div class="sample text-h1 font-extrabold">Design systems</div></div>
-      <div class="pg-row"><div class="tk"><code>text-h2</code><span class="rng">44 → 64 / 1.0 · 700</span><span class="fluid">fluid</span></div><div class="sample text-h2 font-bold">Design systems</div></div>
-      <div class="pg-row"><div class="tk"><code>text-h3</code><span class="rng">36 → 48 / 1.0 · 700</span><span class="fluid">fluid</span></div><div class="sample text-h3 font-bold">Design systems</div></div>
-      <div class="pg-row"><div class="tk"><code>text-h4</code><span class="rng">32 → 40 / 1.1 · 600</span><span class="fluid">fluid</span></div><div class="sample text-h4 font-semibold">Design systems</div></div>
-      <div class="pg-row"><div class="tk"><code>text-h5</code><span class="rng">28 → 32 / 1.40 · 600</span><span class="fluid">fluid</span></div><div class="sample text-h5 font-semibold">Design systems</div></div>
-      <div class="pg-row"><div class="tk"><code>text-h6</code><span class="rng">24 / 1.30 · 600</span></div><div class="sample text-h6 font-semibold">Design systems that prevent drift</div></div>
-      <div class="pg-row"><div class="tk"><code>text-body-lg</code><span class="rng">22 → 24 / 1.6</span><span class="fluid">fluid</span></div><div class="sample text-body-lg">Design systems that prevent drift by making token choices visible in the markup.</div></div>
-      <div class="pg-row"><div class="tk"><code>text-body-md</code><span class="rng">20 → 22 / 1.6</span><span class="fluid">fluid</span></div><div class="sample text-body-md">Design systems that prevent drift by making token choices visible in the markup.</div></div>
-      <div class="pg-row"><div class="tk"><code>text-body</code><span class="rng">18 / 1.6</span></div><div class="sample text-body">Design systems that prevent drift by making token choices visible in the markup. This is the workhorse body style.</div></div>
-      <div class="pg-row"><div class="tk"><code>text-body-sm</code><span class="rng">16 / 1.6</span></div><div class="sample text-body-sm">Design systems that prevent drift by making token choices visible in the markup.</div></div>
-      <div class="pg-row"><div class="tk"><code>text-body-xs</code><span class="rng">14 / 1.6</span></div><div class="sample text-body-xs">Design systems that prevent drift by making token choices visible in the markup.</div></div>
-      <div class="pg-row"><div class="tk"><code>text-eyebrow</code><span class="rng">14 / 1.6 · 700 · caps</span></div><div class="sample text-eyebrow font-bold uppercase tracking-wide">Selected work</div></div>
+      <div class="pg-row"><div class="tk"><code>text-h1</code><span class="rng">48 → 80 / 1.0 · 800</span><span class="fluid">fluid</span></div><div class="sample text-h1 font-extrabold">Mies van der Rohe</div></div>
+      <div class="pg-row"><div class="tk"><code>text-h2</code><span class="rng">44 → 64 / 1.0 · 700</span><span class="fluid">fluid</span></div><div class="sample text-h2 font-bold">Mies van der Rohe</div></div>
+      <div class="pg-row"><div class="tk"><code>text-h3</code><span class="rng">36 → 48 / 1.0 · 700</span><span class="fluid">fluid</span></div><div class="sample text-h3 font-bold">Mies van der Rohe</div></div>
+      <div class="pg-row"><div class="tk"><code>text-h4</code><span class="rng">32 → 40 / 1.1 · 600</span><span class="fluid">fluid</span></div><div class="sample text-h4 font-semibold">Mies van der Rohe</div></div>
+      <div class="pg-row"><div class="tk"><code>text-h5</code><span class="rng">28 → 32 / 1.40 · 600</span><span class="fluid">fluid</span></div><div class="sample text-h5 font-semibold">Mies van der Rohe</div></div>
+      <div class="pg-row"><div class="tk"><code>text-h6</code><span class="rng">24 / 1.30 · 600</span></div><div class="sample text-h6 font-semibold">Mies van der Rohe</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-lg</code><span class="rng">22 → 24 / 1.6</span><span class="fluid">fluid</span></div><div class="sample text-body-lg">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-md</code><span class="rng">20 → 22 / 1.6</span><span class="fluid">fluid</span></div><div class="sample text-body-md">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body</code><span class="rng">18 / 1.6</span></div><div class="sample text-body">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-sm</code><span class="rng">16 / 1.6</span></div><div class="sample text-body-sm">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-xs</code><span class="rng">14 / 1.6</span></div><div class="sample text-body-xs">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-eyebrow</code><span class="rng">14 / 1.6 · 700 · caps</span></div><div class="sample text-eyebrow font-bold uppercase tracking-wide">Farnsworth House</div></div>
       <div class="pg-row"><div class="tk"><code>text-caption</code><span class="rng">14 / 1.6</span></div><div class="sample text-caption muted">A caption sits under media and metrics. It is the smallest reading size.</div></div>
       <div class="pg-row"><div class="tk"><code>text-tooltip</code><span class="rng">12 / 1.6</span></div><div class="sample text-tooltip muted">Tooltip, the finest print in the system.</div></div>
     </div>
@@ -411,11 +429,12 @@
     <section class="pg-module">
     <h2 class="pg-section-h">Spacing</h2>
     <p class="pg-section-sub">
-      One scale on a 4px base (<code>--spacing: 0.25rem</code>) with an 8px
-      rhythm for most gaps and padding. Tailwind's <code>p-*</code>,
-      <code>gap-*</code>, and <code>m-*</code> utilities all step in 4px units, so
-      <code>gap-4</code> is 16px. Each bar is drawn at
-      <code>calc(var(--spacing) * n)</code>, measuring the live token.
+      One scale on a 4px base (<code>--spacing: 0.25rem</code>), with an 8px rhythm
+      carrying most gaps and padding. Tailwind's <code>p-*</code>,
+      <code>gap-*</code>, and <code>m-*</code> all step in 4px units, so
+      <code>gap-4</code> is 16px. Each bar below is drawn at
+      <code>calc(var(--spacing) * n)</code>, so you're measuring the live token, not
+      a picture of it.
     </p>
     <div class="pg-scale">
       <div class="pg-scale-row"><div class="tk"><code>4px</code><span class="px">gap-1 · p-1</span></div><div class="pg-bar" style="width:calc(var(--spacing)*1)"></div></div>
@@ -430,7 +449,7 @@
       <div class="pg-scale-row"><div class="tk"><code>64px</code><span class="px">gap-16 · p-16</span></div><div class="pg-bar" style="width:calc(var(--spacing)*16)"></div></div>
       <div class="pg-scale-row"><div class="tk"><code>80px</code><span class="px">gap-20 · p-20</span></div><div class="pg-bar" style="width:calc(var(--spacing)*20)"></div></div>
     </div>
-    <span class="pg-note">Larger rhythm values carry section padding: the hero is <code>80px 192px 0</code>, most sections use <code>160px</code> sides, collapsing to <code>16px</code> on mobile.</span>
+    <span class="pg-note">The larger steps carry section rhythm: the hero runs <code>80px 192px 0</code>, most sections use <code>160px</code> sides, collapsing to <code>16px</code> on mobile.</span>
 
     </section>
 
@@ -438,14 +457,14 @@
     <section class="pg-module">
     <h2 class="pg-section-h">Radii</h2>
     <p class="pg-section-sub">
-      Four corner radii carry the system, bridged as <code>rounded-*</code>
-      utilities. Larger radii read as softer, more prominent surfaces. Swatches use
-      the real utilities where they exist.
+      Four radii carry the system, bridged as <code>rounded-*</code> utilities. The
+      larger the radius, the softer and more prominent the surface reads. Swatches
+      use the real utilities wherever they exist.
     </p>
     <div class="pg-radii">
       <div class="pg-radius"><div class="box rounded-tag"></div><b>Tag</b><code>rounded-tag · 4px</code><em>Tags, tooltips, CTAs, close buttons</em></div>
       <div class="pg-radius"><div class="box rounded-well"></div><b>Well</b><code>rounded-well · 16px</code><em>Image wells, metric &amp; history cards</em></div>
-      <div class="pg-radius"><div class="box" style="border-radius:24px"></div><b>Panel</b><code>rounded-panel · 24px</code><em>Meta &amp; hero-image cards</em></div>
+      <div class="pg-radius"><div class="box" style="border-radius:var(--radius-lg)"></div><b>Panel</b><code>rounded-panel · 24px</code><em>Meta &amp; hero-image cards</em></div>
       <div class="pg-radius"><div class="box rounded-card"></div><b>Card</b><code>rounded-card · 32px</code><em>Project, article &amp; problem cards</em></div>
     </div>
 
@@ -455,10 +474,10 @@
     <section class="pg-module">
     <h2 class="pg-section-h">Elevation</h2>
     <p class="pg-section-sub">
-      Shadows are dark-on-light and reserved for surfaces that lift off the page:
-      <code>shadow-card-hover</code> for the card lift on hover, plus the heavier
-      <code>shadow-media</code> and <code>shadow-video</code> for hero imagery.
-      Shown on a light surface, where these shadows are built to sit.
+      Shadows are dark-on-light, reserved for surfaces that lift off the page.
+      <code>shadow-card-hover</code> handles the card lift; the heavier
+      <code>shadow-media</code> and <code>shadow-video</code> sit under hero imagery.
+      Shown here on a light surface, which is where they're built to sit.
     </p>
     <div class="pg-elev">
       <div class="pg-elev-item"><div class="pg-elev-swatch card-hover"></div><b>Card hover</b><code>shadow-card-hover</code><span class="val">0 12px 40px · 8% ink</span></div>
@@ -637,7 +656,7 @@
       The writing-index card. Same <code>gradient-stroke</code> border and
       <code>rounded-card</code> radius as the project card (unified, no drift).
       The image well sits desaturated at <code>brightness-[0.62]</code> and snaps
-      to full colour on card hover via <code>group-hover:brightness-100</code>.
+      to full color on card hover via <code>group-hover:brightness-100</code>.
     </p>
     <div class="pg-grid">
       <div>
@@ -677,7 +696,7 @@
     <h2 class="pg-section-h">Hover &amp; motion</h2>
     <p class="pg-section-sub">
       Five durations cover the whole site. The rule of thumb: the smaller the
-      change, the faster it resolves. A colour swap lands in <code>0.2s</code>,
+      change, the faster it resolves. A color swap lands in <code>0.2s</code>,
       a whole panel takes <code>0.35s</code>. Everything uses <code>ease</code>
       except the slide-out panel, which needs a sharper curve to feel like it is
       being pulled rather than floating. Hover any stage below to run it.
@@ -686,7 +705,7 @@
     <div class="pg-motion">
       <div class="pg-motion-row">
         <div><code>hover</code><span class="val">0.2s ease</span></div>
-        <div class="use">Colour, border-colour and background changes — links, buttons, tags.</div>
+        <div class="use">Color, border-color and background changes — links, buttons, tags.</div>
       </div>
       <div class="pg-motion-row">
         <div><code>transform</code><span class="val">0.3s ease</span></div>
@@ -758,7 +777,7 @@
 :hover svg { transform: rotate(360deg); }</pre>
       </div>
       <div>
-        <div class="pg-col-label"><b>Colour</b><em>hover · 0.2s ease</em></div>
+        <div class="pg-col-label"><b>Color</b><em>hover · 0.2s ease</em></div>
         <div class="pg-demo-stage"><a class="projects-cta-btn" href="#hover-motion">Hover this button</a></div>
         <pre class="pg-code">transition: <b>color</b> .2s ease, <b>border-color</b> .2s ease;
 :hover { color: var(--ember);
@@ -790,7 +809,6 @@
   </div>
 </footer>
 
-<script defer src="/_vercel/insights/script.js"></script>
 <script src="js/case-study.js"></script>
 <script>
   // Theme switcher for the showcase — flips any theme-* class (extensible: add a
@@ -838,5 +856,13 @@
     window.addEventListener('resize', updateNav);
   })();
 </script>
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
 </html>
