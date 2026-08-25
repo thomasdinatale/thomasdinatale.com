@@ -417,14 +417,14 @@
 }
 .pw-callout-title {
   font-size: calc(16 * var(--u));
-  line-height: 1.5;
+  line-height: 1.6;
   font-weight: 600;
 }
 .pw-callout-list {
   margin: 0;
   padding-left: calc(24 * var(--u));
   font-size: calc(16 * var(--u));
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* 14-16 keep all three feedback lines on screen and set ONE of them semibold —
@@ -438,7 +438,7 @@
    rhythm rather than needing a wrapper. */
 .pw-callout > p:not(.pw-callout-title) {
   font-size: calc(16 * var(--u));
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* ── Copy ────────────────────────────────────────────────────────────────
@@ -467,7 +467,7 @@
   font-size: calc(14 * var(--u));
   /* Figma "desktop/Caption" is 14/1.5; the --text-caption-lh token is 1.6.
      Honour the Figma value here — see the drifts note in DESIGN-SYSTEM.md. */
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
 }
 
@@ -515,7 +515,7 @@
 }
 .pw-metric-label {
   font-size: calc(16 * var(--u));
-  line-height: 1.5;            /* Figma "Body Small - Semibold" is 1.5, not 1.6 */
+  line-height: 1.6;            /* unified to 1.6 site-wide on 2026-08-25; Figma's "Body Small - Semibold" read 1.5 */
   font-weight: 600;
   color: var(--flint);
 }
@@ -533,7 +533,7 @@
 /* Screen 24's two columns — Figma "Body Medium - Regular", 22/1.5. */
 .pw-body-md {
   font-size: calc(22 * var(--u));
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--pitch);
 }
 
