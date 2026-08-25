@@ -1847,7 +1847,8 @@ h1.article-title {
   background: var(--cloud);
   border-left: 1px solid var(--shale);
   border-bottom: 1px solid var(--shale);
-  border-bottom-left-radius: 24px;
+  /* half the 32px height, so the corner stays a true quarter-round */
+  border-bottom-left-radius: 16px;
   color: var(--pitch);
   overflow: hidden;
   white-space: nowrap;
