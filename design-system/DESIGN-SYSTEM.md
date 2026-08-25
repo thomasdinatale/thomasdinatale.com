@@ -31,7 +31,7 @@ Full details in `tokens.json > typography.scale`. The workhorse is **body: 18px 
 | H2 section | 48 / 700 · lh 1.4 | Section headlines | `.thinking-headline`, `.about-headline` |
 | H2 problem | 32 / 700 · lh 1.4 | Problem cards, display tagline | `.cs2-problem-title`, `.cs2-tagline--display` |
 | Card title | 24 / 600 | Card + section titles | `.project-title`, `.cs-section-title`, `.history-group-title` |
-| Lead body | 24 / 400 · lh 1.6 | Hero / case-study lead | `.hero p` (**flint**), `.cs2-body p` (pitch) |
+| Lead body | 24 / 400 · lh 1.6 | Hero / case-study lead | `.hero p`, `.cs2-body p` — both pitch, both uncapped |
 | **Body** | **18 / 400 · lh 1.6** | **default paragraph** | `.cs-copy-block p`, `.article-section p` |
 | Body semibold | 18 / 600 · lh 1.6 | Sub-heads below a section title | `.text-body-semibold` (global), `.cs-body-semibold` (inline) |
 | Caption | 14–16 / 400 · flint | Image captions | `.cs2-cap`, `.cs-caption` |
