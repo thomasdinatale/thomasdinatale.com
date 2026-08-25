@@ -683,7 +683,7 @@ h1,
   display: flex;
   align-items: baseline;
   height: 96px;
-  padding: 0 8px;
+  padding: 0;
   text-decoration: none;
 }
 .nav-panel-word {
@@ -955,7 +955,11 @@ h1,
   font-size: var(--text-body-lg);
   font-weight: 400;
   line-height: var(--text-body-lg-lh);
-  color: var(--flint);
+  color: var(--pitch);
+  /* ~65 characters at 24px. Uncapped this runs the full 192→1248 text rail,
+     which is 78 characters — past a comfortable measure. Note the trade: the
+     right edge no longer lands on the card text's right edge. */
+  max-width: 800px;
 }
 
 /* ─────────────────────────────────────────
