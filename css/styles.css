@@ -1978,14 +1978,18 @@ h1.article-title {
   padding: 64px 160px 96px;
 }
 .writing-list {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  /* Cards size to their own copy rather than stretching to the tallest in the
+     row — titles here run one to three lines. */
+  align-items: start;
 }
 
-/* Full-width article row. Same card family as .article-card on the homepage —
-   gradient stroke, lift on hover, thumbnail brightening in sync — laid out
-   horizontally with the image alternating sides down the list. */
+/* Same card as .article-card on the homepage — gradient stroke, 32px padding,
+   24px between artwork and copy, lift and brighten on hover — but with a date
+   and an H5 title, since here the cards are the page rather than a footnote
+   to it. */
 .writing-card {
   position: relative;
   border: 1px solid transparent;
@@ -1995,7 +1999,7 @@ h1.article-title {
     var(--stroke-card) border-box;
   padding: 32px;
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   gap: 24px;
   text-decoration: none;
   color: inherit;
@@ -2006,14 +2010,7 @@ h1.article-title {
   transform: translateY(-4px);
   box-shadow: var(--shadow-card-hover);
 }
-/* Every other row leads with the image. */
-.writing-card--reverse {
-  flex-direction: row-reverse;
-}
-
 .writing-card-text {
-  flex: 1 1 0;
-  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -2039,17 +2036,12 @@ h1.article-title {
   color: var(--flint);
 }
 
-/* Proportional rather than a fixed 486px basis: there is no tablet breakpoint
-   between 768px and the 1440px max, so the image has to give ground on its own.
-   47.5% reproduces 486px inside the 1024px card at 1440, and keeps that ratio
-   all the way down. A fixed basis starved the text column to 0 around 900px,
-   where the title then overflowed on top of the image. */
+/* 2:1 per the Figma, and an aspect ratio rather than .article-image's fixed
+   243px so the artwork tracks the card at every width. */
 .writing-image {
-  flex: 0 1 47.5%;
-  min-width: 0;
-  aspect-ratio: 486 / 309;
+  aspect-ratio: 2 / 1;
   overflow: hidden;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   filter: brightness(0.62);
   transition: filter 0.5s ease;
 }
@@ -2062,20 +2054,13 @@ h1.article-title {
   object-fit: cover;
 }
 
-/* The 160px section inset costs 320px before the card even starts, so the row
-   layout runs out of measure early: below ~1120px the text column drops under
-   ~350px and a 32–40px headline wraps into slivers. Stack the card there
-   instead (image first, matching the mobile order); the 768px block still
-   handles padding and radius from there down. */
+/* The 160px section inset costs 320px before the cards start, so two columns
+   run out of room early: at 1121px each card is already down to ~390px, and
+   just under that an H5 title starts wrapping into slivers. One column from
+   here down; the 768px block takes over padding and radius. */
 @media (max-width: 1120px) {
-  .writing-card,
-  .writing-card--reverse {
-    flex-direction: column;
-  }
-  .writing-image {
-    order: -1;
-    flex: 0 0 auto;
-    width: 100%;
+  .writing-list {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -2209,19 +2194,9 @@ h1.article-title {
   .writing-list {
     gap: 20px;
   }
-  /* Both variants stack the same way on mobile — image first, then copy — so
-     the alternation doesn't turn into an arbitrary ordering shuffle. */
-  .writing-card,
-  .writing-card--reverse {
-    flex-direction: column;
+  .writing-card {
     padding: 24px;
     gap: 20px;
-  }
-  .writing-image {
-    order: -1;
-    flex: 0 0 auto;
-    width: 100%;
-    border-radius: var(--radius-md);
   }
   .writing-date {
     letter-spacing: 0.96px;
