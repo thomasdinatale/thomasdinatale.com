@@ -358,11 +358,13 @@ h1,
 .page {
   position: relative;
   z-index: 2;
-  /* 1280, not 1440: at 1440 the hero paragraph ran 1056px, which is 78
-     characters at Body Large. Narrowing the container instead of the
-     paragraph brings that to 67 while the card grid narrows with it, so the
-     192px text rail still closes on both edges and no orphan gap opens up. */
-  max-width: 1280px;
+  /* 1376 = the hero's 1280 plus a 48px shoulder on each side. Content
+     sections use this full width; .hero stays at 1280 and centres in it, so
+     cards and modules overhang the hero copy by 80px a side (48 here plus
+     the 32px the card box already sat outboard of the text). The hero
+     measure is unchanged at 896px; the text reads as sitting on the wider
+     content rather than sharing an edge with it. */
+  max-width: 1376px;
   margin: 0 auto;
 }
 
@@ -939,6 +941,10 @@ h1,
    Hero
 ───────────────────────────────────────── */
 .hero {
+  /* Narrower than .page on purpose — see the shoulder note there. Below the
+     768px breakpoint this never binds, so mobile is unaffected. */
+  max-width: 1280px;
+  margin: 0 auto;
   padding: 80px 192px 0;
   display: flex;
   flex-direction: column;

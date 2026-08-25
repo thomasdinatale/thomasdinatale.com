@@ -87,11 +87,13 @@ Every reusable pattern currently in the site, with its class and where it's defi
 
 ## Layout constants
 
-- Page max-width **1280px** (`.page`, all four index pages); case-study reading column **650px**;
-  article grid **667 + 405** (gap 50). The page cap is what bounds the hero paragraph — it has no
-  `max-width` of its own, deliberately, so its right edge stays on the same text rail as the card copy.
-- Section padding desktop **`80px 160px`** (hero `80px 192px`, so hero copy, group titles and card
-  text all share a **192px text rail** while the card boxes hang 32px outboard at 160px); nav **`16px 80px`**; mobile collapses sides to **16px** (articles/handoff use 24px).
+- Page max-width **1376px** (`.page`, all four index pages); `.hero` is capped at **1280px** and
+  centres inside it, giving content a **48px shoulder** on each side. Case-study reading column
+  **650px**; article grid **667 + 405** (gap 50). The hero paragraph has no `max-width` of its own,
+  deliberately — the hero box is what bounds it, at 896px.
+- Section padding desktop **`80px 160px`** (hero `80px 192px`). Cards and modules overhang the hero
+  copy by **80px** a side: 48px from the shoulder plus the 32px the card box already sat outboard of
+  its own text. Group titles and card text still share a rail with each other, 48px left of the hero.; nav **`16px 80px`**; mobile collapses sides to **16px** (articles/handoff use 24px).
 - Single responsive breakpoint: **`max-width: 768px`** (panel has an extra one at 879px).
 - Fixed background grid at **33px** cells (`.bg-grid`), plus `.bg-top-fade`.
 
