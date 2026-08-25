@@ -466,7 +466,7 @@
 @layer components {
   .gradient-stroke {
     border: 1px solid transparent;
-    background: linear-gradient(var(--chalk), var(--chalk)) padding-box, linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
+    background: var(--fill-card) padding-box, var(--stroke-card) border-box;
   }
 }
 @property --tw-rotate-x {

@@ -83,12 +83,12 @@
        line up under the .hero (192px) exactly as the homepage cards do. */
     .pg-wrap { padding: 64px 160px 96px; }
     /* Each documentation block is a card, like the other pages' sections */
-    .pg-module { background: var(--chalk); border: 2px solid var(--cloud); border-radius: var(--radius-md); padding: 48px; margin-bottom: 24px; }
+    .pg-module { border: 1px solid transparent; border-radius: var(--radius-xl); background: var(--fill-card) padding-box, var(--stroke-card) border-box; padding: 32px; margin-bottom: 24px; }
     .hero code, .pg-section-sub code { color: var(--ember); font-family: inherit; }
     /* .hero's own 40px gap stays between the h1 and the copy block; inside the
        block, paragraphs take the tighter 24px body rhythm used on case studies. */
     .hero-copy { display: flex; flex-direction: column; gap: 24px; }
-    .pg-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; margin-bottom: 24px; padding: 32px 48px; border: 2px solid var(--cloud); border-radius: var(--radius-md); background: var(--chalk); }
+    .pg-toolbar { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; margin-bottom: 24px; padding: 32px; border: 1px solid transparent; border-radius: var(--radius-xl); background: var(--fill-card) padding-box, var(--stroke-card) border-box; }
     .pg-toolbar p { font-size: var(--text-body); line-height: var(--text-body-lh); color: var(--pitch); margin: 0; }
     .pg-toolbar-btns { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
     .pg-btn { font: inherit; font-size: var(--text-body-sm); font-weight: 600; line-height: 1.5; padding: 8px 16px; border-radius: var(--radius-sm); border: 1px solid var(--shale); background: var(--chalk); color: var(--pitch); cursor: pointer; }
@@ -160,7 +160,7 @@
     @media (max-width: 768px) {
       .pg-wrap { padding: 40px 16px 64px; }
       .pg-module { padding: 24px; }
-      .pg-toolbar { padding: 16px; }
+      .pg-toolbar { padding: 24px; }
       .pg-demos { grid-template-columns: 1fr; }
       .pg-motion-row { grid-template-columns: 1fr; gap: 4px; }
     }

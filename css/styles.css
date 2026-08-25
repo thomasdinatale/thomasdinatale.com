@@ -18,6 +18,12 @@
   --metal:   #b8b4b8;
   --grid-line: rgba(26, 24, 25, 0.05);
 
+  /* Card stroke — a lit top-left edge falling to shadow bottom-right. The two
+     stops are theme-aware, so this follows light/dark on its own. Cards paint
+     it as a border-box layer under a padding-box fill; see --fill-card. */
+  --stroke-card: linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%);
+  --fill-card:   linear-gradient(var(--chalk), var(--chalk));
+
   /* Per-case-study brand accents — project-card hover fills (theme-independent) */
   --accent-primer:     #367ef0;
   --accent-butcherbox: #c93835;
@@ -620,7 +626,6 @@ h1,
   height: auto;
   max-height: min(812px, 96vh);
   background: var(--plaster);
-  border-bottom: 1px solid var(--metal);
   box-shadow: var(--shadow-nav-panel);
   transform: translateY(-100%);
   visibility: hidden;
@@ -679,7 +684,6 @@ h1,
   align-items: baseline;
   height: 96px;
   padding: 0 8px;
-  border-bottom: 1px solid var(--metal);
   text-decoration: none;
 }
 .nav-panel-word {
@@ -982,8 +986,8 @@ h1,
   border: 1px solid transparent;
   border-radius: var(--radius-xl);
   background:
-    linear-gradient(var(--chalk), var(--chalk)) padding-box,
-    linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
+    var(--fill-card) padding-box,
+    var(--stroke-card) border-box;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -1261,8 +1265,8 @@ h1,
   border: 1px solid transparent;
   border-radius: var(--radius-xl);
   background:
-    linear-gradient(var(--chalk), var(--chalk)) padding-box,
-    linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
+    var(--fill-card) padding-box,
+    var(--stroke-card) border-box;
   padding: 32px;
   display: flex;
   flex-direction: column;
@@ -1781,8 +1785,8 @@ h1.article-title {
   border: 1px solid transparent;
   border-radius: var(--radius-xl);
   background:
-    linear-gradient(var(--chalk), var(--chalk)) padding-box,
-    linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
+    var(--fill-card) padding-box,
+    var(--stroke-card) border-box;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -1830,7 +1834,7 @@ h1.article-title {
   top: 0;
   right: 0;
   width: 96px;
-  height: 48px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -1993,9 +1997,9 @@ h1.article-title {
   border: 1px solid transparent;
   border-radius: var(--radius-xl);
   background:
-    linear-gradient(var(--chalk), var(--chalk)) padding-box,
-    linear-gradient(122deg, var(--cloud) 0%, var(--metal) 100%) border-box;
-  padding: 48px;
+    var(--fill-card) padding-box,
+    var(--stroke-card) border-box;
+  padding: 32px;
   display: flex;
   align-items: flex-start;
   gap: 24px;
@@ -2124,8 +2128,6 @@ h1.article-title {
     align-items: flex-start;
     text-align: left;
   }
-  .hero h1 {
-  }
   .hero p {
     max-width: none;
   }
@@ -2154,8 +2156,6 @@ h1.article-title {
   .project-card-image--crop-bottom {
     padding: 16px 16px 0;
   }
-  .project-title {
-  }
   .project-desc {
   }
 
@@ -2172,8 +2172,6 @@ h1.article-title {
     /* Mobile #about has no top padding, so no extra offset needed here */
     scroll-margin-top: var(--nav-height, 80px);
   }
-  .thinking-headline {
-  }
   .thinking-body {
   }
   .articles-grid {
@@ -2183,12 +2181,8 @@ h1.article-title {
   .article-card {
     padding: 24px;
   }
-  .article-title {
-  }
   h1.article-title {
     line-height: 1;
-  }
-  .article-desc {
   }
 
   .history {
@@ -2215,12 +2209,8 @@ h1.article-title {
   .history-date {
     letter-spacing: 0.96px;
   }
-  .history-desc {
-  }
   .history-tags {
     padding: 20px 24px;
-  }
-  .history-tag {
   }
 
   .writing {
@@ -2252,13 +2242,9 @@ h1.article-title {
     gap: 32px;
     min-height: 0;
   }
-  .about-headline {
-  }
   .about-bio {
     width: 100%;
     min-height: 0;
-  }
-  .about-bio p {
   }
   .about-bio p.about-bio-title {
     line-height: var(--text-h6-lh);
@@ -2273,7 +2259,5 @@ h1.article-title {
     height: auto;
     aspect-ratio: 595 / 816;
     order: 1;
-  }
-  .about-principle-desc {
   }
 }
