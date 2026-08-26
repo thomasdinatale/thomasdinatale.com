@@ -17,6 +17,7 @@
   --cloud:   #ffffff;
   --metal:   #b8b4b8;
   --grid-line: rgba(26, 24, 25, 0.05);
+  --grid-circle: rgba(26, 24, 25, 0.1);
 
   /* Card stroke — a lit top-left edge falling to shadow bottom-right. The two
      stops are theme-aware, so this follows light/dark on its own. Cards paint
@@ -99,6 +100,7 @@
   --text-body-xs-lh: 1.6;
   --text-eyebrow:   14px;
   --text-eyebrow-lh: 1.6;
+  --text-eyebrow-ls: 1.12px; /* 0.08em — caps need the air */
   --text-caption:   14px;
   --text-caption-lh: 1.6;
   --text-tooltip:   12px;
@@ -124,6 +126,7 @@
     --cloud:   #2e2a28;
     --metal:   #454244;
     --grid-line: rgba(244, 238, 231, 0.05);
+  --grid-circle: rgba(244, 238, 231, 0.1);
     color-scheme: dark;
   }
 }
@@ -138,6 +141,7 @@
   --cloud:   #2e2a28;
   --metal:   #454244;
   --grid-line: rgba(244, 238, 231, 0.05);
+  --grid-circle: rgba(244, 238, 231, 0.1);
   color-scheme: dark;
 }
 
@@ -156,6 +160,7 @@
   --cloud:   #211f1c;
   --metal:   #383738;
   --grid-line: rgba(244, 238, 231, 0.05);
+  --grid-circle: rgba(244, 238, 231, 0.1);
   color-scheme: dark;
 }
 
@@ -306,6 +311,37 @@ h1,
   );
 }
 
+/* Grid circles — thin rings that ride the same fixed layer as .bg-grid, so
+   every centre sits exactly on a line crossing. --cx/--cy are grid steps from
+   the viewport's top-left (1 step = 32px) and --d is the outer diameter; the
+   +0.5px lands the centre on the line's own centre, since each grid line
+   occupies [32k, 32k+1). Diameter is free — only the centre has to hit the
+   cross — so the rings can vary without breaking the alignment. */
+.bg-circle {
+  position: absolute;
+  z-index: 1;
+  width: var(--d);
+  height: var(--d);
+  left: calc(var(--cx) * 32px + 0.5px - var(--d) / 2);
+  top: calc(var(--cy) * 32px + 0.5px - var(--d) / 2);
+  border: 1px solid var(--grid-circle);
+  border-radius: 50%;
+}
+
+/* Placement lives here rather than inline so the composition can be re-cut for
+   narrow viewports — at 375px the desktop coordinates put two of the three
+   rings entirely offscreen. */
+.bg-circle:nth-child(1) { --d: 364px; --cx: 34; --cy: 7; }
+.bg-circle:nth-child(2) { --d: 576px; --cx: 6;  --cy: 18; }
+.bg-circle:nth-child(3) { --d: 224px; --cx: 27; --cy: 22; }
+
+@media (max-width: 768px) {
+  .bg-circle:nth-child(1) { --d: 224px; --cx: 9; --cy: 6; }
+  .bg-circle:nth-child(2) { --d: 320px; --cx: 1; --cy: 17; }
+  /* Two rings is already plenty of texture on a phone. */
+  .bg-circle:nth-child(3) { display: none; }
+}
+
 .bg-top-fade {
   position: fixed;
   top: 0;
@@ -453,6 +489,33 @@ h1,
 
 .nav-mark:hover .nav-wordmark {
   color: var(--ember);
+}
+
+/* On pointer devices the resting bar is the mark alone: the name fades in from
+   the right on hover or keyboard focus. It keeps its place in flow while
+   hidden, so the whole mark-plus-name strip is the hover target — coming at it
+   from anywhere near where the name lands brings it in, not just the 24px
+   circle. Only paint changes, so nothing reflows. Touch devices have no hover
+   to reveal it with, so there it stays visible. The link itself is unchanged —
+   always an <a href="/"> with its own aria-label, so the name is decorative and
+   screen readers are unaffected. */
+@media (hover: hover) {
+  .nav-wordmark {
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s ease;
+  }
+  .nav-mark:hover .nav-wordmark,
+  .nav-mark:focus-visible .nav-wordmark {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .nav-wordmark {
+    transform: none;
+  }
 }
 
 .nav-icon-link {
@@ -1866,7 +1929,7 @@ h1.article-title {
   font-size: var(--text-eyebrow);
   font-weight: 700;
   line-height: var(--text-eyebrow-lh);
-  letter-spacing: 1.12px;
+  letter-spacing: var(--text-eyebrow-ls);
   text-transform: uppercase;
   color: var(--pitch);
   white-space: nowrap;
@@ -1981,9 +2044,11 @@ h1.article-title {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  /* Cards size to their own copy rather than stretching to the tallest in the
-     row — titles here run one to three lines. */
-  align-items: start;
+  /* Every card matches the tallest one on the page: stretch fills each row,
+     and 1fr rows make both rows the same height, so the two-up grid reads as
+     an even block even though titles run one to three lines. */
+  align-items: stretch;
+  grid-auto-rows: 1fr;
 }
 
 /* Same card as .article-card on the homepage — gradient stroke, 32px padding,
@@ -2019,7 +2084,7 @@ h1.article-title {
   font-size: var(--text-eyebrow);
   font-weight: 700;
   line-height: var(--text-eyebrow-lh);
-  letter-spacing: 1.12px;
+  letter-spacing: var(--text-eyebrow-ls);
   text-transform: uppercase;
   color: var(--flint);
 }
@@ -2061,6 +2126,8 @@ h1.article-title {
 @media (max-width: 1120px) {
   .writing-list {
     grid-template-columns: 1fr;
+    /* Stacked, there's no row to match — let each card size to its own copy. */
+    grid-auto-rows: auto;
   }
 }
 

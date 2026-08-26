@@ -154,7 +154,7 @@ strong {
   font-size: var(--text-eyebrow);
   font-weight: 700;
   line-height: var(--text-eyebrow-lh);
-  letter-spacing: 1.12px;
+  letter-spacing: var(--text-eyebrow-ls);
   text-transform: uppercase;
   color: var(--flint);
 }
@@ -948,7 +948,7 @@ strong {
   font-size: var(--text-eyebrow);
   font-weight: 700;
   line-height: var(--text-eyebrow-lh);
-  letter-spacing: 1.12px;
+  letter-spacing: var(--text-eyebrow-ls);
   text-transform: uppercase;
   color: var(--pitch);
 }

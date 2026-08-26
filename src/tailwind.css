@@ -86,6 +86,9 @@
   --text-body-xs--line-height: var(--text-body-xs-lh);
   --text-eyebrow: var(--text-eyebrow);
   --text-eyebrow--line-height: var(--text-eyebrow-lh);
+  /* The only size in the scale with tracking of its own — `text-eyebrow`
+     carries it, so no `tracking-*` utility is needed alongside it. */
+  --text-eyebrow--letter-spacing: var(--text-eyebrow-ls);
   --text-caption: var(--text-caption);
   --text-caption--line-height: var(--text-caption-lh);
   --text-tooltip: var(--text-tooltip);
