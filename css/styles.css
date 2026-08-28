@@ -152,7 +152,7 @@
 :root.theme-extra-dark {
   --plaster: #10100e;
   --ember:   #e8785f;
-  --pitch:   #f4eee7;
+  --pitch:   #E5DFD8;
   --flint:   #928c87;
   --chalk:   #0f0e0d;
   --linen:   rgba(146, 140, 135, 0.075);
@@ -402,6 +402,12 @@ h1,
      content rather than sharing an edge with it. */
   max-width: 1376px;
   margin: 0 auto;
+  /* The single site-wide gap between the end of content and the footer.
+     Padding rather than a footer margin: margins collapse through .page when
+     its last child carries one, and the two footer variants disagreed (plain
+     .footer sat at 160px, .footer--linen at 0). Owned here, it is 96px on
+     every page. */
+  padding-bottom: 96px;
 }
 
 /* ─────────────────────────────────────────
@@ -644,6 +650,20 @@ h1,
     color: var(--ember);
   }
 }
+/* The bars are 24x16, which is a 24x16 hit area — under WCAG 2.2's 24x24 floor
+   and well under iOS's 44x44. This pseudo-element enlarges only what's tappable:
+   it's centred on the button and fully transparent, so nothing moves and the
+   bars (absolutely positioned against the padding box) are untouched. */
+.nav-toggle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
 .nav-toggle:focus-visible {
   outline: 2px solid var(--ember);
   outline-offset: 6px;
@@ -695,6 +715,10 @@ h1,
   height: auto;
   max-height: min(812px, 96vh);
   background: var(--plaster);
+  /* Same 1px shale rule the scrolled header carries, on the panel's bottom
+     edge — while the panel is open the header's own border goes transparent
+     (see :root.nav-open), so this becomes the single line closing the bar. */
+  border-bottom: 1px solid var(--shale);
   box-shadow: var(--shadow-nav-panel);
   transform: translateY(-100%);
   visibility: hidden;
@@ -803,7 +827,10 @@ h1,
   background-size: 0% 1px, 100% 1px;
   background-position: left bottom, left bottom;
   background-repeat: no-repeat;
-  padding-bottom: 2px;
+  /* This link paints its underline as a background gradient pinned to the box
+     bottom, so padding-bottom is its underline offset. 4px to match the
+     text-underline-offset every other link uses. */
+  padding-bottom: 4px;
   transition: background-size 0.3s ease, color 0.3s ease;
 }
 .nav-panel-note a:hover,
@@ -872,6 +899,17 @@ h1,
      (bottom). Trimmed from 72px so the 4-item menu + note clear the bar. */
   padding: 48px 48px 48px;
 }
+/* Same 44x44 tap target as the hamburger — the icon stays 24x24. */
+.nav-panel-mode::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
 .nav-panel-mode {
   position: relative;
   display: flex;
@@ -971,11 +1009,16 @@ h1,
   .nav-panel { display: block; height: auto; max-height: 92dvh; }
   .nav-panel-inner {
     align-items: flex-start;
-    padding: calc(var(--nav-height, 60px) + 48px) 24px 0;
+    padding: calc(var(--nav-height, 60px) + 32px) 24px 0;
   }
   .nav-panel-left { flex: 1 1 auto; }
-  .nav-panel-item { height: 76px; }
-  .nav-panel-footer { padding: 48px 24px 48px; }
+  /* Tightened so the whole panel — menu, note, social row and theme toggle —
+     clears a real phone viewport. iOS Safari's bottom bar eats ~100px that the
+     desktop emulator doesn't show, and at 76px + 24px gaps the footer was being
+     cut off. 68px still clears the 44px tap-target minimum comfortably. */
+  .nav-panel-menu { gap: 12px; }
+  .nav-panel-item { height: 68px; }
+  .nav-panel-footer { padding: 32px 24px 32px; }
   /* Decorative, hover-only — hidden where there is no room and no hover */
   .nav-panel-graphic { display: none; }
   /* No hover on touch, so the toggle's hover tag never appears — drop it */
@@ -1149,6 +1192,11 @@ h1,
 
 /* View project history CTA — sits 64px below the last card
    (.projects gap is 32px, so 32px margin gives 64px total) */
+/* The CTA sits 64px below the last card in both the work and writing sections.
+   It is a flex child, so its section's row-gap already contributes part of that
+   and the margin only makes up the difference — .projects has a 32px row-gap
+   (32 + 32), .thinking has 80px, so its override below pulls 16 back. Changing
+   either section's row-gap means revisiting the matching margin here. */
 .projects-cta {
   display: flex;
   justify-content: center;
@@ -1176,8 +1224,9 @@ h1,
 }
 /* .thinking is a flex column with its own 80px gap, so the CTA there doesn't
    need the extra top margin it takes inside .projects (a 32px-gap column). */
+/* .thinking's 80px row-gap overshoots the 64px target on its own. */
 .thinking .projects-cta {
-  margin-top: 0;
+  margin-top: -16px;
 }
 
 .project-meta {
@@ -1304,9 +1353,13 @@ h1,
   pointer-events: none;
 }
 
-/* Keep the Thinking content above the pinned linen backdrop */
+/* Keep the Thinking content above the pinned linen backdrop. The CTA belongs
+   here too: ::before is an opaque plaster fill at z-index 0, so anything left
+   static in this section paints behind it. It used to clear the fill only by
+   accident, via the stacking context .fade-in's transform created. */
 .thinking-header,
-.thinking .articles-grid {
+.thinking .articles-grid,
+.thinking .projects-cta {
   position: relative;
   z-index: 1;
 }
@@ -1554,7 +1607,7 @@ h1.article-title {
 .connect-link {
   color: var(--ember);
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 4px;
 }
 
 /* Body semibold — the body size (18px) at 600. Fills the gap between
@@ -1567,14 +1620,18 @@ h1.article-title {
   color: var(--pitch);
 }
 
-/* Inline text link — pitch text and pitch underline; both go ember on hover.
-   The underline inherits currentColor, so it travels with the text. */
+/* Inline text link — the site-wide convention for a link inside body copy:
+   a 1px underline in the text's own colour, both going ember on hover.
+   `inherit` rather than a fixed token, so the link matches whatever it sits in
+   — pitch in a body paragraph, flint inside a muted one — and the underline
+   rides currentColor with it. Distinct from .nav-panel-item / .nav-panel-note,
+   which use the underlineWipe treatment; that one is for navigation. */
 .text-link {
-  color: var(--pitch);
+  color: inherit;
   text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 2px;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
 }
 
 .text-link:hover {
@@ -1670,7 +1727,12 @@ h1.article-title {
 }
 .fade-in.visible {
   opacity: 1;
-  transform: translateY(0);
+  /* `none`, not translateY(0): any transform other than none creates a stacking
+     context, which trapped .photo-note-card inside whichever .fade-in block it
+     sat in — its z-index then only sorted against that block's own children, so
+     later sections painted over it. Interpolates from translateY(16px) the same
+     way, and drops the needless compositing layer once the reveal is done. */
+  transform: none;
 }
 
 /* ─────────────────────────────────────────
@@ -1692,16 +1754,17 @@ h1.article-title {
 .footer {
   position: relative;
   z-index: 2;
-  margin-top: 160px;
+  /* Spacing above the footer is .page's padding-bottom — see the note there. */
+  margin-top: 0;
   /* Solid plaster band — covers the grid so the footer reads as one clean
      block, distinct from the grid-lined page above it. */
   background: var(--plaster);
   border-top: 1px solid var(--shale);
 }
 
-.footer--linen {
-  margin-top: 0;
-}
+/* .footer--linen carried `margin-top: 0` to cancel the footer's old 160px top
+   margin. That margin is gone, so the modifier is now a no-op kept only because
+   it is in the markup on five pages. */
 
 .footer-inner {
   max-width: 1440px;
@@ -1728,18 +1791,18 @@ h1.article-title {
   color: var(--flint);
   white-space: nowrap;
 }
-/* The one inline link in the credits. Underlined so it reads as a link at
-   flint weight, ember on hover like every other link on the site. */
+/* The one inline link in the credits. Follows the .text-link convention —
+   1px underline in its own colour (flint here), ember on hover. It carries its
+   own rule rather than the class because the markup is shared across pages. */
 .footer-credits a {
   color: inherit;
   text-decoration: underline;
-  text-underline-offset: 2px;
-  text-decoration-color: var(--shale);
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
 }
 .footer-credits a:hover {
   color: var(--ember);
-  text-decoration-color: var(--ember);
 }
 .footer-credits a:focus-visible {
   outline: 2px solid var(--ember);
@@ -2182,6 +2245,15 @@ h1.article-title {
     padding: 40px 16px 0;
     gap: 20px;
   }
+  /* 48px below the last card on mobile, same as desktop's 64px rule: the
+     section row-gap covers part of it and the margin makes up the rest.
+     .projects is 20 + 28; .thinking is 40 + 8. */
+  .projects-cta {
+    margin-top: 28px;
+  }
+  .thinking .projects-cta {
+    margin-top: 8px;
+  }
   .project-card {
     border-radius: var(--radius-xl);
     padding: 24px;
@@ -2292,4 +2364,322 @@ h1.article-title {
     aspect-ratio: 595 / 816;
     order: 1;
   }
+}
+
+/* ─────────────────────────────────────────
+   About page (/about)
+───────────────────────────────────────── */
+/* Rides the same 1280/192 rail as .hero, so the narrative below sits in one
+   column with the headline above it. The Figma column is 875px; the rail is
+   896px, and matching the existing rail beats matching the comp to the pixel. */
+.about-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 24px 192px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* The two opening paragraphs live inside .hero, so they inherit its body-lg
+   sizing; this only tightens the gap between them from the hero's 40px to 16px. */
+.about-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-lede {
+  font-size: var(--text-body-lg);
+  font-weight: 400;
+  line-height: var(--text-body-lg-lh);
+  color: var(--pitch);
+}
+
+.about-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.about-entry {
+  display: flex;
+  gap: 96px;
+  align-items: flex-start;
+}
+
+.about-years {
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  line-height: var(--text-body-md-lh);
+  color: var(--pitch);
+  white-space: nowrap;
+}
+
+.about-entry-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 670px;
+}
+
+/* Role and company on one line, separated by the 4px dot. Wraps as a unit so a
+   long company name drops cleanly instead of splitting the dot off on its own. */
+.about-role {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  line-height: var(--text-body-md-lh);
+  color: var(--pitch);
+}
+
+.about-dot {
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--flint);
+}
+
+.about-entry-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.about-entry-text p {
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: var(--text-body-lh);
+  color: var(--pitch);
+}
+
+/* The two-column entry needs ~856px to hold its 96px gutter; the rail is down
+   to ~516px by 900. Stack there rather than crushing the measure. */
+@media (max-width: 900px) {
+  .about-entry {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .about-entry-body {
+    max-width: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    padding: 20px 16px 0;
+    gap: 40px;
+  }
+  .about-timeline {
+    gap: 40px;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Photo note — an inline term that reveals a captioned photo
+───────────────────────────────────────── */
+/* Built on the .project-card box (same --fill-card / --stroke-card, --radius-xl,
+   32px padding, 24px gap); the differences are a square image and a caption in
+   place of the title and tags. The trigger is a <button>, not an <a>: it reveals
+   something in place rather than navigating, so it gets a dotted underline to
+   read as a different affordance, and keyboard users get it for free. */
+.photo-note {
+  position: relative;
+  /* inline-block, not inline: an inline box that wraps across lines resolves
+     `left: 50%` against the wrong fragment, which threw the card off-screen on
+     narrow viewports. The trade is that the trigger can no longer break
+     mid-phrase, so keep triggers to a word or two. */
+  display: inline-block;
+}
+
+.photo-note-trigger {
+  /* Reset the UA button so it sits invisibly in a line of body copy. */
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color 0.2s ease;
+}
+
+.photo-note-trigger:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+@media (hover: hover) {
+  .photo-note:hover .photo-note-trigger {
+    color: var(--ember);
+  }
+}
+.photo-note.is-open .photo-note-trigger,
+.photo-note-trigger:focus-visible {
+  color: var(--ember);
+}
+
+/* The card. Centred on the trigger and lifted above the line by default; JS
+   nudges --pn-shift to keep it inside the viewport and flips it below via
+   [data-pn-below] when there isn't room above. */
+.photo-note-card {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 12px);
+  /* Above page content, below the header (300) and nav panel (280–300). */
+  z-index: 60;
+  transform: translateX(calc(-50% + var(--pn-shift, 0px))) translateY(4px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: max-content;
+  padding: 32px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-xl);
+  background:
+    var(--fill-card) padding-box,
+    var(--stroke-card) border-box;
+  box-shadow: var(--shadow-card-hover);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  /* 0.2s, the hover token — this is feedback, not a set piece. Visibility is
+     delayed on the way out only, so the fade can finish before it is pulled. */
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+
+.photo-note-card[data-pn-below] {
+  bottom: auto;
+  top: calc(100% + 12px);
+  transform: translateX(calc(-50% + var(--pn-shift, 0px))) translateY(-4px);
+}
+
+@media (hover: hover) {
+  .photo-note:hover .photo-note-card {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(calc(-50% + var(--pn-shift, 0px))) translateY(0);
+    transition-delay: 0s;
+  }
+}
+.photo-note.is-open .photo-note-card,
+.photo-note-trigger:focus-visible + .photo-note-card {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(calc(-50% + var(--pn-shift, 0px))) translateY(0);
+  transition-delay: 0s;
+}
+
+.photo-note-image {
+  display: block;
+  width: 340px;
+  height: 340px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--plaster);
+}
+
+.photo-note-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-note-caption {
+  display: block;
+  max-width: 340px;
+  font-size: var(--text-caption);
+  line-height: var(--text-caption-lh);
+  color: var(--flint);
+  text-align: center;
+}
+
+/* Below ~480 the 404px card is wider than the screen. Shrink the photo to the
+   viewport and let JS clamp the horizontal position against the same margin. */
+@media (max-width: 480px) {
+  .photo-note-card {
+    padding: 20px;
+    gap: 16px;
+  }
+  .photo-note-image {
+    width: min(340px, calc(100vw - 72px));
+    height: min(340px, calc(100vw - 72px));
+  }
+  .photo-note-caption {
+    max-width: min(340px, calc(100vw - 72px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo-note-card {
+    transition: opacity 0.2s linear, visibility 0s linear 0.2s;
+    transform: translateX(calc(-50% + var(--pn-shift, 0px)));
+  }
+  .photo-note-card[data-pn-below] {
+    transform: translateX(calc(-50% + var(--pn-shift, 0px)));
+  }
+}
+
+/* ─────────────────────────────────────────
+   Resume page (/resume)
+───────────────────────────────────────── */
+/* The role rows reuse .about-entry / .about-years / .about-role / .about-dot
+   wholesale — a resume row and a career-narrative row are the same object, and
+   forking them would guarantee they drift. Only the parts the About page has no
+   equivalent for live here. */
+.resume-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.resume-summary {
+  font-size: var(--text-body-lg);
+  font-weight: 400;
+  line-height: var(--text-body-lg-lh);
+  color: var(--pitch);
+}
+
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.resume-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.resume-bullets li {
+  font-size: var(--text-body);
+  font-weight: 400;
+  line-height: var(--text-body-lh);
+  color: var(--pitch);
+}
+
+.resume-bullets li::marker {
+  color: var(--flint);
+}
+
+/* The CTA row sits directly above the first entry on /resume, with no section
+   heading between them. The About page keeps .about-page's 24px, where a
+   paragraph rather than a button row does the separating. */
+.about-page--resume {
+  padding-top: 40px;
 }

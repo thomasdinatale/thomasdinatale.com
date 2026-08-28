@@ -147,10 +147,22 @@
     .pg-wipe:hover::after { width: 100%; left: 0; right: auto; }
     .pg-fade { opacity: .2; transform: translateY(16px); transition: opacity .5s ease-out, transform .5s ease-out; }
     .pg-demo-stage:hover .pg-fade { opacity: 1; transform: none; }
-    /* Full-width so translateX(100%) clears the stage completely at rest —
-       a narrower chip would leave a sliver hanging off the right edge. */
-    .pg-slide { width: 100%; text-align: center; transform: translateX(calc(100% + 24px)); transition: transform .35s cubic-bezier(.4, 0, .2, 1); }
-    .pg-demo-stage:hover .pg-slide { transform: none; }
+    /* Full-width so the sheet clears the stage completely at rest — a narrower
+       chip would leave a sliver showing. The extra 64px past -100% clears the
+       stage's own padding as well as the chip's height. The two curves are
+       split on purpose: the base state is the CLOSE transition and the hover
+       state is the ENTER one, so mousing on and off demos the asymmetry. */
+    .pg-sheet { width: 100%; text-align: center; transform: translateY(calc(-100% - 64px)); transition: transform .22s cubic-bezier(.4, 0, 1, 1); }
+    .pg-demo-stage:hover .pg-sheet { transform: none; transition: transform .32s cubic-bezier(.16, 1, .3, 1); }
+    /* Reuses the live .nav-toggle geometry straight from styles.css — only the
+       open state is re-declared, keyed to stage hover instead of aria-expanded.
+       The demo therefore cannot drift from the real bar size, spacing or curve.
+       scale(2) is magnification only; the px in the code block are the true ones. */
+    .pg-burger { transform: scale(2); transform-origin: center; }
+    .pg-burger .nav-toggle { display: block; }
+    .pg-demo-stage:hover .pg-burger .bar:nth-child(1) { top: 6.5px; transform: rotate(45deg); }
+    .pg-demo-stage:hover .pg-burger .bar:nth-child(2) { opacity: 0; }
+    .pg-demo-stage:hover .pg-burger .bar:nth-child(3) { top: 6.5px; transform: rotate(-45deg); }
     .pg-spin svg { display: block; transition: transform .6s ease; }
     .pg-demo-stage:hover .pg-spin svg { transform: rotate(360deg); }
 
@@ -241,8 +253,13 @@
     /* Calls to action */
     .pg-ctas { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; align-items: start; }
     .pg-ctademo { display: flex; flex-direction: column; gap: 16px; border: 1px solid var(--shale); border-radius: var(--radius-md); background: var(--chalk); padding: 24px; }
+    .pg-muted-copy { color: var(--flint); }
     .pg-ctademo .stage { display: flex; align-items: center; min-height: 44px; color: var(--pitch); font-size: var(--text-body-sm); }
     .pg-ctademo .stage .panel-link { align-self: center; }
+    .pg-ctademo--wide { grid-column: 1 / -1; }
+    /* Tall stage with the trigger parked at the bottom, so the card opens
+       upward inside the tile instead of over its neighbours. */
+    .pg-ctademo--wide .stage { min-height: 470px; align-items: flex-end; }
     .pg-ctademo .lbl b { display: block; font-size: var(--text-caption); font-weight: 600; color: var(--pitch); }
     .pg-ctademo .lbl code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--ember); }
     .pg-ctademo .lbl em { display: block; font-style: normal; font-size: var(--text-tooltip); color: var(--flint); margin-top: 4px; }
@@ -292,7 +309,7 @@
         <a class="nav-panel-item nav-stagger" style="--si:1" href="/writing" data-nav-circle="writing">
           <span class="nav-panel-word">Writing</span>
         </a>
-        <a class="nav-panel-item nav-stagger" style="--si:2" href="/#about" data-nav-circle="about">
+        <a class="nav-panel-item nav-stagger" style="--si:2" href="/about" data-nav-circle="about">
           <span class="nav-panel-word">About</span>
         </a>
         <a class="nav-panel-item nav-stagger" style="--si:3" href="/design-system" data-nav-circle="system">
@@ -410,27 +427,6 @@
 
         </details>
 
-    <!-- ===================== BACKGROUND GRID ===================== -->
-    <details class="pg-module" id="background-grid">
-    <summary class="pg-summary">
-      <h2 class="pg-section-h">Background grid</h2>
-      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-    </summary>
-    <p class="pg-section-sub">
-      The site sits on a fixed lattice: 1px lines every 32px, painted at
-      <code>--grid-line</code> at 5% ink, inverted per theme so it reads on light
-      and dark alike. It's <code>position: fixed</code> with
-      <code>pointer-events: none</code> at <code>z-index: 0</code>. Content scrolls,
-      the grid holds still. A <code>--plaster</code>-to-transparent fade keeps the
-      header clear, and on desktop the cursor lights the nearest lines in ember.
-    </p>
-    <div class="pg-griddemo">
-      <div class="cell">32px cells</div>
-    </div>
-    <span class="pg-note">The lattice above is painted from the same <code>--grid-line</code> token and 32px step as the live background behind this page.</span>
-
-        </details>
-
     <!-- ===================== TYPE ===================== -->
     <details class="pg-module" id="type-scale">
     <summary class="pg-summary">
@@ -460,6 +456,27 @@
       <div class="pg-row"><div class="tk"><code>text-caption</code><span class="rng">14 / 1.6</span></div><div class="sample text-caption muted">A caption sits under media and metrics. It is the smallest reading size.</div></div>
       <div class="pg-row"><div class="tk"><code>text-tooltip</code><span class="rng">12 / 1.6</span></div><div class="sample text-tooltip muted">Tooltip, the finest print in the system.</div></div>
     </div>
+
+        </details>
+
+    <!-- ===================== BACKGROUND GRID ===================== -->
+    <details class="pg-module" id="background-grid">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Background grid</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <p class="pg-section-sub">
+      The site sits on a fixed lattice: 1px lines every 32px, painted at
+      <code>--grid-line</code> at 5% ink, inverted per theme so it reads on light
+      and dark alike. It's <code>position: fixed</code> with
+      <code>pointer-events: none</code> at <code>z-index: 0</code>. Content scrolls,
+      the grid holds still. A <code>--plaster</code>-to-transparent fade keeps the
+      header clear, and on desktop the cursor lights the nearest lines in ember.
+    </p>
+    <div class="pg-griddemo">
+      <div class="cell">32px cells</div>
+    </div>
+    <span class="pg-note">The lattice above is painted from the same <code>--grid-line</code> token and 32px step as the live background behind this page.</span>
 
         </details>
 
@@ -525,6 +542,7 @@
       <code>shadow-card-hover</code> handles the card lift; the heavier
       <code>shadow-media</code> and <code>shadow-video</code> sit under hero imagery.
       Shown here on a light surface, which is where they're built to sit.
+      Flip the theme above to see the shadows.
     </p>
     <div class="pg-elev">
       <div class="pg-elev-item"><div class="pg-elev-swatch card-hover"></div><b>Card hover</b><code>shadow-card-hover</code><span class="val">0 12px 40px · 8% ink</span></div>
@@ -566,12 +584,8 @@
         <span class="lbl"><b>Lights</b><code>fill</code><em>Theme toggle, nav panel</em></span>
       </div>
       <div class="pg-icon">
-        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h18"/><path d="M3 12h18"/><path d="M3 17h18"/></svg></span>
-        <span class="lbl"><b>Menu</b><code>stroke</code><em>Header toggle (CSS bars on the live site, animate to the X)</em></span>
-      </div>
-      <div class="pg-icon">
         <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
-        <span class="lbl"><b>Close</b><code>stroke</code><em>Panel dismiss</em></span>
+        <span class="lbl"><b>Close</b><code>stroke</code><em>Case-study panel dismiss</em></span>
       </div>
       <div class="pg-icon">
         <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></span>
@@ -638,7 +652,15 @@
         <!-- Wrapped in a span: .stage is a flex container, so bare text nodes
              either side of the link would each become their own flex item. -->
         <div class="stage"><span>Read the <a class="text-link" href="#">case study</a> for the full story.</span></div>
-        <div class="lbl"><b>Text link</b><code>.text-link</code><em>Inline. Pitch text and underline (1.5px); both go ember on hover.</em></div>
+        <div class="lbl"><b>Text link</b><code>.text-link</code><em>The convention for any link inside body copy: a 1px underline in the text&rsquo;s own colour, both going ember on hover.</em></div>
+      </div>
+      <div class="pg-ctademo">
+        <div class="stage"><span class="pg-muted-copy">A link in muted copy inherits <a class="text-link" href="#calls-to-action">flint</a> instead.</span></div>
+        <div class="lbl"><b>Text link, inherited</b><code>.text-link</code><em>The colour is <code>inherit</code>, not a fixed token &mdash; so the same class reads pitch in a body paragraph and flint in a muted one, and the underline rides along.</em></div>
+      </div>
+      <div class="pg-ctademo pg-ctademo--wide">
+        <div class="stage"><span>Longer rides like the <span class="photo-note"><button class="photo-note-trigger" type="button" aria-expanded="false">STP</button><span class="photo-note-card" role="note"><span class="photo-note-image"><img src="assets/images/about-stp-bike-ride.webp" width="680" height="680" loading="lazy" decoding="async" alt="Two cyclists at a rest stop under trees." /></span><span class="photo-note-caption">Seattle to Portland bike ride, July 2025.</span></span></span> are worth a photo.</span></div>
+        <div class="lbl"><b>Photo note</b><code>.photo-note</code><em>An inline term that reveals a captioned photo. Built on the <code>.project-card</code> box &mdash; same fill, stroke, 32px radius and padding &mdash; but with a square image and a caption instead of a title and tags. The trigger is a <code>&lt;button&gt;</code> with a <b>dotted</b> underline rather than the solid one <code>.text-link</code> uses: it reveals something in place instead of navigating, and the two affordances should not look alike. Hover on pointer devices, tap to toggle on touch; Escape or a click outside dismisses. JS keeps the card inside the viewport and flips it below the line when there is no room above.</em></div>
       </div>
       <div class="pg-ctademo">
         <div class="stage">
@@ -764,11 +786,14 @@
       <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
     </summary>
     <p class="pg-section-sub">
-      Five durations cover the whole site. The rule of thumb: the smaller the
-      change, the faster it resolves. A color swap lands in <code>0.2s</code>,
-      a whole panel takes <code>0.35s</code>. Everything uses <code>ease</code>
-      except the slide-out panel, which needs a sharper curve to feel like it is
-      being pulled rather than floating. Hover any stage below to run it.
+      The rule of thumb: the smaller the change, the faster it resolves. A color
+      swap lands in <code>0.2s</code>, the nav sheet takes <code>0.32s</code>.
+      Most of the site runs on plain <code>ease</code>. The nav is the deliberate
+      exception — opening uses <code>cubic-bezier(.16, 1, .3, 1)</code>, a
+      fast-out, long-settle curve shared by the sheet and the hamburger so the
+      two read as a single gesture. Closing runs a shorter ease-in instead:
+      arriving can take its time, leaving should get out of the way. Hover any
+      stage below to run it.
     </p>
 
     <div class="pg-motion">
@@ -789,8 +814,16 @@
         <div class="use">The 2px ember bar under nav and panel links, growing from the right edge.</div>
       </div>
       <div class="pg-motion-row">
-        <div><code>panel</code><span class="val">0.35s cubic-bezier(.4, 0, .2, 1)</span></div>
-        <div class="use">Slide-out nav and case-study panels — the one non-<code>ease</code> curve.</div>
+        <div><code>panelEnter</code><span class="val">0.32s cubic-bezier(.16, 1, .3, 1)</span></div>
+        <div class="use">The nav sheet dropping from the top, and the case-study panel. Shares its curve with the hamburger morph.</div>
+      </div>
+      <div class="pg-motion-row">
+        <div><code>panelClose</code><span class="val">0.22s cubic-bezier(.4, 0, 1, 1)</span></div>
+        <div class="use">The same sheet leaving. 100ms shorter, and ease-in rather than out — dismissal should not linger.</div>
+      </div>
+      <div class="pg-motion-row">
+        <div><code>navToggleMorph</code><span class="val">0.3s cubic-bezier(.16, 1, .3, 1) · 0.16s ease</span></div>
+        <div class="use">Hamburger to X. The outer bars travel and rotate on one curve, so they arc rather than slide then spin; the middle bar fades on a faster clock, so it has cleared before they cross it.</div>
       </div>
       <div class="pg-motion-row">
         <div><code>themeToggleSpin</code><span class="val">0.6s ease</span></div>
@@ -826,11 +859,27 @@
 /* js/case-study.js adds .visible on scroll */</pre>
       </div>
       <div>
-        <div class="pg-col-label"><b>Panel slide</b><em>panel · 0.35s cubic-bezier</em></div>
-        <div class="pg-demo-stage"><div class="pg-chip pg-slide">Hover to slide in</div></div>
-        <pre class="pg-code">transition: <b>transform</b> .35s cubic-bezier(.4, 0, .2, 1);
-/* closed */ transform: translateX(100%);
-/* open   */ transform: none;</pre>
+        <div class="pg-col-label"><b>Nav sheet</b><em>panelEnter / panelClose · mouse off to see the close</em></div>
+        <div class="pg-demo-stage"><div class="pg-chip pg-sheet">Hover to drop in</div></div>
+        <pre class="pg-code">/* closed */ transform: translateY(-100%);
+             transition: <b>transform</b> .22s cubic-bezier(.4, 0, 1, 1);
+/* open   */ transform: none;
+             transition: <b>transform</b> .32s cubic-bezier(.16, 1, .3, 1);</pre>
+      </div>
+      <div>
+        <div class="pg-col-label"><b>Hamburger → X</b><em>navToggleMorph · shown at 2×</em></div>
+        <div class="pg-demo-stage">
+          <span class="pg-burger" aria-hidden="true">
+            <span class="nav-toggle"><span class="bar"></span><span class="bar"></span><span class="bar"></span></span>
+          </span>
+        </div>
+        <pre class="pg-code">.bar { height: 3px; width: 24px; <b>top</b>: 0 / 6.5px / 13px; }
+transition: <b>transform</b> .3s cubic-bezier(.16, 1, .3, 1),
+            <b>top</b> .3s cubic-bezier(.16, 1, .3, 1),
+            <b>opacity</b> .16s ease;
+[aria-expanded="true"] .bar:nth-child(1) { top: 6.5px; transform: rotate(45deg); }
+[aria-expanded="true"] .bar:nth-child(2) { opacity: 0; }
+[aria-expanded="true"] .bar:nth-child(3) { top: 6.5px; transform: rotate(-45deg); }</pre>
       </div>
       <div>
         <div class="pg-col-label"><b>Mark spin</b><em>themeToggleSpin · 0.6s ease</em></div>

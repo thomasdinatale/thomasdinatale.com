@@ -487,3 +487,80 @@
     }
   }
 })();
+
+/* ─────────────────────────────────────────
+   Photo note — inline term reveals a captioned photo
+   ─────────────────────────────────────────
+   CSS does the showing (hover, focus-visible, .is-open). This only handles the
+   two things CSS can't: keeping the card inside the viewport, and tap-to-toggle
+   on touch, where there is no hover to reveal it. */
+(function () {
+  const notes = document.querySelectorAll('.photo-note');
+  if (!notes.length) return;
+
+  const EDGE = 16;   // minimum gap to the viewport edge
+  const GAP  = 12;   // matches the 12px offset in the CSS
+
+  function place(note) {
+    const card = note.querySelector('.photo-note-card');
+    const trigger = note.querySelector('.photo-note-trigger');
+    if (!card || !trigger) return;
+
+    // Measure with no shift applied, or the previous nudge compounds.
+    card.style.setProperty('--pn-shift', '0px');
+    card.removeAttribute('data-pn-below');
+
+    const c = card.getBoundingClientRect();
+    const t = trigger.getBoundingClientRect();
+
+    // Horizontal: nudge back inside whichever edge it crosses. If the card is
+    // wider than the viewport it can't satisfy both, so favour the left edge.
+    let shift = 0;
+    if (c.left < EDGE) shift = EDGE - c.left;
+    else if (c.right > window.innerWidth - EDGE) shift = (window.innerWidth - EDGE) - c.right;
+    if (c.width + EDGE * 2 > window.innerWidth) shift = EDGE - c.left;
+    card.style.setProperty('--pn-shift', Math.round(shift) + 'px');
+
+    // Vertical: flip below when there isn't room above but there is below.
+    const roomAbove = t.top - GAP;
+    const roomBelow = window.innerHeight - t.bottom - GAP;
+    if (roomAbove < c.height && roomBelow > roomAbove) card.setAttribute('data-pn-below', '');
+  }
+
+  function close(note) {
+    note.classList.remove('is-open');
+    const trigger = note.querySelector('.photo-note-trigger');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  }
+
+  function closeAll(except) {
+    notes.forEach(function (n) { if (n !== except) close(n); });
+  }
+
+  notes.forEach(function (note) {
+    const trigger = note.querySelector('.photo-note-trigger');
+    if (!trigger) return;
+
+    // Position before it becomes visible, so it never paints in the wrong spot.
+    note.addEventListener('mouseenter', function () { place(note); });
+    trigger.addEventListener('focus', function () { place(note); });
+
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const open = note.classList.contains('is-open');
+      closeAll(note);
+      if (open) { close(note); return; }
+      place(note);
+      note.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+    });
+  });
+
+  document.addEventListener('click', function () { closeAll(null); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAll(null);
+  });
+  window.addEventListener('resize', function () {
+    notes.forEach(function (n) { if (n.classList.contains('is-open')) place(n); });
+  }, { passive: true });
+})();

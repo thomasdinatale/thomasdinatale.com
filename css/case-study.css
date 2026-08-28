@@ -171,7 +171,7 @@ strong {
   color: var(--pitch);
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  text-underline-offset: 4px;
   transition: color 0.2s ease;
 }
 .cs-inline-link:hover,
@@ -188,6 +188,7 @@ strong {
 /* "How this evolved" — a pinned aside on a linen panel. Its 650px text
    column aligns with .cs-copy-block; the linen bleeds 24px wider each side. */
 .cs-evolved {
+  position: relative;
   width: 730px;
   max-width: 100%;
   background: var(--linen);
@@ -561,6 +562,7 @@ strong {
 }
 
 .cs2-metric {
+  position: relative;
   background: var(--linen);
   border-radius: var(--radius-md);
   padding: 16px 32px;
@@ -568,6 +570,18 @@ strong {
   flex-direction: column;
   flex: 1 0 0;
   min-width: 0;
+}
+
+/* Frosts whatever shows through the translucent linen fill. Deliberately 2px,
+   not the header's 8px — it should only register where a metric card overlaps
+   imagery, and stay invisible over flat background. Guarded like
+   .site-header.scrolled: engines without backdrop-filter get the flat fill. */
+@supports (backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px)) {
+  .cs2-metric,
+  .cs2-problem-card {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
 }
 
 .cs2-metric-row {
@@ -690,6 +704,7 @@ strong {
 /* Problem statements — set apart from feature copy in a Linen card.
    32px margin + the 48px flow gap = 80px of separation above and below each card. */
 .cs2-problem-card {
+  position: relative;
   background: var(--linen);
   border-radius: var(--radius-xl);
   padding: 64px;
@@ -700,6 +715,33 @@ strong {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* The same gradient hairline .project-card carries, drawn as a masked ring
+   rather than that card's padding-box/border-box trick. --linen is translucent
+   in every theme (0.9 light, 0.4 dark, 0.075 extra-dark), so a border-box
+   gradient would show straight through the card face and change the fill.
+   Masking paints the 1px edge only and leaves the fill untouched.
+   Shared by both linen cards; `border-radius: inherit` fits each one's own
+   corner (32px on the problem card, 16px on .cs-evolved). */
+.cs2-problem-card::before,
+.cs-evolved::before,
+.cs2-metric::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--stroke-card);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
 }
 
 .cs2-problem-eyebrow {
