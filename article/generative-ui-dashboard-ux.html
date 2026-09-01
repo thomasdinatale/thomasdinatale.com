@@ -75,7 +75,7 @@
   <link rel="stylesheet" href="../css/styles.css" />
   <link rel="stylesheet" href="../css/article.css" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;if(t==='light')c.add('theme-light');else c.add('theme-extra-dark');}catch(e){}})();</script>
+  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;c.add(t==='light'||t==='dark'||t==='extra-dark'?'theme-'+t:'theme-extra-dark');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -126,7 +126,7 @@
           <span class="nav-panel-word">System</span>
         </a>
       </nav>
-      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
+      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Want to chat product design? Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
     </div>
     <div class="nav-panel-graphic" aria-hidden="true" data-nav-graphic>
       <svg viewBox="0 0 720 450" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -156,24 +156,42 @@
 
 <div class="page">
 
-  <div class="article-layout">
+  <div class="article-layout article-layout--centered">
 
-    <!-- Left: article content -->
-    <div class="article-content">
-
-      <!-- Header block -->
-      <div class="article-header">
-        <div class="article-title-block">
-          <p class="article-date fade-in">July 7, 2025</p>
-          <h1 class="article-title fade-in">Beyond Dashboards with Generative UI</h1>
+  <div class="article-hero">
+      <h1 class="article-title fade-in">Beyond Dashboards with Generative UI</h1>
+      <div class="article-hero-row fade-in">
+        <div class="article-hero-intro">
+          <p>Unlike traditional interfaces, which present the same information to every user, generative UI can assemble interfaces dynamically based on context, surfacing what’s most relevant for the task at hand.</p>
+          <p>Every product has moments where people make decisions from complex information, and as product designers we typically solve that with dashboards, filters, reports, and increasingly dense interfaces. The example that follows imagines the alternative in an education product, though the shift it points to is broader than EdTech: from presenting data to generating understanding through user contexts.</p>
         </div>
-        <div class="article-intro">
-          <p class="fade-in">Unlike traditional interfaces, which present the same information to every user, generative UI can assemble interfaces dynamically based on context, surfacing what's most relevant for the task at hand.</p>
-          <p class="fade-in">This article uses an education platform as an example, but the ideas extend well beyond EdTech. Every product has moments where people are asked to make decisions from complex information. Traditionally we've solved that problem with dashboards, filters, reports, and increasingly dense interfaces. Generative UI offers a different possibility: interfaces that assemble the right context for the task at hand instead of asking users to assemble it themselves.</p>
-          <p class="fade-in">The example that follows imagines what that could look like in an education product. They're less about schools than they are about a broader shift in product design, from presenting data to generating understanding through user contexts.</p>
-          <div class="article-divider"></div>
+        <div class="article-hero-meta cs2-metrics cs2-metrics--stack">
+        <div class="cs2-metric">
+          <div class="cs2-metric-row">
+          <div class="article-topics">
+            <p class="cs2-metric-value">Generative UI</p>
+            <p class="cs2-metric-value">AI-assisted design</p>
+            <p class="cs2-metric-value">Data</p>
+          </div>
+          </div>
+          <p class="cs2-metric-label">Topics</p>
+        </div>
+        <div class="cs2-metric">
+          <div class="cs2-metric-row">
+          <p class="cs2-metric-value">July 7, 2025</p>
+          </div>
+          <p class="cs2-metric-label">Published</p>
+        </div>
         </div>
       </div>
+    </div>
+
+    <div class="article-image-block article-image-block--lead">
+      <img class="article-img fade-in" src="../assets/images/article-generative-ui-lead.webp" alt="Long-exposure photograph of blue light traced into overlapping waves." width="960" height="550" />
+      <p class="article-caption fade-in">Interfaces that assemble around context rather than presenting the same view to everyone.</p>
+    </div>
+
+    <div class="article-content">
 
       <!-- Opening paragraphs -->
       <div class="article-section">
@@ -201,10 +219,10 @@
         <p class="article-body-semibold fade-in">"Mateo is on track in math and literacy for his grade level. He's completing daily and weekly goals each week, reflecting consistent daily and weekly progress."</p>
         <p class="fade-in">From a design perspective, generative UI means thinking beyond data visualizations and dashboard grids. It requires us to take into consideration the following:</p>
         <ul class="article-list fade-in">
-          <li><span class="article-body-semibold">Context awareness.</span> Understanding what matters most to each parent through signals like recent activity, communication history, or stated preferences.</li>
-          <li><span class="article-body-semibold">Narrative generation.</span> Writing summaries tied directly to verified data points rather than relying on free-form AI text.</li>
-          <li><span class="article-body-semibold">Transparency.</span> Using progressive disclosure to allow parents the option to explore the underlying data behind any generated statement.</li>
-          <li><span class="article-body-semibold">Flexible views.</span> Providing options for different parent archetypes. For example, a narrative summary for those who want quick reassurance, and detailed charts for those who prefer to delve into the numbers.</li>
+          <li><strong>Context awareness.</strong> Understanding what matters most to each parent through signals like recent activity, communication history, or stated preferences.</li>
+          <li><strong>Narrative generation.</strong> Writing summaries tied directly to verified data points rather than relying on free-form AI text.</li>
+          <li><strong>Transparency.</strong> Using progressive disclosure to allow parents the option to explore the underlying data behind any generated statement.</li>
+          <li><strong>Flexible views.</strong> Providing options for different parent archetypes. For example, a narrative summary for those who want quick reassurance, and detailed charts for those who prefer to delve into the numbers.</li>
         </ul>
         <p class="fade-in">Generative UI isn't simply about producing words on a screen. It's about designing systems that communicate the right message, at the right time, in the right way, helping parents understand their child's academic progress in a format that suits their needs.</p>
       </div>
@@ -237,27 +255,38 @@
 
     </div>
 
-    <!-- Right: sticky meta card -->
-    <aside class="article-sidebar">
-      <div class="article-meta-card">
-        <p class="article-toc-title">Jump to</p>
-        <div class="article-toc">
-          <span class="article-toc-track" aria-hidden="true"></span>
-          <span class="article-toc-indicator" aria-hidden="true"></span>
-          <ul class="article-sections-list">
-          <li><a href="#section-1" data-text="The dashboard problem">The dashboard problem</a></li>
-          <li><a href="#section-2" data-text="Generative UI">Generative UI</a></li>
-          <li><a href="#section-3" data-text="Emotional relevance">Emotional relevance</a></li>
-          <li><a href="#section-4" data-text="Getting it right">Getting it right</a></li>
-          <li><a href="#section-5" data-text="Personal, not personalized">Personal, not personalized</a></li>
-          </ul>
-        </div>
-      </div>
-    </aside>
 
   </div>
 
 </div>
+
+<section class="article-more" aria-labelledby="article-more-title">
+  <h2 class="article-more-title fade-in" id="article-more-title">More notes on design</h2>
+  <div class="writing-list">
+      <a class="writing-card fade-in" href="/article/AI-enabled-workflow-UX-design">
+        <div class="writing-image">
+          <img class="img-dark" src="../assets/images/thinking-article-1.webp" alt="" />
+          <img class="img-light" src="../assets/images/thinking-article-1-light.webp" alt="" />
+        </div>
+        <div class="writing-card-text">
+          <p class="writing-date">June 3, 2026</p>
+          <h3 class="writing-title">Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design</h3>
+          <p class="writing-desc">AI can generate more design options faster than any designer working alone. What it can&rsquo;t do is know which options belong in your product. A look at a workflow that uses AI where it&rsquo;s strongest and reserves the hardest thinking for the designer.</p>
+        </div>
+      </a>
+      <a class="writing-card fade-in" href="/article/session-recording-analysis-ux-research">
+        <div class="writing-image">
+          <img class="img-dark" src="../assets/images/thinking-article-4.webp" alt="" />
+          <img class="img-light" src="../assets/images/thinking-article-4-light.webp" alt="" />
+        </div>
+        <div class="writing-card-text">
+          <p class="writing-date">January 11, 2022</p>
+          <h3 class="writing-title">Using Session Analysis Tools to Untangle Unclear User Needs</h3>
+          <p class="writing-desc">Something&rsquo;s off with your product&rsquo;s user engagement, but you can&rsquo;t pinpoint what. Have you tried session recording analysis? Find out why you should, what to look for, and how to get started.</p>
+        </div>
+      </a>
+  </div>
+</section>
 
 <footer class="footer">
   <div class="footer-inner">
@@ -286,7 +315,6 @@
   })();
 </script>
 <script src="../js/case-study.js"></script>
-<script src="../js/article.js"></script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>

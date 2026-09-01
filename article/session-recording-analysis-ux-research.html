@@ -75,7 +75,7 @@
   <link rel="stylesheet" href="../css/styles.css" />
   <link rel="stylesheet" href="../css/article.css" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;if(t==='light')c.add('theme-light');else c.add('theme-extra-dark');}catch(e){}})();</script>
+  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;c.add(t==='light'||t==='dark'||t==='extra-dark'?'theme-'+t:'theme-extra-dark');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -126,7 +126,7 @@
           <span class="nav-panel-word">System</span>
         </a>
       </nav>
-      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
+      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Want to chat product design? Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
     </div>
     <div class="nav-panel-graphic" aria-hidden="true" data-nav-graphic>
       <svg viewBox="0 0 720 450" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -156,22 +156,40 @@
 
 <div class="page">
 
-  <div class="article-layout">
+  <div class="article-layout article-layout--centered">
 
-    <!-- Left: article content -->
-    <div class="article-content">
-
-      <!-- Header block -->
-      <div class="article-header">
-        <div class="article-title-block">
-          <p class="article-date fade-in">January 11, 2022</p>
-          <h1 class="article-title fade-in">Using Session Analysis Tools to Untangle Unclear User Needs</h1>
+  <div class="article-hero">
+      <h1 class="article-title fade-in">Using Session Analysis Tools to Untangle Unclear User Needs</h1>
+      <div class="article-hero-row fade-in">
+        <div class="article-hero-intro">
+          <p>As a UX research method, session recording analysis isn’t as popular as it should be, probably because figuring out what to do with all that data is ambiguous. One glance at a long list of recordings is enough to scare off even seasoned product designers.</p>
+          <p>It shouldn’t. Think of it as the Jane Goodall of UX research methods, built on patience and endurance. All it takes is knowing what you’re looking for and the time to look for it. Once you know your target, the patterns start to surface, and those patterns tell you what to add to the experience and what to pull out of it.</p>
         </div>
-        <div class="article-intro">
-          <p class="fade-in">As a UX research method, session recording analysis isn't as popular as it should be. Maybe because figuring out what to do with all that data is ambiguous. One glance at a long list of session recordings can undoubtedly be enough to scare even the most seasoned product designers away, but only if they don't know what they're looking for.</p>
-          <div class="article-divider"></div>
+        <div class="article-hero-meta cs2-metrics cs2-metrics--stack">
+        <div class="cs2-metric">
+          <div class="cs2-metric-row">
+          <div class="article-topics">
+            <p class="cs2-metric-value">UX research</p>
+            <p class="cs2-metric-value">Analytics</p>
+          </div>
+          </div>
+          <p class="cs2-metric-label">Topics</p>
+        </div>
+        <div class="cs2-metric">
+          <div class="cs2-metric-row">
+          <p class="cs2-metric-value">January 11, 2022</p>
+          </div>
+          <p class="cs2-metric-label">Published</p>
+        </div>
         </div>
       </div>
+    </div>
+
+    <div class="article-image-block article-image-block--lead">
+      <img class="article-img fade-in" src="../assets/images/article-session-recording-lead.webp" alt="Untangle unclear user needs with session recording analysis." width="960" height="550" />
+    </div>
+
+    <div class="article-content">
 
       <!-- Opening paragraphs -->
       <div class="article-section">
@@ -188,10 +206,6 @@
         <p class="fade-in">With session recording analysis, you can get a grasp on <em>why</em>. Then, you can strategize how to make your product's user experience better.</p>
       </div>
 
-      <!-- Article image -->
-      <div class="article-image-block">
-        <img class="article-img fade-in" src="https://everydayindustries.com/wp-content/uploads/2022/01/Untangle-Unclear-User-Needs-With-Session-Recording-Analysis-featured-image-1.jpg" alt="Untangle unclear user needs with session recording analysis." />
-      </div>
 
       <!-- Section 2 -->
       <div class="article-section" id="section-2">
@@ -267,27 +281,38 @@
 
     </div>
 
-    <!-- Right: sticky meta card -->
-    <aside class="article-sidebar">
-      <div class="article-meta-card">
-        <p class="article-toc-title">Jump to</p>
-        <div class="article-toc">
-          <span class="article-toc-track" aria-hidden="true"></span>
-          <span class="article-toc-indicator" aria-hidden="true"></span>
-          <ul class="article-sections-list">
-          <li><a href="#section-1" data-text="Benefits of session recording analysis">Benefits of session recording analysis</a></li>
-          <li><a href="#section-2" data-text="Improving your product's UX">Improving your product's UX</a></li>
-          <li><a href="#section-3" data-text="Combining site analytics">Combining site analytics</a></li>
-          <li><a href="#section-5" data-text="Identifying user friction in new features">Identifying user friction in new features</a></li>
-          <li><a href="#section-6" data-text="Supplementing customer segments">Supplementing customer segments</a></li>
-          </ul>
-        </div>
-      </div>
-    </aside>
 
   </div>
 
 </div>
+
+<section class="article-more" aria-labelledby="article-more-title">
+  <h2 class="article-more-title fade-in" id="article-more-title">More notes on design</h2>
+  <div class="writing-list">
+      <a class="writing-card fade-in" href="/article/generative-ui-dashboard-ux">
+        <div class="writing-image">
+          <img class="img-dark" src="../assets/images/thinking-article-3.webp" alt="" />
+          <img class="img-light" src="../assets/images/thinking-article-3-light.webp" alt="" />
+        </div>
+        <div class="writing-card-text">
+          <p class="writing-date">July 7, 2025</p>
+          <h3 class="writing-title">Beyond Dashboards with Generative UI</h3>
+          <p class="writing-desc">Most dashboards present data. Generative UI presents context. This article explores how contextual interfaces can help people understand complex information without relying on filters, saved views, or static dashboards.</p>
+        </div>
+      </a>
+      <a class="writing-card fade-in" href="/article/visual-polish-design-feedback-process">
+        <div class="writing-image">
+          <img class="img-dark" src="../assets/images/thinking-article-2.webp" alt="" />
+          <img class="img-light" src="../assets/images/thinking-article-2-light.webp" alt="" />
+        </div>
+        <div class="writing-card-text">
+          <p class="writing-date">August 22, 2025</p>
+          <h3 class="writing-title">Why &ldquo;Visual Polish&rdquo; Is Not Design Feedback</h3>
+          <p class="writing-desc">&ldquo;Visual polish&rdquo; isn&rsquo;t feedback, it&rsquo;s a placeholder. It masks honest critique behind a fuzzy phrase, and without a shared definition of done, teams end up in endless revision cycles chasing a finish line no one has actually defined.</p>
+        </div>
+      </a>
+  </div>
+</section>
 
 <footer class="footer">
   <div class="footer-inner">
@@ -316,7 +341,6 @@
   })();
 </script>
 <script src="../js/case-study.js"></script>
-<script src="../js/article.js"></script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>

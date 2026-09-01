@@ -75,7 +75,7 @@
   <link rel="stylesheet" href="../css/styles.css" />
   <link rel="stylesheet" href="../css/article.css" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;if(t==='light')c.add('theme-light');else c.add('theme-extra-dark');}catch(e){}})();</script>
+  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;c.add(t==='light'||t==='dark'||t==='extra-dark'?'theme-'+t:'theme-extra-dark');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -126,7 +126,7 @@
           <span class="nav-panel-word">System</span>
         </a>
       </nav>
-      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
+      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Want to chat product design? Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
     </div>
     <div class="nav-panel-graphic" aria-hidden="true" data-nav-graphic>
       <svg viewBox="0 0 720 450" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -156,38 +156,53 @@
 
 <div class="page">
 
-  <div class="article-layout">
+  <div class="article-layout article-layout--centered">
 
-    <!-- Left: article content -->
+  <div class="article-hero">
+      <h1 class="article-title fade-in">Why "Visual Polish" Is Not Design Feedback (And What to Say Instead)</h1>
+      <div class="article-hero-row fade-in">
+        <div class="article-hero-intro">
+          <p>In product design, few phrases are as common, or as unhelpful, as "it needs more visual polish." You’ve heard it in critiques, design reviews, Slack threads, and launch meetings. Everyone on the team uses the phrase: designers, product managers, engineers, and marketing teams alike. But despite its ubiquity, the phrase rarely leads to action.</p>
+          <p>Why? Because "visual polish" is a placeholder. It signals dissatisfaction without clarity. It masquerades as feedback but lacks the substance to drive meaningful improvements. Worse, it creates a false sense of alignment. Everyone nods when it’s said, but each person imagines something different.</p>
+          <p>The collective nod isn’t a language problem. It’s a team alignment problem. And it’s one that design-driven businesses need to address head-on.</p>
+        </div>
+        <div class="article-hero-meta cs2-metrics cs2-metrics--stack">
+        <div class="cs2-metric">
+          <div class="cs2-metric-row">
+          <div class="article-topics">
+            <p class="cs2-metric-value">Design feedback</p>
+            <p class="cs2-metric-value">Critique</p>
+            <p class="cs2-metric-value">Team processes</p>
+          </div>
+          </div>
+          <p class="cs2-metric-label">Topics</p>
+        </div>
+        <div class="cs2-metric">
+          <div class="cs2-metric-row">
+          <p class="cs2-metric-value">August 22, 2025</p>
+          </div>
+          <p class="cs2-metric-label">Published</p>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-image-block article-image-block--lead">
+      <img class="article-img fade-in" src="../assets/images/article-visual-polish-lead.gif" alt="Everyone nodding in agreement" width="960" height="550" />
+    </div>
+
     <div class="article-content">
 
-      <!-- Header block -->
-      <div class="article-header">
-        <div class="article-title-block">
-          <p class="article-date fade-in">August 22, 2025</p>
-          <h1 class="article-title fade-in">Why "Visual Polish" Is Not Design Feedback (And What to Say Instead)</h1>
-        </div>
-        <div class="article-intro">
-          <p class="fade-in">In product design, few phrases are as common, or as unhelpful, as "it needs more visual polish." You've heard it in critiques, design reviews, Slack threads, and launch meetings. Everyone on the team uses the phrase: designers, product managers, engineers, and marketing teams alike. But despite its ubiquity, the phrase rarely leads to action.</p>
-          <p class="fade-in">Why? Because "visual polish" is a placeholder. It signals dissatisfaction without clarity. It masquerades as feedback but lacks the substance to drive meaningful improvements. Worse, it creates a false sense of alignment. Everyone nods when it's said , but each person imagines something different.</p>
-          <p class="fade-in">The collective nod isn't a language problem. It's a team alignment problem. And it's one that design-driven businesses need to address head-on.</p>
-          <div class="article-divider"></div>
-        </div>
-      </div>
-
-      <!-- Image: nodding heads -->
-      <div class="article-image-block">
-        <img class="article-img fade-in" src="https://everydayindustries.com/wp-content/uploads/2025/08/nodding-heads.gif" alt="Everyone nodding in agreement" />
-      </div>
 
       <!-- Section 1 -->
       <div class="article-section" id="section-1">
-        <h2 class="article-section-title fade-in">The many interpretations of "visual polish"</h2>
         <p class="fade-in">Let's break it down. When someone on your team says, "I think this screen just needs visual polish," what are they actually saying? On a cross-functional team, everyone is going to interpret this differently.</p>
-        <p class="fade-in">A <strong>designer</strong> might understand this to mean better spacing, improved type hierarchy, or a better use of shadows.</p>
-        <p class="fade-in">A <strong>creative director</strong> might imagine more brand coherence.</p>
-        <p class="fade-in">An <strong>executive</strong> might want it to feel more modern or less boring.</p>
-        <p class="fade-in">An <strong>engineer</strong> might be referring to awkward transitions or misaligned UI elements.</p>
+        <ul class="article-list fade-in">
+          <li>A <strong>designer</strong> might understand this to mean better spacing, improved type hierarchy, or a better use of shadows.</li>
+          <li>A <strong>creative director</strong> might imagine more brand coherence.</li>
+          <li>An <strong>executive</strong> might want it to feel more modern or less boring.</li>
+          <li>An <strong>engineer</strong> might be referring to awkward transitions or misaligned UI elements.</li>
+        </ul>
         <p class="fade-in">All of these interpretations are valid. But they are radically different kinds of work, requiring different tools, processes, and expertise. Yet "visual polish" becomes the catch-all phrase because it feels safe.</p>
         <p class="fade-in">Worse, it signals that something's off without naming what's missing or who's responsible. It slows teams down, frustrates designers, and distracts everyone from the real product problems they're trying to solve.</p>
       </div>
@@ -223,7 +238,7 @@
       <div class="article-section" id="section-4">
         <h2 class="article-section-title fade-in">The solution: replace "visual polish" with real critique</h2>
         <p class="fade-in">If we want to improve how we work together, we need to get better at giving, requesting, and interpreting feedback. Here are four ways to replace vague "visual polish" comments with something more actionable.</p>
-        <p class="article-body-semibold fade-in">Zoom in on the problem area.</p>
+        <p class="article-body-semibold fade-in">1. Zoom in on the problem area.</p>
         <p class="fade-in">Instead of saying, "We need to apply visual polish in the next round," identify what is off.</p>
         <ul class="article-list">
           <li>Is the hierarchy unclear?</li>
@@ -233,14 +248,14 @@
           <li>Do the transitions feel abrupt?</li>
         </ul>
         <p class="fade-in">Zooming in focuses attention and gives designers a place to start.</p>
-        <p class="article-body-semibold fade-in">Describe the effect, not just the symptom.</p>
+        <p class="article-body-semibold fade-in">2. Describe the effect, not just the symptom.</p>
         <p class="fade-in">Even if you can't pinpoint the design flaw, describe what it <em>feels</em> like to use it.</p>
         <ul class="article-list">
           <li>"This button feels like it doesn't belong here because the user can still take actions below it."</li>
           <li>"It's hard to know where to start on this page because the type styles compete."</li>
         </ul>
         <p class="fade-in">These comments are actionable because they connect design decisions to user experience.</p>
-        <p class="article-body-semibold fade-in">Use objective design language.</p>
+        <p class="article-body-semibold fade-in">3. Use objective design language.</p>
         <p class="fade-in">If you have the vocabulary to be specific, don't be afraid to use it.</p>
         <ul class="article-list">
           <li>The type hierarchy and alignment cause the eye to zig-zag across the screen.</li>
@@ -248,7 +263,7 @@
           <li>This layout breaks the visual rhythm established elsewhere in the product.</li>
         </ul>
         <p class="fade-in">Even if you're not a designer, learning a little visual design language can go a long way in improving feedback and collaboration.</p>
-        <p class="article-body-semibold fade-in">Ask for specific feedback in return.</p>
+        <p class="article-body-semibold fade-in">4. Ask for specific feedback in return.</p>
         <p class="fade-in">Designers can also lead here. Instead of asking generically, "What do you think?", try the following:</p>
         <ul class="article-list">
           <li>Does the spacing between sections feel balanced?</li>
@@ -286,28 +301,38 @@
 
     </div>
 
-    <!-- Right: sticky meta card -->
-    <aside class="article-sidebar">
-      <div class="article-meta-card">
-        <p class="article-toc-title">Jump to</p>
-        <div class="article-toc">
-          <span class="article-toc-track" aria-hidden="true"></span>
-          <span class="article-toc-indicator" aria-hidden="true"></span>
-          <ul class="article-sections-list">
-          <li><a href="#section-1" data-text="The many interpretations of &quot;visual polish&quot;">The many interpretations of "visual polish"</a></li>
-          <li><a href="#section-2" data-text="The symptoms of vague design feedback">The symptoms of vague design feedback</a></li>
-          <li><a href="#section-3" data-text="Why it's a domain expertise issue">Why it's a domain expertise issue</a></li>
-          <li><a href="#section-4" data-text="Replace &quot;visual polish&quot; with real critique">Replace "visual polish" with real critique</a></li>
-          <li><a href="#section-5" data-text="Ending the endless polish">Ending the endless polish</a></li>
-          <li><a href="#section-6" data-text="Retire &quot;visual polish&quot; as a crutch">Retire "visual polish" as a crutch</a></li>
-          </ul>
-        </div>
-      </div>
-    </aside>
 
   </div>
 
 </div>
+
+<section class="article-more" aria-labelledby="article-more-title">
+  <h2 class="article-more-title fade-in" id="article-more-title">More notes on design</h2>
+  <div class="writing-list">
+      <a class="writing-card fade-in" href="/article/AI-enabled-workflow-UX-design">
+        <div class="writing-image">
+          <img class="img-dark" src="../assets/images/thinking-article-1.webp" alt="" />
+          <img class="img-light" src="../assets/images/thinking-article-1-light.webp" alt="" />
+        </div>
+        <div class="writing-card-text">
+          <p class="writing-date">June 3, 2026</p>
+          <h3 class="writing-title">Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design</h3>
+          <p class="writing-desc">AI can generate more design options faster than any designer working alone. What it can&rsquo;t do is know which options belong in your product. A look at a workflow that uses AI where it&rsquo;s strongest and reserves the hardest thinking for the designer.</p>
+        </div>
+      </a>
+      <a class="writing-card fade-in" href="/article/session-recording-analysis-ux-research">
+        <div class="writing-image">
+          <img class="img-dark" src="../assets/images/thinking-article-4.webp" alt="" />
+          <img class="img-light" src="../assets/images/thinking-article-4-light.webp" alt="" />
+        </div>
+        <div class="writing-card-text">
+          <p class="writing-date">January 11, 2022</p>
+          <h3 class="writing-title">Using Session Analysis Tools to Untangle Unclear User Needs</h3>
+          <p class="writing-desc">Something&rsquo;s off with your product&rsquo;s user engagement, but you can&rsquo;t pinpoint what. Have you tried session recording analysis? Find out why you should, what to look for, and how to get started.</p>
+        </div>
+      </a>
+  </div>
+</section>
 
 <footer class="footer">
   <div class="footer-inner">
@@ -336,7 +361,6 @@
   })();
 </script>
 <script src="../js/case-study.js"></script>
-<script src="../js/article.js"></script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>

@@ -34,7 +34,7 @@ Full details in `tokens.json > typography.scale`. The workhorse is **body: 18px 
 | Lead body | 24 / 400 · lh 1.6 | Hero / case-study lead | `.hero p`, `.cs2-body p` — both pitch, both uncapped |
 | **Body** | **18 / 400 · lh 1.6** | **default paragraph** | `.cs-copy-block p`, `.article-section p` |
 | Body semibold | 18 / 600 · lh 1.6 | Sub-heads below a section title | `.text-body-semibold` (global), `.cs-body-semibold` (inline) |
-| Caption | 14–16 / 400 · flint | Image captions | `.cs2-cap`, `.cs-caption` |
+| Caption | 14 / 400 · lh 1.5 · flint · centred, max 720px, **8px below the media** | Image captions (one treatment site-wide) | `.cs2-cap`, `.cs-caption`, `.article-caption`, `.nw-caption` |
 | Eyebrow | 14 / 700 · uppercase · 1.12px tracking (`--text-eyebrow-ls`) | Labels, date pills | `.cs2-problem-eyebrow`, `.history-date` (pitch) |
 | Section kicker | 14 / 700 · uppercase · 1.12px tracking · flint | Label above a section title | `.cs-section-title[data-eyebrow]::before` |
 
@@ -81,15 +81,35 @@ Every reusable pattern currently in the site, with its class and where it's defi
 - **"How this evolved" aside + slide-out panel** — `.cs-evolved` (linen card), `.panel-link` (opens panel, arrow bounces on hover), `.panel-scrim` + `.panel` (880px, right, `cubic-bezier(0.4,0,0.2,1)` slide), `.panel-header/.panel-body/.panel-content/.panel-section/.panel-block/.panel-shot`. Body scroll locks via `:root.panel-open`.
 
 ### Article (`css/article.css`)
-- **Layout** — `.article-layout` (667px + 405px sticky sidebar, 50px gap).
-- **Content** — `.article-header`, `.article-title-block`, `.article-date`, `.article-title`, `.article-intro`, `.article-divider`, `.article-section` (+ `.article-section-title`), `.article-body-semibold`, `.article-prompt` (italic, ember left rule), `.article-list`, `.article-img` (8px radius) + `.article-caption`.
-- **Sidebar TOC** — `.article-meta-card` (linen), `.article-toc` with shale `.article-toc-track` + sliding ember `.article-toc-indicator`; `.article-sections-list li.active`.
+- **Layout** — `.article-layout--centered`: one centered 650px reading column, 800px centered `.article-title`, images breaking out to 800px via `.article-image-block`. (Legacy `.article-layout` — 667px + 405px sticky sidebar — still backs the three unconverted articles.)
+- **Content** — `.article-header`, `.article-title-block`, `.article-title`, `.article-intro`, `.article-section` (+ `.article-section-title`), `.article-body-semibold`, `.article-prompt` (italic, ember left rule), `.article-list`, `.article-img` (8px radius) + `.article-caption`.
+
+## Caption rule
+
+Every image caption on the site is the same object: the `--text-caption` type style,
+`var(--flint)`, centred, `max-width: 720px`, and **8px below the media**. Size and
+line-height come from the token — read them off the type scale, never restate them
+here, so there is one place to change.
+
+The 8px lives on the container that pairs the media with its caption — `.cs2-figure`,
+`.cs2-media`, `.cs-image-caption-group`, `.cs-hero-image-bg`, `.cs2-hero-image-card` —
+or as `margin-top` on `.article-caption`. Don't add per-figure nudges; if a caption
+looks too far from its image, the image asset has a baked-in transparent shadow tail
+and the fix is to trim the asset, not to offset the caption.
+
+Two exceptions, both deliberate:
+- `.cs2-figure:has(.cs2-video) .cs2-cap` keeps **32px** — the video's shadow is live
+  CSS (`0 16px 48px`) and paints ~40px below the box, so 8px would sit the caption
+  inside it.
+- `.bw-caption` / `.pw-caption` (walkthrough decks) share the type but size in stage
+  units and take their width from each screen's Figma frame, so the 720px cap and the
+  8px gap don't apply.
 
 ## Layout constants
 
 - Page max-width **1376px** (`.page`, all four index pages); `.hero` is capped at **1280px** and
   centres inside it, giving content a **48px shoulder** on each side. Case-study reading column
-  **650px**; article grid **667 + 405** (gap 50). The hero paragraph has no `max-width` of its own,
+  **650px**; article reading column **650px** (images 800px). The hero paragraph has no `max-width` of its own,
   deliberately — the hero box is what bounds it, at 896px.
 - Section padding desktop **`80px 160px`** (hero `80px 192px`). Cards and modules overhang the hero
   copy by **80px** a side: 48px from the shoulder plus the 32px the card box already sat outboard of
@@ -154,8 +174,8 @@ stacked blocks: each is a `<details class="pg-module" id="<slug>">` whose
 ```
 css/styles.css        — tokens (:root) + global components + homepage + /work
 css/case-study.css     — cs- (legacy) and cs2- (current) case-study systems + slide-out panel
-css/article.css        — article pages + sticky TOC
-js/case-study.js       — scroll fade-in, TOC tracking, panel open/close
+css/article.css        — article pages
+js/case-study.js       — scroll fade-in, panel open/close
 design-system/          — THIS spec (tokens.json + DESIGN-SYSTEM.md)
 ```
 

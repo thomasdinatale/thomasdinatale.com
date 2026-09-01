@@ -85,7 +85,7 @@ strong {
   padding: 32px 48px 48px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 8px;   /* image → caption, same as every other figure */
 }
 
 .cs-hero-image {
@@ -127,7 +127,7 @@ strong {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  gap: 48px;
 }
 
 .cs-copy-block {
@@ -138,9 +138,9 @@ strong {
 }
 
 .cs-section-title {
-  font-size: var(--text-body-lg);
+  font-size: var(--text-h6);
   font-weight: 600;
-  line-height: var(--text-body-lg-lh);
+  line-height: var(--text-h6-lh);
   color: var(--pitch);
 }
 
@@ -299,13 +299,12 @@ strong {
   height: auto;
 }
 
-/* Image/onboarding row + caption pair: 8px between media and caption,
-   48px between caption and the next element (content section gap is 40px) */
+/* Image/onboarding row + caption pair: 8px between media and caption. The
+   section gap (48px) sits on both sides, so no bottom margin. */
 .cs-image-caption-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 8px;
 }
 
 /* Nara hero — H1 above, body + meta card side by side below */
@@ -341,7 +340,7 @@ strong {
 .cs-hero-image-bg--phones {
   flex-direction: column;
   padding: 48px 48px 48px;
-  gap: 24px;
+  gap: 8px;
 }
 
 .cs-phones-hero-row {
@@ -509,7 +508,7 @@ strong {
 .cs2-hero-inner {
   display: flex;
   flex-direction: column;
-  gap: 64px;
+  gap: 16px;
   width: 100%;
   padding: 0 80px;
 }
@@ -524,7 +523,7 @@ strong {
 .cs2-title-desc-metrics {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 64px;
   width: 100%;
 }
 
@@ -555,63 +554,6 @@ strong {
   color: var(--pitch);
 }
 
-.cs2-metrics {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-.cs2-metric {
-  position: relative;
-  background: var(--linen);
-  border-radius: var(--radius-md);
-  padding: 16px 32px;
-  display: flex;
-  flex-direction: column;
-  flex: 1 0 0;
-  min-width: 0;
-}
-
-/* Frosts whatever shows through the translucent linen fill. Deliberately 2px,
-   not the header's 8px — it should only register where a metric card overlaps
-   imagery, and stay invisible over flat background. Guarded like
-   .site-header.scrolled: engines without backdrop-filter get the flat fill. */
-@supports (backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px)) {
-  .cs2-metric,
-  .cs2-problem-card {
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-  }
-}
-
-.cs2-metric-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.cs2-metric-value {
-  font-size: var(--text-body-md);
-  font-weight: 600;
-  line-height: var(--text-body-md-lh);
-  color: var(--pitch);
-  white-space: nowrap;
-}
-
-.cs2-metric-arrow {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  display: block;
-}
-
-.cs2-metric-label {
-  font-size: var(--text-body-sm);
-  font-weight: 400;
-  line-height: var(--text-body-sm-lh);
-  color: var(--pitch);
-}
-
 /* Hero image — wide breakout card */
 .cs2-hero-image-card {
   background: var(--chalk);
@@ -622,7 +564,7 @@ strong {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 8px;   /* image → caption, same as every other figure */
 }
 
 .cs2-hero-image-card img {
@@ -664,18 +606,8 @@ strong {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;
-}
-
-/* Pull the caption up into the image's transparent shadow tail (~22–30px)
-   so it sits closer to the visible card */
-.cs2-figure .cs2-cap {
-  margin-top: -12px;
-}
-
-/* A paragraph block following an image+caption gets 16px more top spacing */
-.cs2-flow .cs2-figure + .cs-copy-block {
-  margin-top: 16px;
+  /* 8px between media and caption — the one image/caption gap site-wide */
+  gap: 8px;
 }
 
 .cs2-figure > img {
@@ -693,8 +625,9 @@ strong {
   box-shadow: var(--shadow-video);
 }
 
-/* The caption's -12px pull is meant for images whose shadow is baked into a
-   transparent tail; the video's shadow is real CSS, so give the caption room */
+/* Every other figure's shadow is baked into the image as a transparent tail,
+   so the 8px gap clears it. The video's shadow is live CSS (0 16px 48px) and
+   paints ~40px below the box, so 8px would sit the caption inside it. */
 .cs2-figure:has(.cs2-video) .cs2-cap {
   margin-top: 32px;
 }
@@ -725,8 +658,7 @@ strong {
    Shared by both linen cards; `border-radius: inherit` fits each one's own
    corner (32px on the problem card, 16px on .cs-evolved). */
 .cs2-problem-card::before,
-.cs-evolved::before,
-.cs2-metric::before {
+.cs-evolved::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -864,7 +796,7 @@ strong {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 8px;   /* image → caption, same as every other figure */
 }
 
 .cs2-media-img {
@@ -933,14 +865,11 @@ strong {
 
 /* Case-study hero lockup — display tagline (H2) with the paragraph and a
    vertical metric-card stack beside it. Shared across every case study hero. */
-.cs2-hero--split .cs2-title-desc-metrics {
-  gap: 24px;
-}
-
 .cs2-tagline--display {
   font-size: var(--text-h5);
   font-weight: 700;
   line-height: var(--text-h5-lh);
+  color: var(--flint);
   max-width: 760px;
 }
 
@@ -954,19 +883,6 @@ strong {
 .cs2-lead-row .cs2-body {
   flex: 1 1 0;
   min-width: 0;
-}
-
-.cs2-metrics--stack {
-  flex-direction: column;
-  align-items: stretch;
-  gap: 16px;
-  flex-shrink: 0;
-  width: max-content;
-}
-
-.cs2-metrics--stack .cs2-metric {
-  flex: 0 0 auto;
-  width: 100%;
 }
 
 /* Problem card variant with an outcomes list (teacher problem) */
@@ -1030,9 +946,9 @@ strong {
 }
 
 .cs-more-title {
-  font-size: var(--text-h5);
+  font-size: var(--text-h6);
   font-weight: 700;
-  line-height: var(--text-h5-lh);
+  line-height: var(--text-h6-lh);
   color: var(--pitch);
   text-align: center;
 }
@@ -1043,10 +959,6 @@ strong {
   }
   .cs2-hero-phones-row--mobile {
     display: flex;
-  }
-
-  .cs2-metric {
-    padding: 16px;
   }
 
   .cs2-phone-row {
@@ -1089,11 +1001,11 @@ strong {
     gap: 32px;
   }
   .cs2-hero-inner {
-    gap: 24px;
+    gap: 16px;
     padding: 0;
   }
   .cs2-title-desc-metrics {
-    gap: 24px;
+    gap: 64px;
   }
   .cs2-title-desc {
     gap: 16px;
@@ -1103,17 +1015,6 @@ strong {
   .cs2-tagline {
   }
   .cs2-body p {
-  }
-  .cs2-metrics {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .cs2-metric {
-    width: 100%;
-    flex: 1 0 auto;
-  }
-  .cs2-metric-value,
-  .cs2-metric-row p {
   }
 
   .cs2-hero-image-card {
@@ -1201,9 +1102,6 @@ strong {
   .cs2-lead-row {
     flex-direction: column;
     gap: 24px;
-  }
-  .cs2-metrics--stack {
-    width: 100%;
   }
   .cs2-outcomes-list li {
   }

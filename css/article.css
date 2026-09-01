@@ -69,9 +69,9 @@
 }
 
 .article-section-title {
-  font-size: var(--text-h6);
+  font-size: var(--text-h5);
   font-weight: 700;
-  line-height: 1.4;
+  line-height: var(--text-h5-lh);
   color: var(--pitch);
 }
 
@@ -137,10 +137,16 @@
   border-radius: var(--radius-md);
 }
 
+/* Squared corners for articles whose imagery is screenshot-like and reads
+   better flush. Set on .article-layout so every image on the page follows. */
+.article-layout--flat-images .article-img {
+  border-radius: 0;
+}
+
 /* Same caption treatment as the case studies: caption type, flint,
    centered, 720px container (the 667px article column clamps it here) */
 .article-caption {
-  margin: 12px auto 0;
+  margin: 8px auto 0;
   font-size: var(--text-caption);
   font-weight: 400;
   line-height: var(--text-caption-lh);
@@ -149,92 +155,196 @@
   max-width: 720px;
 }
 
-/* Right sidebar */
-.article-sidebar {
-  position: sticky;
-  top: calc(var(--nav-height, 0px) + 40px);
-  margin-top: 24px;
-}
-
-.article-meta-card {
-  background: var(--plaster);
-  border-radius: var(--radius-lg);
-  padding: 24px;
+/* ─────────────────────────────────────────
+   Centered variant — single 650px reading
+   column, no sidebar. Images break out to
+   800px, centered on the column.
+───────────────────────────────────────── */
+.article-layout--centered {
+  padding: 80px 24px 200px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  align-items: center;
+  gap: 64px;
 }
 
-.article-toc-title {
-  font-size: var(--text-body-md);
-  font-weight: 600;
-  line-height: var(--text-body-md-lh);
-  color: var(--pitch);
-}
-
-/* Table of contents: a shale rail with an ember fill that GROWS from the top as
-   the reader scrolls (progress-style), rather than a fixed bar jumping between
-   sections. Titles sit flint; the active one is pitch. */
-.article-toc {
-  position: relative;
-  padding-left: 16px; /* 1px rail + ~15px gap to the titles */
-}
-
-.article-toc-track {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--shale);
-}
-
-.article-toc-indicator {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 1px;
-  height: 0; /* grows with scroll progress; set in JS */
-  background: var(--ember);
-  opacity: 0; /* hidden until a section comes into focus */
-  transition: height 0.15s ease-out, opacity 0.3s ease;
-}
-
-.article-sections-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.article-sections-list li {
-  height: 40px;
-}
-
-.article-sections-list li a {
-  display: block;
-  width: 350px;
+.article-layout--centered .article-content {
+  width: 650px;
   max-width: 100%;
-  height: 40px;
-  line-height: 40px; /* centers the single line vertically */
-  font-size: var(--text-body);
+}
+
+/* Hero title centered in its own 800px container, breaking out of the copy column */
+.article-layout--centered .article-title-block {
+  --article-title-w: min(800px, calc(100vw - 48px));
+  width: var(--article-title-w);
+  margin-left: calc((100% - var(--article-title-w)) / 2);
+  align-items: center;
+}
+
+.article-layout--centered .article-title {
+  /* 976px, not 960: "Judgment in AI-Assisted" measures 960.7px at the full
+     80px H1, so an exact-960 measure reflows the headline to five lines on
+     viewports past ~1442px (where the fluid type stops scaling). */
+  --article-h1-w: min(976px, calc(100vw - 48px));
+  width: var(--article-h1-w);
+  text-align: center;
+  /* Figma wraps greedily. `text-wrap: balance` (set globally on h1) flips this
+     headline's rag between 968px and 976px, so opt out to keep the two in sync. */
+  text-wrap: wrap;
+}
+
+/* 120% would overrun a narrow viewport — hold it to the container */
+@media (max-width: 1024px) {
+  .article-layout--centered .article-title {
+    width: 100%;
+  }
+}
+
+/* 16px between paragraphs; headings keep a 24px lead-in (16 + 8) */
+.article-layout--centered .article-intro,
+.article-layout--centered .article-section {
+  gap: 16px;
+}
+
+.article-layout--centered .article-section-title {
+  margin-bottom: 8px;
+}
+
+/* ─────────────────────────────────────────
+   Article hero — mirrors the case-study hero:
+   1215px shell, 80px padding, 1055px inner.
+   Headline runs the full inner measure, left
+   aligned; intro (750px) sits beside a 262px
+   metric stack reusing the .cs2-metric card.
+───────────────────────────────────────── */
+.article-hero {
+  width: 100%;
+  max-width: 1215px;
+  margin: 0 auto;
+  padding: 0 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+/* Out-specify the centered variant's 976px, centered headline */
+.article-layout--centered .article-hero .article-title {
+  width: 100%;
+  text-align: left;
+}
+
+.article-hero-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 43px;
+  width: 100%;
+}
+
+.article-hero-intro {
+  width: 750px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.article-hero-intro p {
+  font-size: var(--text-body-lg);
   font-weight: 400;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: var(--flint);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.article-sections-list li.active a {
+  line-height: var(--text-body-lg-lh);
   color: var(--pitch);
 }
 
-.article-sections-list li a:hover {
+.article-hero-meta {
+  width: 262px;
+  flex-shrink: 0;
+}
+
+/* Topic lines stack inside one card, no gap between them */
+.article-topics {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .article-hero {
+    padding: 0;
+    gap: 40px;
+  }
+  .article-hero-row {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .article-hero-intro {
+    width: 100%;
+  }
+  .article-hero-meta {
+    width: 100%;
+  }
+}
+
+/* Images run 800px — 75px past the copy column on each side */
+.article-layout--centered .article-image-block {
+  --article-img-w: min(800px, calc(100vw - 48px));
+  width: var(--article-img-w);
+  margin-left: calc((100% - var(--article-img-w)) / 2);
+}
+
+/* Lead image — sits between the hero and the body at a fixed 960x550,
+   wider than the 800px inline images. Cropped to fill, so sources with a
+   different aspect ratio still hold the frame. */
+.article-layout--centered .article-image-block--lead {
+  /* Direct child of the centered layout, so align-items centres it —
+     no break-out margin like the inline blocks inside the 650px column.
+     Out-specifies the 800px inline-image rule above. */
+  width: min(960px, calc(100vw - 48px));
+  margin-left: 0;
+}
+
+.article-image-block--lead .article-img {
+  aspect-ratio: 960 / 550;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .article-layout--centered {
+    padding: 40px 24px 140px;
+  }
+}
+
+/* ─────────────────────────────────────────
+   More notes on design — two-up cross-links
+   above the footer, reusing the /writing card.
+───────────────────────────────────────── */
+/* The layout carries 200px of bottom padding on its own; hand that space to
+   the cross-links when they follow, the way .cs-more does on case studies. */
+.article-layout--centered:has(+ .article-more) {
+  padding-bottom: 96px;
+}
+
+.article-more {
+  max-width: 1215px;
+  margin: 0 auto;
+  padding: 0 80px 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.article-more-title {
+  font-size: var(--text-h6);
+  font-weight: 700;
+  line-height: var(--text-h6-lh);
   color: var(--pitch);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .article-more {
+    padding: 0 16px 140px;
+    gap: 32px;
+  }
 }
 
 /* ─────────────────────────────────────────
@@ -245,11 +355,6 @@
     padding: 40px 24px 140px;
     grid-template-columns: minmax(0, 1fr);
     gap: 40px;
-  }
-
-  .article-sidebar {
-    position: static;
-    margin-top: 0;
   }
 
   .article-header {
@@ -263,10 +368,6 @@
   .article-intro p {
     font-size: var(--text-body);
     line-height: 1.6;
-  }
-
-  .article-section-title {
-    font-size: 20px;
   }
 
   .article-section p {
@@ -285,8 +386,4 @@
     line-height: 1.6;
   }
 
-  .article-sections-list li a {
-    width: 100%;
-    font-size: var(--text-body);
-  }
 }

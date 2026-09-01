@@ -322,12 +322,10 @@
 
 .nw-caption {
   flex: 0 0 auto;
-  max-width: 1110px;
+  max-width: 720px;
   text-align: center;
   font-size: var(--text-caption);
-  /* Figma "desktop/Caption" is 14/1.5; the --text-caption-lh token is 1.6.
-     Honour the Figma value here — see the drifts note in DESIGN-SYSTEM.md. */
-  line-height: 1.6;
+  line-height: var(--text-caption-lh);
   color: var(--pitch);
 }
 

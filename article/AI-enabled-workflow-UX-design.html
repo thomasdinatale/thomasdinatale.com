@@ -75,7 +75,7 @@
   <link rel="stylesheet" href="../css/styles.css" />
   <link rel="stylesheet" href="../css/article.css" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;if(t==='light')c.add('theme-light');else c.add('theme-extra-dark');}catch(e){}})();</script>
+  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;c.add(t==='light'||t==='dark'||t==='extra-dark'?'theme-'+t:'theme-extra-dark');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -126,7 +126,7 @@
           <span class="nav-panel-word">System</span>
         </a>
       </nav>
-      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
+      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Want to chat product design? Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
     </div>
     <div class="nav-panel-graphic" aria-hidden="true" data-nav-graphic>
       <svg viewBox="0 0 720 450" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -156,30 +156,48 @@
 
 <div class="page">
 
-  <div class="article-layout">
+  <div class="article-layout article-layout--centered article-layout--flat-images">
 
-    <!-- Left: article content -->
-    <div class="article-content">
-
-      <!-- Header block -->
-      <div class="article-header">
-        <div class="article-title-block">
-          <p class="article-date fade-in">June 3, 2026</p>
-          <h1 class="article-title fade-in">Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design</h1>
+  <div class="article-hero">
+      <h1 class="article-title fade-in">Generate, Evaluate, Refine: Design Judgment in AI-Assisted Product Design</h1>
+      <div class="article-hero-row fade-in">
+        <div class="article-hero-intro">
+          <p>There's no shortage of AI workflow advice for designers these days, and most of it stays abstract. Just open LinkedIn.</p>
+          <p>What follows emerged from a real project. Three phases that took us from an empty canvas to clickable prototypes ready for concept testing in a single afternoon. More interesting than the speed, however, was the role design judgment played in each phase. The workflow: generate, evaluate, refine. Here's how it actually worked.</p>
         </div>
-        <div class="article-intro">
-          <p class="fade-in">There's no shortage of AI workflow advice for designers these days, and most of it stays abstract. Just open LinkedIn.</p>
-          <p class="fade-in">What follows emerged from a real project. Three phases that took us from an empty canvas to clickable prototypes ready for concept testing in a single afternoon. More interesting than the speed, however, was the role design judgment played in each phase.</p>
-          <p class="fade-in">The workflow: generate, evaluate, refine. Here's how it actually worked.</p>
-          <div class="article-divider"></div>
+        <div class="article-hero-meta cs2-metrics cs2-metrics--stack">
+        <div class="cs2-metric">
+          <div class="cs2-metric-row">
+          <div class="article-topics">
+            <p class="cs2-metric-value">AI-assisted design</p>
+            <p class="cs2-metric-value">Prototyping</p>
+            <p class="cs2-metric-value">Design judgment</p>
+          </div>
+          </div>
+          <p class="cs2-metric-label">Topics</p>
+        </div>
+        <div class="cs2-metric">
+          <div class="cs2-metric-row">
+          <p class="cs2-metric-value">June 3, 2026</p>
+          </div>
+          <p class="cs2-metric-label">Published</p>
+        </div>
         </div>
       </div>
+    </div>
+
+    <div class="article-image-block article-image-block--lead">
+      <img class="article-img fade-in" src="../assets/images/article-ai-workflow-lead.webp" alt="Primer goals dashboard showing a week of student goal completion by class." width="960" height="550" />
+      <p class="article-caption fade-in">The side bar navigation had grown more complex as we continued adding features. It needed a redesign.</p>
+    </div>
+
+    <div class="article-content">
 
       <!-- Opening paragraphs -->
       <div class="article-section">
         <p class="fade-in">I spent several years designing software that helps teachers run their classrooms. As the product evolved, the navigation started getting in the way. It couldn't accommodate new features gracefully, and the experience had grown more complex than it needed to be. Design, engineering, and product all knew we needed a navigation that could support the product's next stage of growth while feeling simpler to use.</p>
         <p class="fade-in">We also knew we wanted a place to surface timely information throughout a teacher's day, but it was unclear where that experience belonged or what it should contain. The navigation had to come first because understanding how teachers move through the product was a prerequisite for knowing what a time-based experience should surface.</p>
-        <p class="fade-in">Our timeline was tight. We needed clickable prototypes ready for <a class="article-link" href="https://everydayindustries.com/quick-guide-concept-design-testing/" target="_blank">concept testing</a> before the next design review. What we didn't know going in was that work we expected to take days would compress into a single afternoon, and that AI would play a central role in making that possible.</p>
+        <p class="fade-in">Our timeline was tight. We needed clickable prototypes ready for concept testing before the next design review. What we didn't know going in was that work we expected to take days would compress into a single afternoon, and that AI would play a central role in making that possible.</p>
       </div>
 
       <!-- Section 1 -->
@@ -278,7 +296,7 @@
 
       <div class="article-section">
         <p class="fade-in">The problem wasn't the idea. It was the product. Nothing else in the experience used gamification, and introducing it in a single widget would create inconsistency without a broader product decision to support it. The streak wasn't removed because it was a bad idea. It was removed because it didn't belong.</p>
-        <p class="fade-in">The second type of misalignment is more subtle. Rather than adding something new, <span class="article-body-semibold">AI introduces an interaction pattern that appears reasonable but quietly contradicts an established design principle.</span> One of the dashboard widgets summarized communication between teachers and parents. Claude responded by designing a complete posting interface directly inside the widget. The interface looked polished, and on its own it was a perfectly reasonable solution.</p>
+        <p class="fade-in">The second type of misalignment is more subtle. Rather than adding something new, AI introduces an interaction pattern that appears reasonable but quietly contradicts an established design principle. One of the dashboard widgets summarized communication between teachers and parents. Claude responded by designing a complete posting interface directly inside the widget. The interface looked polished, and on its own it was a perfectly reasonable solution.</p>
       </div>
 
       <!-- Article image -->
@@ -326,29 +344,38 @@
 
     </div>
 
-    <!-- Right: sticky meta card -->
-    <aside class="article-sidebar">
-      <div class="article-meta-card">
-        <p class="article-toc-title">Jump to</p>
-        <div class="article-toc">
-          <span class="article-toc-track" aria-hidden="true"></span>
-          <span class="article-toc-indicator" aria-hidden="true"></span>
-          <ul class="article-sections-list">
-          <li><a href="#section-1">Learning from users</a></li>
-          <li><a href="#section-2">Surfacing the right info</a></li>
-          <li><a href="#section-3">The approach</a></li>
-          <li><a href="#section-4">Generate options</a></li>
-          <li><a href="#section-5">Apply design judgment</a></li>
-          <li><a href="#section-refine">Refine in dialogue</a></li>
-          <li><a href="#section-6">What worked</a></li>
-          </ul>
-        </div>
-      </div>
-    </aside>
 
   </div>
 
 </div>
+
+<section class="article-more" aria-labelledby="article-more-title">
+  <h2 class="article-more-title fade-in" id="article-more-title">More notes on design</h2>
+  <div class="writing-list">
+      <a class="writing-card fade-in" href="/article/generative-ui-dashboard-ux">
+        <div class="writing-image">
+          <img class="img-dark" src="../assets/images/thinking-article-3.webp" alt="" />
+          <img class="img-light" src="../assets/images/thinking-article-3-light.webp" alt="" />
+        </div>
+        <div class="writing-card-text">
+          <p class="writing-date">July 7, 2025</p>
+          <h3 class="writing-title">Beyond Dashboards with Generative UI</h3>
+          <p class="writing-desc">Most dashboards present data. Generative UI presents context. This article explores how contextual interfaces can help people understand complex information without relying on filters, saved views, or static dashboards.</p>
+        </div>
+      </a>
+      <a class="writing-card fade-in" href="/article/visual-polish-design-feedback-process">
+        <div class="writing-image">
+          <img class="img-dark" src="../assets/images/thinking-article-2.webp" alt="" />
+          <img class="img-light" src="../assets/images/thinking-article-2-light.webp" alt="" />
+        </div>
+        <div class="writing-card-text">
+          <p class="writing-date">August 22, 2025</p>
+          <h3 class="writing-title">Why &ldquo;Visual Polish&rdquo; Is Not Design Feedback</h3>
+          <p class="writing-desc">&ldquo;Visual polish&rdquo; isn&rsquo;t feedback, it&rsquo;s a placeholder. It masks honest critique behind a fuzzy phrase, and without a shared definition of done, teams end up in endless revision cycles chasing a finish line no one has actually defined.</p>
+        </div>
+      </a>
+  </div>
+</section>
 
 <footer class="footer">
   <div class="footer-inner">
@@ -377,7 +404,6 @@
   })();
 </script>
 <script src="../js/case-study.js"></script>
-<script src="../js/article.js"></script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>

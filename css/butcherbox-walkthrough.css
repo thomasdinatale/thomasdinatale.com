@@ -309,10 +309,8 @@
 }
 
 .bw-caption {
-  font-size: calc(14 * var(--u));
-  /* Figma "desktop/Caption" is 14/1.5; the --text-caption-lh token is 1.6.
-     Honour the Figma value here — see the drifts note in DESIGN-SYSTEM.md. */
-  line-height: 1.6;
+  font-size: calc(14 * var(--u));   /* --text-caption, in stage units */
+  line-height: var(--text-caption-lh);
   color: var(--pitch);
 }
 

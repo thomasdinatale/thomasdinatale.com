@@ -102,7 +102,7 @@
   --text-eyebrow-lh: 1.6;
   --text-eyebrow-ls: 1.12px; /* 0.08em — caps need the air */
   --text-caption:   14px;
-  --text-caption-lh: 1.6;
+  --text-caption-lh: 1.5;   /* Figma "desktop/Caption" 14/1.5 */
   --text-tooltip:   12px;
   --text-tooltip-lh: 1.6;
 }
@@ -270,11 +270,123 @@ h1,
 .cs-section-title,
 /* article.css */
 .article-section-title,
-.article-toc-title,
 /* walkthrough decks */
 .nw-title,
 .bw-title {
   text-wrap: balance;
+}
+
+/* ─────────────────────────────────────────
+   Metric card — shared by the case-study hero
+   and the article hero, so it lives here rather
+   than in case-study.css (articles don't load it).
+───────────────────────────────────────── */
+.cs2-metrics {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.cs2-metric {
+  position: relative;
+  background: var(--linen);
+  border-radius: var(--radius-md);
+  padding: 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* Frosts whatever shows through the translucent linen fill. Deliberately 2px,
+   not the header's 8px — it should only register where a metric card overlaps
+   imagery, and stay invisible over flat background. Guarded like
+   .site-header.scrolled: engines without backdrop-filter get the flat fill. */
+@supports (backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px)) {
+  .cs2-metric,
+  .cs2-problem-card {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+}
+
+/* Gradient hairline — the same masked ring .cs2-problem-card uses in
+   case-study.css. --linen is translucent in every theme, so a border-box
+   gradient would show through the fill; masking paints only the 1px edge. */
+.cs2-metric::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--stroke-card);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.cs2-metric-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cs2-metric-value {
+  font-size: var(--text-body);
+  font-weight: 600;
+  line-height: var(--text-body-lh);
+  color: var(--pitch);
+  white-space: nowrap;
+}
+
+.cs2-metric-arrow {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.cs2-metric-label {
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  /* Figma "desktop/Body Small - Semibold" is 1.5; --text-body-sm-lh is 1.6 */
+  line-height: 1.5;
+  color: var(--flint);
+}
+
+.cs2-metrics--stack {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  flex-shrink: 0;
+  width: max-content;
+}
+
+.cs2-metrics--stack .cs2-metric {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .cs2-metrics {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cs2-metric {
+    width: 100%;
+    flex: 1 0 auto;
+    padding: 16px;
+  }
+  .cs2-metrics--stack {
+    width: 100%;
+  }
 }
 
 /* ─────────────────────────────────────────
@@ -1443,9 +1555,9 @@ h1,
 }
 
 h1.article-title {
-  font-size: var(--text-h2);
+  font-size: var(--text-h1);
   font-weight: 900;
-  line-height: var(--text-h2-lh);
+  line-height: var(--text-h1-lh);
 }
 
 .article-desc {
@@ -2295,10 +2407,6 @@ h1.article-title {
   .article-card {
     padding: 24px;
   }
-  h1.article-title {
-    line-height: 1;
-  }
-
   .history {
     padding: 40px 16px 64px;
     gap: 56px;

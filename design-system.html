@@ -264,7 +264,7 @@
     .pg-ctademo .lbl code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: var(--text-tooltip); color: var(--ember); }
     .pg-ctademo .lbl em { display: block; font-style: normal; font-size: var(--text-tooltip); color: var(--flint); margin-top: 4px; }
   </style>
-  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;if(t==='light')c.add('theme-light');else c.add('theme-extra-dark');}catch(e){}})();</script>
+  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;c.add(t==='light'||t==='dark'||t==='extra-dark'?'theme-'+t:'theme-extra-dark');}catch(e){}})();</script>
 </head>
 
 <body>
@@ -316,7 +316,7 @@
           <span class="nav-panel-word">System</span>
         </a>
       </nav>
-      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
+      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Want to chat product design? Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
     </div>
     <div class="nav-panel-graphic" aria-hidden="true" data-nav-graphic>
       <svg viewBox="0 0 720 450" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -437,7 +437,9 @@
       Six heading sizes, then the body scale. All Libre Franklin, all rendered with
       real <code>text-*</code> utilities bridged to the tokens, each carrying its own
       line-height. Rows marked <b>fluid</b> scale with the viewport via
-      <code>clamp</code>, 375 to 1440px.
+      <code>clamp</code>, 375 to 1440px. Each body size is paired with its
+      <code>font-semibold</code> (600) twin. The headings already carry their own
+      weight, so they have no separate variant.
     </p>
     <span class="pg-hint">↔ Drag the browser width. H1–H5 and Body Large/Medium move between their mobile and desktop sizes. Body and everything below it holds fixed.</span>
     <div class="pg-rows">
@@ -448,12 +450,17 @@
       <div class="pg-row"><div class="tk"><code>text-h5</code><span class="rng">28 → 32 / 1.40 · 600</span><span class="fluid">fluid</span></div><div class="sample text-h5 font-semibold">Mies van der Rohe</div></div>
       <div class="pg-row"><div class="tk"><code>text-h6</code><span class="rng">24 / 1.30 · 600</span></div><div class="sample text-h6 font-semibold">Mies van der Rohe</div></div>
       <div class="pg-row"><div class="tk"><code>text-body-lg</code><span class="rng">22 → 24 / 1.6</span><span class="fluid">fluid</span></div><div class="sample text-body-lg">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-lg font-semibold</code><span class="rng">22 → 24 / 1.6 · 600 · Hero taglines (.cs2-tagline)</span></div><div class="sample text-body-lg font-semibold">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
       <div class="pg-row"><div class="tk"><code>text-body-md</code><span class="rng">20 → 22 / 1.6</span><span class="fluid">fluid</span></div><div class="sample text-body-md">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-md font-semibold</code><span class="rng">20 → 22 / 1.6 · 600 · Block lead-ins (.article-body-semibold)</span></div><div class="sample text-body-md font-semibold">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
       <div class="pg-row"><div class="tk"><code>text-body</code><span class="rng">18 / 1.6</span></div><div class="sample text-body">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body font-semibold</code><span class="rng">18 / 1.6 · 600 · Metric values, inline emphasis</span></div><div class="sample text-body font-semibold">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
       <div class="pg-row"><div class="tk"><code>text-body-sm</code><span class="rng">16 / 1.6</span></div><div class="sample text-body-sm">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-sm font-semibold</code><span class="rng">16 / 1.6 · 600 · Metric labels</span></div><div class="sample text-body-sm font-semibold">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
       <div class="pg-row"><div class="tk"><code>text-body-xs</code><span class="rng">14 / 1.6</span></div><div class="sample text-body-xs">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-body-xs font-semibold</code><span class="rng">14 / 1.6 · 600</span></div><div class="sample text-body-xs font-semibold">A chair is a very difficult object. A skyscraper is almost easier.</div></div>
       <div class="pg-row"><div class="tk"><code>text-eyebrow</code><span class="rng">14 / 1.6 · 700 · caps · 1.12px tracking</span></div><div class="sample text-eyebrow font-bold uppercase">Farnsworth House</div></div>
-      <div class="pg-row"><div class="tk"><code>text-caption</code><span class="rng">14 / 1.6</span></div><div class="sample text-caption muted">A caption sits under media and metrics. It is the smallest reading size.</div></div>
+      <div class="pg-row"><div class="tk"><code>text-caption</code><span class="rng">14 / 1.5</span></div><div class="sample text-caption muted">A caption sits under media and metrics. It is the smallest reading size.</div></div>
       <div class="pg-row"><div class="tk"><code>text-tooltip</code><span class="rng">12 / 1.6</span></div><div class="sample text-tooltip muted">Tooltip, the finest print in the system.</div></div>
     </div>
 
@@ -600,6 +607,42 @@
         <span class="lbl"><b>Caret</b><code>stroke</code><em>Accordion disclosure, rotates 180&deg; when open</em></span>
       </div>
     </div>
+
+        </details>
+
+    <!-- ===================== CAPTION ===================== -->
+    <details class="pg-module" id="caption">
+    <summary class="pg-summary">
+      <h2 class="pg-section-h">Caption</h2>
+      <svg class="pg-summary-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </summary>
+    <p class="pg-section-sub">
+      One treatment for every image caption on the site: <code>text-caption</code>
+      at <code>text-flint</code>, centred, capped at
+      <b>720px</b>, and sitting <b>8px</b> below the media. The 8px is the rule
+      &mdash; it is the gap on the container that holds the image and caption
+      (<code>.cs2-figure</code>, <code>.cs2-media</code>, <code>.cs-image-caption-group</code>,
+      <code>.cs2-hero-image-card</code>), or a matching <code>margin-top</code>
+      on <code>.article-caption</code>.
+    </p>
+    <div class="pg-rows">
+      <div class="pg-row"><div class="tk"><code>type</code><span class="rng">text-caption &middot; 400 &mdash; see Type scale</span></div><div class="sample text-caption">A caption sits under media. It is the smallest reading size.</div></div>
+      <div class="pg-row"><div class="tk"><code>color</code><span class="rng">var(--flint)</span></div><div class="sample text-caption text-flint">Flint, never pitch &mdash; a caption is a signpost, not a destination.</div></div>
+      <div class="pg-row"><div class="tk"><code>measure</code><span class="rng">max-width 720px, centred</span></div><div class="sample text-caption text-flint">Capped at 720px and centred under the media, whatever the media&rsquo;s own width.</div></div>
+      <div class="pg-row"><div class="tk"><code>gap</code><span class="rng">8px below the media</span></div><div class="sample">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;max-width:420px">
+          <img src="assets/images/article-generative-ui-lead.webp" alt="" style="display:block;width:100%;height:auto;border-radius:var(--radius-md)" />
+          <p class="text-caption text-flint" style="text-align:center;max-width:720px">8px sits between the image and this caption.</p>
+        </div>
+      </div></div>
+    </div>
+    <span class="pg-note">Two deliberate exceptions. The Primer demo video keeps a
+      32px caption gap because its shadow is live CSS that paints ~40px below the
+      box, where every other figure&rsquo;s shadow is baked into the image as a
+      transparent tail that the 8px clears. And the ButcherBox and Primer dashboard
+      walkthrough decks reproduce Figma comps: their captions size in stage units
+      and take their width from each screen&rsquo;s own frame, so the 720px cap does
+      not apply there.</span>
 
         </details>
 
@@ -949,6 +992,9 @@ transition: <b>transform</b> .3s cubic-bezier(.16, 1, .3, 1),
         Array.prototype.filter.call(root.classList, function (c) { return c.indexOf('theme-') === 0; })
           .forEach(function (c) { root.classList.remove(c); });
         root.classList.add(btn.dataset.theme);
+        // Persist with the same 'td-theme' contract the nav toggle uses, so the
+        // choice survives navigating away from this page.
+        try { localStorage.setItem('td-theme', btn.dataset.theme.replace('theme-', '')); } catch (e) {}
         sync();
       });
     });

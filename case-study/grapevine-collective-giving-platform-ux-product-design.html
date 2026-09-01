@@ -86,7 +86,7 @@
   <link rel="stylesheet" href="../css/styles.css" />
   <link rel="stylesheet" href="../css/case-study.css" />
   <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
-  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;if(t==='light')c.add('theme-light');else c.add('theme-extra-dark');}catch(e){}})();</script>
+  <script>(function(){try{var t=localStorage.getItem('td-theme'),c=document.documentElement.classList;c.add(t==='light'||t==='dark'||t==='extra-dark'?'theme-'+t:'theme-extra-dark');}catch(e){}})();</script>
 </head>
 <body>
 
@@ -137,7 +137,7 @@
           <span class="nav-panel-word">System</span>
         </a>
       </nav>
-      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
+      <p class="nav-panel-note nav-stagger" style="--si:4">I'm currently looking for a full-time product design role. Want to chat product design? Reach me at <a href="mailto:hi@thomasdinatale.com">hi@thomasdinatale.com</a></p>
     </div>
     <div class="nav-panel-graphic" aria-hidden="true" data-nav-graphic>
       <svg viewBox="0 0 720 450" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -175,8 +175,9 @@
         <h2 class="cs2-tagline cs2-tagline--display fade-in">Designing a giving platform that scales past manual setup</h2>
         <div class="cs2-lead-row fade-in">
           <div class="cs2-body">
-            <p>When I joined, Grapevine was the first product built for giving circles, where fifty people each put in $10, decide together where it goes, and give $500. There was a homepage, a few forms, and a Grapevine rep walking every leader through setup by hand. The circles themselves still ran on email, Venmo, paper checks, and the leader's spreadsheet.</p>
-            <p>Over five years I led UX and Product Design across the platform, working directly with the CEO and CTO. I designed the experiences that replaced all of it: leaders launch and run circles on their own, members join knowing what they're joining, and the member donations and grants to nonprofits were made on the platform.</p>
+            <p>Grapevine is the first software product built specifically for giving circles. A giving circle is a group of people who pool donations and decide together which nonprofit receives the total. Fifty people give $10 each, and $500 goes where the group votes.</p>
+            <p>When I joined there was a nascent experience: a homepage, signup forms, circle pages for members, and a Grapevine rep helping circle leaders with setup. The circles themselves still ran on the tools they had been using: email, paper checks, or Venmo, and Google docs and spreadsheets.</p>
+            <p>Over five years I worked directly with the CEO and CTO, managing a designer at Everyday. I designed the experiences that replaced those tools: leaders launch and run circles on their own, members join knowing what they're joining, and donations and grants move through the platform.</p>
           </div>
           <div class="cs2-metrics cs2-metrics--stack">
             <div class="cs2-metric">
@@ -227,26 +228,33 @@
     <!-- ── The leader problem ────────────────────────────── -->
     <div class="cs2-problem-card cs2-problem-card--outcomes fade-in">
       <div class="cs2-problem-intro">
-        <h2 class="cs2-problem-title">The leader problem</h2>
+        <h2 class="cs2-problem-title">The giving circle leader problem</h2>
         <div class="cs2-problem-body">
-          <p>A circle leader is a volunteer, so the tools were whatever was at hand. A spreadsheet for members and their donation history, an email list for announcements, and a stack of paper checks to process. Keeping a group together was a lot of manual work across different touchpoints.</p>
-          <p>Moving a circle onto the platform meant a call with a Grapevine rep walking the leader through setup, which got the first circles on but was unlikely to scale past them.</p>
+          <p>A circle leader is a volunteer, so the tools were whatever was at hand: a spreadsheet for members and their donation history, an email list for announcements, and a stack of paper checks to process. Keeping a group together was a lot of manual work.</p>
+          <p>Moving a circle onto the platform meant a call with a Grapevine rep walking the leader through setup, which got the first circles running but was unlikely to scale past them.</p>
         </div>
       </div>
       <div class="cs2-outcomes">
         <p class="cs2-outcomes-label">Outcomes</p>
         <ul class="cs2-outcomes-list">
-          <li>Self-service giving circle setup replaced hands-on Grapevine rep led onboarding</li>
-          <li>Spreadsheets, Word docs, and email lists consolidated into one custom dashboard to manage the giving circle</li>
-          <li>Donations collected and grants distributed through the platform, eliminating paper checks, Venmo requests, and manual tracking</li>
+          <li>Self-service setup replaced Grapevine rep-led onboarding</li>
+          <li>Spreadsheets, documents, and email lists consolidated into one experience to run a giving circle</li>
+          <li>Member donations collected through the platform, eliminating paper checks, Venmo requests, and manual tracking</li>
+        <li>Grants distributed and tracked through the platform, replacing a manual handoff</li>
         </ul>
       </div>
     </div>
 
     <div class="cs-copy-block">
-      <h3 class="cs-section-title fade-in" data-eyebrow="Leader onboarding">Helping leaders get their giving circles off the ground</h3>
-      <p class="fade-in">Onboarding was a challenging problem. Standing up a circle requires a lot of information, and a single long form would feel like a chore. The question was how to collect all of it while building the leader's confidence instead of draining it, letting them see their progress and feel the circle taking shape as they went.</p>
-      <p class="fade-in">I designed a mobile-first progressive onboarding flow that broke setup into three stages, each asking a little more as the leader's confidence built. First, they define the circle's purpose and donation goal. Second, they finalize the group page and invite collaborators. Third, they make the first donation and invite members. By the time a leader launched, they understood the product well enough to bring others into it.</p>
+      <h3 class="cs-section-title fade-in" data-eyebrow="Leader Onboarding">Helping leaders get their giving circles off the ground</h3>
+      <p class="fade-in">Onboarding was a challenging problem. Building the giving circle experience required a lot of information from the leader, and a single long form would feel like a chore. The question was how to collect all of it while letting the leader see their progress and feel the circle taking shape as they went.</p>
+      <p class="fade-in">I designed a mobile-first progressive onboarding flow that broke setup into three stages, each asking a little more as the leader's confidence built.</p>
+      <ol class="cs-numbered-list fade-in">
+        <li>Define the circle's purpose and donation goal.</li>
+        <li>Preview and finalize the design of the group page and invite collaborators.</li>
+        <li>Make the first donation and invite members.</li>
+      </ol>
+      <p class="fade-in">By the time a leader launched their circle, they understood the product well enough to run it.</p>
     </div>
     <div class="cs-image-caption-group fade-in">
       <div class="cs-onboarding-row">
@@ -258,7 +266,7 @@
     </div>
 
     <div class="cs-copy-block">
-      <p class="fade-in">The second stage is really important for confidence building. Rather than a settings form, I put leaders directly into their own group homepage, editing in place. Seeing the circle take shape, with its name and its cause and its goal, is what makes a leader want to launch it. Remaining setup steps stay pinned at the top of the page with a prominent Launch Group CTA to signal the finish line.</p>
+      <p class="fade-in">The second stage does the most work. Rather than a settings form, I put leaders directly into their own group homepage, editing the design in place. Seeing the circle take shape, with its name, its cause, its goal, and their photo under the Leadership heading, makes a leader want to launch it. The remaining setup steps stay pinned at the top of the page with a prominent Launch Group CTA to signal the finish line.</p>
     </div>
     <div class="cs-image-caption-group fade-in">
       <div class="cs-image-block">
@@ -268,26 +276,26 @@
     </div>
 
     <div class="cs-copy-block">
-      <p class="fade-in">Launching their circle, the final stage, was designed as a moment worth celebrating, confetti, an encouraging message, and a clear next step. The goal was to send leaders into member recruitment feeling confident, not uncertain.</p>
-      <p class="fade-in">The decision that shaped the flow most was holding the leader's own first donation until this final step. The first dollar and the public launch became the same moment, so no leader ever sat on an inactive circle they'd already funded.</p>
+      <p class="fade-in">Launching their circle, the final stage, was designed as a moment worth celebrating: confetti rains down, an encouraging message appears, and a clear next step. The goal was to send leaders into member recruitment feeling confident, not uncertain.</p>
+      <p class="fade-in">The decision that shaped the flow most was holding the leader's own first donation until the final step. New members are twice as likely to donate when the leader already has, so the first dollar and the public launch became the same moment. No leader ever sat on an inactive circle they'd already funded.</p>
     </div>
     <div class="cs-image-caption-group fade-in">
       <div class="cs-image-block">
         <img src="../assets/images/case-study/grapevine-circle-launch.webp" alt="Grapevine circle launch celebration" />
       </div>
-      <p class="cs-caption">Launching triggers a celebration moment with one clear next step: be the first to donate. Holding the donation until launch meant leaders never had an inactive circle they had already given to.</p>
+      <p class="cs-caption">The launch modal asks the leader for the first donation, noting that members are twice as likely to give when a leader already has.</p>
     </div>
 
     <div class="cs-copy-block">
       <h3 class="cs-section-title fade-in" data-eyebrow="Leader dashboard">Running a circle is not editing a page, designing the leader UX</h3>
-      <p class="fade-in">The first version of the leader experience was the member view with edit and open CTAs layered on top, a WYSIWYG approach that made sense early on but couldn't scale as more leaders joined the platform. As usage grew, it became clear that leaders needed real management tools, not just the ability to edit their group page.</p>
-      <p class="fade-in">The decision was to stop treating the leader's tools as an extension of the member page and build them as their own surface. Leaders could still edit the look and feel of their member page in a WYSIWYG editor, but they now had tools built specifically for running their circle: donation cycle management, a member CRM with messaging, discussion moderation with built-in templates, and group settings.</p>
+      <p class="fade-in">The first version of the leader experience was the member view with edit and open CTAs layered on top, a WYSIWYG approach that made sense early on but couldn't scale as more giving circles joined the platform. As usage grew, it became clear that leaders needed real management tools, not just the ability to edit their group page.</p>
+      <p class="fade-in">The product decision was to stop treating the leader's tools as an extension of the member page and build them as their own surface. Leaders could still edit the look and feel of their member page in a WYSIWYG editor, but they now had tools designed specifically for running their circle: donation cycle management, a member CRM with messaging, discussion moderation with built-in templates, and group settings.</p>
     </div>
     <div class="cs-image-caption-group fade-in">
       <div class="cs-image-block">
         <img src="../assets/images/case-study/grapevine-leader-cycles.png" alt="Grapevine leader dashboard listing every donation cycle the circle has run" />
       </div>
-      <p class="cs-caption">Every cycle the circle has run, in one place. Raised against goal, donors, and where the money went.</p>
+      <p class="cs-caption">Donation cycle management tools in the leader experience.</p>
     </div>
 
     <div class="cs-copy-block">
@@ -412,7 +420,7 @@
 
   <!-- ── More case studies ───────────────────────────────── -->
   <section class="cs-more" aria-labelledby="cs-more-title">
-    <h2 class="cs-more-title fade-in" id="cs-more-title">More case studies</h2>
+    <h2 class="cs-more-title fade-in" id="cs-more-title">More work</h2>
     <a class="project-card project-card--wide project-card--primer fade-in" href="primer-platform-ux-product-design">
       <div class="project-card-image project-card-image--crop-bottom">
         <img src="../assets/images/primer-project-card.webp" alt="Primer education platform project screenshot" />
