@@ -1,9 +1,8 @@
 User-agent: *
 Allow: /
 
-# Staging — in-progress walkthroughs, not part of the public site yet.
-Disallow: /case-study/primer-dashboard-walkthrough
-Disallow: /case-study/nara-app-walkthrough
-Disallow: /case-study/butcherbox-walkthrough
+# In-progress walkthroughs are kept out of the index by the
+# `noindex` meta tag on each page — so they must stay crawlable.
+# Disallowing them here would hide that tag from Google.
 
 Sitemap: https://www.thomasdinatale.com/sitemap.xml
