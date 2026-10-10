@@ -74,36 +74,39 @@
    Line-heights are theme- and viewport-independent. Tailwind's @theme inline will
    bridge text-h1… utilities to these same vars, so the site's
    semantic classes and utility classes can never drift apart.
+   Sizes are rem (px ÷ 16) so text follows the reader's browser font-size
+   setting; at the default 16px they render identical to the px values in
+   each comment. Spacing and layout stay px on purpose — only type scales.
 ───────────────────────────────────────── */
 :root {
-  --text-h1:        clamp(48px, calc(36.73px + 3.00vw), 80px); /* fluid 48→80 */
+  --text-h1:        clamp(3rem, calc(2.295625rem + 3.00vw), 5rem); /* fluid 48→80 · clamp(48px, calc(36.73px + 3.00vw), 80px) */
   --text-h1-lh:     1;
-  --text-h2:        clamp(44px, calc(36.96px + 1.88vw), 64px); /* fluid 44→64 */
+  --text-h2:        clamp(2.75rem, calc(2.31rem + 1.88vw), 4rem); /* fluid 44→64 · clamp(44px, calc(36.96px + 1.88vw), 64px) */
   --text-h2-lh:     1;    /* mobile 1.1 (override below) → desktop 1.0 */
-  --text-h3:        clamp(36px, calc(31.77px + 1.13vw), 48px); /* fluid 36→48 */
+  --text-h3:        clamp(2.25rem, calc(1.985625rem + 1.13vw), 3rem); /* fluid 36→48 · clamp(36px, calc(31.77px + 1.13vw), 48px) */
   --text-h3-lh:     1;    /* mobile 1.1 (override below) → desktop 1.0 */
-  --text-h4:        clamp(32px, calc(29.18px + 0.75vw), 40px); /* fluid 32→40 */
+  --text-h4:        clamp(2rem, calc(1.82375rem + 0.75vw), 2.5rem); /* fluid 32→40 · clamp(32px, calc(29.18px + 0.75vw), 40px) */
   --text-h4-lh:     1.1;
-  --text-h5:        clamp(28px, calc(26.59px + 0.38vw), 32px); /* fluid 28→32 */
+  --text-h5:        clamp(1.75rem, calc(1.661875rem + 0.38vw), 2rem); /* fluid 28→32 · clamp(28px, calc(26.59px + 0.38vw), 32px) */
   --text-h5-lh:     1.4;
-  --text-h6:        24px;
+  --text-h6:        1.5rem; /* 24px */
   --text-h6-lh:     1.3;
-  --text-body-lg:   clamp(22px, calc(21.30px + 0.19vw), 24px); /* fluid 22→24 */
+  --text-body-lg:   clamp(1.375rem, calc(1.33125rem + 0.19vw), 1.5rem); /* fluid 22→24 · clamp(22px, calc(21.30px + 0.19vw), 24px) */
   --text-body-lg-lh: 1.6;
-  --text-body-md:   clamp(20px, calc(19.30px + 0.19vw), 22px); /* fluid 20→22 */
+  --text-body-md:   clamp(1.25rem, calc(1.20625rem + 0.19vw), 1.375rem); /* fluid 20→22 · clamp(20px, calc(19.30px + 0.19vw), 22px) */
   --text-body-md-lh: 1.6;
-  --text-body:      18px;
+  --text-body:      1.125rem; /* 18px */
   --text-body-lh:   1.6;
-  --text-body-sm:   16px;
+  --text-body-sm:   1rem; /* 16px */
   --text-body-sm-lh: 1.6;
-  --text-body-xs:   14px;
+  --text-body-xs:   0.875rem; /* 14px */
   --text-body-xs-lh: 1.6;
-  --text-eyebrow:   14px;
+  --text-eyebrow:   0.875rem; /* 14px */
   --text-eyebrow-lh: 1.6;
-  --text-eyebrow-ls: 1.12px; /* 0.08em — caps need the air */
-  --text-caption:   14px;
+  --text-eyebrow-ls: 0.07rem; /* 1.12px · 0.08em — caps need the air */
+  --text-caption:   0.875rem; /* 14px */
   --text-caption-lh: 1.5;   /* Figma "desktop/Caption" 14/1.5 */
-  --text-tooltip:   12px;
+  --text-tooltip:   0.75rem; /* 12px */
   --text-tooltip-lh: 1.6;
 }
 

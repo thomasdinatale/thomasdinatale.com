@@ -23,7 +23,7 @@ Signature move — the **card border gradient**: `linear-gradient(122deg, var(--
 
 ## Type scale
 
-Full details in `tokens.json > typography.scale`. The workhorse is **body: 18px / 400 / 1.6**. Quick map of role → class:
+Full details in `tokens.json > typography.scale`. Sizes here are quoted in px (the Figma values), but the `--text-*` tokens in `styles.css` are written in **rem (px ÷ 16)** so text follows the reader's browser font-size setting. Write new type tokens in rem; keep spacing, radii and layout in px. The workhorse is **body: 18px / 400 / 1.6**. Quick map of role → class:
 
 | Role | Size / Weight | Use for | Example class |
 |------|---------------|---------|---------------|
